@@ -35,8 +35,8 @@ export const DefaultToggleInput: Story = {
 export const DefaultSearchInput: Story = {
   args: {
     variant: "defaultSearch",
-    children: "default Input",
-
+    children: "search",
+    label: "Input search",
 
     // disabled: false,
   },

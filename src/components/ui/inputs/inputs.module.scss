@@ -1,49 +1,66 @@
-//.primary {
-//  background-color: red;
-//}
-//
-//.secondary {
-//  background-color: green;
-//}
-//
-//.tertiary {
-//  background-color: blue;
-//}
-//
-//.link {
-//  background-color: yellow;
-//}
-//
-//.fullWidth {
-//  width: 100%;
-//}
+.root {
+
+  width: 284px;
+  background-color: transparent;
+}
+
 .label {
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
+  vertical-align: center;
   color: #808080;;
 }
 
 .input {
-  width: 284px;
-  min-height: 36px;
+  width: 100%;
   border: 1px solid #4C4C4C;
+  min-height: 36px;
   background-color: transparent;
+
+  &::placeholder {
+    padding-left: 12px;
+  }
 
   &:focus::placeholder {
     color: transparent;
   }
 
   &:active {
-    &::placeholder {
-
-    }
-
     border: 1px solid #FFFFFF
   }
+
+  &:focus {
+    padding-left: 12px;
+  }
 }
+
+.searchInput {
+  width: 100%;
+  padding-left: 38px;
+  min-height: 36px;
+  background-color: transparent;
+
+  &::placeholder {
+
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &:active {
+    padding-left: 41px;
+  }
+
+  &:focus {
+    padding-left: 41px;
+  }
+
+}
+
 
 .slot {
   position: relative;
@@ -52,6 +69,18 @@
 .eyeOpenIcon {
   cursor: pointer;
   position: absolute;
+  z-index: 12;
+  display: block;
   top: 8px;
   left: 252px;
+}
+
+.search {
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 12px;
+  color: #808080;
+
 }
