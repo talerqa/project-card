@@ -7,8 +7,11 @@ import {
 } from "react";
 import {TextField, Text, Flex} from '@radix-ui/themes';
 import s from './inputs.module.scss'
-import {EyeOpenIcon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
 
+
+import eye from './eye-button.svg'
+import eyeNone from './eyenone-button.svg'
+import search from './search-button.svg'
 
 export type InputProps<T extends ElementType = "input"> = {
   // as?: T;
@@ -30,6 +33,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   // const [openText, setOpenText] = useState(showText)
   const [value, setvalue] = useState('');
   const [typeInput, setTypeInput] = useState(type)
+
   const showHandler = () => {
     setTypeInput(typeInput === 'password' ? 'text' : 'password');
   }
@@ -44,12 +48,14 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
       <Flex>
         <Text className={s.label}>{children === 'search' ? '' : label}</Text>
         <TextField.Slot className={s.slot}>
-          {showText ?
-            <EyeOpenIcon onClick={showHandler} className={s.eyeOpenIcon}
-                         height="20" width="20"/> : ''}
-          {children === 'search' ?
-            <MagnifyingGlassIcon className={s.search} height="20"
-                                 width="20"/> : ''}
+          {showText
+            ? <img src={typeInput === 'password' ? eyeNone : eye}
+                   onClick={showHandler} className={s.eyeOpenIcon}
+                   alt="eye"/> : ''}
+          {children === 'search'
+            ? <img className={s.search} src={search} alt="search"/> : ''}
+
+
         </TextField.Slot>
         <TextField.Root className={s.root}>
           <TextField.Input

@@ -1,9 +1,22 @@
-
-
 .root {
   width: 284px;
   background-color: transparent;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-right: 10px;
+  background: url('close-button.svg') no-repeat center;
+  cursor: pointer;
+}
+
+input[type="search"] {
+  border: 1px solid #4C4C4C;
+  border-radius: 2px;
+}
+
 
 .label {
   font-size: 14px;
@@ -22,6 +35,7 @@
   min-height: 36px;
   background-color: transparent;
   padding-left: 12px;
+  color: #FFFFFF;
 
   &:focus::placeholder {
     color: transparent;
@@ -31,27 +45,24 @@
 
   &:focus {
     padding-left: 12px;
-    border: 1px solid #2F68CC;
+    border: 1px solid #FFFFFF;
     outline: none;
-    color: #808080;
+    color: #FFFFFF;
 
   }
 
   &:active {
     border: 1px solid #FFFFFF;
     padding-left: 12px;
-    color: #FFFFFF;;
+    color: #FFFFFF;
+  }
+
+  &:hover {
+
   }
 }
 
-input[type="search"]::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  margin-right: 10px;
-  background: url('close-button.svg') no-repeat center;
-  cursor: pointer;
-}
+
 .searchInput {
   width: 100%;
   padding-left: 41px;
@@ -84,6 +95,8 @@ input[type="search"]::-webkit-search-cancel-button {
   display: block;
   top: 8px;
   left: 252px;
+  height: 20px;
+  width: 20px;
 }
 
 .search {
@@ -93,9 +106,35 @@ input[type="search"]::-webkit-search-cancel-button {
   bottom: 8px;
   left: 12px;
   color: #808080;
+  height: 20px;
+  width: 20px;
 
   &:active {
 
   }
 
+  &:hover {
+    color: #808080;
+  }
+
+  &:hover::placeholder {
+    color: #808080;
+  }
+
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 0;
+  -webkit-text-fill-color: #1f1f20;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(0,174,255,0.04) 50%,rgba(255,255,255,0) 51%,rgba(0,174,255,0.03) 100%);
 }
