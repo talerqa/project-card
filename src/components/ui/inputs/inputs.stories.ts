@@ -37,7 +37,7 @@ export const DefaultSearchInput: Story = {
     variant: "defaultSearch",
     children: "search",
     label: "Input search",
-
+    type: 'search'
     // disabled: false,
   },
 };
