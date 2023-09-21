@@ -5,12 +5,12 @@ const meta = {
   title: "Components/Inputs",
   component: Inputs,
   tags: ["autodocs"],
-  // argTypes: {
-  //   variant: {
-  //     options: ["primary", "toggle", "search"],
-  //      // control: { type: "radio" },
-  //   },
-  // },
+  argTypes: {
+    // variant: {
+    //   options: ["default", "defaultToggle", "defaultSearch"],
+    //     control: { type: "radio" },
+    // },
+  },
 } satisfies Meta<typeof Inputs>;
 
 export default meta;
@@ -20,72 +20,32 @@ export const DefaultInput: Story = {
   args: {
     variant: "default",
     type: 'text',
-    children: "text",
     label: "Input",
+    placeholder: "Input",
     error: false,
-    disabled: true,
+    disabled: false,
   },
 };
 
-export const DefaultToggleInput: Story = {
+export const ToggleInput: Story = {
   args: {
-    variant: "defaultToggle",
-    label: "Input",
-    children: "password",
+    variant: "toggle",
     type: 'password',
-    showText: true,
+    label: "Input",
+    placeholder: "Input",
     error: false,
-    disabled: true,
+    disabled: false,
   },
 };
 
-export const DefaultSearchInput: Story = {
+export const SearchInput: Story = {
   args: {
-    variant: "defaultSearch",
-    children: "search",
-    label: "Input search",
+    variant: "search",
     type: 'search',
+    label: "Input search",
+    placeholder: "Input search",
     error: false,
-    disabled: true,
+    disabled: false,
   },
 };
 
-
-//
-// export const Secondary: Story = {
-//   args: {
-//     variant: "secondary",
-//     children: "Secondary Button",
-//     disabled: false,
-//   },
-// };
-// export const Tertiary: Story = {
-//   args: {
-//     variant: "tertiary",
-//     children: "Tertiary Button",
-//     disabled: false,
-//   },
-// };
-// export const Link: Story = {
-//   args: {
-//     variant: "link",
-//     children: "Tertiary Button",
-//     disabled: false,
-//   },
-// };
-//
-// export const FullWidth: Story = {
-//   args: {
-//     variant: "primary",
-//     children: "Full Width Button",
-//     disabled: false,
-//     fullWidth: true,
-//   },
-// };
-// export const AsLink: Story = {
-//   args: {
-//     variant: "primary",
-//     children: "Link that looks like a button",
-//     as: "a",
-//   },
-// };
