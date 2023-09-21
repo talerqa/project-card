@@ -22,7 +22,8 @@ export const DefaultInput: Story = {
     type: 'text',
     children: "text",
     label: "Input",
-    error: true,
+    error: false,
+    disabled: true,
   },
 };
 
@@ -33,7 +34,8 @@ export const DefaultToggleInput: Story = {
     children: "password",
     type: 'password',
     showText: true,
-    error: true,
+    error: false,
+    disabled: true,
   },
 };
 
@@ -43,12 +45,10 @@ export const DefaultSearchInput: Story = {
     children: "search",
     label: "Input search",
     type: 'search',
-    error: true,
-    // disabled: false,
+    error: false,
+    disabled: true,
   },
 };
-
-
 
 
 //
