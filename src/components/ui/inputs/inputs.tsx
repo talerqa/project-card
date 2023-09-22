@@ -61,42 +61,43 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   }
 
   return (<div>
-      <Flex>
-        <Text className={s.label}>{variant === 'search' ? '' : label}</Text>
-        <TextField.Slot className={s.slot}>
+    <Flex>
+      <Text className={s.label}>{variant === 'search' ? '' : label}</Text>
+      <TextField.Slot className={s.slot}>
 
 
-          {variant === 'default' || variant === 'search'
-            ? ''
-            : disabled
-              ? <EyeOpenIcon className={s.eyeOpenIconDisabled}
-                             onClick={showHandler}/>
-              : typeInput === 'password' ?
-                <EyeOpenIcon className={s.eyeOpenIcon}
-                             onClick={showHandler}/>
-                : <EyeNoneIcon className={s.eyeOpenIcon}
-                               onClick={showHandler}/>}
+        {variant === 'default' || variant === 'search'
+          ? ''
+          : disabled
+            ? <EyeOpenIcon className={s.eyeOpenIconDisabled}
+                           onClick={showHandler}/>
+            : typeInput === 'password' ? <EyeNoneIcon className={s.eyeOpenIcon}
+                                                      onClick={showHandler}/>
+          : <EyeOpenIcon className={s.eyeOpenIcon}
+                      onClick={showHandler}/> }
 
-          {variant === 'search'
-            ? <MagnifyingGlassIcon
-              className={focus ? s.searchFocused : s.search}/> : ''}
+      {variant === 'search'
+        ? <MagnifyingGlassIcon
+          className={focus ? s.searchFocused : s.search}/> : ''}
 
-        </TextField.Slot>
-        <TextField.Root className={s.root}>
-          <TextField.Input
-            onFocus={handler}
-            onChange={onChangeHandler}
-            onBlur={onBlurHandler}
-            ref={ref}
-            value={value}
-            className={result}
-            placeholder={placeholder}
-            size="1"
-            disabled={disabled}
-            type={typeInput}/>
-        </TextField.Root>
-      </Flex>
-      {error && <Text className={s.labelError}>Error!</Text>}
-    </div>
-  )
+    </TextField.Slot>
+    <TextField.Root className={s.root}>
+      <TextField.Input
+        onFocus={handler}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
+        ref={ref}
+        value={value}
+        className={result}
+        placeholder={placeholder}
+        size="1"
+        disabled={disabled}
+        type={typeInput}/>
+    </TextField.Root>
+  </Flex>
+{
+  error && <Text className={s.labelError}>Error!</Text>
+}
+</div>
+)
 })
