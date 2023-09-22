@@ -5,7 +5,7 @@ import {
   forwardRef,
   useState
 } from "react";
-import { Text, TextField} from '@radix-ui/themes';
+import {Text, TextField} from '@radix-ui/themes';
 import s from './inputs.module.scss'
 import {
   EyeNoneIcon,
@@ -46,7 +46,6 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value)
-
   }
 
   const result =
@@ -82,8 +81,8 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
             className={focus ? s.search + ' ' + s.searchFocused : s.search}/>
           : ''}
       </TextField.Slot>
-      <TextField.Root className={s.root}>
-        <TextField.Input
+      <TextField.Root className={s.root} >
+        <TextField.Input tabIndex={0}
           onFocus={handler}
           onChange={onChangeHandler}
           onBlur={onBlurHandler}
