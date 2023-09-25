@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
-    "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/themes": "2.0.0-rc.3",
+    "@radix-ui/react-toggle-group": "^1.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "storybook-addon-state": "^1.0.3"
   },
   "devDependencies": {
     "@it-incubator/eslint-config": "^0.1.3",
