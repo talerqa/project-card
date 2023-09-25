@@ -1,0 +1,51 @@
+
+.buttonTab {
+    all:unset;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-m);
+    word-wrap: break-word;
+    padding: 6px 24px;
+}
+
+.ToggleGroupItem {
+    box-sizing: border-box;
+    border-top: 1px var(--color-dark-300) solid;
+    border-right: 1px var(--color-dark-300) solid;
+    border-bottom: 1px var(--color-dark-300) solid;
+    color: var(--color-light-100);
+}
+
+.ToggleGroupItem:first-child {
+    border: 1px var(--color-dark-300) solid;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px ;
+    color: var(--color-light-100);
+}
+
+.ToggleGroupItem:last-child {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.ToggleGroupItem:hover {
+    background-color: var(--color-dark-100);
+    color: var(--color-light-900);
+    cursor: pointer;
+}
+
+.ToggleGroupItem:focus {
+    background-color: var(--color-dark-700);
+    border: 1px var(--color-info-900) solid;
+    color: var(--color-light-900);
+}
+
+.tabActive {
+    background-color: var(--color-accent-500);
+    color: var(--color-light-100);
+    border: 1px var(--color-accent-500) solid;
+}
+
+
+
+
