@@ -13,7 +13,6 @@ import searchIcon from './img/magnifying-glass.svg'
 import searchIconFocus from './img/magnifying-glass-focus.svg'
 
 export type InputProps<T extends ElementType = "input"> = {
-  // as?: T;
   variant?: "default" | "toggle" | "search";
   type: 'text' | "search" | 'password';
   text?: string
@@ -59,11 +58,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   const onBlurHandler = () => {
     setFocus(false)
   }
-  console.log(focus)
-
   return (<div className={s.inputBlock}>
       <span className={s.label}>{variant === 'search' ? '' : label}</span>
-      <div className={s.slot}>
+      <div className={s.inputImages}>
         {variant === 'default' || variant === 'search'
           ? ''
           : disabled
@@ -82,11 +79,6 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
             ? <img src={searchIcon} alt='search-icon'
                    className={s.search}/>
             : ''}
-
-
-
-
-
       </div>
       <div className={s.root}>
         <input tabIndex={0}
