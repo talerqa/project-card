@@ -3,7 +3,7 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 16px;
   width: 16px;
   margin-right: 10px;
-  background: url('close-button.svg') no-repeat center;
+  background: url('img/close-button.svg') no-repeat center;
   cursor: pointer;
 }
 
@@ -30,6 +30,10 @@ input[type="search"]::-webkit-search-cancel-button {
       left: 252px;
       height: 20px;
       width: 20px;
+
+      path {
+        fill: #ffffff;
+      }
     }
 
     .eyeOpenIconDisabled {
