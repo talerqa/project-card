@@ -7,9 +7,14 @@ import s from "./tab-switcher.module.scss";
 export type TabSwitcherProps = {
   tabs: string[];
   activeTab?: number;
+  disabled?: boolean;
 };
 
-export const TabSwitcher = ({ tabs,activeTab }: TabSwitcherProps) => {
+export const TabSwitcher = ({
+  tabs,
+  activeTab,
+  disabled,
+}: TabSwitcherProps) => {
   const [active, setActive] = useState(activeTab || NaN);
 
   return (
@@ -26,7 +31,9 @@ export const TabSwitcher = ({ tabs,activeTab }: TabSwitcherProps) => {
             key={index}
             value={`${index}`}
             className={
-              active === index
+              disabled
+                ? s.tabDisabled
+                : active === index
                 ? s.buttonTab + " " + s.tabActive
                 : s.buttonTab + " " + s.ToggleGroupItem
             }

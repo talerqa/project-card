@@ -46,6 +46,13 @@
     border: 1px var(--color-accent-500) solid;
 }
 
+.tabDisabled {
+    @extend .buttonTab;
+    color: var(--color-dark-300);
+    background-color: var(--color-dark-700);
+    border: 1px var(--color-dark-300) solid;
+}
+
 
 
 
