@@ -5,17 +5,14 @@ import {
   forwardRef,
   useState
 } from "react";
-import {Text, TextField} from '@radix-ui/themes';
 import s from './inputs.module.scss'
-import {
-  EyeNoneIcon,
-  EyeOpenIcon,
-  MagnifyingGlassIcon
-} from "@radix-ui/react-icons";
-
+import eyeOpen from './img/eye-open.svg'
+import eyeNone from './img/eye-none.svg'
+import eyeOpenDisabled from './img/eye-open-disabled.svg'
+import searchIcon from './img/magnifying-glass.svg'
+import searchIconFocus from './img/magnifying-glass-focus.svg'
 
 export type InputProps<T extends ElementType = "input"> = {
-  // as?: T;
   variant?: "default" | "toggle" | "search";
   type: 'text' | "search" | 'password';
   text?: string
@@ -61,39 +58,40 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   const onBlurHandler = () => {
     setFocus(false)
   }
-
   return (<div className={s.inputBlock}>
-      <Text className={s.label}>{variant === 'search' ? '' : label}</Text>
-      <TextField.Slot className={s.slot}>
+      <span className={s.label}>{variant === 'search' ? '' : label}</span>
+      <div className={s.inputImages}>
         {variant === 'default' || variant === 'search'
           ? ''
           : disabled
-            ? <EyeOpenIcon
-              className={s.eyeOpenIcon + ' ' + s.eyeOpenIconDisabled}
-              onClick={showHandler}/>
+            ? <img src={eyeOpenDisabled} alt="eye-open"
+                   className={s.eyeOpenIcon}
+                   onClick={showHandler}/>
             : typeInput === 'password'
-              ? <EyeNoneIcon className={s.eyeOpenIcon}
-                             onClick={showHandler}/>
-              : <EyeOpenIcon className={s.eyeOpenIcon}
-                             onClick={showHandler}/>}
-        {variant === 'search'
-          ? <MagnifyingGlassIcon
-            className={focus ? s.search + ' ' + s.searchFocused : s.search}/>
-          : ''}
-      </TextField.Slot>
-      <TextField.Root className={s.root} >
-        <TextField.Input tabIndex={0}
-          onFocus={handler}
-          onChange={onChangeHandler}
-          onBlur={onBlurHandler}
-          ref={ref}
-          value={value}
-          className={result}
-          placeholder={placeholder}
-          size="1"
-          disabled={disabled}
-          type={typeInput}/>
-      </TextField.Root>
-      {error && <Text className={s.labelError}>Error!</Text>}</div>
+              ? <img src={eyeNone} alt="eye-closed" className={s.eyeOpenIcon}
+                     onClick={showHandler}/>
+              : <img src={eyeOpen} alt="eye-open" className={s.eyeOpenIcon}
+                     onClick={showHandler}/>}
+        {variant === 'search' && focus
+          ? <img src={searchIconFocus} alt='search-icon'
+                 className={s.search}/>
+          : variant === 'search'
+            ? <img src={searchIcon} alt='search-icon'
+                   className={s.search}/>
+            : ''}
+      </div>
+      <div className={s.root}>
+        <input tabIndex={0}
+               onFocus={handler}
+               onChange={onChangeHandler}
+               onBlur={onBlurHandler}
+               ref={ref}
+               value={value}
+               className={result}
+               placeholder={placeholder}
+               disabled={disabled}
+               type={typeInput}/>
+      </div>
+      {error && <span className={s.labelError}>Error!</span>}</div>
   )
 })
