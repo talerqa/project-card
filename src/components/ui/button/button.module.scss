@@ -111,12 +111,34 @@
   &:disabled {
     background: transparent;
     border: 1px solid rgba(56, 39, 102, 1);
-    color:  rgba(56, 39, 102, 1);
+    color: rgba(56, 39, 102, 1);
   }
 }
 
 .link {
   background-color: transparent;
+  cursor: pointer;
+  color: rgb(140, 97, 255, 1);
+  padding: 6px 6px;
+  border: none;
+
+  &:focus {
+    color: rgba(112, 78, 204, 1);
+  }
+
+  &:hover {
+    color: rgba(162, 128, 255, 1);
+  }
+
+  &:active {
+    border-radius: 20px;
+    outline: 2px solid rgba(47, 104, 204, 1);
+    background: transparent;
+  }
+
+  &:disabled {
+    color: rgba(56, 39, 102, 1);
+  }
 }
 
 .secondaryWithIcon {

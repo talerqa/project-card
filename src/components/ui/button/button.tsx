@@ -31,9 +31,13 @@ export const Button = <T extends ElementType = "button">(
         className={`${s[variant]} ${fullWidth ? s.fullWidth : ""} ${className}`}
         children={<>
           {icon && <img src={iconExit} alt="" className={s.icon}/>}
-          <span className={classNameText}>{children}</span>
+          {variant !== 'link' &&
+              <span className={classNameText}>{children}</span>
+          }
+          {variant === 'link' && <>{children}</>}
         </>
         }
+
         disabled={disabled}
         {...rest}
       />

@@ -60,6 +60,7 @@ export const ButtonLink: Story = {
     variant: "link",
     children: "Link-button",
     as: "a",
+    disabled: false,
   },
 };
 
