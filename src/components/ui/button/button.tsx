@@ -1,10 +1,11 @@
 import {ComponentPropsWithoutRef, ElementType} from "react";
 import s from "./button.module.scss";
-import iconExit from "@/components/ui/button/img/exit.svg";
+import iconExit from "./img/exit.svg";
+import iconExitDisabled from "./img/exitDisabled.svg";
 
 export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
-  variant?: "primary" | "secondary" | "tertiary" | "link" | 'secondaryWithIcon';
+  variant?: "primary" | "secondary" | 'primaryWithIcon' | "tertiary" | "link" | 'secondaryWithIcon';
   fullWidth?: boolean;
   className?: string;
   children?: any
@@ -30,14 +31,13 @@ export const Button = <T extends ElementType = "button">(
       <Component
         className={`${s[variant]} ${fullWidth ? s.fullWidth : ""} ${className}`}
         children={<>
-          {icon && <img src={iconExit} alt="" className={s.icon}/>}
+          {icon && <img src={!disabled ? iconExit : iconExitDisabled} alt="" className={s.icon}/>}
           {variant !== 'link' &&
               <span className={classNameText}>{children}</span>
           }
           {variant === 'link' && <>{children}</>}
         </>
         }
-
         disabled={disabled}
         {...rest}
       />

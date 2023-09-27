@@ -28,7 +28,7 @@ export const DefaultButton: Story = {
 
 export const ButtonLogOut: Story = {
   args: {
-    variant: "primary",
+    variant: "primaryWithIcon",
     children: "Button primary",
     className: 'buttonPrimary',
     classNameText: 'buttonPrimaryText',
