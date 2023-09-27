@@ -31,6 +31,9 @@ export const ButtonLogOut: Story = {
     variant: "primary",
     children: "Button primary",
     disabled: false,
+    className: 'buttonPrimary',
+    classNameText: 'buttonPrimaryText',
+    icon: true,
   },
 };
 
@@ -64,5 +67,7 @@ export const ButtonSecondaryLogout: Story = {
     children: "Button primary",
     disabled: false,
     fullWidth: true,
+    icon: true
   },
 };
+

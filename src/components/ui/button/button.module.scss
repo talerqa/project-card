@@ -1,42 +1,46 @@
 .button {
   outline: none;
   border: none;
-}
-
-.buttonPrimary {
   color: var(--color-light-100);
-  padding: 0;
-  font-weight: 700;
 
 }
 
 .buttonPrimaryText {
-
+  margin-left: 10px;
 }
 
 .primary {
   outline: none;
   border: none;
+  display: flex;
+  align-items: center;
   background-color: #8C61FF;
   padding: 6px 28px;
   border-radius: 4px;
   color: var(--color-light-100);
+  box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
+  font-weight: 700;
 
   &:hover {
     background: rgba(162, 128, 255, 1);
+    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
   }
 
   &:focus {
+    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
     background-color: #8C61FF;
   }
 
   &:active {
     outline: 2px solid rgba(47, 104, 204, 1);
+    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
     background: rgba(112, 78, 204, 1);
   }
 
-  &:disabled{
+  &:disabled {
     background: rgba(56, 39, 102, 1);
+    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
+    color: rgba(195, 193, 199, 1);
   }
 
 }
@@ -55,4 +59,11 @@
 
 .secondaryWithIcon {
   background-color: rgba(76, 76, 76, 1);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  margin: 0 10px 0 0;
+
 }
