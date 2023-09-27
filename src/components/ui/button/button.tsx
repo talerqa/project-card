@@ -35,7 +35,6 @@ export const Button = <T extends ElementType = "button">(
         </>
         }
         disabled={disabled}
-
         {...rest}
       />
 

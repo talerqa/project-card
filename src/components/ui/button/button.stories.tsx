@@ -30,9 +30,9 @@ export const ButtonLogOut: Story = {
   args: {
     variant: "primary",
     children: "Button primary",
-    disabled: false,
     className: 'buttonPrimary',
     classNameText: 'buttonPrimaryText',
+    disabled: false,
     icon: true,
   },
 };
@@ -41,6 +41,8 @@ export const ButtonSecondary: Story = {
   args: {
     variant: "secondary",
     children: "Button Secondary",
+    className: 'buttonSecondary',
+    classNameText: 'buttonSecondaryText',
     disabled: false,
   },
 };
