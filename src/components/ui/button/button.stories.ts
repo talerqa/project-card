@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-
-import { Button } from "./";
+import type {Meta, StoryObj} from "@storybook/react";
+import {Button} from "./";
 
 const meta = {
   title: "Components/Button",
@@ -9,7 +8,7 @@ const meta = {
   argTypes: {
     variant: {
       options: ["primary", "secondary", "tertiary", "link"],
-      control: { type: "radio" },
+      control: {type: "radio"},
     },
   },
 } satisfies Meta<typeof Button>;
@@ -17,48 +16,53 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const DefaultButton: Story = {
   args: {
     variant: "primary",
-    children: "Primary Button",
+    children: 'Button primary',
+    className: 'buttonPrimary',
+    classNameText: 'buttonPrimaryText',
     disabled: false,
   },
 };
 
-export const Secondary: Story = {
+export const ButtonLogOut: Story = {
+  args: {
+    variant: "primary",
+    children: "Button primary",
+    disabled: false,
+  },
+};
+
+export const ButtonSecondary: Story = {
   args: {
     variant: "secondary",
-    children: "Secondary Button",
-    disabled: false,
-  },
-};
-export const Tertiary: Story = {
-  args: {
-    variant: "tertiary",
-    children: "Tertiary Button",
-    disabled: false,
-  },
-};
-export const Link: Story = {
-  args: {
-    variant: "link",
-    children: "Tertiary Button",
+    children: "Button Secondary",
     disabled: false,
   },
 };
 
-export const FullWidth: Story = {
+export const ButtonTertiary: Story = {
   args: {
-    variant: "primary",
-    children: "Full Width Button",
+    variant: "tertiary",
+    children: "Tertiary",
     disabled: false,
-    fullWidth: true,
   },
 };
-export const AsLink: Story = {
+
+export const ButtonLink: Story = {
   args: {
-    variant: "primary",
-    children: "Link that looks like a button",
+    variant: "link",
+    children: "Link-button",
     as: "a",
+  },
+};
+
+export const ButtonSecondaryLogout: Story = {
+  args: {
+    variant: "secondaryWithIcon",
+    children: "Button primary",
+    disabled: false,
+    fullWidth: true,
   },
 };
