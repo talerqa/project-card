@@ -6,9 +6,8 @@ import iconExitDisabled from "./img/exitDisabled.svg";
 export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
   variant?: "primary" | "secondary" | 'primaryWithIcon' | "tertiary" | "link" | 'secondaryWithIcon';
-  fullWidth?: boolean;
   className?: string;
-  children?: any
+  children?: string
   classNameText?: string
   icon: boolean
 } & ComponentPropsWithoutRef<T>;
@@ -19,19 +18,18 @@ export const Button = <T extends ElementType = "button">(
 ) => {
   const {
     variant = "primary",
-    fullWidth,
     className, icon,
-    classNameText,
-    children, disabled,
+    classNameText, children, disabled,
     as: Component = "button",
     ...rest
   } = props;
 
   return (<div className={s.button}>
       <Component
-        className={`${s[variant]} ${fullWidth ? s.fullWidth : ""} ${className}`}
+        className={`${s[variant]} ${className}`}
         children={<>
-          {icon && <img src={!disabled ? iconExit : iconExitDisabled} alt="" className={s.icon}/>}
+          {icon && <img src={!disabled ? iconExit : iconExitDisabled} alt=""
+                        className={s.icon}/>}
           {variant !== 'link' &&
               <span className={classNameText}>{children}</span>
           }
@@ -41,8 +39,6 @@ export const Button = <T extends ElementType = "button">(
         disabled={disabled}
         {...rest}
       />
-
     </div>
-
   );
 };

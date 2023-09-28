@@ -5,10 +5,6 @@
   color: var(--color-light-100);
 }
 
-.buttonPrimaryText {
-  margin-left: 10px;
-}
-
 .primary, .primaryWithIcon {
   outline: none;
   border: none;
@@ -21,6 +17,11 @@
   box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
   font-weight: 700;
   cursor: pointer;
+
+  .buttonPrimaryText {
+    margin-left: 10px;
+    color: var(--color-light-100);
+  }
 
   &:hover {
     background: rgba(162, 128, 255, 1);
@@ -43,7 +44,6 @@
     box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
     color: rgba(195, 193, 199, 1);
   }
-
 }
 
 .secondary, .secondaryWithIcon {
@@ -58,6 +58,10 @@
   background: rgba(76, 76, 76, 1);
   box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
   cursor: pointer;
+
+  .buttonSecondaryText {
+    color: var(--color-light-100);
+  }
 
   &:hover {
     background: rgba(128, 128, 128, 1);
@@ -90,6 +94,10 @@
   border-radius: 4px;
   border: 1px solid rgba(140, 97, 255, 1);
   cursor: pointer;
+
+  .buttonTertiaryText {
+    color: rgba(151, 71, 255, 1);
+  }
 
   &:hover {
     background: linear-gradient(0deg, #333333, #333333),
