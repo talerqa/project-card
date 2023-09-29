@@ -36,15 +36,19 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps
   return (<div className={s.selectBlock}>
       <SelectGroup.Root value={value} onOpenChange={handlerOpenedMenu}>
         <span className={s.textLabel}>{label}</span>
-        <SelectGroup.Trigger className={s.button} ref={ref}/>
+        <SelectGroup.Trigger className={s.button} ref={ref}>
         <div className={s.selectValueBlock}>
-          <div className={s.valuePlaceholder}><SelectGroup.Value
-            placeholder={placeholder}
-          /></div>
+          <div className={s.valuePlaceholder}>
+            <SelectGroup.Value
+              placeholder={placeholder}
+            />
+          </div>
           {open ? <ChevronUpIcon className={s.iconDown}/> :
             <ChevronDownIcon className={s.iconDown}/>}
         </div>
+        </SelectGroup.Trigger>
         <SelectGroup.Content position="popper" className={s.content}>
+
           <SelectGroup.Viewport className={s.viewport}>
             <SelectGroup.Group className={s.items}>
               {array.map((item: any) => {

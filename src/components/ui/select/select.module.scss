@@ -19,23 +19,28 @@
   .button {
     width: 210px;
     height: 36px;
-    background: transparent;
+
     outline: none;
-    border: 1px solid rgba(76, 76, 76, 1);
+    border: 1px solid rgba(128, 128, 128, 1);
     cursor: pointer;
+    background: rgba(76, 76, 76, 1);
 
+    &:hover {
+      background: linear-gradient(0deg, #808080, #808080),
+      linear-gradient(0deg, #333333, #333333);
+      border: 1px solid rgba(128, 128, 128, 1);
 
+    }
   }
 
   .selectValueBlock {
     display: flex;
     width: 186px;
     align-items: center;
+    padding-left: 6px;
     justify-content: space-between;
-    position: absolute;
-    z-index: -1;
-    top: 31px;
-    left: 12px;
+    text-align: left;
+    cursor: pointer;
 
     .valuePlaceholder {
       width: 90%;
@@ -43,11 +48,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
     }
 
     .iconDown {
       width: 16px;
       height: 16px;
+      cursor: pointer;
     }
   }
 
@@ -68,14 +75,21 @@
           padding: 7px 2px 6px 12px;
           margin: 0;
           outline: none;
-          border-left: 1px solid rgba(76, 76, 76, 1);
-          border-right: 1px solid rgba(76, 76, 76, 1);
+          border-left: 1px solid rgba(128, 128, 128, 1);
+          border-right: 1px solid rgba(128, 128, 128, 1);
           cursor: pointer;
           word-break: break-word;
           width: 210px;
+          background:  rgba(76, 76, 76, 1);
+
+          &:hover {
+            background: rgba(56, 39, 102, 1);
+            border-left: 1px solid rgba(128, 128, 128, 1);
+            border-right: 1px solid rgba(128, 128, 128, 1);
+          }
 
           &:last-child {
-            border-bottom: 1px solid rgba(76, 76, 76, 1);
+            border-bottom: 1px solid rgba(128, 128, 128, 1);
           }
 
           .itemText {
@@ -85,13 +99,9 @@
           .selectIndicator {
 
           }
-
-
         }
       }
     }
-
-
   }
 
 
