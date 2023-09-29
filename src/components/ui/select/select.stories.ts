@@ -6,12 +6,6 @@ const meta = {
   title: "Components/Select",
   component: Select,
   tags: ["autodocs"],
-  argTypes: {
-    // variant: {
-    //   options: ["default", "defaultToggle", "defaultSearch"],
-    //     control: { type: "radio" },
-    // },
-  },
 } satisfies Meta<typeof Select>;
 
 export default meta;
@@ -21,11 +15,25 @@ export const SelectBox: Story = {
   args: {
     label: "Select-box",
     variant: "default",
-    array: [{
-      value: 'value1',
-      title: "Select-box11232111111111111111111111321321"
-    }, {value: 'value2', title: "Select-box2"},],
-    placeholder: 'Select-Select-box',
+    array: [
+      {
+        value: 'value1',
+        title: "Select-box1"
+      },
+      {
+        value: 'value2',
+        title: "Select-box2"
+      },
+      {
+        value: 'value3',
+        title: "Select-box3"
+      },
+      {
+        value: 'value4',
+        title: "Select-box4"
+      }
+    ],
+    placeholder: 'Select-box',
     disabled: false,
   },
 };

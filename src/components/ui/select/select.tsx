@@ -5,21 +5,18 @@ import {
   useState,
 } from "react";
 import s from './select.module.scss'
-
 import * as SelectGroup from "@radix-ui/react-select"
 import {ChevronDownIcon, ChevronUpIcon} from '@radix-ui/react-icons';
 
-
-export type InputProps = {
+export type SelectProps = {
   variant?: "default";
   label?: 'Select-box'
-  children?: any
-  array?: any
+  array?: { title: string, value: string }[]
   placeholder?: string
   disabled: boolean
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
-export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps>((props, ref) => {
+export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, SelectProps>((props, ref) => {
   const {label, placeholder, array, value, disabled} = props;
 
   const [open, setOpen] = useState<boolean>(false)
@@ -51,7 +48,7 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps
 
           <SelectGroup.Viewport className={s.viewport}>
             <SelectGroup.Group className={s.items}>
-              {array.map((item: any) => {
+              {array?.map((item: any) => {
                 return <Item children={item.title} value={item.value}/>
               })}
             </SelectGroup.Group>
@@ -62,8 +59,10 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps
   )
 })
 
-
-type Props = any
+type Props = {
+  children: string
+  value?: string
+}
 export const Item = (props: Props) => {
   const {children} = props
   return (<SelectGroup.Item value={children} className={s.item}>
