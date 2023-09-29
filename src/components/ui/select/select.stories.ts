@@ -20,8 +20,8 @@ export const SelectBox: Story = {
   args: {
     label: "Select-box",
     variant: "default",
-    array: [{value: 'value1', title: "Select-box1"}, {value: 'value2', title: "Select-box2"}, ],
-    placeholder: 'Select-box'
+    array: [{value: 'value1', title: "Select-box11232111111111111111111111321321"}, {value: 'value2', title: "Select-box2"}, ],
+    placeholder: 'Select-Select-box'
     //array: ["Select-box1","Select-box2","Select-box3",],
     // type: 'text',
     // placeholder: "Input",

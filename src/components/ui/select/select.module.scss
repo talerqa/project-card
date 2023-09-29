@@ -15,37 +15,16 @@
     color: rgba(128, 128, 128, 1);
   }
 
-  .item {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0;
-    text-align: left;
-    color: rgba(255, 255, 255, 1);
-    padding-left: 12px;
-    padding-right: 122px;
-    margin: 0;
-    outline: none;
-    border-left: 1px solid rgba(76, 76, 76, 1);
-    border-right: 1px solid rgba(76, 76, 76, 1);
-    cursor: pointer;
-
-    &:last-child {
-      border-bottom: 1px solid rgba(76, 76, 76, 1);
-    }
-  }
-
-  .placeholder {
-    color: red;
-  }
 
   .button {
     width: 210px;
     height: 36px;
     background: transparent;
-    //color: rgba(255, 255, 255, 1);
+    outline: none;
     border: 1px solid rgba(76, 76, 76, 1);
     cursor: pointer;
+
+
   }
 
   .selectValueBlock {
@@ -58,17 +37,83 @@
     top: 31px;
     left: 12px;
 
+    .valuePlaceholder {
+      width: 90%;
+      display: block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .iconDown {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .content {
+
+
+    .viewport {
+
+      .items {
+
+        .item {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          letter-spacing: 0;
+          text-align: left;
+          color: rgba(255, 255, 255, 1);
+          padding: 7px 2px 6px 12px;
+          margin: 0;
+          outline: none;
+          border-left: 1px solid rgba(76, 76, 76, 1);
+          border-right: 1px solid rgba(76, 76, 76, 1);
+          cursor: pointer;
+          word-break: break-word;
+          width: 210px;
+
+          &:last-child {
+            border-bottom: 1px solid rgba(76, 76, 76, 1);
+          }
+
+          .itemText {
+
+          }
+
+          .selectIndicator {
+
+          }
+
+
+        }
+      }
+    }
+
+
+  }
+
+
+  &:active {
+    outline: none;
+
+    .item {
+      border-left: 1px solid rgba(255, 255, 255, 1);
+      border-right: 1px solid rgba(255, 255, 255, 1);
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 1);
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 
-.iconDown {
-  width: 16px;
-  height: 16px;
-
-  path {
-    background: red;
-  }
-}
 
 //
 //.root {
