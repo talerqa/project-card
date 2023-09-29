@@ -7,7 +7,7 @@ import {
 import s from './select.module.scss'
 
 import * as SelectGroup from "@radix-ui/react-select"
-import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from '@radix-ui/react-icons';
+import {ChevronDownIcon, ChevronUpIcon} from '@radix-ui/react-icons';
 
 
 export type InputProps = {
@@ -16,16 +16,11 @@ export type InputProps = {
   children?: any
   array?: any
   placeholder?: string
-  // type: 'text' | "search" | 'password';
-  // text?: string
-  // label?: string
-  // error?: boolean
-  // disabled?: boolean,
-  // placeholder?: string
+  disabled: boolean
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
 export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps>((props, ref) => {
-  const {label, placeholder, array, value} = props;
+  const {label, placeholder, array, value, disabled} = props;
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -34,18 +29,23 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, InputProps
   }
 
   return (<div className={s.selectBlock}>
-      <SelectGroup.Root value={value} onOpenChange={handlerOpenedMenu}>
-        <span className={s.textLabel}>{label}</span>
-        <SelectGroup.Trigger className={s.button} ref={ref}>
-        <div className={s.selectValueBlock}>
-          <div className={s.valuePlaceholder}>
-            <SelectGroup.Value
-              placeholder={placeholder}
-            />
+      <SelectGroup.Root value={value} onOpenChange={handlerOpenedMenu}
+                        disabled={disabled}>
+        <span
+          className={disabled ? s.textLabelDisabled : s.textLabel}>{label}</span>
+        <SelectGroup.Trigger className={s.button} tabIndex={0} ref={ref}>
+          <div className={s.selectValueBlock}>
+            <div
+              className={disabled ? s.disabled + " " + s.valuePlaceholder : s.valuePlaceholder}>
+              <SelectGroup.Value
+                placeholder={placeholder}
+              />
+            </div>
+            {open ? <ChevronUpIcon
+                className={disabled ? s.iconDisabled + ' ' + s.icon : s.icon}/> :
+              <ChevronDownIcon
+                className={disabled ? s.iconDisabled + ' ' + s.icon : s.icon}/>}
           </div>
-          {open ? <ChevronUpIcon className={s.iconDown}/> :
-            <ChevronDownIcon className={s.iconDown}/>}
-        </div>
         </SelectGroup.Trigger>
         <SelectGroup.Content position="popper" className={s.content}>
 
@@ -69,9 +69,6 @@ export const Item = (props: Props) => {
   return (<SelectGroup.Item value={children} className={s.item}>
     <SelectGroup.ItemText
       className={s.itemText}>{children}</SelectGroup.ItemText>
-    <SelectGroup.ItemIndicator className={s.selectIndicator}>
-      <CheckIcon/>
-    </SelectGroup.ItemIndicator>
   </SelectGroup.Item>)
 }
 
