@@ -80,12 +80,14 @@
           cursor: pointer;
           word-break: break-word;
           width: 210px;
-          background:  rgba(76, 76, 76, 1);
+          background: rgba(76, 76, 76, 1);
 
           &:hover {
             background: rgba(56, 39, 102, 1);
             border-left: 1px solid rgba(128, 128, 128, 1);
             border-right: 1px solid rgba(128, 128, 128, 1);
+            color: rgba(162, 128, 255, 1);
+          ;
           }
 
           &:last-child {
