@@ -1,0 +1,190 @@
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/violet.css';
+
+.selectBlock {
+  height: 50px;
+  width: 100px;
+
+
+  .inputValue {
+    color: red;
+  }
+
+}
+
+.SliderRoot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  width: 200px;
+  height: 20px;
+}
+
+.SliderTrack {
+  background-color: var(--black-a10);
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+  height: 3px;
+}
+
+.SliderRange {
+  position: absolute;
+  background-color: white;
+  border-radius: 9999px;
+  height: 100%;
+}
+
+.SliderThumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  box-shadow: 0 2px 10px var(--black-a7);
+  border-radius: 10px;
+}
+
+.SliderThumb:hover {
+  background-color: var(--violet-3);
+}
+
+.SliderThumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px var(--black-a8);
+}
+
+//.sliderBlock {
+//  position: relative;
+//  flex-direction: column;
+//  width: 210px;
+//  outline: none;
+//
+//  .textLabel {
+//    font-size: 14px;
+//    font-weight: 400;
+//    line-height: 24px;
+//    letter-spacing: 0;
+//    text-align: left;
+//    vertical-align: center;
+//    color: var(--color-dark-100);
+//  }
+//
+//  .textLabelDisabled {
+//    color: var(--color-dark-300);
+//  }
+//
+//  .button {
+//    width: 210px;
+//    height: 36px;
+//    outline: none;
+//    border: 1px solid var(--color-dark-100);
+//    cursor: pointer;
+//    background: transparent;
+//
+//    &:hover {
+//      background: linear-gradient(0deg, #808080, #808080),
+//      linear-gradient(0deg, #333333, #333333);
+//      border: 1px solid var(--color-dark-100);
+//    }
+//
+//    &:active {
+//      border: 1px solid #2F68CC;
+//      background: var(--color-dark-300);
+//    }
+//
+//    &:focus {
+//      border: 1px solid var(--color-dark-100);
+//      background: var(--color-dark-300);
+//      outline: none;
+//    }
+//
+//    .selectValueBlock {
+//      display: flex;
+//      width: 186px;
+//      align-items: center;
+//      padding-left: 6px;
+//      justify-content: space-between;
+//      text-align: left;
+//      cursor: pointer;
+//
+//      .valuePlaceholder {
+//        width: 90%;
+//        display: block;
+//        text-overflow: ellipsis;
+//        white-space: nowrap;
+//        overflow: hidden;
+//      }
+//
+//      .disabled {
+//        color: var(--color-dark-300);
+//      }
+//
+//      .icon {
+//        width: 16px;
+//        height: 16px;
+//        cursor: pointer;
+//      }
+//
+//      .iconDisabled {
+//        path {
+//          fill: var(--color-dark-300);
+//        }
+//      }
+//    }
+//  }
+//
+//  .content {
+//    .viewport {
+//      .items {
+//        .item {
+//          font-size: 16px;
+//          font-weight: 400;
+//          line-height: 24px;
+//          letter-spacing: 0;
+//          text-align: left;
+//          color: var(--color-light-100);
+//          padding: 7px 2px 6px 12px;
+//          margin: 0;
+//          outline: none;
+//          border-left: 1px solid var(--color-dark-100);
+//          border-right: 1px solid var(--color-dark-100);
+//          cursor: pointer;
+//          word-break: break-word;
+//          width: 210px;
+//          background: transparent;
+//
+//          &:hover {
+//            background: var(--color-accent-900);
+//            border-left: 1px solid var(--color-dark-100);
+//            border-right: 1px solid var(--color-dark-100);
+//            color: var(--color-accent-300);
+//          }
+//
+//          &:last-child {
+//            border-bottom: 1px solid var(--color-dark-100);
+//          }
+//        }
+//      }
+//    }
+//  }
+//
+//  &:active {
+//    outline: none;
+//
+//    .item {
+//      border-left: 1px solid var(--color-light-100);
+//      border-right: 1px solid var(--color-light-100);
+//      cursor: pointer;
+//
+//      &:last-child {
+//        border-bottom: 1px solid var(--color-light-100);
+//      }
+//    }
+//  }
+//
+//  &:focus {
+//    outline: none;
+//  }
+//}
