@@ -33,6 +33,7 @@ export const Button = <T extends ElementType = "button">(
   return (<div className={s.button}>
       <Component
         className={`${s[variant]} ${className}`}
+        type={type}
         children={<>
           {icon && <img src={!disabled ? iconExit : iconExitDisabled} alt=""
                         className={s.icon}/>}
