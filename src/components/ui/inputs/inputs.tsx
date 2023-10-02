@@ -55,13 +55,22 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   }
 
   const result =
-    variant === 'search' && !error
+    variant === 'search' && !errorMessage
       ? s.searchInput
-      : error && variant === 'search'
+      : errorMessage && variant === 'search'
         ? s.searchInput + ' ' + s.error
-        : (error && (variant === 'default' || variant === 'toggle'))
+        : (errorMessage && (variant === 'default' || variant === 'toggle'))
           ? s.input + ' ' + s.error
           : s.input;
+
+  // const result =
+  //   variant === 'search' && !error
+  //     ? s.searchInput
+  //     : error && variant === 'search'
+  //       ? s.searchInput + ' ' + s.error
+  //       : (error && (variant === 'default' || variant === 'toggle'))
+  //         ? s.input + ' ' + s.error
+  //         : s.input;
 
   const handler = () => setFocus(focus => !focus)
   // const onBlurHandler = () => {
@@ -73,7 +82,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
       onKeyDown?.(e)
     }
   }
-
+  console.log(!!errorMessage)
   return (<div className={s.inputBlock}>
       <span className={s.label}>{variant === 'search' ? '' : label}</span>
       <div className={s.inputImages}>
