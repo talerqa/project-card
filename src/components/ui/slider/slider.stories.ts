@@ -14,9 +14,8 @@ export const SliderDefault: Story = {
   args: {
     label: "Slider",
     variant: "default",
-    value: [1,15],
+    value: [1, 42],
     step: 1,
-    placeholder: 'Select-box',
     disabled: false,
   },
 };
