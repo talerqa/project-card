@@ -136,10 +136,12 @@ input[type="search"]::-webkit-search-cancel-button {
 
       &:active {
         border: 1px solid red;
+        color: red;
       }
 
       &:focus {
         border: 1px solid red;
+        color: red;
       }
     }
 
