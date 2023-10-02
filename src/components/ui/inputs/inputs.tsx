@@ -73,9 +73,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
   //         : s.input;
 
   const handler = () => setFocus(focus => !focus)
-  // const onBlurHandler = () => {
-  //   setFocus(false)
-  // }
+  const onBlurHandler = () => {
+    setFocus(false)
+  }
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
@@ -109,7 +109,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
         <input tabIndex={0}
                onFocus={handler}
                onChange={onChangeHandler}
-             //  onBlur={onBlurHandler}
+               onBlur={onBlurHandler}
                ref={ref}
                value={value}
                className={result}
