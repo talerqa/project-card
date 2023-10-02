@@ -26,7 +26,6 @@ export type InputProps<T extends ElementType = "input"> = {
 } & ComponentPropsWithoutRef<T>;
 
 export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX.Element => {
-  console.log(props)
   const {
     onChange,
     onBlur,
@@ -67,12 +66,10 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>((props, ref): JSX
     setFocus(false)
   }
 
-
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
       onKeyDown?.(e)
     }
-
   }
 
   return (<div className={s.inputBlock}>

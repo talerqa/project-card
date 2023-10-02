@@ -21,6 +21,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderGroup.Root>, SelectProp
     value,
     disabled,
     step,
+    ...res
   } = props;
 
   const [min, setMin] = useState<number>(value[0])
@@ -42,6 +43,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderGroup.Root>, SelectProp
                         ref={ref}
                         onValueChange={onHandler}
                         step={step}
+                        {...res}
       disabled={disabled}>
         <SliderGroup.Track className={s.SliderTrack}>
           <SliderGroup.Range className={s.SliderRange}/>
