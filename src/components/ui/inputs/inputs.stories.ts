@@ -23,6 +23,7 @@ export const DefaultInput: Story = {
     label: "Input",
     placeholder: "Input",
     error: false,
+
     disabled: false,
   },
 };
