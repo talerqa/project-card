@@ -17,7 +17,7 @@ export type SelectProps = {
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
 export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, SelectProps>((props, ref) => {
-  const {label, placeholder, array, value, disabled} = props;
+  const {label, placeholder, array, value, disabled, ...res} = props;
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -27,7 +27,7 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, SelectProp
 
   return (<div className={s.selectBlock}>
       <SelectGroup.Root value={value} onOpenChange={handlerOpenedMenu}
-                        disabled={disabled}>
+                        disabled={disabled} {...res}>
         <span
           className={disabled ? s.textLabelDisabled : s.textLabel}>{label}</span>
         <SelectGroup.Trigger className={s.button} tabIndex={0} ref={ref}>
@@ -45,11 +45,10 @@ export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, SelectProp
           </div>
         </SelectGroup.Trigger>
         <SelectGroup.Content position="popper" className={s.content}>
-
           <SelectGroup.Viewport className={s.viewport}>
             <SelectGroup.Group className={s.items}>
-              {array?.map((item: any) => {
-                return <Item children={item.title} value={item.value}/>
+              {array?.map((item: { title: string, value: string }, key: number) => {
+                return <Item key={key} children={item.title} value={item.value}/>
               })}
             </SelectGroup.Group>
           </SelectGroup.Viewport>
