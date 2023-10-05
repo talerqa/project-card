@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, useState } from "react";
+import { useState } from "react";
 
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 

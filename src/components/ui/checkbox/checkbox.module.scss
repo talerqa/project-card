@@ -1,0 +1,85 @@
+button {
+    all:unset
+}
+
+.checkBoxWrapper {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: 36px;
+    height: 36px;
+  
+    background-color: transparent;
+    border-radius: 100%;
+  
+    &.disabled {
+      cursor: initial;
+    }
+  
+    &:hover:not([disabled]) {
+      background-color: var(--color-dark-100);
+    }
+
+    &:focus-within {
+        background-color: var(--color-light-900);
+    }
+  
+    &:active:not(.disabled) {
+      background-color: var(--color-bg-primary-active);
+    }
+}
+
+.CheckboxRoot {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px solid var(--color-light-900);
+
+  &[aria-checked="true"] {
+    background-color: var(--color-light-100);
+    border: none;
+  }
+
+  &:focus {
+    border: 2px solid var(--color-light-100);
+  } 
+  
+  &:focus,[aria-checked="false"]:not[disabled] {
+    border: none;
+  }
+
+  &[disabled] {
+    background-color: transparent;
+    border: 2px solid var(--color-dark-100)
+  }
+}
+
+.CheckboxIndicator {
+  color: var(--color-dark-900);
+  width: 18px;
+  height: 18px;
+  display: contents;
+
+  &[aria-disabled="true"] {
+    color: var(--color-light-700);
+  }
+}
+
+.CheckboxIndicator svg {
+    width: 55px;
+    height: 55px;
+}
+
+.Label {
+  color: white;
+  padding-left: 15px;
+  font-size: 15px;
+  line-height: 1;
+}
