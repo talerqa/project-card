@@ -3,6 +3,9 @@ import {DropDown, ItemDropDown, ProfileDropDown} from "./";
 import avatar from "./../../../assets/img/avatart-template.png"
 import person from "./../../../assets/img/person.svg"
 import logout from "./../../../assets/img/exit.svg"
+import play from "./../../../assets/img/play.svg"
+import edit from "./../../../assets/img/edit.svg"
+import trash from "./../../../assets/img/trash.svg"
 
 const meta = {
   title: "Components/DropDown",
@@ -20,11 +23,13 @@ export const DropDownMenu: Story = {
     label: "DropDown",
     children: (
       <>
-
+        <ItemDropDown img={play} title={'Learn'}/>
+        <ItemDropDown img={edit} title={'Edit'}/>
+        <ItemDropDown img={trash} title={'Delete'}/>
       </>
     ),
     align: 'end',
-    trigger: (<button>!!!!</button>)
+    trigger: (<button>TRIGGER</button>)
   }
 };
 

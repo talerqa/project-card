@@ -35,9 +35,7 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderP
     portal: s.portal,
     item: s.item,
     arrow: s.arrow,
-
   }
-
 
   return (
     <div className={className.root}>
@@ -51,11 +49,11 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderP
             <DropdownMenu.Content
                 align={align}
                 onClick={event => event.stopPropagation()}
-                className={className.content}>
+                ref={ref}
+                className={className.content} {...res}>
                 <DropdownMenu.Label>
                     <DropdownMenu.Item className={className.item}>
                       {children}
-
                     </DropdownMenu.Item>
                 </DropdownMenu.Label>
                 <DropdownMenu.Arrow className={className.arrow}>
@@ -81,21 +79,25 @@ const classNameProfile = {
   emailText: s.emailText,
   profileImg: s.profileImg,
   nameText: s.nameText,
+  separator: s.separator,
 
 }
 
 export const ProfileDropDown: React.FC<ProfileDropDown> = (props) => {
   const {img} = props
-  return <div className={classNameProfile.profileDropDownBlock}>
-    <img src={img} alt="img-avatart" className={classNameProfile.profileImg}/>
-    <div className={classNameProfile.itemsBlock}>
-      <Typography variant={"subtitle2"} as={'p'}
-                  children={dataProfile.name}
-                  className={classNameProfile.nameText}/>
-      <Typography variant={"caption"} as={'p'} children={dataProfile.email}
-                  className={classNameProfile.emailText}/>
+  return <>
+    <div className={classNameProfile.profileDropDownBlock}>
+      <img src={img} alt="img-avatart" className={classNameProfile.profileImg}/>
+      <div className={classNameProfile.itemsBlock}>
+        <Typography variant={"subtitle2"} as={'p'}
+                    children={dataProfile.name}
+                    className={classNameProfile.nameText}/>
+        <Typography variant={"caption"} as={'p'} children={dataProfile.email}
+                    className={classNameProfile.emailText}/>
+      </div>
     </div>
-  </div>
+    <DropdownMenu.Separator className={classNameProfile.separator}/>
+  </>
 }
 
 
@@ -114,12 +116,26 @@ const ItemDropDownClassName = {
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
   const {img, title} = props
-  return <div className={ItemDropDownClassName.itemDropDown}>
-    <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
-    <div className={ItemDropDownClassName.itemDropDownContent}>
-      <img src={img} alt="svg-icon" className={ItemDropDownClassName.imageSvg}/>
-      <Typography variant={'caption'} as={'p'} children={title}
-                  className={ItemDropDownClassName.title}/>
+
+  return  <>
+    {title === 'Edit' &&
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
+    {title === 'Sign Out' &&
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
+    {title === 'Delete' &&
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
+
+    <div className={ItemDropDownClassName.itemDropDown}>
+
+      <div className={ItemDropDownClassName.itemDropDownContent}>
+        <img src={img} alt="svg-icon"
+             className={ItemDropDownClassName.imageSvg}/>
+        <Typography variant={'caption'} as={'p'} children={title}
+                    className={ItemDropDownClassName.title}/>
+      </div>
+
     </div>
-  </div>
+
+  </>
+
 }

@@ -6,22 +6,19 @@
   margin: 0 auto;
   display: flex;
 
-
   .trigger {
     background-color: transparent;
   }
 
-  .portal {
-
-  }
 }
 
 .item {
   padding: 0;
   margin: 0;
   outline: none;
+  display: flex;
+  flex-direction: column;
 }
-
 
 .content {
   position: relative;
@@ -30,7 +27,6 @@
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
   padding: 12px;
-
 }
 
 .content[data-align = 'end'] {
@@ -61,12 +57,13 @@
   background: var(--color-dark-500);
   height: 1px;
   width: 100%;
-
 }
+
 .profileDropDownBlock {
   display: flex;
   align-items: flex-end;
   padding-right: 28px;
+  padding-bottom: 12px;
 
   .profileImg {
     width: 36px;
@@ -78,6 +75,7 @@
     align-items: flex-start;
     flex-direction: column;
     padding-left: 8px;
+
 
     .nameText {
       margin: 0;
@@ -97,7 +95,6 @@
       line-height: 16px;
       letter-spacing: 0em;
       text-align: left;
-
     }
   }
 }
@@ -107,12 +104,18 @@
   flex-direction: column;
   padding-top: 12px;
 
+  &:first-child {
+    padding-top: 0px;
+  }
+
+  &:not(:last-child) {
+    padding-bottom: 12px;
+  }
+
   .itemDropDownContent {
     display: flex;
     align-items: flex-end;
-
     cursor: pointer;
-    padding-top: 12px;
   }
 
   .imageSvg {
