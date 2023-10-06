@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from "@storybook/react";
-import {DropDown, ItemDropDown, ProfileDropDown} from "./";
+import {DropDown, ItemDropDown, ProfileItemDropDown} from "./";
 import avatar from "./../../../assets/img/avatart-template.png"
 import person from "./../../../assets/img/person.svg"
 import logout from "./../../../assets/img/exit.svg"
@@ -11,15 +11,25 @@ const meta = {
   title: "Components/DropDown",
   component: DropDown,
   tags: ["autodocs"],
-
+  argTypes: {
+    variant: {
+      options: ['DropDownMenu', 'DropDownMenuWithIcon'],
+      defaultValue: "DropDownMenuWithIcon",
+      control: {type: 'radio'},
+    },
+    align: {
+      options: ['start', 'center', 'end'],
+      control: {type: 'radio'},
+    }
+  }
 } satisfies Meta<typeof DropDown>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-
 export const DropDownMenu: Story = {
   args: {
+    variant: "DropDownMenu",
     label: "DropDown",
     children: (
       <>
@@ -29,15 +39,16 @@ export const DropDownMenu: Story = {
       </>
     ),
     align: 'end',
-    trigger: (<button>TRIGGER</button>)
+    trigger: (<button>TRRRRRIGER</button>)
   }
 };
 
 export const DropDownMenuWithIcon: Story = {
     args: {
+      variant: "DropDownMenuWithIcon",
       label: "DropDownWithIcon",
       children: (<>
-          <ProfileDropDown img={avatar}/>
+          <ProfileItemDropDown img={avatar} name={'Ivan'} email={"j&johnson@gmail.com"}/>
           <ItemDropDown img={person} title={'My Profile'}/>
           <ItemDropDown img={logout} title={'Sign Out'}/>
         </>
