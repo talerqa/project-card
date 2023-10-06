@@ -113,7 +113,6 @@ const ItemDropDownClassName = {
 }
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
-
   const {img, title} = props
   return <div className={ItemDropDownClassName.itemDropDown}>
     <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
