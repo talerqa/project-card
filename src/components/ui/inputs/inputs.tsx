@@ -7,11 +7,11 @@ import {
   useState
 } from "react";
 import s from './inputs.module.scss'
-import eyeOpen from './img/eye-open.svg'
-import eyeNone from './img/eye-none.svg'
-import eyeOpenDisabled from './img/eye-open-disabled.svg'
-import searchIcon from './img/magnifying-glass.svg'
-import searchIconFocus from './img/magnifying-glass-focus.svg'
+import eyeOpen from '../../../assets/img/eye-open.svg'
+import eyeNone from '../../../assets/img/eye-none.svg'
+import eyeOpenDisabled from '../../../assets/img/eye-open-disabled.svg'
+import searchIcon from '../../../assets/img/magnifying-glass.svg'
+import searchIconFocus from '../../../assets/img/magnifying-glass-focus.svg'
 
 
 export type InputProps<T extends ElementType = "input"> = {

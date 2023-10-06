@@ -4,8 +4,8 @@ import {
   ElementType, HTMLAttributes
 } from "react";
 import s from "./button.module.scss";
-import iconExit from "./img/exit.svg";
-import iconExitDisabled from "./img/exitDisabled.svg";
+import iconExit from "../../../assets/img/exit.svg";
+import iconExitDisabled from "../../../assets/img/exitDisabled.svg";
 
 export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
