@@ -4,95 +4,69 @@ import {
   forwardRef,
   useState,
 } from "react";
-
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
-import * as SelectGroup from "@radix-ui/react-select";
-
-import s from "./select.module.scss";
+import s from './select.module.scss'
+import * as SelectGroup from "@radix-ui/react-select"
+import {ChevronDownIcon, ChevronUpIcon} from '@radix-ui/react-icons';
 
 export type SelectProps = {
   variant?: "default";
-  label?: "Select-box";
-  array?: { title: string; value: string }[];
-  placeholder?: string;
-  disabled: boolean;
+  label?: 'Select-box'
+  array?: { title: string, value: string }[]
+  placeholder?: string
+  disabled: boolean
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
-export const Select = forwardRef<
-  ElementRef<typeof SelectGroup.Root>,
-  SelectProps
->((props, ref) => {
-  const { label, placeholder, array, value, disabled, ...res } = props;
+export const Select = forwardRef<ElementRef<typeof SelectGroup.Root>, SelectProps>((props, ref) => {
+  const {label, placeholder, array, value, disabled, ...res} = props;
 
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false)
 
   const handlerOpenedMenu = () => {
-    setOpen(!open);
-  };
+    setOpen(!open)
+  }
 
-  return (
-    <div className={s.selectBlock}>
-      <SelectGroup.Root
-        value={value}
-        onOpenChange={handlerOpenedMenu}
-        disabled={disabled}
-        {...res}
-      >
-        <span className={disabled ? s.textLabelDisabled : s.textLabel}>
-          {label}
-        </span>
+  return (<div className={s.selectBlock}>
+      <SelectGroup.Root value={value} onOpenChange={handlerOpenedMenu}
+                        disabled={disabled} {...res}>
+        <span
+          className={disabled ? s.textLabelDisabled : s.textLabel}>{label}</span>
         <SelectGroup.Trigger className={s.button} tabIndex={0} ref={ref}>
           <div className={s.selectValueBlock}>
             <div
-              className={
-                disabled
-                  ? s.disabled + " " + s.valuePlaceholder
-                  : s.valuePlaceholder
-              }
-            >
-              <SelectGroup.Value placeholder={placeholder} />
+              className={disabled ? s.disabled + " " + s.valuePlaceholder : s.valuePlaceholder}>
+              <SelectGroup.Value
+                placeholder={placeholder}
+              />
             </div>
-            {open ? (
-              <ChevronUpIcon
-                className={disabled ? s.iconDisabled + " " + s.icon : s.icon}
-              />
-            ) : (
+            {open ? <ChevronUpIcon
+                className={disabled ? s.iconDisabled + ' ' + s.icon : s.icon}/> :
               <ChevronDownIcon
-                className={disabled ? s.iconDisabled + " " + s.icon : s.icon}
-              />
-            )}
+                className={disabled ? s.iconDisabled + ' ' + s.icon : s.icon}/>}
           </div>
         </SelectGroup.Trigger>
         <SelectGroup.Content position="popper" className={s.content}>
           <SelectGroup.Viewport className={s.viewport}>
             <SelectGroup.Group className={s.items}>
-              {array?.map(
-                (item: { title: string; value: string }, key: number) => {
-                  return (
-                    <Item key={key} children={item.title} value={item.value} />
-                  );
-                }
-              )}
+              {array?.map((item: { title: string, value: string }, key: number) => {
+                return <Item key={key} children={item.title} value={item.value}/>
+              })}
             </SelectGroup.Group>
           </SelectGroup.Viewport>
         </SelectGroup.Content>
       </SelectGroup.Root>
     </div>
-  );
-});
+  )
+})
 
 type Props = {
-  children: string;
-  value?: string;
-};
+  children: string
+  value?: string
+}
 export const Item = (props: Props) => {
-  const { children } = props;
+  const {children} = props
+  return (<SelectGroup.Item value={children} className={s.item}>
+    <SelectGroup.ItemText
+      className={s.itemText}>{children}</SelectGroup.ItemText>
+  </SelectGroup.Item>)
+}
 
-  return (
-    <SelectGroup.Item value={children} className={s.item}>
-      <SelectGroup.ItemText className={s.itemText}>
-        {children}
-      </SelectGroup.ItemText>
-    </SelectGroup.Item>
-  );
-};

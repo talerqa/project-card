@@ -7,11 +7,11 @@ import {
   useState,
 } from "react";
 
-import eyeNone from "./img/eye-none.svg";
-import eyeOpenDisabled from "./img/eye-open-disabled.svg";
-import eyeOpen from "./img/eye-open.svg";
-import searchIconFocus from "./img/magnifying-glass-focus.svg";
-import searchIcon from "./img/magnifying-glass.svg";
+import eyeNone from "../../../assets/img/eye-none.svg";
+import eyeOpenDisabled from "../../../assets/img/eye-open-disabled.svg";
+import eyeOpen from "../../../assets/img/eye-open.svg";
+import searchIconFocus from "../../../assets/img/magnifying-glass-focus.svg";
+import searchIcon from "../../../assets/img/magnifying-glass.svg";
 import s from "./inputs.module.scss";
 
 export type InputProps<T extends ElementType = "input"> = {
@@ -46,9 +46,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
     const [typeInput, setTypeInput] = useState(type);
     const [focus, setFocus] = useState<boolean>(false);
 
-    const showHandler = () => {
-      setTypeInput(typeInput === "password" ? "text" : "password");
-    };
+  const showHandler = () => {
+    setTypeInput(typeInput === 'password' ? 'text' : 'password');
+  }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e);
