@@ -1,5 +1,6 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {Inputs} from "./";
+import {SearchIcon} from "@/assets/components/searchIcon.tsx";
 
 const meta = {
   title: "Components/Inputs",
@@ -22,7 +23,7 @@ export const DefaultInput: Story = {
     type: 'text',
     label: "Input",
     placeholder: "Input",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
@@ -33,7 +34,7 @@ export const ToggleInput: Story = {
     type: 'password',
     label: "Input",
     placeholder: "Input",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
@@ -43,8 +44,9 @@ export const SearchInput: Story = {
     variant: "search",
     type: 'search',
     label: "Input search",
+
     placeholder: "Input search",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
