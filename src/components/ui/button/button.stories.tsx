@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      options: ["primary", "secondary", "tertiary", "link", ],
+      options: ["primary", "secondary", "tertiary", "link",],
       control: {type: "radio"},
     },
   },
@@ -24,6 +24,7 @@ export const DefaultButton: Story = {
     classNameText: 'buttonPrimaryText',
     disabled: false,
     icon: false,
+    type: 'button'
   },
 };
 
@@ -35,6 +36,7 @@ export const ButtonLogOut: Story = {
     classNameText: 'buttonPrimaryText',
     disabled: false,
     icon: true,
+    type: 'button'
   },
 };
 
@@ -46,6 +48,7 @@ export const ButtonSecondary: Story = {
     classNameText: 'buttonSecondaryText',
     disabled: false,
     icon: false,
+    type: 'button'
   },
 };
 
@@ -57,6 +60,7 @@ export const ButtonTertiary: Story = {
     classNameText: 'buttonTertiaryText',
     disabled: false,
     icon: false,
+    type: 'button'
   },
 };
 
@@ -69,6 +73,7 @@ export const ButtonLink: Story = {
     as: "a",
     disabled: false,
     icon: false,
+    type: 'button'
   },
 };
 
@@ -79,7 +84,8 @@ export const ButtonSecondaryLogout: Story = {
     className: 'buttonSecondary',
     classNameText: 'buttonSecondaryText',
     disabled: false,
-    icon: true
+    icon: true,
+    type: 'button'
   },
 };
 
