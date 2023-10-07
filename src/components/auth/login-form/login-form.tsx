@@ -1,3 +1,4 @@
+import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,10 +23,13 @@ export const LoginForm = () => {
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit = (data: FormValues) => {};
+  const onSubmit = (data: FormValues) => {
+    return data;
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <DevTool control={control} />
       <Inputs
         {...register("email", { minLength: { value: 4, message: "short" } })}
         label={"email"}
