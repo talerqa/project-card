@@ -3,7 +3,7 @@ import { CheckIcon } from "@radix-ui/react-icons";
 
 import s from "./checkbox.module.scss";
 
-type CheckboxProps = {
+export type CheckboxProps = {
   checked?: boolean;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
