@@ -10,6 +10,7 @@
   border: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #8C61FF;
   padding: 6px 28px;
   border-radius: 4px;
@@ -153,10 +154,4 @@
 
 .disabled {
   color: rgba(56, 39, 102, 1);
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-  margin: 0 10px 0 0;
 }

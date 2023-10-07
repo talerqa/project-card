@@ -1,5 +1,8 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {Button} from "./";
+import iconExit from "../../../assets/img/exit.svg";
+import iconExitDisabled from "../../../assets/img/exitDisabled.svg";
+import {Typography} from "@/components/ui/typography";
 
 const meta = {
   title: "Components/Button",
@@ -7,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      options: ["primary", "secondary", "tertiary", "link",],
+      options: ["primary", "secondary", 'primaryWithIcon', "tertiary", "link", "secondaryWithIcon"],
       control: {type: "radio"},
     },
   },
@@ -16,76 +19,73 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+type IconButtonType = {
+  disabled?: boolean
+  className?: string
+  image?: any
+}
+
+const IconButton = (props: IconButtonType) => {
+  const {disabled, image} = props
+  return <img src={!disabled ? image[0] : image[1]}
+              alt="icon"
+              style={{width: '16px', height: '16px', margin: '0 12px 0 0'}}/>
+}
+
 export const DefaultButton: Story = {
   args: {
     variant: "primary",
-    children: 'Button primary',
-    className: 'buttonPrimary',
-    classNameText: 'buttonPrimaryText',
+    children: (<Typography variant={'subtitle2'} as={'span'}
+                           children={'Button primary'}/>),
     disabled: false,
-    icon: false,
-    type: 'button'
   },
 };
 
 export const ButtonLogOut: Story = {
   args: {
     variant: "primaryWithIcon",
-    children: "Button primary",
-    className: 'buttonPrimary',
-    classNameText: 'buttonPrimaryText',
+    children: (<Typography variant={'subtitle2'} as={'span'}
+                           children={'Button primary'}/>),
     disabled: false,
-    icon: true,
-    type: 'button'
+    icon: (<IconButton disabled={false} image={[iconExit, iconExitDisabled]}/>),
   },
 };
 
 export const ButtonSecondary: Story = {
   args: {
     variant: "secondary",
-    children: "Button Secondary",
-    className: 'buttonSecondary',
-    classNameText: 'buttonSecondaryText',
+    children: (<Typography variant={'subtitle2'} as={'span'}
+                           children={'Button Secondary'}/>),
     disabled: false,
-    icon: false,
-    type: 'button'
   },
 };
 
 export const ButtonTertiary: Story = {
   args: {
     variant: "tertiary",
-    children: "Tertiary",
-    className: 'buttonTertiary',
-    classNameText: 'buttonTertiaryText',
+    children: (
+      <Typography variant={'subtitle2'} as={'span'} children={'Tertiary'}/>),
     disabled: false,
-    icon: false,
-    type: 'button'
   },
 };
 
 export const ButtonLink: Story = {
   args: {
     variant: "link",
-    children: "Link-button",
-    className: 'buttonLink',
-    classNameText: 'buttonLinkText',
+    children: (
+      <Typography variant={'subtitle1'} as={'a'} children={"Link-button"}/>),
     as: "a",
     disabled: false,
-    icon: false,
-    type: 'button'
+
   },
 };
 
 export const ButtonSecondaryLogout: Story = {
   args: {
     variant: "secondaryWithIcon",
-    children: "Button primary",
-    className: 'buttonSecondary',
-    classNameText: 'buttonSecondaryText',
+    children: (<Typography variant={'subtitle2'} as={'span'}
+                           children={'Button primary'}/>),
     disabled: false,
-    icon: true,
-    type: 'button'
+    icon: (<IconButton disabled={false} image={[iconExit, iconExitDisabled]}/>),
   },
 };
-

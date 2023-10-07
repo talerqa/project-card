@@ -3,64 +3,42 @@ import {
   ComponentPropsWithoutRef,
   ElementType,
   HTMLAttributes,
+  ReactNode,
 } from "react";
-
 import s from "./button.module.scss";
-import iconExit from "../../../assets/img/exit.svg";
-import iconExitDisabled from "../../../assets/img/exitDisabled.svg";
 
 export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
-  variant?:
-    | "primary"
-    | "secondary"
-    | "primaryWithIcon"
-    | "tertiary"
-    | "link"
-    | "secondaryWithIcon";
-  className?: string;
-  children?: string;
-  classNameText?: string;
-  icon: boolean;
-  type?: ButtonHTMLAttributes<HTMLAttributes<T>>["type"];
+  variant?: | "primary" | "secondary" | "primaryWithIcon" | "tertiary" | 'link' | 'secondaryWithIcon'
+  children?: ReactNode
+  icon?: ReactNode;
+  type: ButtonHTMLAttributes<HTMLAttributes<T>>["type"];
 } & ComponentPropsWithoutRef<T>;
 
+//ref???
+
 export const Button = <T extends ElementType = "button">(
-  props: ButtonProps<T> &
-    Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>
-) => {
+  props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>,
+    keyof ButtonProps<T>>
+): JSX.Element => {
   const {
     variant = "primary",
-    className,
+    as: Component = "button",
+    type = 'button',
     icon,
-    classNameText,
     children,
     disabled,
-    as: Component = "button",
-    type,
-    ...rest
+    ...res
   } = props;
 
-  return (
-    <div className={s.button}>
+  return (<div className={s.button}>
       <Component
-        className={`${s[variant]} ${className}`}
+        className={`${s[variant]}`}
         type={type}
         disabled={disabled}
-        children={<>
-          {icon && (
-            <img
-              src={!disabled ? iconExit : iconExitDisabled}
-              alt=""
-              className={s.icon}
-            />
-          )}
-          {variant !== "link" &&
-              <span className={classNameText}>{children}</span>}
-          {variant === "link" && <>{children}</>}</>}
-        {...rest}
+        children={<>{icon} {children}</>}
+        {...res}
       />
-
     </div>
   );
-};
+}
