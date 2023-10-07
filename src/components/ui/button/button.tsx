@@ -6,8 +6,8 @@ import {
 } from "react";
 
 import s from "./button.module.scss";
-import iconExit from "./img/exit.svg";
-import iconExitDisabled from "./img/exitDisabled.svg";
+import iconExit from "../../../assets/img/exit.svg";
+import iconExitDisabled from "../../../assets/img/exitDisabled.svg";
 
 export type ButtonProps<T extends ElementType = "button"> = {
   as?: T;
@@ -47,17 +47,20 @@ export const Button = <T extends ElementType = "button">(
         className={`${s[variant]} ${className}`}
         type={type}
         disabled={disabled}
+        children={<>
+          {icon && (
+            <img
+              src={!disabled ? iconExit : iconExitDisabled}
+              alt=""
+              className={s.icon}
+            />
+          )}
+          {variant !== "link" &&
+              <span className={classNameText}>{children}</span>}
+          {variant === "link" && <>{children}</>}</>}
         {...rest}
       />
-      {icon && (
-        <img
-          src={!disabled ? iconExit : iconExitDisabled}
-          alt=""
-          className={s.icon}
-        />
-      )}
-      {variant !== "link" && <span className={classNameText}>{children}</span>}
-      {variant === "link" && <>{children}</>}
+
     </div>
   );
 };
