@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   ComponentPropsWithoutRef,
   ElementType,
+  FocusEvent,
   forwardRef,
   KeyboardEvent,
   ReactNode,
@@ -12,7 +13,7 @@ import {EyeOpenIcon} from "@/assets/components/eyeOpenIcon.tsx";
 import {EyeNoneIcon} from "@/assets/components/eyeNoneIcon.tsx";
 import {SearchIcon} from "@/assets/components/searchIcon.tsx";
 import {SearchIconFocus} from "@/assets/components/searchIconFocus.tsx";
-
+import clsx from "clsx";
 
 export type InputProps<T extends ElementType = "input"> = {
   variant?: "default" | "toggle" | "search";
@@ -29,7 +30,7 @@ export type InputProps<T extends ElementType = "input"> = {
 export const Inputs = forwardRef<HTMLInputElement, InputProps>(
   (props, ref): JSX.Element => {
     const {
-      onChange, onBlur, type, error,
+      onChange, onBlur, type, error, className,
       disabled, label, children, placeholder,
       variant = "default", onKeyDown, errorMessage, ...res
     } = props;
@@ -44,23 +45,17 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       setFocus(true)
     };
 
-    // const class1 = {
-    //   searchInput: clsx(variant === "search" && !errorMessage),
-    // }
+    const classname = clsx(variant === "search" && !errorMessage && s.searchInput,
+      errorMessage && variant === "search" && s.searchInput + " " + s.error,
+      errorMessage && (variant === "default" || variant === "toggle") && s.input + " " + s.error, s.input, className)
 
-    const result =
-      variant === "search" && !errorMessage
-        ? s.searchInput
-        : errorMessage && variant === "search"
-          ? s.searchInput + " " + s.error
-          : errorMessage && (variant === "default" || variant === "toggle")
-            ? s.input + " " + s.error
-            : s.input;
-
-    const handler = () => {
+    const handler = (e: FocusEvent) => {
+      e.preventDefault()
       setFocus(!focus)
     };
-    const onBlurHandler = () => setFocus(false);
+    const onBlurHandler = () => {
+      setFocus(false)
+    };
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.code === "Enter") {
@@ -79,9 +74,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
                   <EyeOpenIcon disabled={disabled}/>}
               </button>}
           {type === 'search' &&
-              <button type='submit' disabled={disabled} className={s.search}>
+              <div className={s.search}>
                 {!focus ? <SearchIcon/> : <SearchIconFocus/>}
-              </button>}
+              </div>}
         </div>
         <div className={s.root}>
           <input
@@ -91,7 +86,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
             onBlur={onBlurHandler}
             ref={ref}
             value={value}
-            className={result}
+            className={classname}
             placeholder={placeholder}
             disabled={disabled}
             type={type === 'password' && !showPassword ? 'password' : type === 'search' ? 'search' : 'text'}
