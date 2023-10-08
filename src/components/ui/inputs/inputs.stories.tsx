@@ -18,33 +18,30 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultInput: Story = {
   args: {
-    variant: "default",
     type: 'text',
     label: "Input",
     placeholder: "Input",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
 
 export const ToggleInput: Story = {
   args: {
-    variant: "toggle",
     type: 'password',
     label: "Input",
     placeholder: "Input",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
 
 export const SearchInput: Story = {
   args: {
-    variant: "search",
     type: 'search',
     label: "Input search",
     placeholder: "Input search",
-    error: false,
+    errorMessage: '',
     disabled: false,
   },
 };
