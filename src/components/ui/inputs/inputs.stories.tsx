@@ -1,6 +1,5 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import {Inputs} from "./";
-import {SearchIcon} from "@/assets/components/searchIcon.tsx";
 
 const meta = {
   title: "Components/Inputs",
@@ -44,7 +43,6 @@ export const SearchInput: Story = {
     variant: "search",
     type: 'search',
     label: "Input search",
-
     placeholder: "Input search",
     errorMessage: '',
     disabled: false,

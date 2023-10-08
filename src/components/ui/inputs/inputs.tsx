@@ -1,17 +1,17 @@
-import React, {
+import {
   ChangeEvent,
   ComponentPropsWithoutRef,
   ElementType,
   forwardRef,
-  KeyboardEvent, ReactNode,
+  KeyboardEvent,
+  ReactNode,
   useState,
 } from "react";
-import searchIconFocus from "../../../assets/img/magnifying-glass-focus.svg";
-import searchIcon from "../../../assets/img/magnifying-glass.svg";
 import s from "./inputs.module.scss";
 import {EyeOpenIcon} from "@/assets/components/eyeOpenIcon.tsx";
 import {EyeNoneIcon} from "@/assets/components/eyeNoneIcon.tsx";
 import {SearchIcon} from "@/assets/components/searchIcon.tsx";
+import {SearchIconFocus} from "@/assets/components/searchIconFocus.tsx";
 
 
 export type InputProps<T extends ElementType = "input"> = {
@@ -26,36 +26,27 @@ export type InputProps<T extends ElementType = "input"> = {
   errorMessage?: string;
 } & ComponentPropsWithoutRef<T>;
 
-//JSX.Element any because with return type of JSXElement appears an error Property 'children' is missing in type 'Element' but required in type 'ReactPortal'
 export const Inputs = forwardRef<HTMLInputElement, InputProps>(
   (props, ref): JSX.Element => {
     const {
-      onChange,
-      onBlur,
-      type = "text",
-      error,
-      disabled,
-      label,children,
-      placeholder,
-      variant = "default",
-      onKeyDown,
-      errorMessage,
-      ...res
+      onChange, onBlur, type, error,
+      disabled, label, children, placeholder,
+      variant = "default", onKeyDown, errorMessage, ...res
     } = props;
 
     const [value, setValue] = useState<string>("");
-
     const [focus, setFocus] = useState<boolean>(false);
-
-    //const [open, setOpen] = useState(false)
-
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e);
+      onChange?.(e)
       setValue(e.currentTarget.value);
+      setFocus(true)
     };
+
+    // const class1 = {
+    //   searchInput: clsx(variant === "search" && !errorMessage),
+    // }
 
     const result =
       variant === "search" && !errorMessage
@@ -66,10 +57,10 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
             ? s.input + " " + s.error
             : s.input;
 
-    const handler = () => setFocus((focus) => !focus);
-    const onBlurHandler = () => {
-      setFocus(false);
+    const handler = () => {
+      setFocus(!focus)
     };
+    const onBlurHandler = () => setFocus(false);
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.code === "Enter") {
@@ -77,17 +68,6 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       }
     };
 
-    // const searchIconToRender = () => {
-    //   if (variant === "search" && focus) {
-    //     return (
-    //       <img src={searchIconFocus} alt="search-icon" className={s.search}/>
-    //     );
-    //   } else if (variant === "search") {
-    //     return <img src={searchIcon} alt="search-icon" className={s.search}/>;
-    //   } else {
-    //     return "";
-    //   }
-    // };
     return (
       <div className={s.inputBlock}>
         <span className={s.label}>{variant === "search" ? "" : label}</span>
@@ -95,23 +75,13 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
           {type === 'password' &&
               <button className={s.eyeButton} disabled={disabled}
                       onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <EyeNoneIcon/> : <EyeOpenIcon disabled={disabled}/>}
+                {showPassword ? <EyeNoneIcon/> :
+                  <EyeOpenIcon disabled={disabled}/>}
               </button>}
           {type === 'search' &&
-              <button disabled={disabled} className={s.search}>
-                <SearchIcon/>
+              <button type='submit' disabled={disabled} className={s.search}>
+                {!focus ? <SearchIcon/> : <SearchIconFocus/>}
               </button>}
-
-
-          {/* {variant === "search" && focus ? (
-            <img src={searchIconFocus} alt="search-icon" className={s.search} />
-          ) : variant === "search" ? (
-            <img src={searchIcon} alt="search-icon" className={s.search} />
-          ) : (
-            ""
-          )} */}
-          {/* !!!! Implemented a func instead of code above */}
-         {/*{searchIconToRender()}*/}
         </div>
         <div className={s.root}>
           <input
@@ -124,25 +94,13 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
             className={result}
             placeholder={placeholder}
             disabled={disabled}
-
-            type={type === 'password' && !showPassword ? 'password' : 'text'}
+            type={type === 'password' && !showPassword ? 'password' : type === 'search' ? 'search' : 'text'}
             onKeyDown={onKeyPressHandler}
             {...res}
           />
         </div>
         <span className={s.labelError}>{errorMessage}</span>
-        {/*<InputIcon icon={searchIconFocus}/>*/}
-
       </div>
-
     );
   }
 );
-
-// type InputIconType = {
-//   icon: ReactNode
-// }
-
-// const InputIcon = (props: InputIconType) => {
-//   return <button> {props.icon}</button>
-// }
