@@ -19,7 +19,13 @@ export type SliderProps = {
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Root>;
 
 export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderProps>((props, ref) => {
-  const {children, trigger, align, variant = 'DropDownMenuWithIcon', ...res} = props;
+  const {
+    children,
+    trigger,
+    align,
+    variant = 'DropDownMenuWithIcon',
+    ...res
+  } = props;
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -104,9 +110,8 @@ const ItemDropDownClassName = {
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
   const {img, title} = props
-  return <>
-    {title === 'Edit' &&
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
+  return <>    {title === 'Edit' &&
+      <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
     {title === 'Sign Out' &&
         <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
     {title === 'Delete' &&

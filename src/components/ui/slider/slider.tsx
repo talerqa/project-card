@@ -41,7 +41,6 @@ export const Slider = forwardRef<ElementRef<typeof SliderGroup.Root>, SliderProp
       </SliderGroup.Root>
       <Typography variant="body1" as="span" children={max}
                   className={s.valueText}/>
-    </div>
-  )
+    </div> )
 })
 
