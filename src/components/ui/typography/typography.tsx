@@ -17,7 +17,7 @@ export type TypographyProps<T extends ElementType> = {
     | "link2"
     | "error";
   as: T;
-  children?:  string
+  children?:  string | number
   className?: string;
 } & ComponentPropsWithoutRef<T>;
 

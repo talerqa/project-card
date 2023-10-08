@@ -41,7 +41,7 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderP
         {open && <DropdownMenu.Portal>
             <DropdownMenu.Content
                 align={align}
-                onClick={event => event.stopPropagation()}
+                onClick={(event: any) => event.stopPropagation()}
                 ref={ref}
                 className={className.content} {...res}>
                 <DropdownMenu.Label>

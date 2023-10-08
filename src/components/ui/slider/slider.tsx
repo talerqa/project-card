@@ -35,7 +35,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderGroup.Root>, SliderProp
         <SliderGroup.Track className={s.SliderTrack}>
           <SliderGroup.Range className={s.SliderRange}/>
         </SliderGroup.Track>
-        {value.map((_, index: number) => {
+        {value.map((index: number) => {
           return <SliderGroup.Thumb key={index} className={s.SliderThumb}/>
         })}
       </SliderGroup.Root>

@@ -17,7 +17,6 @@ export const Checkbox = ({
   onChange,
   disabled,
   required,
-  label,
   id,
 }: CheckboxProps) => (
   <form>
