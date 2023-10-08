@@ -1,11 +1,11 @@
-import { DevTool } from "@hookform/devtools";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
-import { ControlledCheckbox } from "@/components/ui/controlled/controlled-checkbox/controlled-checkbox";
-import { Inputs } from "@/components/ui/inputs";
+import {DevTool} from "@hookform/devtools";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {Button} from "@/components/ui/button";
+import {ControlledCheckbox} from "@/components/ui/controlled/";
+import {ControlledInput} from "@/components/ui/controlled";
+import {Typography} from "@/components/ui/typography";
 
 type FormValues = z.infer<typeof loginSchema>;
 
@@ -17,11 +17,9 @@ const loginSchema = z.object({
 
 export const LoginForm = () => {
   const {
-    register,
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(loginSchema) });
+  } = useForm<FormValues>({resolver: zodResolver(loginSchema)});
 
   const onSubmit = (data: FormValues) => {
     return data;
@@ -29,27 +27,14 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <DevTool control={control} />
-      <Inputs
-        {...register("email", { minLength: { value: 4, message: "short" } })}
-        label={"email"}
-        type={"text"}
-        errorMessage={errors.email?.message}
-      />
-      <Inputs
-        {...register("password", { minLength: { value: 4, message: "short" } })}
-        label={"password"}
-        type={"password"}
-        errorMessage={errors.password?.message}
-      />
-      <ControlledCheckbox
-        label={"remember me"}
-        control={control}
-        name={"rememberMe"}
-      />
-      <Button type="submit" icon={false}>
-        Submit
-      </Button>
+      <DevTool control={control}/>
+      <ControlledInput name={'email'} type={'text'} control={control}/>
+      <ControlledInput name={'password'} type={'password'} control={control}/>
+      <ControlledCheckbox name={"rememberMe"} label={"remember me"}
+                          control={control}/>
+      <Button type="submit"
+              children={<Typography variant={'subtitle1'} as={'span'}
+                                    children={"Submit"}/>}/>
     </form>
   );
 };
