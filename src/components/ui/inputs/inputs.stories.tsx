@@ -18,7 +18,6 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultInput: Story = {
   args: {
-    variant: "default",
     type: 'text',
     label: "Input",
     placeholder: "Input",
@@ -29,7 +28,6 @@ export const DefaultInput: Story = {
 
 export const ToggleInput: Story = {
   args: {
-    variant: "toggle",
     type: 'password',
     label: "Input",
     placeholder: "Input",
@@ -40,7 +38,6 @@ export const ToggleInput: Story = {
 
 export const SearchInput: Story = {
   args: {
-    variant: "search",
     type: 'search',
     label: "Input search",
     placeholder: "Input search",
