@@ -1,0 +1,50 @@
+.headerBlock {
+  margin: 0 auto;
+  max-width: 1280px;
+
+  .container {
+    margin: 0 auto;
+    max-width: 1030px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+      width: 156.482px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .button {
+      height: 36px;
+    }
+
+    .profileInfoBlock {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      .profileInfo {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .img {
+          margin: 0 auto;
+          height: auto;
+        }
+        .text {
+          margin: 0;
+          text-decoration: underline #FFFFFF dashed;
+
+        }
+      }
+
+    }
+  }
+}
