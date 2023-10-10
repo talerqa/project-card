@@ -9,7 +9,7 @@ import s from './dropdown.module.scss'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {Typography} from "@/components/ui/typography";
 
-export type SliderProps = {
+export type DropDownProps = {
   variant?: "DropDownMenu" | "DropDownMenuWithIcon"
   label?: "DropDown" | "DropDownWithIcon"
   align?: 'start' | 'center' | 'end'
@@ -18,7 +18,7 @@ export type SliderProps = {
   className?: string
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Root>;
 
-export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderProps>((props, ref) => {
+export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, DropDownProps>((props, ref) => {
   const {
     children,
     trigger,
@@ -64,9 +64,9 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, SliderP
 })
 
 type ProfileDropDown = {
-  img: string
-  email: string
-  name: string
+  img?: string
+  email?: string
+  name?: string
 }
 
 const classNameProfile = {

@@ -1,15 +1,12 @@
 .root {
   background-color: transparent;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
-  justify-content: center;
 
   .trigger {
     background-color: transparent;
     border: none;
     outline: none;
-    width: 36px;
-    height: 36px;
   }
 }
 
