@@ -17,16 +17,37 @@ export type SelectProps = {
   placeholder?: string;
   disabled: boolean;
   onChange: (value: any) => void;
+  buttonStyles?: string;
+  contentItemStyles?: string;
+  selectContainerStyles?: string;
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
 export const Select = forwardRef<
   ElementRef<typeof SelectGroup.Root>,
   SelectProps
 >((props, ref) => {
-  const { label, placeholder, array, value, disabled, onChange, ...res } =
-    props;
+  const {
+    label,
+    placeholder,
+    array,
+    value,
+    disabled,
+    onChange,
+    buttonStyles,
+    contentItemStyles,
+    selectContainerStyles,
+    ...res
+  } = props;
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const selectClasses = {
+    selectContainer: selectContainerStyles
+      ? selectContainerStyles
+      : s.selectBlock,
+    button: buttonStyles ? buttonStyles : s.button,
+    content: contentItemStyles ? contentItemStyles : s.item,
+  };
 
   const handlerOpenedMenu = () => {
     setOpen(!open);
@@ -37,7 +58,7 @@ export const Select = forwardRef<
   };
 
   return (
-    <div className={s.selectBlock}>
+    <div className={selectClasses.selectContainer}>
       <SelectGroup.Root
         value={value}
         onOpenChange={handlerOpenedMenu}
@@ -48,7 +69,11 @@ export const Select = forwardRef<
         <span className={disabled ? s.textLabelDisabled : s.textLabel}>
           {label}
         </span>
-        <SelectGroup.Trigger className={s.button} tabIndex={0} ref={ref}>
+        <SelectGroup.Trigger
+          className={selectClasses.button}
+          tabIndex={0}
+          ref={ref}
+        >
           <div className={s.selectValueBlock}>
             <div
               className={
@@ -76,7 +101,11 @@ export const Select = forwardRef<
               {array?.map(
                 (item: { title: string; value: string }, key: number) => {
                   return (
-                    <Item key={key} value={item.value}>
+                    <Item
+                      key={key}
+                      value={item.value}
+                      itemClassName={selectClasses.content}
+                    >
                       {item.title}
                     </Item>
                   );
@@ -93,12 +122,13 @@ export const Select = forwardRef<
 type Props = {
   children: string;
   value?: string;
+  itemClassName: string;
 };
 export const Item = (props: Props) => {
-  const { children } = props;
+  const { children, itemClassName } = props;
 
   return (
-    <SelectGroup.Item value={children} className={s.item}>
+    <SelectGroup.Item value={children} className={itemClassName}>
       <SelectGroup.ItemText className={s.itemText}>
         {children}
       </SelectGroup.ItemText>
