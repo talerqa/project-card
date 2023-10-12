@@ -17,27 +17,24 @@ const loginSchema = z.object({
   rememberMe: z.boolean().optional().default(false),
 });
 
-export const SignIn = () => {
+type SignInProps = {
+  onSubmit: (data: FormValues) => void
+  className: string
+}
+
+export const SignIn = (props: SignInProps): JSX.Element => {
   const {
     control,
     handleSubmit,
   } = useForm<FormValues>({resolver: zodResolver(loginSchema)});
 
-  const onSubmit = (data: FormValues) => {
-    return data;
-  };
+  const handleSubmitForm = handleSubmit(props.onSubmit)
 
-  const className = {
-    title: s.title,
-    cardBlock: s.cardBlock
-  }
-
-
-  return (<Card className={className.cardBlock}>
+  return (<Card className={`${s.cardBlock} ${props.className}`}>
       <DevTool control={control}/>
       <Typography variant={'large'} as={'p'} children={'Sign In'}
-                  className={className.title}/>
-      <form onSubmit={handleSubmit(onSubmit)}>
+                  className={s.title}/>
+      <form onSubmit={handleSubmitForm}>
         <ControlledInput name={'email'}
                          type={'text'}
                          control={control}
@@ -51,10 +48,36 @@ export const SignIn = () => {
                          className={s.inputPassword}/>
         <ControlledCheckbox name={"rememberMe"}
                             label={"remember me"}
-                            control={control}/>
+                            control={control}
+          //   className={className.checkBox}
+        />
+        <Typography variant={'body2'}
+                    as={'a'}
+          // as={Link}
+          // to={'/forgot-password'}
+                    children={'Forgot Password?'}
+                    className={s.forgotPassLink}
+        />
         <Button type="submit"
-                children={<Typography variant={'subtitle1'} as={'span'}
-                                      children={"Submit"}/>}/>
+                children={<Typography variant={'subtitle2'}
+                                      as={'span'}
+                                      children={"Sign In"}
+
+                />}
+                className={s.buttonSubmitForm}
+        />
+        <Typography variant={'body2'}
+                    as={'a'}
+          // as={Link}
+          // to={'/forgot-password'}
+                    children={'Don\'t have an account?'}
+                    className={s.linkDontHaveAccount}
+        />
+        <Button type={'button'}
+                variant={'link'}
+                children={'Sign Up'}
+                className={s.linkSignUp}
+        />
       </form>
     </Card>
   );

@@ -49,7 +49,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
     const classname = clsx(type === "search" && !errorMessage && s.searchInput,
       errorMessage && type === "search" && s.searchInput + " " + s.error,
       errorMessage && (type === "text" || type === "password") && s.input + " " + s.error,
-      s.input, className)
+      s.input)
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.code === "Enter") {
@@ -57,7 +57,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       }
     };
 
-    return (<div className={s.inputBlock}>
+    return (<div className={`${s.inputBlock} ${className}`}>
       <Typography variant={'body2'} as={'span'} className={s.label}
                   children={type === "search" ? "" : label}/>
       <div className={s.buttonBlock}>
@@ -82,9 +82,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
           onKeyDown={onKeyPressHandler}
           {...res}
         />
+        <Typography variant={'caption'} as={'span'} className={s.labelError}
+                    children={errorMessage}/>
       </div>
-      <Typography variant={'caption'} as={'span'} className={s.labelError}
-                  children={errorMessage}/>
     </div>);
   }
 );
