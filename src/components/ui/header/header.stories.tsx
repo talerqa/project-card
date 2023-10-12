@@ -31,6 +31,7 @@ export const HeaderNonAuth: Story = {
     isAuth: false,
     label: "HeaderNonAuth",
     avatarImg: '',
+    onClick: () => console.log(123)
   },
 };
 

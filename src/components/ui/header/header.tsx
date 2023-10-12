@@ -19,13 +19,9 @@ export type InputProps<T extends ElementType = "input"> = {
   avatarImg?: string
   name?: string,
   email?: string,
-  // type: "text" | "search" | "password";
+  onClick?: () => void
   label?: string;
-  // placeholder?: string;
-  // errorMessage?: string;
-  // children?: ReactNode
-  // disabled?: boolean;
-  // className?: string,
+  className?: string,
 } & ComponentPropsWithoutRef<T>;
 
 export const Header = forwardRef<HTMLInputElement, InputProps>(
@@ -35,18 +31,15 @@ export const Header = forwardRef<HTMLInputElement, InputProps>(
       name,
       email,
       isAuth,
-      type,
       label,
-      placeholder,
-      onChange,
       className,
-      disabled,
+      onClick,
       ...res
     } = props;
 
 
     return (<div className={s.headerBlock}>
-      <div className={s.container}>
+      <div className={s.container} ref={ref}>
         <Logo className={s.logo}/>
         {isAuth
           ? <DropDown trigger={
@@ -63,9 +56,8 @@ export const Header = forwardRef<HTMLInputElement, InputProps>(
                         <ItemDropDown img={logout} title={'Sign Out'}/></>}
                       align={'end'}
           />
-
-
-          : <Button type={'button'} children={'Sign in'}/>
+          :
+          <Button type={'button'} children={'Sign in'} onClick={onClick}/>
         }
 
       </div>
