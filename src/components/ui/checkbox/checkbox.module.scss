@@ -1,35 +1,37 @@
 button {
-    all:unset
+  all: unset
+}
+
+.checkBox {
+  display: flex;
+  align-items: center;
 }
 
 .checkBoxWrapper {
-    cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border-radius: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    width: 36px;
-    height: 36px;
-  
-    background-color: transparent;
-    border-radius: 100%;
-  
-    &.disabled {
-      cursor: initial;
-    }
-  
-    &:hover:not([disabled]) {
-      background-color: var(--color-dark-100);
-    }
+  &.disabled {
+    cursor: initial;
+  }
 
-    &:focus-within {
-        background-color: var(--color-light-900);
-    }
-  
-    &:active:not(.disabled) {
-      background-color: var(--color-bg-primary-active);
-    }
+  &:hover:not([disabled]) {
+    background-color: var(--color-dark-100);
+  }
+
+  &:focus-within {
+    background-color: var(--color-light-900);
+  }
+
+  &:active:not(.disabled) {
+    background-color: var(--color-bg-primary-active);
+  }
 }
 
 .CheckboxRoot {
@@ -37,7 +39,7 @@ button {
   height: 20px;
   border-radius: 4px;
   display: flex;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
   box-sizing: border-box;
   border: 2px solid var(--color-light-900);
@@ -49,9 +51,9 @@ button {
 
   &:focus {
     border: 2px solid var(--color-light-100);
-  } 
-  
-  &:focus,[aria-checked="false"]:not[disabled] {
+  }
+
+  &:focus, [aria-checked="false"]:not[disabled] {
     border: none;
   }
 
@@ -73,13 +75,13 @@ button {
 }
 
 .CheckboxIndicator svg {
-    width: 55px;
-    height: 55px;
+  width: 55px;
+  height: 55px;
 }
 
 .Label {
   color: white;
-  padding-left: 15px;
+  padding-left: 3px;
   font-size: 15px;
   line-height: 1;
 }
