@@ -1,0 +1,55 @@
+.cardBlock {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  padding: 33px 36px 29px;
+
+  .title {
+    margin: 0 auto;
+    padding-bottom: 27px;
+    text-align: center;
+  }
+
+  .inputEmail {
+    margin-bottom: 24px;
+  }
+
+  .inputPassword {
+    margin-bottom: 12px;
+  }
+
+  .checkBox {
+    margin-bottom: 6px;
+  }
+
+  .forgotPassLink {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    justify-content: flex-end;
+    margin: 0 12px 66px 0;
+    cursor: pointer;
+  }
+
+  .buttonSubmitForm {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .linkDontHaveAccount {
+    display: block;
+    color: var(--color-light-900);
+    text-align: center;
+    margin-bottom: 11px;
+  }
+
+  .linkSignUp {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent-500);
+    text-decoration: underline var(--color-accent-500) solid 1px;
+  }
+}
