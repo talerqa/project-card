@@ -12,6 +12,7 @@ export type ButtonProps<T extends ElementType = "button"> = {
   variant?: | "primary" | "secondary" | "primaryWithIcon" | "tertiary" | 'link' | 'secondaryWithIcon'
   children?: ReactNode
   icon?: ReactNode;
+  onClick?: any
   type: ButtonHTMLAttributes<HTMLAttributes<T>>["type"];
 } & ComponentPropsWithoutRef<T>;
 
@@ -27,6 +28,7 @@ export const Button = <T extends ElementType = "button">(
     type = 'button',
     icon,
     children,
+    onClick,
     disabled,
     ...res
   } = props;
@@ -36,6 +38,7 @@ export const Button = <T extends ElementType = "button">(
         className={`${s[variant]}`}
         type={type}
         disabled={disabled}
+        onClick={onClick}
         children={<>{icon} {children}</>}
         {...res}
       />
