@@ -55,8 +55,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       errorMessage &&
         (type === "text" || type === "password") &&
         s.input + " " + s.error,
-      s.input,
-      className
+      s.input
     );
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -66,7 +65,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={s.inputBlock}>
+      <div className={`${s.inputBlock} ${className}`}>
         <Typography
           variant={"body2"}
           as={"span"}
@@ -102,8 +101,8 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
               type === "password" && !showPassword
                 ? "password"
                 : type === "search"
-                ? "search"
-                : "text"
+                  ? "search"
+                  : "text"
             }
             onKeyDown={onKeyPressHandler}
             {...res}
