@@ -23,6 +23,8 @@ export const HeaderAuth: Story = {
     avatarImg: './src/assets/img/el.png',
     name: 'Ivan',
     email: "j&johnson@gmail.com",
+    onShowProfileHandler: () => console.log('show profile'),
+    onSignOutHandler: () => console.log('sign out'),
   },
 };
 
@@ -31,9 +33,6 @@ export const HeaderNonAuth: Story = {
     isAuth: false,
     label: "HeaderNonAuth",
     avatarImg: '',
-    onClick: () => console.log(123)
-  },
-};
-
-
-
+    onLogOutHandler: () => console.log('log out'),
+  }
+}
