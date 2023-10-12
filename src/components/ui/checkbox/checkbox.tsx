@@ -1,7 +1,8 @@
 import * as CheckboxRadix from "@radix-ui/react-checkbox";
-import { CheckIcon } from "@radix-ui/react-icons";
+import {CheckIcon} from "@radix-ui/react-icons";
 
 import s from "./checkbox.module.scss";
+import {Typography} from "@/components/ui/typography";
 
 export type CheckboxProps = {
   checked?: boolean;
@@ -9,18 +10,19 @@ export type CheckboxProps = {
   disabled?: boolean;
   required?: boolean;
   label?: string;
-  id?: string;
+  id: string;
 };
 
 export const Checkbox = ({
-  checked,
-  onChange,
-  disabled,
-  required,
-  id,
-}: CheckboxProps) => (
+                           checked,
+                           id,
+                           onChange,
+                           label,
+                           disabled,
+                           required,
+                         }: CheckboxProps): JSX.Element => (
   <form>
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div className={s.checkBox}>
       <div className={s.checkBoxWrapper}>
         <CheckboxRadix.Root
           disabled={disabled}
@@ -34,13 +36,15 @@ export const Checkbox = ({
             aria-disabled={disabled}
             className={s.CheckboxIndicator}
           >
-            <CheckIcon />
+            <CheckIcon/>
           </CheckboxRadix.Indicator>
         </CheckboxRadix.Root>
       </div>
-      <label className={s.Label} htmlFor="c1">
-        Accept terms and conditions.
-      </label>
+      <Typography variant={'body2'}
+                  as={'label'}
+                  htmlFor={id}
+                  children={label}
+                  className={s.Label}/>
     </div>
   </form>
 );

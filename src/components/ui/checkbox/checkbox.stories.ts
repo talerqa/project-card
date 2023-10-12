@@ -15,11 +15,15 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     disabled: false,
+    label: 'Remember Me',
+    id: 'checkBox-story'
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
+    label: 'Remember Me',
+    id: 'checkBox-story'
   },
 };
