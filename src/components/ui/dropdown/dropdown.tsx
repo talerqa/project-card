@@ -37,7 +37,7 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, DropDow
     item: s.item,
     arrow: s.arrow,
   }
-
+  console.log(open)
   return (
     <div className={className.root}>
       <DropdownMenu.Root open={open} onOpenChange={setOpen}>
@@ -47,9 +47,10 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, DropDow
         {open && <DropdownMenu.Portal>
             <DropdownMenu.Content
                 align={align}
-                onClick={(event: any) => event.stopPropagation()}
+                onClick={event => event.stopPropagation()}
                 ref={ref}
-                className={className.content} {...res}>
+                className={className.content}
+                {...res}>
                 <DropdownMenu.Label>
                     <DropdownMenu.Item className={className.item}>
                       {children}
@@ -59,6 +60,7 @@ export const DropDown = forwardRef<ElementRef<typeof DropdownMenu.Root>, DropDow
                 </DropdownMenu.Arrow>
             </DropdownMenu.Content>
         </DropdownMenu.Portal>}
+
       </DropdownMenu.Root>
     </div>)
 })
@@ -67,6 +69,7 @@ type ProfileDropDown = {
   img?: string
   email?: string
   name?: string
+
 }
 
 const classNameProfile = {
@@ -98,6 +101,7 @@ export const ProfileItemDropDown: React.FC<ProfileDropDown> = (props) => {
 type ItemDropDownProps = {
   img: string
   title: string
+  onClick?: () => void
 }
 
 const ItemDropDownClassName = {
@@ -109,15 +113,16 @@ const ItemDropDownClassName = {
 }
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
-  const {img, title} = props
+  const {img, title, onClick} = props
   return <>    {title === 'Edit' &&
       <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
     {title === 'Sign Out' &&
         <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
     {title === 'Delete' &&
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>}
+        <DropdownMenu.Separator  className={ItemDropDownClassName.separator}/>}
     <div className={ItemDropDownClassName.itemDropDown}>
-      <div className={ItemDropDownClassName.itemDropDownContent}>
+      <div className={ItemDropDownClassName.itemDropDownContent}
+           onClick={onClick}>
         <img src={img} alt="svg-icon"
              className={ItemDropDownClassName.imageSvg}/>
         <Typography variant={'caption'} as={'p'} children={title}

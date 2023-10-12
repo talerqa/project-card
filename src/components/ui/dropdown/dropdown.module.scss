@@ -13,8 +13,9 @@
 .content[data-align = 'end'],
 .content[data-align = 'start'],
 .content[data-align = 'center'] {
+  width: 100%;
   top: 8px;
-  left: 6px;
+  left: calc(50% - 104px);
   position: relative;
 
   .arrow {
@@ -69,8 +70,9 @@
     align-items: flex-start;
     flex-direction: column;
     padding-left: 8px;
-
+    cursor: pointer;
     .nameText {
+      cursor: pointer;
       margin: 0;
       padding: 0;
       font-size: 14px;
@@ -78,7 +80,7 @@
       line-height: 24px;
       letter-spacing: 0;
       text-align: left;
-      cursor: pointer;
+
     }
 
     .emailText {
