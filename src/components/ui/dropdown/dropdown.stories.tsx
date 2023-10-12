@@ -33,9 +33,9 @@ export const DropDownMenu: Story = {
     label: "DropDown",
     children: (
       <>
-        <ItemDropDown img={play} title={'Learn'}/>
-        <ItemDropDown img={edit} title={'Edit'}/>
-        <ItemDropDown img={trash} title={'Delete'}/>
+        <ItemDropDown img={play} title={'Learn'} onClick={()=>console.log(213432)}/>
+        <ItemDropDown img={edit} title={'Edit'} onClick={()=>console.log(213432)}/>
+        <ItemDropDown img={trash} title={'Delete'} onClick={()=>console.log(213432)}/>
       </>
     ),
     align: 'end',
@@ -49,8 +49,8 @@ export const DropDownMenuWithIcon: Story = {
       label: "DropDownWithIcon",
       children: (<>
           <ProfileItemDropDown img={avatar} name={'Ivan'} email={"j&johnson@gmail.com"}/>
-          <ItemDropDown img={person} title={'My Profile'}/>
-          <ItemDropDown img={logout} title={'Sign Out'}/>
+          <ItemDropDown img={person} title={'My Profile'} onClick={()=>console.log(123)}/>
+          <ItemDropDown img={logout} title={'Sign Out'}  onClick={()=>console.log(213432)}/>
         </>
       ),
       align: 'end',

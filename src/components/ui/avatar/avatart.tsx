@@ -2,7 +2,7 @@ import s from "./avatar.module.scss";
 import {ComponentProps} from "react";
 
 export type AvatarProps = {
-  variant: string
+  variant?: string
   className?: string
   src: ComponentProps<'img'>['src']
   size?: ComponentProps<'img'>['width']
