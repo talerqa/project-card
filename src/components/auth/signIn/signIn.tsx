@@ -19,7 +19,7 @@ const loginSchema = z.object({
 
 type SignInProps = {
   onSubmit: (data: FormValues) => void
-  className: string
+  className?: string
 }
 
 export const SignIn = (props: SignInProps): JSX.Element => {
@@ -47,9 +47,9 @@ export const SignIn = (props: SignInProps): JSX.Element => {
                          label={'Password'}
                          className={s.inputPassword}/>
         <ControlledCheckbox name={"rememberMe"}
-                            label={"remember me"}
+                            label={"Remember me"}
                             control={control}
-          //   className={className.checkBox}
+                            className={s.checkBox}
         />
         <Typography variant={'body2'}
                     as={'a'}

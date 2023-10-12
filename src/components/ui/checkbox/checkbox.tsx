@@ -11,9 +11,10 @@ export type CheckboxProps = {
   required?: boolean;
   label?: string;
   id: string;
+  className?: string,
 };
 
-export const Checkbox = ({
+export const Checkbox = ({  className,
                            checked,
                            id,
                            onChange,
@@ -21,8 +22,7 @@ export const Checkbox = ({
                            disabled,
                            required,
                          }: CheckboxProps): JSX.Element => (
-  <form>
-    <div className={s.checkBox}>
+    <div className={`${s.checkBox} ${className}`}>
       <div className={s.checkBoxWrapper}>
         <CheckboxRadix.Root
           disabled={disabled}
@@ -46,5 +46,4 @@ export const Checkbox = ({
                   children={label}
                   className={s.Label}/>
     </div>
-  </form>
 );
