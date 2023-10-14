@@ -1,8 +1,8 @@
 .selectBlock {
   position: relative;
   flex-direction: column;
-  width: 210px;
   outline: none;
+  width: 210px;
 
   .textLabel {
     font-size: 14px;
@@ -19,7 +19,8 @@
   }
 
   .button {
-    width: 210px;
+    box-sizing: border-box;
+    width: 100%;
     height: 36px;
     outline: none;
     border: 1px solid var(--color-dark-100);
@@ -27,8 +28,7 @@
     background: transparent;
 
     &:hover {
-      background: linear-gradient(0deg, #808080, #808080),
-      linear-gradient(0deg, #333333, #333333);
+      background: var(--color-dark-100);
       border: 1px solid var(--color-dark-100);
     }
 
@@ -45,19 +45,16 @@
 
     .selectValueBlock {
       display: flex;
-      width: 186px;
       align-items: center;
       padding-left: 6px;
       justify-content: space-between;
       text-align: left;
       cursor: pointer;
+      box-sizing: border-box;
 
       .valuePlaceholder {
-        width: 90%;
-        display: block;
-        text-overflow: ellipsis;
+        display: flex;
         white-space: nowrap;
-        overflow: hidden;
       }
 
       .disabled {
@@ -65,10 +62,13 @@
       }
 
       .icon {
-        display: inline-block;
+        display: block;
+        box-sizing: border-box;
         width: 16px;
         height: 16px;
         cursor: pointer;
+        padding-left: 2px;
+        padding-right: 2px;
       }
 
       .iconDisabled {
@@ -80,25 +80,27 @@
   }
 
   .content {
+    width: 210px;
     .viewport {
       .items {
         .item {
+          margin: 0;
+          box-sizing: border-box;
           font-size: 16px;
           font-weight: 400;
           line-height: 24px;
           letter-spacing: 0;
           text-align: left;
           color: var(--color-light-100);
-          padding: 7px 2px 6px 12px;
-          margin: 0;
+          padding-left: 6px;
           outline: none;
           border-left: 1px solid var(--color-dark-100);
           border-right: 1px solid var(--color-dark-100);
           cursor: pointer;
           word-break: break-word;
-          width: 210px;
           background: transparent;
-
+          height: 24px;
+          width: 100%;
           &:hover {
             background: var(--color-accent-900);
             border-left: 1px solid var(--color-dark-100);
