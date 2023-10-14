@@ -4,6 +4,12 @@
   flex-direction: column;
   padding: 33px 36px 29px;
 
+  .form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
   .title {
     margin: 0 auto;
     padding-bottom: 27px;
@@ -23,8 +29,8 @@
   }
 
   .buttonSubmitForm {
+    margin: 0 0 20px;
     width: 100%;
-    margin-bottom: 20px;
   }
 
   .linkDontHaveAccount {

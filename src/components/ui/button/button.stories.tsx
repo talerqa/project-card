@@ -76,7 +76,6 @@ export const ButtonLink: Story = {
       <Typography variant={'subtitle1'} as={'a'} children={"Link-button"}/>),
     as: "a",
     disabled: false,
-
   },
 };
 

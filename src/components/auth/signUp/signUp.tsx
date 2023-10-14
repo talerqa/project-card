@@ -41,7 +41,7 @@ export const SignUp = (props: SignInProps): JSX.Element => {
       <DevTool control={control}/>
       <Typography variant={'large'} as={'p'} children={'Sign Un'}
                   className={s.title}/>
-      <form onSubmit={handleSubmitForm}>
+      <form onSubmit={handleSubmitForm} className={s.form}>
         <ControlledInput name={'email'}
                          type={'text'}
                          control={control}
