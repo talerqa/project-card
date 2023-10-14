@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
 import { Select } from "../select";
-
 import s from "./pagination.module.scss";
 import { usePagination } from "./usePagination";
 
@@ -17,7 +15,7 @@ export const Pagination = ({
   const [pagesCount, setPagesCount] = useState<number>(0);
   const [activePage, setActivePage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-
+  console.log(activePage)
   const paginationRange = usePagination({
     pagesCount,
     pageSize,
@@ -73,9 +71,7 @@ export const Pagination = ({
           disabled={false}
           array={pageSizeValue}
           onChange={onSelectValueChange}
-          buttonStyles={s.paginationSelect}
-          contentItemStyles={s.paginationSelectContentItem}
-          selectContainerStyles={s.selectContainerStyles}
+          className={s.paginationSelect}
         />
       </div>
       <p className={s.selectText}>на странице</p>
