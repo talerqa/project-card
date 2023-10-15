@@ -1,5 +1,5 @@
 export const Logo = (props: { className: string }) => {
-  return <a href={'https://it-incubator.io/'} target={'_blank'}>
+  return <a href='#'>
     <svg className={props.className} width="512" height="118"
          viewBox="0 0 512 118" fill="none"
          xmlns="http://www.w3.org/2000/svg">
