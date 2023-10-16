@@ -19,9 +19,9 @@ export type HeaderProps<T extends ElementType = "input"> = {
   name?: string,
   email?: string,
   onClick?: () => void
-  onSignOutHandler: () => void
-  onShowProfileHandler: () => void
-  onLogOutHandler: () => void
+  onSignOutHandler?: () => void
+  onShowProfileHandler?: () => void
+  onLogOutHandler?: () => void
   label?: string;
   className?: string,
 } & ComponentPropsWithoutRef<T>;
