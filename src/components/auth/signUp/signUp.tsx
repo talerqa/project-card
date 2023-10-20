@@ -7,6 +7,7 @@ import {ControlledInput} from "@/components/ui/controlled";
 import {Typography} from "@/components/ui/typography";
 import {Card} from "@/components/ui/card";
 import s from "./signUp.module.scss";
+import {Link} from "react-router-dom";
 
 type FormValues = z.infer<typeof loginSchema>
 
@@ -39,7 +40,7 @@ export const SignUp = (props: SignInProps): JSX.Element => {
 
   return (<Card className={`${s.cardBlock} ${props.className}`}>
       <DevTool control={control}/>
-      <Typography variant={'large'} as={'p'} children={'Sign Un'}
+      <Typography variant={'large'} as={'p'} children={'Sign Up'}
                   className={s.title}/>
       <form onSubmit={handleSubmitForm} className={s.form}>
         <ControlledInput name={'email'}
@@ -66,18 +67,12 @@ export const SignUp = (props: SignInProps): JSX.Element => {
                 className={s.buttonSubmitForm}
         />
         <Typography variant={'body2'}
-                    as={'a'}
-          // as={Link}
-          // to={'/forgot-password'}
+                    as={'p'}
                     children={'Already have an account?'}
                     className={s.linkDontHaveAccount}
         />
-
-        <Button type={'button'}
-                variant={'link'}
-                children={'Sign Up'}
-                className={s.linkSignUp}
-        />
+        <Typography to={'/login'} children={'Sign In'} variant={'body2'}
+                    as={Link} className={s.linkSignUp}/>
       </form>
     </Card>
   );
