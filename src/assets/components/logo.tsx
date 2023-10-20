@@ -1,5 +1,7 @@
+import {Link} from "react-router-dom";
+
 export const Logo = (props: { className: string }) => {
-  return <a href='#'>
+  return <Link to={'/'} style={{height: '36px'}}>
     <svg className={props.className} width="512" height="118"
          viewBox="0 0 512 118" fill="none"
          xmlns="http://www.w3.org/2000/svg">
@@ -42,6 +44,6 @@ export const Logo = (props: { className: string }) => {
             d="M138.986 112.882C168.802 112.882 192.973 88.7115 192.973 58.8952C192.973 29.0788 168.802 4.90793 138.986 4.90793C109.169 4.90793 84.9983 29.0788 84.9983 58.8952C84.9983 88.7115 109.169 112.882 138.986 112.882ZM138.986 117.79C171.512 117.79 197.881 91.4221 197.881 58.8952C197.881 26.3683 171.512 0 138.986 0C106.459 0 80.0903 26.3683 80.0903 58.8952C80.0903 91.4221 106.459 117.79 138.986 117.79Z"
             fill="white"/>
     </svg>
-  </a>
+  </Link>
 
 };

@@ -19,7 +19,7 @@ export type HeaderProps<T extends ElementType = "input"> = {
   name?: string,
   email?: string,
   onClick?: () => void
-  onSignOutHandler?: () => void
+  onSignInHandler?: () => void
   onShowProfileHandler?: () => void
   onLogOutHandler?: () => void
   label?: string;
@@ -36,7 +36,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       label,
       className,
       onClick,
-      onSignOutHandler,
+      onSignInHandler,
       onShowProfileHandler,
       onLogOutHandler,
       ...res
@@ -62,11 +62,11 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                         <ItemDropDown img={person} title={'My Profile'}
                                       onClick={onShowProfileHandler}/>
                         <ItemDropDown img={logout} title={'Sign Out'}
-                                      onClick={onSignOutHandler}/></>}
+                                      onClick={onLogOutHandler}/></>}
                       align={'end'}/>
           : <Button type={'button'}
                     children={'Sign in'}
-                    onClick={onLogOutHandler}/>}
+                    onClick={onSignInHandler}/>}
       </div>
     </div>);
   }

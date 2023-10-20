@@ -23,12 +23,13 @@
   }
 
   .forgotPassLink {
-    display: flex;
-    width: 100%;
-    padding: 0;
-    justify-content: flex-end;
     margin: 0 12px 66px 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
     cursor: pointer;
+    text-decoration: none;
   }
 
   .buttonSubmitForm {
@@ -47,6 +48,7 @@
     display: block;
     margin: 0 auto;
     padding: 0;
+    text-align: center;
     font-size: var(--font-size-m);
     font-weight: var(--font-weight-bold);
     color: var(--color-accent-500);
