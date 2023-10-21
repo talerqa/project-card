@@ -5,35 +5,34 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-import {useGetDecksQuery} from "./services/base-api";
 
-import {Layout} from "@/pages/layout/layout.tsx";
-import {SignInPage} from "@/pages/auth/signInPage";
-import {SignUpPage} from "@/pages/auth/signUpPage";
+import { SignInPage } from "@/pages/auth/signInPage";
+import { SignUpPage } from "@/pages/auth/signUpPage";
+import { Layout } from "@/pages/layout/layout.tsx";
 
 const publicRoutes: RouteObject[] = [
   {
-    path: '/',
-    element: <Layout/>,
+    path: "/",
+    element: <Layout />,
     children: [
       {
         path: "/login",
-        element: <SignInPage/>,
+        element: <SignInPage />,
       },
       {
-        path: '/sign-up',
-        element: <SignUpPage/>,
+        path: "/sign-up",
+        element: <SignUpPage />,
       },
       {
-        path: '/forgot-password',
-        element: <div>Forgot Password</div>
+        path: "/forgot-password",
+        element: <div>Forgot Password</div>,
       },
       // {
       //   path: '/check-email',
       //   element: <div>Forgot Password</div>
       // }
-    ]
-  }
+    ],
+  },
 ];
 
 const privateRoutes: RouteObject[] = [
@@ -52,27 +51,23 @@ const errorRoutes: RouteObject[] = [
 
 const router = createBrowserRouter([
   {
-    element: <PrivateRoutes/>,
+    element: <PrivateRoutes />,
     children: privateRoutes,
   },
   ...publicRoutes,
   ...errorRoutes,
   {
     path: "*",
-    element: <Navigate to="/error404"/>,
+    element: <Navigate to="/error404" />,
   },
 ]);
 
 export const Router = () => {
-  const result = useGetDecksQuery();
-
-  console.log(result);
-
-  return <RouterProvider router={router}/>;
+  return <RouterProvider router={router} />;
 };
 
 function PrivateRoutes() {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
-  return isAuthenticated ? <Outlet/> : <Navigate to="/login"/>;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
