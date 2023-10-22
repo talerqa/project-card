@@ -9,6 +9,7 @@ import {
 import { SignInPage } from "@/pages/auth/signInPage";
 import { SignUpPage } from "@/pages/auth/signUpPage";
 import { Layout } from "@/pages/layout/layout.tsx";
+import {Deck} from "@/pages/deck.tsx";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -38,7 +39,7 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <div>Hello</div>,
+    element: <Deck/>,
   },
 ];
 
