@@ -14,7 +14,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    totalItemsCount: 500,
     pageSizeValue: [
       { title: "10", value: "10" },
       { title: "20", value: "20" },
