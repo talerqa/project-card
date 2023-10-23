@@ -67,7 +67,7 @@ export type Sort = {
   direction: Direction;
 } | null;
 
-export const Header: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
+export const HeaderTable: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
   columns: Column[];
   sort?: Sort;
   onSort?: (sort: Sort) => void;
@@ -115,4 +115,4 @@ export const Header: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
   );
 };
 
-export const Table = {Root, Head, Body, Row, HeadCell, Cell, Header};
+export const Table = {Root, Head, Body, Row, HeadCell, Cell, Header: HeaderTable};

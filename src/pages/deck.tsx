@@ -1,4 +1,4 @@
-import {Header, Sort, Table} from "@/components/ui/table";
+import {HeaderTable, Sort, Table} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import {
   DeckType,
@@ -45,7 +45,7 @@ export const Deck = () => {
               }}
       />
       <Root>
-        <Header columns={[
+        <HeaderTable columns={[
           {
             key: "name",
             title: "Name",
