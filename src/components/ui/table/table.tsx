@@ -1,10 +1,11 @@
-import { ComponentProps, ComponentPropsWithoutRef } from "react";
+import {ComponentProps, ComponentPropsWithoutRef} from "react";
 
 import s from "./table.module.scss";
+import {Direction, Field} from "@/services/decks";
 
 type RootProps = ComponentProps<"table">;
 
-const Root = ({ className, children, ...rest }: RootProps) => {
+const Root = ({className, children, ...rest}: RootProps) => {
   return (
     <table className={s.table} {...rest}>
       {children}
@@ -14,19 +15,19 @@ const Root = ({ className, children, ...rest }: RootProps) => {
 
 type HeadProps = ComponentProps<"thead">;
 
-const Head = ({ children, ...rest }: HeadProps) => {
+const Head = ({children, ...rest}: HeadProps) => {
   return <thead {...rest}>{children}</thead>;
 };
 
 type BodyProps = ComponentProps<"tbody">;
 
-const Body = ({ children, ...rest }: BodyProps) => {
+const Body = ({children, ...rest}: BodyProps) => {
   return <tbody {...rest}>{children}</tbody>;
 };
 
 type RowProps = ComponentProps<"tr">;
 
-const Row = ({ children, ...rest }: RowProps) => {
+const Row = ({children, ...rest}: RowProps) => {
   return (
     <tr className={s.tableRow} {...rest}>
       {children}
@@ -36,7 +37,7 @@ const Row = ({ children, ...rest }: RowProps) => {
 
 type HeadCellProps = ComponentProps<"th">;
 
-const HeadCell = ({ className, children, ...rest }: HeadCellProps) => {
+const HeadCell = ({className, children, ...rest}: HeadCellProps) => {
   return (
     <th className={""} {...rest}>
       {children}
@@ -46,7 +47,7 @@ const HeadCell = ({ className, children, ...rest }: HeadCellProps) => {
 
 type CellProps = ComponentProps<"td">;
 
-const Cell = ({ className, children, ...rest }: CellProps) => {
+const Cell = ({className, children, ...rest}: CellProps) => {
   return (
     <td className={""} {...rest}>
       {children}
@@ -57,28 +58,24 @@ const Cell = ({ className, children, ...rest }: CellProps) => {
 // Header component with sorting functionality
 
 export type Column = {
-  key: string;
-  title: string;
+  key: any;
+  title: any;
 };
 
 export type Sort = {
-  key: string;
-  direction: "asc" | "desc";
+  key: Field;
+  direction: Direction;
 } | null;
 
-export const Header: React.FC<
-  Omit<
-    ComponentPropsWithoutRef<"thead"> & {
-      columns: Column[];
-      sort?: Sort;
-      onSort?: (sort: Sort) => void;
-    },
-    "children"
-  >
-> = ({ columns, sort, onSort, ...restProps }) => {
-  const handleSort = (key: string) => {
+export const Header: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
+  columns: Column[];
+  sort?: Sort;
+  onSort?: (sort: Sort) => void;
+}, "children">> = ({columns, sort, onSort, ...restProps}) => {
+  const handleSort = (key: Field) => {
+
     if (!onSort) return;
-    if (sort?.key !== key) return onSort({ key, direction: "asc" });
+    if (sort?.key !== key) return onSort({key, direction: "asc"});
     if (!sort) return;
     if (sort.direction === "desc") return onSort(null);
 
@@ -88,7 +85,8 @@ export const Header: React.FC<
     });
   };
 
-  const displaySortDirection = (key: any) => {
+  const displaySortDirection = (key: Field) => {
+
     if (sort && sort.key === key) {
       switch (sort.direction) {
         case "asc":
@@ -101,10 +99,12 @@ export const Header: React.FC<
     }
   };
 
+
+
   return (
     <Head {...restProps}>
       <Row>
-        {columns.map(({ title, key }) => (
+        {columns.map(({title, key}) => (
           <Table.HeadCell key={key} onClick={() => handleSort(key)}>
             {title}
             {displaySortDirection(key)}
@@ -115,4 +115,4 @@ export const Header: React.FC<
   );
 };
 
-export const Table = { Root, Head, Body, Row, HeadCell, Cell, Header };
+export const Table = {Root, Head, Body, Row, HeadCell, Cell, Header};
