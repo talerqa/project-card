@@ -7,7 +7,7 @@ type RootProps = ComponentProps<"table">;
 
 const Root = ({className, children, ...rest}: RootProps) => {
   return (
-    <table className={s.table} {...rest}>
+    <table className={s.table + ' ' + className} {...rest}>
       {children}
     </table>
   );
@@ -15,21 +15,20 @@ const Root = ({className, children, ...rest}: RootProps) => {
 
 type HeadProps = ComponentProps<"thead">;
 
-const Head = ({children, ...rest}: HeadProps) => {
-  return <thead {...rest}>{children}</thead>;
+const Head = ({className, children, ...rest}: HeadProps) => {
+  return <thead  className={s.headerTable} {...rest}>{children}</thead>;
 };
 
 type BodyProps = ComponentProps<"tbody">;
 
-const Body = ({children, ...rest}: BodyProps) => {
-  return <tbody {...rest}>{children}</tbody>;
+const Body = ({className, children, ...rest}: BodyProps) => {
+  return <tbody className={className} {...rest}>{children}</tbody>;
 };
 
 type RowProps = ComponentProps<"tr">;
-
-const Row = ({children, ...rest}: RowProps) => {
+const Row = ({children, className, ...rest}: RowProps) => {
   return (
-    <tr className={s.tableRow} {...rest}>
+    <tr className={className} {...rest}>
       {children}
     </tr>
   );
@@ -39,7 +38,7 @@ type HeadCellProps = ComponentProps<"th">;
 
 const HeadCell = ({className, children, ...rest}: HeadCellProps) => {
   return (
-    <th className={""} {...rest}>
+    <th className={className} {...rest}>
       {children}
     </th>
   );
@@ -49,7 +48,7 @@ type CellProps = ComponentProps<"td">;
 
 const Cell = ({className, children, ...rest}: CellProps) => {
   return (
-    <td className={""} {...rest}>
+    <td className={className} {...rest}>
       {children}
     </td>
   );
@@ -100,9 +99,8 @@ export const HeaderTable: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
   };
 
 
-
   return (
-    <Head {...restProps}>
+    <Head  {...restProps}>
       <Row>
         {columns.map(({title, key}) => (
           <Table.HeadCell key={key} onClick={() => handleSort(key)}>
@@ -115,4 +113,12 @@ export const HeaderTable: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
   );
 };
 
-export const Table = {Root, Head, Body, Row, HeadCell, Cell, Header: HeaderTable};
+export const Table = {
+  Root,
+  Head,
+  Body,
+  Row,
+  HeadCell,
+  Cell,
+  Header: HeaderTable
+};

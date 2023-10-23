@@ -1,6 +1,12 @@
+.headerTable {
+  background: var(--color-dark-500);
+
+}
 
 .table {
-    padding: 20px;
-    border-collapse: separate; 
-    border-spacing: 20px;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  border-collapse: separate;
+  border-spacing: 20px;
 }

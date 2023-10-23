@@ -1,0 +1,24 @@
+.deck {
+
+  margin: 0 auto;
+  max-width: 1030px;
+
+  .packListBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .packListFind {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .iconTrash {
+      transform: translateY(1px);
+      margin: 0 10px auto 0;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

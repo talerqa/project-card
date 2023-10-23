@@ -3,6 +3,7 @@ import {Button} from "./";
 import iconExit from "../../../assets/img/exit.svg";
 import iconExitDisabled from "../../../assets/img/exitDisabled.svg";
 import {Typography} from "@/components/ui/typography";
+import {ReactNode} from "react";
 
 const meta = {
   title: "Components/Button",
@@ -25,12 +26,24 @@ type IconButtonType = {
   image?: any
 }
 
-const IconButton = (props: IconButtonType) => {
+export const IconButton = (props: IconButtonType) => {
   const {disabled, image} = props
   return <img src={!disabled ? image[0] : image[1]}
               alt="icon"
               style={{width: '16px', height: '16px', margin: '0 12px 0 0'}}/>
 }
+
+type IconSvgButtonType = {
+  className?: string
+  children?: ReactNode
+}
+export const IconSvgButton = (props: IconSvgButtonType) => {
+  const {className, children} = props
+  return <div className={className}>
+    {children}
+  </div>
+}
+
 
 export const DefaultButton: Story = {
   args: {
