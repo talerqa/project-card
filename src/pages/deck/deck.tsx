@@ -16,6 +16,7 @@ import {TabSwitcher} from "@/components/ui/tab-switcher";
 import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
 import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
+import {Page} from "@/components/ui/page";
 
 export const Deck = () => {
 
@@ -41,7 +42,7 @@ export const Deck = () => {
     orderBy: sortedString
   });
 
-  return (<div className={s.deck}>
+  return (<Page className={s.deck}>
       <div className={s.packListBlock}>
         <Typography variant={'large'} as={'p'} children={'Packs list'}/>
         <Button type={"button"} children={'Add New Pack'}
@@ -55,11 +56,20 @@ export const Deck = () => {
                   setName(event.target.value)
                 }}
         />
-        <TabSwitcher tabs={['My Cards', 'All Cards']} activeTab={1}/>
-        <SliderWithUseState label='Number of cards'
-                            value={[0, 20]}
-                            step={1}
-                            minStepsBetweenThumbs={1}/>
+        <div>
+          <Typography variant={'body2'} as={'span'}
+                      children={'Show packs cards'}/>
+          <TabSwitcher tabs={['My Cards', 'All Cards']} activeTab={1}
+                       title={'Show packs cards'}/>
+        </div>
+        <div>
+          <Typography variant={'body2'} as={'span'}
+                      children={'Number of cards'}/>
+          <SliderWithUseState label='Number of cards'
+                              value={[0, 20]}
+                              step={1}
+                              minStepsBetweenThumbs={1}/>
+        </div>
         <Button type={'button'}
                 variant='secondaryWithIcon'
                 children={<Typography variant={'subtitle2'}
@@ -85,18 +95,22 @@ export const Deck = () => {
           {
             key: "created",
             title: "Created by",
-          },
+          }
         ]} sort={orderBy} onSort={setSort}
-
         />
-        <Body  className={s.headerTable}>
+        <Body className={s.headerTable}>
           {data?.items.map((item: DeckType) => {
             return (<Row key={item.id}>
-              <Cell>{item.name}</Cell>
-              <Cell>{item.cardsCount}</Cell>
-              <Cell>{new Date(item.updated).toLocaleDateString()}</Cell>
-              <Cell>{item.author.name}</Cell>
-              {/*<Cell>{new Date(item.created).toLocaleDateString()}</Cell>*/}
+              <Cell className={s.cell}>
+                {item.name}
+              </Cell>
+              <Cell className={s.cell}>{item.cardsCount}</Cell>
+              <Cell
+                className={s.cell}>{new Date(item.updated).toLocaleDateString()}</Cell>
+              <Cell className={s.createdByRow + ' ' + s.cell}>
+                <span>   {item.author.name}</span>
+                <span>  {item.author.name}</span>
+              </Cell>
             </Row>)
           })}
         </Body>
@@ -111,11 +125,12 @@ export const Deck = () => {
         totalPages={data?.pagination.totalPages}
         itemsPerPage={data?.pagination.itemsPerPage}
         currentPage={currentPage}
+        className={s.pagination}
         onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
         onClick={(value: number) => setCurrentPage(value)}
       />
 
-    </div>
+    </Page>
   );
 };
 

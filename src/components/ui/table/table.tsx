@@ -1,7 +1,8 @@
 import {ComponentProps, ComponentPropsWithoutRef} from "react";
-
 import s from "./table.module.scss";
 import {Direction, Field} from "@/services/decks";
+import {ArrowUpSvg} from "@/assets/components/arrowUpSvg.tsx";
+import {ArrowDownSvg} from "@/assets/components/arrowDownSvg.tsx";
 
 type RootProps = ComponentProps<"table">;
 
@@ -16,7 +17,7 @@ const Root = ({className, children, ...rest}: RootProps) => {
 type HeadProps = ComponentProps<"thead">;
 
 const Head = ({className, children, ...rest}: HeadProps) => {
-  return <thead  className={s.headerTable} {...rest}>{children}</thead>;
+  return <thead className={s.headerTable} {...rest}>{children}</thead>;
 };
 
 type BodyProps = ComponentProps<"tbody">;
@@ -28,7 +29,7 @@ const Body = ({className, children, ...rest}: BodyProps) => {
 type RowProps = ComponentProps<"tr">;
 const Row = ({children, className, ...rest}: RowProps) => {
   return (
-    <tr className={className} {...rest}>
+    <tr className={s.row} {...rest}>
       {children}
     </tr>
   );
@@ -38,7 +39,7 @@ type HeadCellProps = ComponentProps<"th">;
 
 const HeadCell = ({className, children, ...rest}: HeadCellProps) => {
   return (
-    <th className={className} {...rest}>
+    <th className={s.headCell} {...rest}>
       {children}
     </th>
   );
@@ -89,9 +90,9 @@ export const HeaderTable: React.FC<Omit<ComponentPropsWithoutRef<"thead"> & {
     if (sort && sort.key === key) {
       switch (sort.direction) {
         case "asc":
-          return "▲";
+          return <ArrowUpSvg/>;
         case "desc":
-          return "▼";
+          return <ArrowDownSvg/>;
         default:
           return "";
       }

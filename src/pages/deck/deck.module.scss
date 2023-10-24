@@ -12,7 +12,8 @@
   .packListFind {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
+    margin-bottom: 36px;
 
     .iconTrash {
       transform: translateY(1px);
@@ -20,5 +21,22 @@
       width: 16px;
       height: 16px;
     }
+  }
+
+  .rootTable {
+    min-height: 500px;
+    .headerTable {
+      .cell {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+  }
+
+  .pagination {
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 120px;
+
   }
 }
