@@ -4,8 +4,8 @@ import s from "./pagination.module.scss";
 import {usePagination} from "./usePagination";
 
 type PaginationProps = {
-
-  pageSizeValue: Array<{ title: string; value: string }>;
+  className?: string
+  pageSizeValue: Array<{ title: string; value: string }>
 
   onClick?: any
   totalPages: any
@@ -21,6 +21,7 @@ export const Pagination = ({
                              currentPage,
                              itemsPerPage,
                              onChangePerPage,
+                             className,
                            }: PaginationProps) => {
   const [activePage, setActivePage] = useState<number>(currentPage);
   const [pageSize, setPageSize] = useState<number>(itemsPerPage);
@@ -54,8 +55,7 @@ export const Pagination = ({
     setPageSize(+value);
   };
 
-  return (
-    <div className={s.paginationContainer}>
+  return (<div className={s.paginationContainer + ' ' + className}>
       <span className={s.paginationArrow} onClick={onPreviousClick}>
         &#8249;
       </span>

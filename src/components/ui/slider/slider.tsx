@@ -4,11 +4,11 @@ import * as SliderGroup from '@radix-ui/react-slider';
 import {Typography} from "@/components/ui/typography";
 
 export type SliderProps = {
-  label: 'Slider'
+  label: string
   value: number[]
   step: number
   minStepsBetweenThumbs: number
-  disabled: boolean
+  disabled?: boolean
 } & ComponentPropsWithoutRef<typeof SliderGroup.Root>;
 
 export const Slider = forwardRef<ElementRef<typeof SliderGroup.Root>, SliderProps>((props, ref) => {
