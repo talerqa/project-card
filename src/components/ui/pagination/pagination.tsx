@@ -1,52 +1,61 @@
-import { useEffect, useState } from "react";
-import { Select } from "../select";
+import {useState} from "react";
+import {Select} from "../select";
 import s from "./pagination.module.scss";
-import { usePagination } from "./usePagination";
+import {usePagination} from "./usePagination";
 
 type PaginationProps = {
-  totalItemsCount: number;
-  pageSizeValue: Array<{ title: string; value: string }>;
+  className?: string
+  pageSizeValue: Array<{ title: string; value: string }>
+
+  onClick?: any
+  totalPages: any
+  itemsPerPage: any
+  currentPage: any
+  onChangePerPage: any
 };
 
 export const Pagination = ({
-  totalItemsCount,
-  pageSizeValue,
-}: PaginationProps) => {
-  const [pagesCount, setPagesCount] = useState<number>(0);
-  const [activePage, setActivePage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(10);
-  console.log(activePage)
+                             pageSizeValue,
+                             onClick,
+                             totalPages,
+                             currentPage,
+                             itemsPerPage,
+                             onChangePerPage,
+                             className,
+                           }: PaginationProps) => {
+  const [activePage, setActivePage] = useState<number>(currentPage);
+  const [pageSize, setPageSize] = useState<number>(itemsPerPage);
+
   const paginationRange = usePagination({
-    pagesCount,
+    pagesCount: totalPages,
     pageSize,
     activePage,
   });
 
-  useEffect(() => {
-    setPagesCount(Math.ceil(totalItemsCount / pageSize));
-  }, [totalItemsCount, pageSize]);
-
   const onNextClick = () => {
-    if (activePage === pagesCount) return;
+    if (activePage === totalPages) return;
     setActivePage(activePage + 1);
+    onClick(activePage + 1)
   };
 
   const onPreviousClick = () => {
     if (activePage === 1) return;
     setActivePage(activePage - 1);
+    onClick(activePage - 1)
   };
 
   const onPageNumberClick = (value: number) => {
     if (activePage === value) return;
     setActivePage(value);
+    onClick(value)
   };
 
   const onSelectValueChange = (value: string) => {
+    onChangePerPage(+value)
     setPageSize(+value);
   };
 
-  return (
-    <div className={s.paginationContainer}>
+  return (<div className={s.paginationContainer + ' ' + className}>
       <span className={s.paginationArrow} onClick={onPreviousClick}>
         &#8249;
       </span>
@@ -69,6 +78,7 @@ export const Pagination = ({
       <div className={s.selectMenu}>
         <Select
           disabled={false}
+          placeholder={itemsPerPage}
           array={pageSizeValue}
           onChange={onSelectValueChange}
           className={s.paginationSelect}
@@ -85,7 +95,7 @@ type PageButtonProps = {
   onClick: (value: number) => void;
 };
 
-const PageButton = ({ activePage, pageNumber, onClick }: PageButtonProps) => {
+const PageButton = ({activePage, pageNumber, onClick}: PageButtonProps) => {
   const onButtonClick = (value: string | number) => {
     if (isNaN(Number(pageNumber))) return;
     onClick(+value);
@@ -98,8 +108,8 @@ const PageButton = ({ activePage, pageNumber, onClick }: PageButtonProps) => {
         isNaN(Number(pageNumber))
           ? s.dots
           : activePage == pageNumber
-          ? s.paginationPage + " " + s.activePage
-          : s.paginationPage
+            ? s.paginationPage + " " + s.activePage
+            : s.paginationPage
       }
     >
       {pageNumber}

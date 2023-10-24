@@ -1,6 +1,6 @@
 import {Header} from "@/components/ui/header";
 import {Outlet, useNavigate} from "react-router-dom";
-
+import avatar from './../../assets/img/avatart-template.png'
 export const Layout = (): JSX.Element => {
 
   const navigate = useNavigate()
@@ -10,7 +10,11 @@ export const Layout = (): JSX.Element => {
   }
 
   return (<>
-    <Header isAuth={false} onSignInHandler={onSignInHandler}/>
+    <Header isAuth={false}
+            name={'Ivan'}
+            avatarImg={avatar}
+            email={'j&johnson@gmail.com'}
+            onSignInHandler={onSignInHandler}/>
     <Outlet/>
   </>)
 }
