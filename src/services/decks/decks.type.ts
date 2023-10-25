@@ -30,16 +30,14 @@ export type DeckType = {
 
 export type CreateDeckArgsType = Pick<DeckType, "cover" | "name" | "isPrivate">;
 
-export type CreateDeck = Pick<DeckType, 'name' | 'isPrivate' | 'cover'>
+export type SortingDirection = 'asc' | 'desc'
 
-export type Direction = 'asc' | 'desc'
-
-export type Field = 'name' | 'updated' | 'cardsCount' | 'created'
+export type SortingField = 'name' | 'updated' | 'cardsCount' | 'created'
 
 export type GetDecks = {
   name?: string
   currentPage?: number
   itemsPerPage?: number
   authorId?: string
-  orderBy: `${Field}-${Direction}` | null
+  orderBy: `${SortingField}-${SortingDirection}` | null
 }

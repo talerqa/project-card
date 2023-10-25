@@ -2,8 +2,8 @@ import {HeaderTable, Sort, Table} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
 import {
   DeckType,
-  Direction,
-  Field,
+  SortingDirection,
+  SortingField,
   useCreateDeckMutation,
   useGetDecksQuery
 } from "@/services/decks";
@@ -27,7 +27,7 @@ export const Deck = () => {
   const [createDeck] = useCreateDeckMutation()
   const [orderBy, setSort] = useState<Sort>(null);
 
-  type SortedString = `${Field}-${Direction}` | null;
+  type SortedString = `${SortingField}-${SortingDirection}` | null;
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null
