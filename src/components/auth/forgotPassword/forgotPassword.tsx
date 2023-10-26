@@ -58,7 +58,7 @@ export const ForgotPassword = (props: SignInProps): JSX.Element => {
                     children={'Did you remember your password?'}
                     className={s.rememberPassword}
         />
-        <Typography variant={'link1'} as={Link} to={'/'}
+        <Typography variant={'link1'} as={Link} to={'/login'}
                     children={'Try logging in'}
                     className={s.tryLogging}/>
       </form>
