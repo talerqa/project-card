@@ -5,11 +5,13 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-
 import {SignInPage} from "@/pages/auth/signInPage";
 import {SignUpPage} from "@/pages/auth/signUpPage";
 import {Layout} from "@/pages/layout/layout.tsx";
 import {Deck} from "@/pages/deck/deck.tsx";
+import {ForgotPasswordPage} from "@/pages/auth/forgotPassword";
+import {CheckEmailPage} from "@/pages/auth/checkEmail";
+import {CreateNewPasswordPage} from "@/pages/auth/createNewPassword";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -26,12 +28,16 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: "/forgot-password",
-        element: <div>Forgot Password</div>,
+        element: <ForgotPasswordPage/>,
       },
-      // {
-      //   path: '/check-email',
-      //   element: <div>Forgot Password</div>
-      // }
+      {
+        path: '/create-password',
+        element: <CreateNewPasswordPage/>
+      },
+      {
+        path: '/check-email',
+        element: <CheckEmailPage/>
+      }
     ],
   },
 ];
