@@ -10,12 +10,12 @@ export type GetResponseType = {
 };
 
 export type GetDecksDataItemsAuthor = {
-  id: string
-  name: string
-}
+  id: string;
+  name: string;
+};
 
 export type DeckType = {
-  author: GetDecksDataItemsAuthor
+  author: GetDecksDataItemsAuthor;
   id: string;
   userId: string;
   name: string;
@@ -30,16 +30,16 @@ export type DeckType = {
 
 export type CreateDeckArgsType = Pick<DeckType, "cover" | "name" | "isPrivate">;
 
-export type CreateDeck = Pick<DeckType, 'name' | 'isPrivate' | 'cover'>
+export type CreateDeck = Pick<DeckType, "name" | "isPrivate" | "cover">;
 
-export type Direction = 'asc' | 'desc'
+export type Direction = "asc" | "desc";
 
-export type Field = 'name' | 'updated' | 'cardsCount' | 'created'
+export type Field = "name" | "updated" | "cardsCount" | "created";
 
 export type GetDecks = {
-  name?: string
-  currentPage?: number
-  itemsPerPage?: number
-  authorId?: string
-  orderBy: `${Field}-${Direction}` | null
-}
+  name?: string;
+  currentPage?: number;
+  itemsPerPage?: number;
+  authorId?: string;
+  orderBy: `${Field}-${Direction}` | null;
+};
