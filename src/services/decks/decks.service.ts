@@ -1,8 +1,10 @@
 import { baseApi } from "../base-api";
 import {
-  CreateDeckArgsType,
-  DeckType, GetDecks,
-  GetResponseType
+
+  CreateDeck,
+  DeckType,
+  GetDecks,
+  GetResponseType,
 } from "@/services/decks/decks.type.ts";
 
 
@@ -10,14 +12,16 @@ export const DeckService = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       getDecks: builder.query<GetResponseType, GetDecks | void>({
-        query: params => ({
+
+        query: (params) => ({
+
           url: `v1/decks`,
           method: "GET",
           params: params ?? {},
         }),
         providesTags: ["Decks"],
       }),
-      createDeck: builder.mutation<DeckType, CreateDeckArgsType>({
+      createDeck: builder.mutation<DeckType, CreateDeck>({
         query: (body) => ({
           url: "v1/decks",
           method: "POST",

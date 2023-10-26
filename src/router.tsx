@@ -5,6 +5,7 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
+
 import {SignInPage} from "@/pages/auth/signInPage";
 import {SignUpPage} from "@/pages/auth/signUpPage";
 import {Layout} from "@/pages/layout/layout.tsx";
@@ -13,18 +14,19 @@ import {ForgotPasswordPage} from "@/pages/auth/forgotPassword";
 import {CheckEmailPage} from "@/pages/auth/checkEmail";
 import {CreateNewPasswordPage} from "@/pages/auth/createNewPassword";
 
+
 const publicRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/login",
-        element: <SignInPage/>,
+        element: <SignInPage />,
       },
       {
         path: "/sign-up",
-        element: <SignUpPage/>,
+        element: <SignUpPage />,
       },
       {
         path: "/forgot-password",
@@ -45,13 +47,13 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Layout/>,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Deck/>,
+        element: <Deck />,
       },
-    ]
+    ],
   },
 ];
 
@@ -64,23 +66,23 @@ const errorRoutes: RouteObject[] = [
 
 const router = createBrowserRouter([
   {
-    element: <PrivateRoutes/>,
+    element: <PrivateRoutes />,
     children: privateRoutes,
   },
   ...publicRoutes,
   ...errorRoutes,
   {
     path: "*",
-    element: <Navigate to="/error404"/>,
+    element: <Navigate to="/error404" />,
   },
 ]);
 
 export const Router = () => {
-  return <RouterProvider router={router}/>;
+  return <RouterProvider router={router} />;
 };
 
 function PrivateRoutes() {
   const isAuthenticated = true;
 
-  return isAuthenticated ? <Outlet/> : <Navigate to="/login"/>;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
