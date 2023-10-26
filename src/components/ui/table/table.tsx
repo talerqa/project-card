@@ -1,8 +1,10 @@
 import { ComponentProps, ComponentPropsWithoutRef } from "react";
 import s from "./table.module.scss";
+
 import { Direction, Field } from "@/services/decks";
 import { ArrowUpSvg } from "@/assets/components/arrowUpSvg.tsx";
 import { ArrowDownSvg } from "@/assets/components/arrowDownSvg.tsx";
+
 
 type RootProps = ComponentProps<"table">;
 
@@ -71,8 +73,8 @@ export type Column = {
 };
 
 export type Sort = {
-  key: Field;
-  direction: Direction;
+  key: SortingField;
+  direction: SortingDirection;
 } | null;
 
 export const HeaderTable: React.FC<
@@ -98,6 +100,7 @@ export const HeaderTable: React.FC<
   };
 
   const displaySortDirection = (key: Field) => {
+
     if (sort && sort.key === key) {
       switch (sort.direction) {
         case "asc":
