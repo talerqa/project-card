@@ -1,9 +1,9 @@
 import {Page} from "@/components/ui/page";
-import {CreateNewPassword} from "../../../components/auth/createNewPassword";
+import {CheckEmail} from "@/components/auth/checkEmail";
 
-export const CreateNewPasswordPage = () => {
+export const CheckEmailPage = () => {
   return (<Page>
-      <CreateNewPassword onSubmit={()=>{}}/>
+      <CheckEmail/>
     </Page>
   )
 }
