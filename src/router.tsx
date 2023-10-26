@@ -11,6 +11,7 @@ import {SignUpPage} from "@/pages/auth/signUpPage";
 import {Layout} from "@/pages/layout/layout.tsx";
 import {Deck} from "@/pages/deck/deck.tsx";
 import {ForgotPasswordPage} from "@/pages/auth/forgotPassword";
+import {CreateNewPasswordPage} from "@/pages/auth/checkEmail";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -29,10 +30,14 @@ const publicRoutes: RouteObject[] = [
         path: "/forgot-password",
         element: <ForgotPasswordPage/>,
       },
-      // {
-      //   path: '/check-email',
-      //   element: <div>Forgot Password</div>
-      // }
+      {
+        path: '/create-password',
+        element: <CreateNewPasswordPage/>
+      },
+      {
+        path: '/check-email',
+        element: <></>
+      }
     ],
   },
 ];

@@ -6,21 +6,20 @@ import {Button} from "@/components/ui/button";
 import {ControlledInput} from "@/components/ui/controlled";
 import {Typography} from "@/components/ui/typography";
 import {Card} from "@/components/ui/card";
-import s from "./forgotPassword.module.scss";
-import {Link} from "react-router-dom";
+import s from "./checkEmail.module.scss";
 
 type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
+  password: z.string().min(3, "Password mus be at least 3 characters"),
 });
 
-type ForgotPasswordProps = {
+type CreateNewPasswordProps = {
   onSubmit: (data: FormValues) => void
   className?: string
 }
 
-export const ForgotPassword = (props: ForgotPasswordProps): JSX.Element => {
+export const CreateNewPassword = (props: CreateNewPasswordProps): JSX.Element => {
   const {
     control,
     handleSubmit,
@@ -32,35 +31,28 @@ export const ForgotPassword = (props: ForgotPasswordProps): JSX.Element => {
 
   return (<Card className={`${s.cardBlock} ${props.className}`}>
       <DevTool control={control}/>
-      <Typography variant={'large'} as={'p'} children={'Forgot your password?'}
+      <Typography variant={'large'} as={'p'} children={'Create new password'}
                   className={s.title}/>
       <form onSubmit={handleSubmitForm} className={s.form}>
-        <ControlledInput name={'email'}
-                         type={'text'}
+        <ControlledInput name={'password'}
+                         type={'password'}
                          control={control}
-                         label={'Email'}
-                         className={s.inputEmail}
+                         label={'Password'}
+                         className={s.inputPassword}
         />
         <Typography variant={'body2'}
                     as={'p'}
-                    children={'Enter your email address and we will send you further instructions'}
-                    className={s.enterEmailInstruction}
+                    children={'Create new password and we will send you further instructions to email'}
+                    className={s.createNewPassword}
         />
         <Button type="submit"
+                onClick={()=>{}}
                 children={<Typography variant={'subtitle2'}
                                       as={'span'}
-                                      children={"Send Instructions"}
+                                      children={"Create New Password"}
                 />}
                 className={s.buttonSubmitForm}
         />
-        <Typography variant={'body2'}
-                    as={'span'}
-                    children={'Did you remember your password?'}
-                    className={s.rememberPassword}
-        />
-        <Typography variant={'link1'} as={Link} to={'/login'}
-                    children={'Try logging in'}
-                    className={s.tryLogging}/>
       </form>
     </Card>
   );
