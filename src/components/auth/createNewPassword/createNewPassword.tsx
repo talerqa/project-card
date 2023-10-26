@@ -6,7 +6,7 @@ import {Button} from "@/components/ui/button";
 import {ControlledInput} from "@/components/ui/controlled";
 import {Typography} from "@/components/ui/typography";
 import {Card} from "@/components/ui/card";
-import s from "./checkEmail.module.scss";
+import s from "./createNewPassword.module.scss";
 
 type FormValues = z.infer<typeof loginSchema>
 
