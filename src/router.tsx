@@ -11,6 +11,8 @@ import { SignUpPage } from "@/pages/auth/signUpPage";
 import { Deck } from "@/pages/deck/deck.tsx";
 import { Layout } from "@/pages/layout/layout.tsx";
 
+import { useAuthMeQuery } from "./services/auth";
+
 const publicRoutes: RouteObject[] = [
   {
     path: "/",
@@ -74,7 +76,23 @@ export const Router = () => {
 };
 
 function PrivateRoutes() {
-  const isAuthenticated = true;
+  const { isLoading, isError } = useAuthMeQuery();
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "100px",
+        }}
+      >
+        Loading...
+      </div>
+    );
+
+  const isAuthenticated = !isError;
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
