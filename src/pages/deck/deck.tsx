@@ -56,7 +56,7 @@ export const Deck = () => {
         </Typography>
         <Button
           type={"button"}
-          onClick={() => createDeck({ name: "Подвыподверт" })}
+          onClick={() => createDeck({ name: "Касабланка" })}
         >
           Add New Pack
         </Button>

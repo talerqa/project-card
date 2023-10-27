@@ -15,6 +15,8 @@ import {CheckEmailPage} from "@/pages/auth/checkEmail";
 import {CreateNewPasswordPage} from "@/pages/auth/createNewPassword";
 
 
+import { useAuthMeQuery } from "./services/auth";
+
 const publicRoutes: RouteObject[] = [
   {
     path: "/",
@@ -82,7 +84,23 @@ export const Router = () => {
 };
 
 function PrivateRoutes() {
-  const isAuthenticated = true;
+  const { isLoading, isError } = useAuthMeQuery();
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "100px",
+        }}
+      >
+        Loading...
+      </div>
+    );
+
+  const isAuthenticated = !isError;
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
