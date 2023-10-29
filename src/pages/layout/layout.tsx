@@ -7,7 +7,7 @@ import { useAuthMeQuery } from "@/services/auth";
 
 export const Layout = (): JSX.Element => {
   const navigate = useNavigate();
-  const { isError } = useAuthMeQuery();
+  const { isError, data } = useAuthMeQuery();
 
   let isAuthorized = !isError;
 
@@ -19,9 +19,9 @@ export const Layout = (): JSX.Element => {
     <>
       <Header
         isAuth={isAuthorized}
-        name={"Ivan"}
+        name={data?.name}
         avatarImg={avatar}
-        email={"j&johnson@gmail.com"}
+        email={data?.email}
         onSignInHandler={onSignInHandler}
       />
       <Outlet />
