@@ -37,10 +37,11 @@ export const SignUp = (props: SignInProps): JSX.Element => {
     resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmitForm = (data) => {
-    // e.preventDefault();
-    console.log(data);
-    // handleSubmit(control);
+  const handleSubmitForm = (
+    data: Omit<FormValues, "confirmPassword"> & { confirmPassword?: string }
+  ) => {
+    delete data.confirmPassword;
+    props.onSubmit(data);
   };
 
   return (

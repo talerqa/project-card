@@ -25,12 +25,23 @@ export const AuthService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Auth"],
       }),
+      signUp: builder.mutation<any, any>({
+        query: (body) => ({
+          url: "v1/auth/sign-up",
+          method: "POST",
+          body,
+        }),
+      }),
     };
   },
 });
 
-export const { useLoginMutation, useAuthMeQuery, useLogoutMutation } =
-  AuthService;
+export const {
+  useLoginMutation,
+  useAuthMeQuery,
+  useLogoutMutation,
+  useSignUpMutation,
+} = AuthService;
 
 export type AuthMeResponseType = {
   avatar: string;
