@@ -1,32 +1,35 @@
-import { HeaderTable, Sort, Table } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+import {HeaderTable, Sort, Table} from "@/components/ui/table";
+import {Button} from "@/components/ui/button";
 
 import {
   DeckType,
-  Direction,
-  Field,
   GetDecks,
-
   useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksQuery,
 } from "@/services/decks";
 
-import { useMemo, useState } from "react";
+import {useMemo, useState} from "react";
 
-import { Inputs } from "@/components/ui/inputs";
-import { Pagination } from "@/components/ui/pagination";
-import { Typography } from "@/components/ui/typography";
+import {Inputs} from "@/components/ui/inputs";
+import {Pagination} from "@/components/ui/pagination";
+import {Typography} from "@/components/ui/typography";
 
 import s from "./deck.module.scss";
 
-import { TabSwitcher } from "@/components/ui/tab-switcher";
-import { SliderWithUseState } from "@/components/ui/slider/slider.stories.tsx";
-import { IconSvgButton } from "@/components/ui/button/button.stories.tsx";
-import { TrashIcon } from "@/assets/components/trashIcon.tsx";
-import { Page } from "@/components/ui/page";
+import {TabSwitcher} from "@/components/ui/tab-switcher";
+import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
+import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
+import {TrashIcon} from "@/assets/components/trashIcon.tsx";
+import {Page} from "@/components/ui/page";
+import {TableIcon} from "@/pages/deck/tableIcons/tableIcon.tsx";
+import {
+  DeleteDeckModal
+} from "@/pages/deck/deleteDeckModal/deleteDeckModal.tsx";
 
 export const Deck = () => {
-  const { Root, Body, Row, Cell } = Table;
+  const {Root, Body, Row, Cell} = Table;
   const [name, setName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -41,13 +44,22 @@ export const Deck = () => {
     return sorted;
   }, [orderBy]);
 
-  const { data } = useGetDecksQuery({
+  const {data} = useGetDecksQuery({
     currentPage,
     name,
     itemsPerPage,
     orderBy: sortedString,
   });
 
+  const [id, setId] = useState('')
+
+
+  const [deletePack] = useDeleteDeckMutation()
+
+  const {data: dataDeck} = useGetDeckQuery({id})
+
+  const [showModal, setShowModal] = useState<'delete' | 'edit' | 'learn' | ''>('')
+  console.log(dataDeck)
   return (
     <Page className={s.deck}>
       <div className={s.packListBlock}>
@@ -56,7 +68,7 @@ export const Deck = () => {
         </Typography>
         <Button
           type={"button"}
-          onClick={() => createDeck({ name: "Касабланка" })}
+          onClick={() => createDeck({name: "Касабланка"})}
         >
           Add New Pack
         </Button>
@@ -95,7 +107,7 @@ export const Deck = () => {
           type={"button"}
           variant="secondaryWithIcon"
           icon={
-            <IconSvgButton className={s.iconTrash} children={<TrashIcon />} />
+            <IconSvgButton className={s.iconTrash} children={<TrashIcon/>}/>
           }
         >
           <Typography variant={"subtitle2"} as={"span"}>
@@ -103,6 +115,9 @@ export const Deck = () => {
           </Typography>
         </Button>
       </div>
+      {showModal === 'delete' &&
+          <DeleteDeckModal data={dataDeck} deletePack={deletePack}/>}
+
       <Root className={s.rootTable}>
         <HeaderTable
           columns={[
@@ -130,14 +145,16 @@ export const Deck = () => {
           {data?.items.map((item: DeckType) => {
             return (
               <Row key={item.id}>
-                <Cell className={s.cell}>{item.name}</Cell>
+                <Cell className={s.cell} onClick={() => {
+                  setId(item.id)
+                }}>{item.name}</Cell>
                 <Cell className={s.cell}>{item.cardsCount}</Cell>
                 <Cell className={s.cell}>
                   {new Date(item.updated).toLocaleDateString()}
                 </Cell>
                 <Cell className={s.createdByRow + " " + s.cell}>
                   <span> {item.author.name}</span>
-                  <span> {item.author.name}</span>
+                  <TableIcon setShowModal={setShowModal} id={item.id} setId={setId}   />
                 </Cell>
               </Row>
             );
@@ -146,10 +163,10 @@ export const Deck = () => {
       </Root>
       <Pagination
         pageSizeValue={[
-          { title: "10", value: "10" },
-          { title: "20", value: "20" },
-          { title: "50", value: "50" },
-          { title: "100", value: "100" },
+          {title: "10", value: "10"},
+          {title: "20", value: "20"},
+          {title: "50", value: "50"},
+          {title: "100", value: "100"},
         ]}
         totalPages={data?.pagination.totalPages}
         itemsPerPage={data?.pagination.itemsPerPage}
@@ -158,6 +175,7 @@ export const Deck = () => {
         onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
         onClick={(value: number) => setCurrentPage(value)}
       />
+
     </Page>
   );
 };
