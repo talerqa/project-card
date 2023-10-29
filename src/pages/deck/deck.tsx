@@ -59,7 +59,9 @@ export const Deck = () => {
   const {data: dataDeck} = useGetDeckQuery({id})
 
   const [showModal, setShowModal] = useState<'delete' | 'edit' | 'learn' | ''>('')
-  console.log(dataDeck)
+
+
+
   return (
     <Page className={s.deck}>
       <div className={s.packListBlock}>
@@ -116,7 +118,7 @@ export const Deck = () => {
         </Button>
       </div>
       {showModal === 'delete' &&
-          <DeleteDeckModal data={dataDeck} deletePack={deletePack}/>}
+          <DeleteDeckModal setShowModal={setShowModal} showModal={showModal} data={dataDeck} deletePack={deletePack}/>}
 
       <Root className={s.rootTable}>
         <HeaderTable
@@ -154,7 +156,9 @@ export const Deck = () => {
                 </Cell>
                 <Cell className={s.createdByRow + " " + s.cell}>
                   <span> {item.author.name}</span>
-                  <TableIcon setShowModal={setShowModal} id={item.id} setId={setId}   />
+                  <TableIcon setShowModal={setShowModal}
+                             id={item.id}
+                             setId={setId}/>
                 </Cell>
               </Row>
             );
