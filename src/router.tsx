@@ -6,14 +6,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import {SignInPage} from "@/pages/auth/signInPage";
-import {SignUpPage} from "@/pages/auth/signUpPage";
-import {Layout} from "@/pages/layout/layout.tsx";
-import {Deck} from "@/pages/deck/deck.tsx";
-import {ForgotPasswordPage} from "@/pages/auth/forgotPassword";
-import {CheckEmailPage} from "@/pages/auth/checkEmail";
-import {CreateNewPasswordPage} from "@/pages/auth/createNewPassword";
-
+import { SignInPage } from "@/pages/auth/signInPage";
+import { SignUpPage } from "@/pages/auth/signUpPage";
+import { Layout } from "@/pages/layout/layout.tsx";
+import { Deck } from "@/pages/deck/deck.tsx";
+import { ForgotPasswordPage } from "@/pages/auth/forgotPassword";
+import { CheckEmailPage } from "@/pages/auth/checkEmail";
+import { CreateNewPasswordPage } from "@/pages/auth/createNewPassword";
 
 import { useAuthMeQuery } from "./services/auth";
 
@@ -32,16 +31,16 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: "/forgot-password",
-        element: <ForgotPasswordPage/>,
+        element: <ForgotPasswordPage />,
       },
       {
-        path: '/create-password',
-        element: <CreateNewPasswordPage/>
+        path: "/create-password",
+        element: <CreateNewPasswordPage />,
       },
       {
-        path: '/check-email',
-        element: <CheckEmailPage/>
-      }
+        path: "/check-email",
+        element: <CheckEmailPage />,
+      },
     ],
   },
 ];
