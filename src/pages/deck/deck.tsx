@@ -5,7 +5,6 @@ import {
   DeckType,
   GetDecks,
   useCreateDeckMutation,
-  useDeleteDeckMutation,
   useGetDeckQuery,
   useGetDecksQuery,
 } from "@/services/decks";
@@ -28,6 +27,8 @@ import {
   DeleteDeckModal
 } from "@/pages/deck/deleteDeckModal/deleteDeckModal.tsx";
 
+export  type ShowModalType = 'delete' | 'edit' | 'learn' | ''
+
 export const Deck = () => {
   const {Root, Body, Row, Cell} = Table;
   const [name, setName] = useState<string>("");
@@ -36,11 +37,9 @@ export const Deck = () => {
   const [createDeck] = useCreateDeckMutation();
   const [orderBy, setSort] = useState<Sort>(null);
 
-
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
     let sorted: GetDecks["orderBy"] = `${orderBy.key}-${orderBy.direction}`;
-
     return sorted;
   }, [orderBy]);
 
@@ -54,12 +53,10 @@ export const Deck = () => {
   const [id, setId] = useState('')
 
 
-  const [deletePack] = useDeleteDeckMutation()
-
   const {data: dataDeck} = useGetDeckQuery({id})
 
-  const [showModal, setShowModal] = useState<'delete' | 'edit' | 'learn' | ''>('')
 
+  const [showModal, setShowModal] = useState<ShowModalType>('')
 
 
   return (
@@ -118,7 +115,9 @@ export const Deck = () => {
         </Button>
       </div>
       {showModal === 'delete' &&
-          <DeleteDeckModal setShowModal={setShowModal} showModal={showModal} data={dataDeck} deletePack={deletePack}/>}
+          <DeleteDeckModal setShowModal={setShowModal}
+                           showModal={showModal}
+                           data={dataDeck}/>}
 
       <Root className={s.rootTable}>
         <HeaderTable

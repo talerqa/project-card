@@ -26,7 +26,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getDeck: builder.query<DeckType, { id: string }>({
+      getDeck: builder.query<DeckType, { id: string }  >({
         query: ({id}) => ({
           url: `v1/decks/${id}`,
           method: "GET",
@@ -34,7 +34,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Decks"],
       }),
-      deleteDeck: builder.mutation<DeckType, { id: string }>({
+      deleteDeck: builder.mutation<DeckType, { id?: string }>({
         query: ({id}) => ({
           url: `v1/decks/${id}`,
           method: "DELETE",
