@@ -25,7 +25,7 @@ export const AuthService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Auth"],
       }),
-      signUp: builder.mutation<any, any>({
+      signUp: builder.mutation<SignUpResponseType, SignUpArgsType>({
         query: (body) => ({
           url: "v1/auth/sign-up",
           method: "POST",
@@ -61,4 +61,20 @@ export type LoginArgsType = {
 
 export type LoginResponseType = {
   accessToken: string;
+};
+
+export type SignUpArgsType = {
+  name: string;
+  password: string;
+  email: string;
+};
+
+export type SignUpResponseType = {
+  avatar?: string;
+  id: string;
+  email: string;
+  isEmailVerified: boolean;
+  name: string;
+  created?: string;
+  updated?: string;
 };
