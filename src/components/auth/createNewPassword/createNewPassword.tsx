@@ -11,7 +11,7 @@ import s from "./createNewPassword.module.scss";
 type FormValues = z.infer<typeof loginSchema>
 
 const loginSchema = z.object({
-  password: z.string().min(3, "Password mus be at least 3 characters"),
+  password: z.string().min(3, "Password must be at least 3 characters"),
 });
 
 type CreateNewPasswordProps = {

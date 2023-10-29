@@ -4,7 +4,6 @@ import {Button} from "@/components/ui/button";
 import {
   DeckType,
   GetDecks,
-  useCreateDeckMutation,
   useGetDeckQuery,
   useGetDecksQuery,
 } from "@/services/decks";
@@ -26,15 +25,18 @@ import {TableIcon} from "@/pages/deck/tableIcons/tableIcon.tsx";
 import {
   DeleteDeckModal
 } from "@/pages/deck/deleteDeckModal/deleteDeckModal.tsx";
+import {
+  CreateDeckFormModal
+} from "@/pages/deck/createDeckModal/formDeck/createDeckFormModal.tsx";
 
-export  type ShowModalType = 'delete' | 'edit' | 'learn' | ''
+export  type ShowModalType = 'delete' | 'edit' | 'learn' | 'addNewPack' | ''
 
 export const Deck = () => {
   const {Root, Body, Row, Cell} = Table;
   const [name, setName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-  const [createDeck] = useCreateDeckMutation();
+
   const [orderBy, setSort] = useState<Sort>(null);
 
   const sortedString = useMemo(() => {
@@ -67,7 +69,7 @@ export const Deck = () => {
         </Typography>
         <Button
           type={"button"}
-          onClick={() => createDeck({name: "Касабланка"})}
+          onClick={() => setShowModal('addNewPack')}
         >
           Add New Pack
         </Button>
@@ -118,7 +120,10 @@ export const Deck = () => {
           <DeleteDeckModal setShowModal={setShowModal}
                            showModal={showModal}
                            data={dataDeck}/>}
-
+      {showModal === 'addNewPack' && <CreateDeckFormModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          data={dataDeck}/>}
       <Root className={s.rootTable}>
         <HeaderTable
           columns={[
