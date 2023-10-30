@@ -2,7 +2,11 @@ import {Typography} from "@/components/ui/typography";
 import s from './deckDeleteModal.module.scss'
 import {CloseSvg} from "@/assets/components/close.tsx";
 import {Button} from "@/components/ui/button";
-import {DeckType, useDeleteDeckMutation,} from "@/services/decks";
+import {
+  DeckType,
+  useDeleteDeckMutation,
+  useGetDeckQuery,
+} from "@/services/decks";
 import {useState} from "react";
 import {ShowModalType} from "@/pages/deck";
 
@@ -10,12 +14,15 @@ type Props = {
   data?: DeckType
   showModal?: string
   setShowModal: (value: ShowModalType) => void
+  id: string
 }
 
 export const DeleteDeckModal = (props: Props) => {
 
   const [activeModal, setActiveModal] = useState(!!props.showModal)
-  const {data} = props
+  // const {data} = props
+
+  const {data} = useGetDeckQuery({id: props.id})
 
   const [deletePack] = useDeleteDeckMutation()
   const closeModalHandler = () =>{

@@ -25,8 +25,7 @@ export const deckSchema = z.object({
 })
 
 export const CreateDeckFormModal = (props: Props) => {
-
-  const {data} = props
+  const [activeModal, setActiveModal] = useState(!!props.showModal)
 
   const {
     handleSubmit,
@@ -35,9 +34,8 @@ export const CreateDeckFormModal = (props: Props) => {
   } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {
-      name: data?.name ||
-        '', isPrivate: data?.isPrivate
-        || false
+      name: '',
+      isPrivate: false
     },
   })
   const [createDeck] = useCreateDeckMutation();
@@ -46,16 +44,10 @@ export const CreateDeckFormModal = (props: Props) => {
       name: control._formValues.name,
       isPrivate: control._formValues.isPrivate,
     })
-    console.log()
     closeModalHandler()
   }
 
-
   const handleSubmitForm = handleSubmit(onSubmit);
-
-
-  const [activeModal, setActiveModal] = useState(!!props.showModal)
-
 
   const closeModalHandler = () => {
     setActiveModal(false)
@@ -64,7 +56,7 @@ export const CreateDeckFormModal = (props: Props) => {
 
   return (<>
       {activeModal &&
-          <form onSubmit={handleSubmitForm} className={s.deleteDeckModal}>
+          <form onSubmit={handleSubmitForm} className={s.createDeck}>
               <div className={s.titleBlock}>
                   <Typography variant={'subtitle1'}
                               as={'span'}
@@ -77,13 +69,13 @@ export const CreateDeckFormModal = (props: Props) => {
                       type={"text"}
                       control={control}
                       label={"Name Pack"}
-                      className={s.inputPassword}
+                      errorMessage={errors.name?.message}
+                      className={s.input}
                   />
                   <ControlledCheckbox
                       name={"isPrivate"}
                       label={"Private pack"}
                       control={control}
-                      className={s.checkBox}
                   />
               </div>
               <div className={s.buttonsBlock}>

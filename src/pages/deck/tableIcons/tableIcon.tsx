@@ -9,9 +9,9 @@ type Props = {
 }
 
 export const TableIcon = (props: Props) => {
-
+  console.log('TABLE ICON')
   const playModalHandler = () => {
-    props.setShowModal('edit')
+    props.setShowModal('play')
     props.setId(props.id)
   }
 

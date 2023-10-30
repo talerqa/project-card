@@ -28,8 +28,6 @@ export type DeckType = {
   cardsCount: number;
 };
 
-export type CreateDeckArgsType = Pick<DeckType, "cover" | "name" | "isPrivate">;
-
 export type CreateDeck = Pick<DeckType, "name" | "isPrivate" | "cover">;
 
 export type Direction = "asc" | "desc";

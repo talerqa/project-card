@@ -1,4 +1,4 @@
-.deleteDeckModal {
+.createDeck {
   position: absolute;
   top: 38%;
   left: 50%;
@@ -20,13 +20,16 @@
 
   .inputBlock {
     display: flex;
-    padding: 18px 24px;
+    padding: 24px;
     flex-direction: column;
 
+    .input {
+      margin-bottom: 24px;
+    }
   }
 
   .buttonsBlock {
-    padding: 12px 24px 36px;
+    padding: 0 24px 36px;
     display: flex;
     justify-content: space-between;
   }

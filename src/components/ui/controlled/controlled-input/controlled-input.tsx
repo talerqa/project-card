@@ -7,14 +7,14 @@ import {
 import { InputProps, Inputs } from "@/components/ui/inputs";
 
 type ControlledInputType<TFieldValues extends FieldValues> =
-  UseControllerProps<TFieldValues> & InputProps;
+  UseControllerProps<TFieldValues> &   Omit<InputProps, 'value' | 'onChange'>;
 
 export const ControlledInput = <TFieldValues extends FieldValues>({
   type,
   name,
   control,
   ...res
-}: ControlledInputType<TFieldValues>) => {
+}: ControlledInputType<TFieldValues>): JSX.Element => {
   const {
     field,
     fieldState: { error },
@@ -26,7 +26,6 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
   return (
     <Inputs
       type={type}
-      label={name}
       errorMessage={error?.message}
       {...field}
       {...res}

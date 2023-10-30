@@ -6,7 +6,6 @@ import {
   GetResponseType,
 } from "@/services/decks/decks.type.ts";
 
-
 export const DeckService = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
@@ -30,9 +29,17 @@ export const DeckService = baseApi.injectEndpoints({
         query: ({id}) => ({
           url: `v1/decks/${id}`,
           method: "GET",
-          id: id ?? {},
+          id,
         }),
         providesTags: ["Decks"],
+      }),
+      updateDeck: builder.mutation<DeckType, {id?: string, body: FormData}>({
+        query: ({id, body}) => ({
+          url: `v1/decks/${id}`,
+          method: "PATCH",
+          body,
+        }),
+        invalidatesTags: ["Decks"],
       }),
       deleteDeck: builder.mutation<DeckType, { id?: string }>({
         query: ({id}) => ({
@@ -50,5 +57,6 @@ export const {
   useGetDecksQuery,
   useCreateDeckMutation,
   useGetDeckQuery,
+  useUpdateDeckMutation,
   useDeleteDeckMutation,
 } = DeckService;
