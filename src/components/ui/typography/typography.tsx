@@ -1,4 +1,4 @@
-import {ComponentPropsWithoutRef, ElementType, ReactNode} from "react"
+import { ComponentPropsWithoutRef, ElementType } from "react"
 import s from './typography.module.scss'
 
 export type TypographyProps<T extends ElementType> = {
@@ -17,7 +17,7 @@ export type TypographyProps<T extends ElementType> = {
     | "link2"
     | "error";
   as: T;
-  children?:  string | number | ReactNode
+  children?: any;
   className?: string;
 } & ComponentPropsWithoutRef<T>;
 

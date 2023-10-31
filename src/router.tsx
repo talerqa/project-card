@@ -15,6 +15,8 @@ import { CheckEmailPage } from "@/pages/auth/checkEmail";
 import { CreateNewPasswordPage } from "@/pages/auth/createNewPassword";
 
 import { useAuthMeQuery } from "./services/auth";
+import { Confirmation } from "./pages/auth/sendConfirmation/confirmation/confirmation";
+import { SendConfirmation } from "./pages/auth/sendConfirmation/sendConfirmation";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -34,12 +36,20 @@ const publicRoutes: RouteObject[] = [
         element: <ForgotPasswordPage />,
       },
       {
-        path: "/create-password",
+        path: "/create-password/:token",
         element: <CreateNewPasswordPage />,
       },
       {
         path: "/check-email",
         element: <CheckEmailPage />,
+      },
+      {
+        path: "/confirmation",
+        element: <SendConfirmation />,
+      },
+      {
+        path: "/confirm-email/:code",
+        element: <Confirmation />,
       },
     ],
   },

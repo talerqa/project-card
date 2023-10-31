@@ -1,14 +1,18 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { SignUp } from "@/components/auth/signUp";
 import { Page } from "@/components/ui/page";
 import { useSignUpMutation } from "@/services/auth";
 
 export const SignUpPage = () => {
-  const [signUp, { data }] = useSignUpMutation();
+  const [signUp, myData] = useSignUpMutation();
+
+  const { data } = myData;
+
+  const navigate = useNavigate();
 
   if (data) {
-    return <Navigate to="/login" />;
+    navigate("/confirmation", { state: data });
   }
 
   return (
