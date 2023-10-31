@@ -1,29 +1,24 @@
 import {HeaderTable, Sort, Table} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
-
 import {GetDecks, useGetDecksQuery,} from "@/services/decks";
-
 import {useMemo, useState} from "react";
-
 import {Inputs} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
 import {Typography} from "@/components/ui/typography";
-
 import s from "./deck.module.scss";
-
 import {TabSwitcher} from "@/components/ui/tab-switcher";
 import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
 import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {Page} from "@/components/ui/page";
-import {EditDeckModal} from "@/pages/deck/editDeckModal/editDeckModal.tsx";
-import {PlaySvg} from "@/assets/components/play.tsx";
-import {EditSvg} from "@/assets/components/edit.tsx";
+import {DeckModal} from "@/pages/deck/deckModal/deckModal/deckModal.tsx";
+import {RowTable} from "@/pages/deck/rowTable";
 
-export  type ShowModalType = 'delete' | 'edit' | 'learn' | 'addNewPack' | ''
+export  type ShowModalType = '' | 'Delete Pack' | 'Edit Pack' | 'Learn' |
+  'Add New Pack'
 
 export const Deck = () => {
-  const {Root, Body, Row, Cell} = Table;
+  const {Root, Body} = Table;
   const [name, setName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
@@ -43,17 +38,10 @@ export const Deck = () => {
     orderBy: sortedString,
   });
 
-  const [id, setId] = useState('')
-
-  // const {data: dataDeck} = useGetDeckQuery({id})
-
-
   const [showModal, setShowModal] = useState<ShowModalType>('')
 
   const [pack, setItem] = useState()
-  console.log(
-    pack
-  )
+
   const [activeMenu, setActiveMenu] = useState(false)
 
   return (
@@ -64,7 +52,10 @@ export const Deck = () => {
         </Typography>
         <Button
           type={"button"}
-          onClick={() => setShowModal('addNewPack')}
+          onClick={() => {
+            setShowModal('addNewPack')
+            setActiveMenu(true)
+          }}
         >
           Add New Pack
         </Button>
@@ -111,7 +102,7 @@ export const Deck = () => {
           </Typography>
         </Button>
       </div>
-      {/*<Modal showModal={showModal} id={id} setShowModal={setShowModal}/>*/}
+
 
       <Root className={s.rootTable}>
         <HeaderTable
@@ -138,25 +129,23 @@ export const Deck = () => {
         />
         <Body className={s.headerTable}>
           {data?.items.length && data.items.map((item: any) => {
-            return <> <RowDeck data={item}
-                            activeMenu={activeMenu}
-                            setActiveMenu={setActiveMenu}
-                            setId={setId}
-                               setItem={setItem}
+            return <RowTable data={item}
+                             activeMenu={activeMenu}
+                             setActiveMenu={setActiveMenu}
+                             setItem={setItem}
+                             setShowModal={setShowModal}
+
             />
-            </>
           })}
         </Body>
-        <EditDeckModal
-          // setShowModal={setShowModal}
+        <DeckModal
           activeMenu={activeMenu}
-          // data={dataDeck}
           setActiveMenu={setActiveMenu}
-          pack={pack}
-          id={id}
+          item={pack}
+          setShowModal={setShowModal}
+          showModal={showModal}
         />
       </Root>
-
       <Pagination
         pageSizeValue={[
           {title: "10", value: "10"},
@@ -176,41 +165,3 @@ export const Deck = () => {
 };
 
 
-const RowDeck = (props: any) => {
-  const { Row, Cell} = Table;
-  const {data: item, activeMenu, setItem, setActiveMenu, setId} = props
-
-
-
-  return (
-    <>
-
-
-      <Row key={item.id}>
-
-        <Cell className={s.cell} onClick={() => {
-          setId(item.id)
-        }}>{item.name}</Cell>
-        <Cell className={s.cell}>{item.cardsCount}</Cell>
-        <Cell className={s.cell}>
-          {new Date(item.updated).toLocaleDateString()}
-        </Cell>
-        <Cell className={s.createdByRow + " " + s.cell}>
-          <span> {item.author.name}</span>
-          <PlaySvg/>
-
-          <button onClick={() => {
-            setItem(item)
-            setActiveMenu(true)
-            setId(item.id)
-          }}>
-
-            <EditSvg/>
-          </button>
-
-          <TrashIcon/>
-        </Cell>
-      </Row>
-    </>
-  )
-}

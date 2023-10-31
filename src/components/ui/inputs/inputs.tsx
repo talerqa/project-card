@@ -42,11 +42,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       ...res
     } = props;
 
-
     const [showPassword, setShowPassword] = useState<boolean>(false);
-
-    console.log(props.value)
-
 
     const classname = clsx(
       type === "search" && !errorMessage && s.searchInput,
