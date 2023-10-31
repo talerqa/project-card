@@ -49,6 +49,27 @@ export const AuthService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Auth"],
       }),
+      recoverPassword: builder.mutation<void, { email: string }>({
+        query: ({ email }) => ({
+          url: "/v1/auth/recover-password",
+          method: "POST",
+          body: {
+            html: '<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:3000/create-password/##token##">here</a> to recover your password</p>',
+            email,
+            subject: "",
+          },
+        }),
+      }),
+      resetPassword: builder.mutation<
+        void,
+        { token: string; password: string }
+      >({
+        query: ({ token, password }) => ({
+          url: `/v1/auth/reset-password/${token}`,
+          method: "POST",
+          body: { password },
+        }),
+      }),
     };
   },
 });
@@ -60,6 +81,8 @@ export const {
   useSignUpMutation,
   useVerifyEmailMutation,
   useResendVerificationMutation,
+  useRecoverPasswordMutation,
+  useResetPasswordMutation,
 } = AuthService;
 
 export type AuthMeResponseType = {
