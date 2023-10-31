@@ -31,6 +31,23 @@ export const AuthService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
+        // invalidatesTags: ["Auth"],
+      }),
+      verifyEmail: builder.mutation<void, { code: string }>({
+        query: (body) => ({
+          url: "v1/auth/verify-email",
+          method: "POST",
+          body,
+        }),
+        invalidatesTags: ["Auth"],
+      }),
+      resendVerification: builder.mutation<any, any>({
+        query: (body) => ({
+          url: "v1/auth/resend-verification-email",
+          method: "POST",
+          body,
+        }),
+        invalidatesTags: ["Auth"],
       }),
     };
   },
@@ -41,6 +58,8 @@ export const {
   useAuthMeQuery,
   useLogoutMutation,
   useSignUpMutation,
+  useVerifyEmailMutation,
+  useResendVerificationMutation,
 } = AuthService;
 
 export type AuthMeResponseType = {
