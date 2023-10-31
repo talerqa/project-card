@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 type FormValues = z.infer<typeof loginSchema>;
 
 const loginSchema = z.object({
-  password: z.string().min(3, "Password mus be at least 3 characters"),
+  password: z.string().min(3, "Password must be at least 3 characters"),
 });
 
 type CreateNewPasswordProps = {
@@ -33,7 +33,7 @@ export const CreateNewPassword = (
     resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmitForm = ({ password }) => {
+  const handleSubmitForm = ({ password  }: any) => {
     token && resetPassword({ token: token, password: password });
   };
 

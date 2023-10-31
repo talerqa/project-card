@@ -1,10 +1,8 @@
-import { ComponentProps, ComponentPropsWithoutRef } from "react";
+import {ComponentProps, ComponentPropsWithoutRef} from "react";
 import s from "./table.module.scss";
-
-import { Direction, Field } from "@/services/decks";
-import { ArrowUpSvg } from "@/assets/components/arrowUpSvg.tsx";
-import { ArrowDownSvg } from "@/assets/components/arrowDownSvg.tsx";
-
+import {Direction, Field} from "@/services/decks";
+import {ArrowUpSvg} from "@/assets/components/arrowUpSvg.tsx";
+import {ArrowDownSvg} from "@/assets/components/arrowDownSvg.tsx";
 
 type RootProps = ComponentProps<"table">;
 
@@ -73,8 +71,8 @@ export type Column = {
 };
 
 export type Sort = {
-  key: SortingField;
-  direction: SortingDirection;
+  key: Field;
+  direction: Direction;
 } | null;
 
 export const HeaderTable: React.FC<

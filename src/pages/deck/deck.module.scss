@@ -3,32 +3,18 @@
   margin: 0 auto;
   max-width: 1030px;
 
-  .packListBlock {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .packListFind {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    margin-bottom: 36px;
-
-    .iconTrash {
-      transform: translateY(1px);
-      margin: 0 10px auto 0;
-      width: 16px;
-      height: 16px;
-    }
-  }
-
   .rootTable {
     min-height: 500px;
     .headerTable {
       .cell {
         padding-left: 24px;
         padding-right: 24px;
+      }
+
+      .createdByRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     }
   }
@@ -39,4 +25,12 @@
     padding-bottom: 120px;
 
   }
+}
+
+.modal {
+  display: none;
+}
+
+.active {
+  display: block;
 }

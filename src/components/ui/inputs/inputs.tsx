@@ -25,6 +25,7 @@ export type InputProps<T extends ElementType = "input"> = {
   children?: ReactNode;
   disabled?: boolean;
   className?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 } & ComponentPropsWithoutRef<T>;
 
 export const Inputs = forwardRef<HTMLInputElement, InputProps>(
@@ -41,13 +42,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       ...res
     } = props;
 
-    const [value, setValue] = useState<string>("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
-
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      onChange?.(e);
-      setValue(e.currentTarget.value);
-    };
 
     const classname = clsx(
       type === "search" && !errorMessage && s.searchInput,
@@ -91,9 +86,9 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
           {type === "search" && <SearchIcon />}
           <input
             tabIndex={0}
-            onChange={onChangeHandler}
+            onChange={(e)=> onChange?.(e)}
             ref={ref}
-            value={value}
+
             className={classname}
             placeholder={placeholder}
             disabled={disabled}
