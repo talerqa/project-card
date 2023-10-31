@@ -45,6 +45,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
+    console.log(props.value)
 
 
     const classname = clsx(

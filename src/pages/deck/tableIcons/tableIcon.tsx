@@ -26,8 +26,10 @@ export const TableIcon = (props: Props) => {
   }
 
   return (<div>
-    <PlaySvg onClick={playModalHandler}/>
-    <EditSvg onClick={editModalHandler}/>
-    <TrashIcon onClick={deleteModalHandler}/>
+    <PlaySvg/>
+    <button onClick={editModalHandler}>
+      <EditSvg/>
+    </button>
+    <TrashIcon />
   </div>)
 }

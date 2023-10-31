@@ -1,35 +1,20 @@
-.deleteDeckModal {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.deckModal {
   display: flex;
   flex-direction: column;
-  width: 542px;
   border-radius: 2px 2px 0 0;
-  border: 1px solid var(--color-dark-500);
-  background: var(--color-dark-700);
-
-  .titleBlock {
-    display: flex;
-    padding: 18px 24px;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--color-dark-500);
-  }
+  width: 494px;
 
   .inputBlock {
     display: flex;
-    padding: 24px;
     flex-direction: column;
 
-    .input {
-      margin-bottom: 24px;
+    .checkbox {
+      padding: 24px 0;
     }
   }
 
   .buttonsBlock {
-    padding: 0 24px 36px;
+    padding: 12px 0 36px;
     display: flex;
     justify-content: space-between;
   }

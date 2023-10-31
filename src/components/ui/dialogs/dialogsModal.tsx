@@ -15,18 +15,20 @@ export const DialogsModal: FC<Props> = (props) => {
 
   const {open, setOpen, title, children} = props
 
-  return (<Dialog.Root open={open} onOpenChange={setOpen}>
+  return (<Dialog.Root open={open}  onOpenChange={setOpen}>
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay} forceMount/>
       <div className={s.modal}>
-        <Dialog.Content className={s.window} forceMount >
-          <Card className={s.card }>
+        <Dialog.Content className={s.window} forceMount>
+          <Card className={s.card}>
             <div className={s.headerBlock}>
               <Typography variant={'h2'} as={'span'} className={s.title}>
                 {title}
               </Typography>
               <Dialog.Close asChild className={s.close}>
-                <CloseSvg/>
+                <button type='button'>
+                  <CloseSvg/>
+                </button>
               </Dialog.Close>
             </div>
             <div className={s.content}>{children}
