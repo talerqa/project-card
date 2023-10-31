@@ -33,7 +33,7 @@ export const CreateNewPassword = (
     resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmitForm = ({ password }) => {
+  const handleSubmitForm = ({ password  }: any) => {
     token && resetPassword({ token: token, password: password });
   };
 
