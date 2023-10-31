@@ -1,14 +1,8 @@
-.deleteDeckModal {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.deckModal {
   display: flex;
   flex-direction: column;
-  width: 542px;
   border-radius: 2px 2px 0 0;
-  border: 1px solid var(--color-dark-500);
-  background: var(--color-dark-700);
+  width: 494px;
 
   .titleBlock {
     display: flex;
@@ -20,8 +14,8 @@
 
   .textBlock {
     display: flex;
-    padding: 18px 24px;
     flex-direction: column;
+    padding-bottom: 18px;
 
     .text {
       margin: 0;
@@ -29,7 +23,7 @@
   }
 
   .buttonsBlock {
-    padding: 12px 24px 36px;
+    padding: 12px 0 36px;
     display: flex;
     justify-content: space-between;
   }

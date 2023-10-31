@@ -1,6 +1,6 @@
 import {HeaderTable, Sort, Table} from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
-import {GetDecks, useGetDecksQuery,} from "@/services/decks";
+import {DeckType, GetDecks, useGetDecksQuery,} from "@/services/decks";
 import {useMemo, useState} from "react";
 import {Inputs} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
@@ -39,10 +39,8 @@ export const Deck = () => {
   });
 
   const [showModal, setShowModal] = useState<ShowModalType>('')
-
-  const [pack, setItem] = useState()
-
-  const [activeMenu, setActiveMenu] = useState(false)
+  const [pack, setPack] = useState()
+  const [openMenu, setOpenMenu] = useState(false)
 
   return (
     <Page className={s.deck}>
@@ -53,8 +51,8 @@ export const Deck = () => {
         <Button
           type={"button"}
           onClick={() => {
-            setShowModal('addNewPack')
-            setActiveMenu(true)
+            setShowModal('Add New Pack')
+            setOpenMenu(true)
           }}
         >
           Add New Pack
@@ -128,19 +126,19 @@ export const Deck = () => {
           onSort={setSort}
         />
         <Body className={s.headerTable}>
-          {data?.items.length && data.items.map((item: any) => {
-            return <RowTable data={item}
-                             activeMenu={activeMenu}
-                             setActiveMenu={setActiveMenu}
-                             setItem={setItem}
-                             setShowModal={setShowModal}
-
+          {data?.items.length && data.items.map((item: DeckType) => {
+            return <RowTable
+              key={item.id}
+              item={item}
+              setActiveMenu={setOpenMenu}
+              setPack={setPack}
+              setShowModal={setShowModal}
             />
           })}
         </Body>
         <DeckModal
-          activeMenu={activeMenu}
-          setActiveMenu={setActiveMenu}
+          activeMenu={openMenu}
+          setActiveMenu={setOpenMenu}
           item={pack}
           setShowModal={setShowModal}
           showModal={showModal}

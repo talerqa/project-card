@@ -1,4 +1,3 @@
-import s from './deckModal.module.scss'
 import {DeckType,} from "@/services/decks";
 import {DialogsModal} from "@/components/ui/dialogs";
 import {ShowModalType} from "@/pages/deck";
@@ -14,7 +13,6 @@ type Props = {
   showModal: any
 }
 
-
 export const DeckModal = (props: Props) => {
 
   const {item, setActiveMenu, activeMenu, setShowModal, showModal} = props
@@ -24,20 +22,14 @@ export const DeckModal = (props: Props) => {
     setShowModal('')
   }
 
-  return <div className={s.block}>
-    <DialogsModal open={activeMenu} setOpen={setActiveMenu}
-                  title={showModal}>
-
-      {showModal === 'Edit Pack' &&
-          <EditModalForm item={item} closeModalHandler={closeModalHandler}/>}
-
-      {showModal === 'Add New Pack' && <CreateDeckForm item={item}
-                                                     closeModalHandler={closeModalHandler}/>}
-
-      {showModal === 'Delete Pack' && <DeleteDeckModal item={item}
-                                                       closeModalHandler={closeModalHandler}/>}
-
-
-    </DialogsModal>
-  </div>
+  return <DialogsModal open={activeMenu} setOpen={setActiveMenu}
+                       title={showModal}>
+    {showModal === 'Delete Pack' &&
+        <DeleteDeckModal item={item}
+                         closeModalHandler={closeModalHandler}/>}
+    {showModal === 'Edit Pack' &&
+        <EditModalForm item={item} closeModalHandler={closeModalHandler}/>}
+    {showModal === 'Add New Pack' &&
+        <CreateDeckForm item={item} closeModalHandler={closeModalHandler}/>}
+  </DialogsModal>
 }

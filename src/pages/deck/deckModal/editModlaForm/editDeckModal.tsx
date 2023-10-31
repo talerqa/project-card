@@ -1,7 +1,6 @@
 import s from './editDeckModal.module.scss'
 import {Button} from "@/components/ui/button";
 import {useUpdateDeckMutation,} from "@/services/decks";
-import {useState} from "react";
 import {z} from 'zod'
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -38,14 +37,14 @@ export const EditModalForm = (props: any) => {
 
   const [updateDeck] = useUpdateDeckMutation();
 
-  const [cover, setCover] = useState<File | null>(null)
+ // const [cover, setCover] = useState<File | null>(null)
 
   const onSubmit = (data: DeckValuesForm) => {
     const {name, isPrivate} = data
     const formData = new FormData()
     formData.append('name', name)
     formData.append('isPrivate', `${isPrivate}`)
-    cover && formData.append('cover', cover)
+  //  cover && formData.append('cover', cover)
     updateDeck({id: item?.id, body: formData})
     closeModalHandler()
   }
