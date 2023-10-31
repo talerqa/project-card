@@ -1,5 +1,5 @@
-import { ComponentPropsWithoutRef, ElementType } from "react"
-import s from './typography.module.scss'
+import { ComponentPropsWithoutRef, ElementType } from "react";
+import s from "./typography.module.scss";
 
 export type TypographyProps<T extends ElementType> = {
   variant:
@@ -17,15 +17,15 @@ export type TypographyProps<T extends ElementType> = {
     | "link2"
     | "error";
   as: T;
-  children?:  string | number
+  children?: any;
   className?: string;
 } & ComponentPropsWithoutRef<T>;
 
 export const Typography = <T extends ElementType>(
-  props: TypographyProps<T> & 
-  Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>,
+  props: TypographyProps<T> &
+    Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>
 ) => {
-  const { variant, className, as: Component = 'div'  , ...rest } = props;
+  const { variant, className, as: Component = "div", ...rest } = props;
 
-  return <Component className={`${s[variant]} ${className}`} {...rest}  />;
+  return <Component className={`${s[variant]} ${className}`} {...rest} />;
 };

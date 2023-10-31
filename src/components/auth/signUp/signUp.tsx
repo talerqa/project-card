@@ -2,6 +2,7 @@ import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/components/ui/controlled";
 import { Typography } from "@/components/ui/typography";
@@ -10,6 +11,9 @@ import s from "./signUp.module.scss";
 import { Link } from "react-router-dom";
 
 type FormValues = z.infer<typeof loginSchema>;
+
+export const VERIFICATION_STRING =
+  '<b>Hello, ##name##!</b><br/>Please confirm your email by clicking on the link below:<br/><a href="http://localhost:3000/confirm-email/##token##">Confirm email</a>. If it doesn\'t work, copy and paste the following link in your browser:<br/>http://localhost:3000/confirm-email/##token##';
 
 const loginSchema = z
   .object({
@@ -28,7 +32,12 @@ const loginSchema = z
   );
 
 type SignInProps = {
-  onSubmit: (data: Omit<FormValues, "confirmPassword">) => void;
+  onSubmit: (
+    data: Omit<FormValues, "confirmPassword"> & {
+      sendConfirmationEmail: boolean;
+      html: string;
+    }
+  ) => void;
   className?: string;
 };
 
@@ -41,7 +50,11 @@ export const SignUp = (props: SignInProps): JSX.Element => {
     data: Omit<FormValues, "confirmPassword"> & { confirmPassword?: string }
   ) => {
     delete data.confirmPassword;
-    props.onSubmit(data);
+    props.onSubmit({
+      ...data,
+      sendConfirmationEmail: true,
+      html: VERIFICATION_STRING,
+    });
   };
 
   return (
