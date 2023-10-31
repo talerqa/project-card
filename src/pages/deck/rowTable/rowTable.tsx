@@ -5,6 +5,7 @@ import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {DeckType} from "@/services/decks";
 import {ShowModalType} from "@/pages/deck";
+import {useAuthMeQuery} from "@/services/auth";
 
 type Props = {
   item: DeckType
@@ -15,6 +16,7 @@ type Props = {
 
 export const RowTable = (props: Props) => {
 
+  const {data} = useAuthMeQuery();
   const {Row, Cell} = Table;
   const {item, setPack, setActiveMenu, setShowModal} = props
 
@@ -30,6 +32,7 @@ export const RowTable = (props: Props) => {
       <Cell className={`${s.createdByRow} ${s.cell}`}>
         <span> {item.author.name}</span>
 
+
         <button onClick={() => {
           setPack(item)
           setActiveMenu(true)
@@ -38,22 +41,22 @@ export const RowTable = (props: Props) => {
           <PlaySvg/>
         </button>
 
-
-        <button onClick={() => {
+        {data?.id === item.userId && <button onClick={() => {
           setPack(item)
           setActiveMenu(true)
           setShowModal('Edit Pack')
         }}>
-          <EditSvg/>
-        </button>
+            <EditSvg/>
+        </button>}
 
-        <button onClick={() => {
+        {data?.id === item.userId && <button onClick={() => {
           setPack(item)
           setActiveMenu(true)
           setShowModal('Delete Pack')
         }}>
-          <TrashIcon/>
-        </button>
+            <TrashIcon/>
+        </button>}
+
 
       </Cell>
     </Row>)

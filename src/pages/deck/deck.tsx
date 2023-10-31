@@ -1,18 +1,12 @@
 import {HeaderTable, Sort, Table} from "@/components/ui/table";
-import {Button} from "@/components/ui/button";
 import {DeckType, GetDecks, useGetDecksQuery,} from "@/services/decks";
 import {useMemo, useState} from "react";
-import {Inputs} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
-import {Typography} from "@/components/ui/typography";
 import s from "./deck.module.scss";
-import {TabSwitcher} from "@/components/ui/tab-switcher";
-import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
-import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {Page} from "@/components/ui/page";
-import {DeckModal} from "@/pages/deck/deckModal/deckModal/deckModal.tsx";
 import {RowTable} from "@/pages/deck/rowTable";
+import {InfoTable} from "@/pages/deck/infoTable";
+import {DeckModal} from "@/pages/deck/deckModal";
 
 export  type ShowModalType = '' | 'Delete Pack' | 'Edit Pack' | 'Learn' |
   'Add New Pack'
@@ -44,64 +38,8 @@ export const Deck = () => {
 
   return (
     <Page className={s.deck}>
-      <div className={s.packListBlock}>
-        <Typography variant={"large"} as={"p"}>
-          Packs list
-        </Typography>
-        <Button
-          type={"button"}
-          onClick={() => {
-            setShowModal('Add New Pack')
-            setOpenMenu(true)
-          }}
-        >
-          Add New Pack
-        </Button>
-      </div>
-      <div className={s.packListFind}>
-        <Inputs
-          type="search"
-          placeholder="Input search"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        />
-        <div>
-          <Typography variant={"body2"} as={"span"}>
-            Show packs cards
-          </Typography>
-          <TabSwitcher
-            tabs={["My Cards", "All Cards"]}
-            activeTab={1}
-            title={"Show packs cards"}
-          />
-        </div>
-        <div>
-          <Typography variant={"body2"} as={"span"}>
-            Number of cards
-          </Typography>
-          <SliderWithUseState
-            label="Number of cards"
-            value={[0, 20]}
-            step={1}
-            minStepsBetweenThumbs={1}
-          />
-        </div>
-        <Button
-          type={"button"}
-          variant="secondaryWithIcon"
-          icon={
-            <IconSvgButton className={s.iconTrash} children={<TrashIcon/>}/>
-          }
-        >
-          <Typography variant={"subtitle2"} as={"span"}>
-            Clear Filter
-          </Typography>
-        </Button>
-      </div>
-
-
+      <InfoTable setShowModal={setShowModal} setOpenMenu={setOpenMenu}
+                 setName={setName} name={name}/>
       <Root className={s.rootTable}>
         <HeaderTable
           columns={[
@@ -161,5 +99,3 @@ export const Deck = () => {
     </Page>
   );
 };
-
-
