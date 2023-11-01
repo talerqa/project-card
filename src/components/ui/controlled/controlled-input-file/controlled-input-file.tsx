@@ -12,7 +12,8 @@ import s from './controlled-input-file.module.scss';
 
 type ControlledInputType<TFieldValues extends FieldValues> =
   UseControllerProps<TFieldValues> & Omit<InputFileProps, 'onChange'>
-export const ControlledInputFile = <TFieldValues extends FieldValues>({onLoadCover,
+export const ControlledInputFile = <TFieldValues extends FieldValues>({title,
+                                                                        onLoadCover,
                                                                         type,
                                                                         name,
                                                                         control,
@@ -41,7 +42,8 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({onLoadCov
               variant='secondary'
               className={s.button}
               disabled={false}
-      > <Typography variant={'body1'} as={'span'} children={'Add New Pack'}
+      >
+        <Typography variant={'body1'} as={'span'} children={title}
                     className={s.textButton}/>
         <InputFile type={type} label={name}
                    changeHandler={uploadHandler}

@@ -26,7 +26,7 @@ export const deckSchema = z.object({
 
 export const CreateDeckForm = (props: any) => {
   const [createDeck] = useCreateDeckMutation();
-const [cover, setCover] = useState<File | undefined>()
+  const [cover, setCover] = useState<File | undefined>()
 
   const {
     handleSubmit,
@@ -57,18 +57,17 @@ const [cover, setCover] = useState<File | undefined>()
 
   const handleSubmitForm = handleSubmit(onSubmit);
 
-  console.log(cover)
-
   const image = cover && URL.createObjectURL(cover)
 
   return <form onSubmit={handleSubmitForm} className={s.createDeck}>
     <div className={s.inputBlock}>
-      <img src={image} alt=""/>
+      {image && <img src={image} alt="img-deck" className={s.image}/>}
       <ControlledInputFile
         name={'cover'}
         type={'file'}
         onLoadCover={onLoadCover}
         className={s.inputFile}
+        title={'Add image'}
         control={control}/>
       <ControlledInput
         name={"name"}

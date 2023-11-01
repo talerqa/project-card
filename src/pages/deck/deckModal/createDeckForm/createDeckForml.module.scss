@@ -1,5 +1,3 @@
-
-
 .createDeck {
   display: flex;
   flex-direction: column;
@@ -11,11 +9,17 @@
     padding: 0 0 24px 0;
     flex-direction: column;
 
-
-    .input {
-      margin-bottom: 24px;
+    .image {
+      height: 80px;
+      width: 100%;
+      object-fit: none;
+      object-position: center;
+      margin-bottom: 10px;
     }
 
+    .input {
+      margin-top: 24px;
+    }
   }
 
   .buttonsBlock {
