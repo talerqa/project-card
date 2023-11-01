@@ -19,9 +19,10 @@ export const Deck = () => {
   const {data: cards} = useGetCardsQuery({id})
 
 
+
   const [open, setOpen] = useState(false)
 
-  console.log(data)
+
   return <div className={s.deck}>
     <div className={s.backToDecks}>
       <ArrowBackSvg/>
@@ -38,7 +39,7 @@ export const Deck = () => {
         <Button type={'button'} children={'Add New Card'}
                 onClick={() => setOpen(true)}
         />
-        <AddNewCardModal open={open} setOpen={setOpen}/>
+        <AddNewCardModal open={open} setOpen={setOpen} card={data}/>
       </div>
       : <div>
       </div>

@@ -9,47 +9,60 @@ import {DialogsModal} from "@/components/ui/dialogs";
 import {
   ControlledSelect
 } from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
+import {logDOM} from "@storybook/testing-library";
 
 
 type DeckValuesForm = z.infer<typeof deckSchema>
 
 const deckSchema = z.object({
-  text: z.string().min(3, 'Name must be at least 3' +
-    ' characters'),
   question: z.string().min(3, 'Name must be at least 3' +
     ' characters'),
-  answer: z.string().min(2, 'Name must be at least 2' +
+  answer: z.string().min(3, 'Name must be at least 2' +
     ' characters'),
+  // text: z.string().min(3, 'Name must be at least 3' +
+  //   ' characters'),
+  // question: z.string().min(3, 'Name must be at least 3' +
+  //   ' characters'),
+  // answer: z.string().min(2, 'Name must be at least 2' +
+  //   ' characters'),
 })
 
 export const AddNewCardModal = (props: any) => {
 
-  const {item, closeModalHandler} = props
+  const {card} = props
+
+  console.log(
+    card
+  )
 
   const {
     handleSubmit,
     control,
-    formState: {},
+    formState: {errors},
   } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {
-      text: '',
-      question: '',
       answer: '',
+      question: ''
     },
   })
 
   const [createCard] = useCreateCardMutation()
 
-  const onSubmit = (data: DeckValuesForm) => {
-    const {text, question, answer} = data
-    const formData = new FormData()
-    formData.append('text', text)
-    formData.append('question', question)
-    formData.append('answer', answer)
+  const  closeModalHandler = ( )=> {
+    props.setOpen(false)
+  }
 
+  const onSubmit = (data: DeckValuesForm) => {
+    const {question, answer} = data
+    const formData = new FormData()
+
+    formData.append('question', String(question))
+    formData.append('answer', String(answer))
+    createCard({id: card?.id, body: formData})
+    console.log(question, answer)
     //  cover && formData.append('cover', cover)
-    createCard({id: item?.id, body: formData})
+
     closeModalHandler()
   }
 
@@ -64,28 +77,32 @@ export const AddNewCardModal = (props: any) => {
     <form onSubmit={handleSubmitForm} className={s.deckModal}>
       {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
       <div className={s.inputBlock}>
-        <ControlledSelect
-          placeholder={'Text'}
-          array={[{title: "Text", value: "text"},
-            {title: "Picture", value: "picture"},]}
-          name={"text"}
-          control={control}
-          label={"Choose a question format"}
-          className={s.input}
-        />
+        {/*<ControlledSelect*/}
+        {/*  placeholder={'Text'}*/}
+        {/*  array={[{title: "Text", value: "text"},*/}
+        {/*    {title: "Picture", value: "picture"},]}*/}
+        {/*  name={"text"}*/}
+        {/*  control={control}*/}
+        {/*  defaultValue={'text'}*/}
+
+        {/*  label={"Choose a question format"}*/}
+        {/*  className={s.select}*/}
+        {/*/>*/}
         <ControlledInput
           name={"question"}
           type={"text"}
           control={control}
+
           label={"Question"}
-          className={s.input}
+          className={s.inputQuestion}
         />
         <ControlledInput
           name={"answer"}
           type={"text"}
           control={control}
           label={"Answer"}
-          className={s.input}
+          className={s.inputAnswer}
+
         />
       </div>
       <div className={s.buttonsBlock}>
