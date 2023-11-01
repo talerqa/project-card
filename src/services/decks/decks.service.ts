@@ -1,5 +1,6 @@
 import {baseApi} from "../base-api";
 import {
+  CardType,
   CreateDeck,
   DeckType,
   GetDecks,
@@ -57,6 +58,14 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Card"],
       }),
+      createCard: builder.mutation<CardType, {  id?: string, body: FormData  }>({
+        query: ({id}) => ({
+          url: `v1/decks/${id}/cards`,
+          method: "GET",
+          id: id ?? {},
+        }),
+        invalidatesTags: ["Card"],
+      }),
     };
   },
 });
@@ -68,4 +77,5 @@ export const {
   useUpdateDeckMutation,
   useDeleteDeckMutation,
   useGetCardsQuery,
+  useCreateCardMutation,
 } = DeckService;

@@ -1,0 +1,26 @@
+.modal {
+  justify-content: normal;
+  inset: 100px;
+
+  .deckModal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px 2px 0 0;
+    width: 494px;
+
+    .inputBlock {
+      display: flex;
+      flex-direction: column;
+
+      .checkbox {
+        padding: 24px 0;
+      }
+    }
+
+    .buttonsBlock {
+      padding: 12px 0 36px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

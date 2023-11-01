@@ -13,12 +13,13 @@ import clsx from "clsx";
 
 export type SelectProps = {
   variant?: "default";
-  label?: "Select-box";
+  label?: string;
   array?: { title: string; value: string }[];
   placeholder?: string;
-  disabled: boolean;
+  disabled?: boolean;
   onChange: (value: any) => void;
   className?: string
+  value?: string
 } & ComponentPropsWithoutRef<typeof SelectGroup.Root>;
 
 export const Select = forwardRef<

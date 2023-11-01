@@ -4,6 +4,9 @@ import {useAuthMeQuery} from "@/services/auth";
 import {ArrowBackSvg} from "@/assets/components/arrowBackSvg.tsx";
 import {Typography} from "@/components/ui/typography";
 import {Button} from "@/components/ui/button";
+import {AddNewCardModal} from "@/pages/deck/deck/addNewCardModal";
+import {useState} from "react";
+import s from './deck.module.scss'
 
 export const Deck = () => {
 
@@ -16,10 +19,11 @@ export const Deck = () => {
   const {data: cards} = useGetCardsQuery({id})
 
 
+  const [open, setOpen] = useState(false)
 
   console.log(data)
-  return <div>
-    <div>
+  return <div className={s.deck}>
+    <div className={s.backToDecks}>
       <ArrowBackSvg/>
       <Typography variant={'body2'}
                   to={"/decks"}
@@ -29,12 +33,14 @@ export const Deck = () => {
     {data?.userId === auth?.id ?
       <div>
         {cards?.items.length === 0 && <Typography variant={'body1'}
-                                               as={'p'}
-                                               children={'This pack is empty. Click add new card to fill this pack'}/>}
-        <Button type={'button'} children={'Add New Card'}/>
+                                                  as={'p'}
+                                                  children={'This pack is empty. Click add new card to fill this pack'}/>}
+        <Button type={'button'} children={'Add New Card'}
+                onClick={() => setOpen(true)}
+        />
+        <AddNewCardModal open={open} setOpen={setOpen}/>
       </div>
       : <div>
-
       </div>
     }
 
