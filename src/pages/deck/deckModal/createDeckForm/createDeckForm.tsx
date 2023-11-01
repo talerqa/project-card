@@ -22,6 +22,7 @@ export const deckSchema = z.object({
       (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
       ".jpg, .jpeg, .png and .webp files are accepted."
     )
+    .optional()
 })
 
 export const CreateDeckForm = (props: any) => {

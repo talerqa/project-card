@@ -53,7 +53,6 @@ export const EditModalForm = (props: any) => {
   const [cover, setCover] = useState<File | null>(null)
 
 
-
   const onSubmit = (data: DeckValuesForm) => {
     const {name, isPrivate} = data
     const formData = new FormData()
@@ -62,6 +61,7 @@ export const EditModalForm = (props: any) => {
     cover && formData.append('cover', cover)
     updateDeck({id: item?.id, body: formData})
     closeModalHandler()
+    setCover(null)
   }
 
   const onLoadCover = (data: File) => {
@@ -69,12 +69,19 @@ export const EditModalForm = (props: any) => {
   }
   const handleSubmitForm = handleSubmit(onSubmit);
 
+  console.log(item?.cover)
   console.log(cover)
 
   return <form onSubmit={handleSubmitForm} className={s.deckModal}>
     {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
     <div className={s.inputBlock}>
-      <img src={cover ? URL.createObjectURL(cover) : item?.cover} alt="img-deck" className={s.image}/>
+      {item?.cover ?
+        <img src={cover ? URL.createObjectURL(cover) : item?.cover}
+             alt="img-deck" className={s.image}/>
+        : cover
+          ? <img src={cover ? URL.createObjectURL(cover) : ''}
+                 alt="img-deck" className={s.image}/>
+          : ' '}
       <ControlledInputFile
         name={'cover'}
         type={'file'}

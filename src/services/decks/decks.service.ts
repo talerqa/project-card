@@ -3,7 +3,7 @@ import {
   CardType,
   DeckType,
   GetDecks,
-  GetResponseType,
+  GetResponseType, GetResponseTypeCard,
 } from "@/services/decks/decks.type.ts";
 
 export const DeckService = baseApi.injectEndpoints({
@@ -49,7 +49,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getCards: builder.query<GetResponseType, { id?: string }>({
+      getCards: builder.query<GetResponseTypeCard, { id?: string }>({
         query: ({id}) => ({
           url: `v1/decks/${id}/cards`,
           method: "GET",
@@ -68,6 +68,8 @@ export const DeckService = baseApi.injectEndpoints({
     };
   },
 });
+
+
 
 export const {
   useGetDecksQuery,

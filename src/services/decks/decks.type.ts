@@ -42,6 +42,18 @@ export type GetDecks = {
   orderBy: `${Field}-${Direction}` | null;
 };
 
+export type GetResponseTypeCard = {
+  items: CardType[];
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalPages: number;
+    totalItems: number;
+  };
+  maxCardsCount: number;
+};
+
+
 export type CardType = {
 	id: string;
 	deckId: string;
@@ -54,6 +66,7 @@ export type CardType = {
 	questionVideo: string;
 	answerVideo: string;
 	rating: number;
+  grade: number;
 	created: string;
 	updated: string;
 }

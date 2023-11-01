@@ -20,13 +20,15 @@ export const RowTable = (props: Props) => {
   const {data} = useAuthMeQuery();
   const {Row, Cell} = Table;
   const {item, setPack, setActiveMenu, setShowModal} = props
-
+  console.log(item?.cover)
   return (
     <Row key={item.id}>
       <Cell className={s.cell}>
-        <NavLink to={`${item.id}`} className={s.name}>
+        <NavLink to={`${item.id}/cards`} className={s.name}>
           {item.name}
-          {item.cover?.length && <img src={item.cover} alt="cover" className={s.image}/>}
+          {item.cover ? <img src={item?.cover as string}
+                             alt="cover"
+                             className={s.image}/> : <></>}
         </NavLink>
       </Cell>
       <Cell className={s.cell}>{item.cardsCount}</Cell>
@@ -40,9 +42,10 @@ export const RowTable = (props: Props) => {
           setActiveMenu(true)
           setShowModal('Learn')
         }}>
-          <PlaySvg/>
+          <NavLink to={`${item.id}/learn`}>
+            <PlaySvg/>
+          </NavLink>
         </button>
-
         {data?.id === item.userId && <button onClick={() => {
           setPack(item)
           setActiveMenu(true)

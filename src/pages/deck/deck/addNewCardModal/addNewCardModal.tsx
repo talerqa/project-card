@@ -79,7 +79,6 @@ export const AddNewCardModal = (props: any) => {
           name={"text"}
           control={control}
           defaultValue={'text'}
-
           label={"Choose a question format"}
           className={s.select}
         />
