@@ -1,3 +1,5 @@
+
+
 .createDeck {
   display: flex;
   flex-direction: column;
@@ -8,6 +10,7 @@
     display: flex;
     padding: 0 0 24px 0;
     flex-direction: column;
+
 
     .input {
       margin-bottom: 24px;
@@ -21,5 +24,3 @@
     justify-content: space-between;
   }
 }
-
-

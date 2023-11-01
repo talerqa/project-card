@@ -21,7 +21,7 @@ export type DeckType = {
   name: string;
   isPrivate?: boolean;
   shots: number;
-  cover?: string | null;
+  cover?: string | null | File | HTMLInputElement;
   rating: number;
   created: string;
   updated: string;

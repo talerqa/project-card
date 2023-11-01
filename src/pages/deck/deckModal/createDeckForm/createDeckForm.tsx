@@ -5,41 +5,65 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import s from './createDeckForml.module.scss'
 import {ControlledCheckbox, ControlledInput} from "@/components/ui/controlled";
 import {Button} from "@/components/ui/button";
+import {
+  ControlledInputFile
+} from "@/components/ui/controlled/controlled-input-file/controlled-input-file.tsx";
 
-export type DeckValuesForm1 = z.infer<typeof deckSchema>
+export type DeckValuesForm = z.infer<typeof deckSchema>
 
 export const deckSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
   isPrivate: z.boolean().default(false),
+  cover: z
+    .instanceof(File)
+    .refine((file) => file.size < 500000, 'File size must be less than 5MB')
+    .refine(
+      (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    )
 })
 
 export const CreateDeckForm = (props: any) => {
-
   const [createDeck] = useCreateDeckMutation();
-  const onSubmit = () => {
-    createDeck({
-      name: control._formValues.name,
-      isPrivate: control._formValues.isPrivate,
-    })
-    props.closeModalHandler()
-  }
 
   const {
     handleSubmit,
     control,
     formState: {errors},
-  } = useForm<DeckValuesForm1>({
+  } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {
       name: '',
-      isPrivate: false
-    },
+      isPrivate: false,
+      cover: undefined,
+    }
   })
+
+  const onSubmit = (data: DeckValuesForm) => {
+    const {name, isPrivate, cover} = data
+    console.log(
+      name
+    )
+    const formData = new FormData()
+    formData.append('name', String(name))
+    formData.append('isPrivate', String(isPrivate))
+    cover && formData.append('cover', cover)
+    createDeck(formData)
+    props.closeModalHandler()
+  }
+
+  console.log(errors)
 
   const handleSubmitForm = handleSubmit(onSubmit);
 
+
   return <form onSubmit={handleSubmitForm} className={s.createDeck}>
     <div className={s.inputBlock}>
+      <ControlledInputFile
+        name={'cover'}
+        type={'file'}
+        className={s.inputFile}
+        control={control}/>
       <ControlledInput
         name={"name"}
         type={"text"}

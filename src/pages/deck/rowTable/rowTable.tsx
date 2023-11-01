@@ -26,6 +26,7 @@ export const RowTable = (props: Props) => {
       <Cell className={s.cell}>
         <NavLink to={`${item.id}`} className={s.name}>
           {item.name}
+          {item.cover?.length && <img src={item.cover} alt="cover" className={s.image}/>}
         </NavLink>
       </Cell>
       <Cell className={s.cell}>{item.cardsCount}</Cell>
