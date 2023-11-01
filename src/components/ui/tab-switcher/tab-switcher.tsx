@@ -9,6 +9,7 @@ export type TabSwitcherProps = {
   title?: string
   activeTab?: number;
   disabled?: boolean;
+  onChange?: any
 };
 
 export const TabSwitcher = ({
@@ -22,21 +23,22 @@ export const TabSwitcher = ({
       type="single"
       value={`${active}`}
       onValueChange={(value) => {
+        console.log(value)
         if (value) setActive(+value);
       }}
     >
       {tabs.map((tab, index) => {
         return (
           <ToggleGroup.Item
-            key={index}
-            value={`${index}`}
-            className={
-              disabled
-                ? s.tabDisabled
-                : active === index
-                  ? s.buttonTab + " " + s.tabActive
-                  : s.buttonTab + " " + s.ToggleGroupItem
-            }
+                            key={index}
+                            value={`${index}`}
+                            className={
+                              disabled
+                                ? s.tabDisabled
+                                : active === index
+                                  ? s.buttonTab + " " + s.tabActive
+                                  : s.buttonTab + " " + s.ToggleGroupItem
+                            }
           >
             {tab}
           </ToggleGroup.Item>

@@ -6,8 +6,17 @@ import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
 import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import s from './infoTable.module.scss'
+import {ShowModalType} from "@/pages/deck";
 
-export const InfoTable = (props: any) => {
+type Props = {
+  setShowModal: (value: ShowModalType) => void
+  setOpenMenu: (value: boolean) => void
+  setName: (name: string) => void
+  name: string
+  maxCardsCount?: number
+}
+
+export const InfoTable = (props: Props) => {
   const {setShowModal, setOpenMenu, setName, name} = props
 
   return (<>
@@ -50,7 +59,7 @@ export const InfoTable = (props: any) => {
         </Typography>
         <SliderWithUseState
           label="Number of cards"
-          value={[0, 20]}
+          value={[0, 61]}
           step={1}
           minStepsBetweenThumbs={1}
         />

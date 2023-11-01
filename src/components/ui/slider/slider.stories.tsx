@@ -13,8 +13,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const SliderWithUseState = (args: SliderProps) => {
-  const [min, setMin] = useState<number>(args.value[0])
-  const [max, setMax] = useState<number>(args.value[1])
+  const [min, setMin] = useState<number >(args.value[0])
+  const [max, setMax] = useState<number >(args.value[1])
 
   const onHandler = (ref: number[]) => {
     setMin(ref[0])

@@ -9,16 +9,17 @@ type Props = {
   open: boolean
   setOpen: (value: boolean) => void
   title: string
+  className?: string
 } & PropsWithChildren
 
 export const DialogsModal: FC<Props> = (props) => {
 
-  const {open, setOpen, title, children} = props
+  const {open, setOpen, title, className, children} = props
 
   return (<Dialog.Root open={open}  onOpenChange={setOpen}>
     <Dialog.Portal>
       <Dialog.Overlay className={s.overlay} forceMount/>
-      <div className={s.modal}>
+      <div className={`${s.modal} ${className}` }>
         <Dialog.Content className={s.window} forceMount>
           <Card className={s.card}>
             <div className={s.headerBlock}>

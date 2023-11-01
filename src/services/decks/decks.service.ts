@@ -1,9 +1,9 @@
 import {baseApi} from "../base-api";
 import {
-  CreateDeck,
+  CardType,
   DeckType,
   GetDecks,
-  GetResponseType,
+  GetResponseType, GetResponseTypeCard,
 } from "@/services/decks/decks.type.ts";
 
 export const DeckService = baseApi.injectEndpoints({
@@ -17,7 +17,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Decks"],
       }),
-      createDeck: builder.mutation<DeckType, CreateDeck>({
+      createDeck: builder.mutation<DeckType, FormData>({
         query: (body) => ({
           url: "v1/decks",
           method: "POST",
@@ -25,7 +25,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getDeck: builder.query<DeckType, { id: string }  >({
+      getDeck: builder.query<DeckType, { id?: string }>({
         query: ({id}) => ({
           url: `v1/decks/${id}`,
           method: "GET",
@@ -33,7 +33,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Decks"],
       }),
-      updateDeck: builder.mutation<DeckType, {id?: string, body: FormData}>({
+      updateDeck: builder.mutation<DeckType, { id?: string, body: FormData }>({
         query: ({id, body}) => ({
           url: `v1/decks/${id}`,
           method: "PATCH",
@@ -49,9 +49,27 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
+      getCards: builder.query<GetResponseTypeCard, { id?: string }>({
+        query: ({id}) => ({
+          url: `v1/decks/${id}/cards`,
+          method: "GET",
+          id: id ?? {},
+        }),
+        providesTags: ["Card"],
+      }),
+      createCard: builder.mutation<CardType, {  id?: string, body: FormData  }>({
+        query: ({id, body}) => ({
+          url: `v1/decks/${id}/cards`,
+          method: "POST",
+          body,
+        }),
+        invalidatesTags: ["Card", 'Decks'],
+      }),
     };
   },
 });
+
+
 
 export const {
   useGetDecksQuery,
@@ -59,4 +77,6 @@ export const {
   useGetDeckQuery,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
+  useGetCardsQuery,
+  useCreateCardMutation,
 } = DeckService;

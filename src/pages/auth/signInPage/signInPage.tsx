@@ -25,7 +25,7 @@ export const SignInPage = () => {
       </div>
     );
 
-  if (!authError || isSuccess) return <Navigate to="/" replace={true} />;
+  if (!authError || isSuccess) return <Navigate to="/decks" replace={true} />;
 
   const handleLogin = (params: LoginArgsType) => {
     login(params);

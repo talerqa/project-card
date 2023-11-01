@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 
 export const Logo = (props: { className: string }) => {
-  return <Link to={'/'} style={{height: '36px'}}>
+  return <Link to={'/decks'} style={{height: '36px'}}>
     <svg className={props.className} width="512" height="118"
          viewBox="0 0 512 118" fill="none"
          xmlns="http://www.w3.org/2000/svg">

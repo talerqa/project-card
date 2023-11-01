@@ -12,13 +12,13 @@ import clsx from "clsx";
 
 import s from "./inputs.module.scss";
 
-import { EyeNoneIcon } from "@/assets/components/eyeNoneIcon.tsx";
-import { EyeOpenIcon } from "@/assets/components/eyeOpenIcon.tsx";
-import { SearchIcon } from "@/assets/components/searchIcon.tsx";
-import { Typography } from "@/components/ui/typography";
+import {EyeNoneIcon} from "@/assets/components/eyeNoneIcon.tsx";
+import {EyeOpenIcon} from "@/assets/components/eyeOpenIcon.tsx";
+import {SearchIcon} from "@/assets/components/searchIcon.tsx";
+import {Typography} from "@/components/ui/typography";
 
 export type InputProps<T extends ElementType = "input"> = {
-  type: "text" | "search" | "password";
+  type: "text" | "search" | "password" | 'file';
   label?: string;
   placeholder?: string;
   errorMessage?: string;
@@ -48,8 +48,8 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
       type === "search" && !errorMessage && s.searchInput,
       errorMessage && type === "search" && s.searchInput + " " + s.error,
       errorMessage &&
-        (type === "text" || type === "password") &&
-        s.input + " " + s.error,
+      (type === "text" || type === "password") &&
+      s.input + " " + s.error,
       s.input
     );
 
@@ -75,20 +75,19 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <EyeNoneIcon />
+                <EyeNoneIcon/>
               ) : (
-                <EyeOpenIcon disabled={disabled} />
+                <EyeOpenIcon disabled={disabled}/>
               )}
             </button>
           )}
         </div>
         <div className={s.root}>
-          {type === "search" && <SearchIcon />}
+          {type === "search" && <SearchIcon/>}
           <input
             tabIndex={0}
-            onChange={(e)=> onChange?.(e)}
+            onChange={(e) => onChange?.(e)}
             ref={ref}
-
             className={classname}
             placeholder={placeholder}
             disabled={disabled}
@@ -97,7 +96,7 @@ export const Inputs = forwardRef<HTMLInputElement, InputProps>(
                 ? "password"
                 : type === "search"
                   ? "search"
-                  : "text"
+                  : 'text'
             }
             onKeyDown={onKeyPressHandler}
             {...res}

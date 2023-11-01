@@ -21,7 +21,7 @@ export type DeckType = {
   name: string;
   isPrivate?: boolean;
   shots: number;
-  cover?: string | null;
+  cover?: string | null | File | HTMLInputElement;
   rating: number;
   created: string;
   updated: string;
@@ -42,3 +42,31 @@ export type GetDecks = {
   orderBy: `${Field}-${Direction}` | null;
 };
 
+export type GetResponseTypeCard = {
+  items: CardType[];
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalPages: number;
+    totalItems: number;
+  };
+  maxCardsCount: number;
+};
+
+
+export type CardType = {
+	id: string;
+	deckId: string;
+	userId: string;
+	question: string;
+	answer: string;
+	shots: number;
+	answerImg: string;
+	questionImg: string;
+	questionVideo: string;
+	answerVideo: string;
+	rating: number;
+  grade: number;
+	created: string;
+	updated: string;
+}

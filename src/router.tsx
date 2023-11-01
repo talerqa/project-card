@@ -9,7 +9,7 @@ import {
 import {SignInPage} from "@/pages/auth/signInPage";
 import {SignUpPage} from "@/pages/auth/signUpPage";
 import {Layout} from "@/pages/layout/layout.tsx";
-import {Deck} from "@/pages/deck/deck.tsx";
+import {Decks} from "@/pages/deck/decks.tsx";
 import {ForgotPasswordPage} from "@/pages/auth/forgotPassword";
 import {CheckEmailPage} from "@/pages/auth/checkEmail";
 import {CreateNewPasswordPage} from "@/pages/auth/createNewPassword";
@@ -19,6 +19,7 @@ import {
   Confirmation
 } from "./pages/auth/sendConfirmation/confirmation/confirmation";
 import {SendConfirmation} from "./pages/auth/sendConfirmation/sendConfirmation";
+import {Deck} from "@/pages/deck/deck";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -63,8 +64,16 @@ const privateRoutes: RouteObject[] = [
     element: <Layout/>,
     children: [
       {
-        path: "/",
+        path: "/decks",
+        element: <Decks/>,
+      },
+      {
+        path: "/decks/:id/cards",
         element: <Deck/>,
+      },
+      {
+        path: "/decks/:id/learn",
+        element: <>LEARN</>,
       },
     ],
   },
