@@ -8,6 +8,7 @@ import {Button} from "@/components/ui/button";
 import {
   ControlledInputFile
 } from "@/components/ui/controlled/controlled-input-file/controlled-input-file.tsx";
+import {useState} from "react";
 
 export type DeckValuesForm = z.infer<typeof deckSchema>
 
@@ -16,7 +17,7 @@ export const deckSchema = z.object({
   isPrivate: z.boolean().default(false),
   cover: z
     .instanceof(File)
-    .refine((file) => file.size < 500000, 'File size must be less than 5MB')
+    .refine((file) => file.size < 1000000, 'File size must be less than 1MB')
     .refine(
       (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
       ".jpg, .jpeg, .png and .webp files are accepted."
@@ -25,6 +26,7 @@ export const deckSchema = z.object({
 
 export const CreateDeckForm = (props: any) => {
   const [createDeck] = useCreateDeckMutation();
+const [cover, setCover] = useState<File | undefined>()
 
   const {
     handleSubmit,
@@ -41,9 +43,6 @@ export const CreateDeckForm = (props: any) => {
 
   const onSubmit = (data: DeckValuesForm) => {
     const {name, isPrivate, cover} = data
-    console.log(
-      name
-    )
     const formData = new FormData()
     formData.append('name', String(name))
     formData.append('isPrivate', String(isPrivate))
@@ -52,16 +51,23 @@ export const CreateDeckForm = (props: any) => {
     props.closeModalHandler()
   }
 
-  console.log(errors)
+  const onLoadCover = (data: File) => {
+    setCover(data)
+  }
 
   const handleSubmitForm = handleSubmit(onSubmit);
 
+  console.log(cover)
+
+  const image = cover && URL.createObjectURL(cover)
 
   return <form onSubmit={handleSubmitForm} className={s.createDeck}>
     <div className={s.inputBlock}>
+      <img src={image} alt=""/>
       <ControlledInputFile
         name={'cover'}
         type={'file'}
+        onLoadCover={onLoadCover}
         className={s.inputFile}
         control={control}/>
       <ControlledInput

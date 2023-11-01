@@ -1,7 +1,6 @@
 import {baseApi} from "../base-api";
 import {
   CardType,
-  CreateDeck,
   DeckType,
   GetDecks,
   GetResponseType,
@@ -18,7 +17,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Decks"],
       }),
-      createDeck: builder.mutation<DeckType, any>({
+      createDeck: builder.mutation<DeckType, FormData>({
         query: (body) => ({
           url: "v1/decks",
           method: "POST",
