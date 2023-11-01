@@ -33,7 +33,7 @@ export const AddNewCardModal = (props: any) => {
   const {
     handleSubmit,
     control,
-    formState: {errors},
+    formState: {},
   } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {

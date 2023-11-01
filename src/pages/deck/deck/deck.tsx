@@ -1,10 +1,5 @@
-import {Link, NavLink, useParams} from "react-router-dom";
-import {
-  CardType,
-  DeckType,
-  useGetCardsQuery,
-  useGetDeckQuery
-} from "@/services/decks";
+import {Link, useParams} from "react-router-dom";
+import {CardType, useGetCardsQuery, useGetDeckQuery} from "@/services/decks";
 import {useAuthMeQuery} from "@/services/auth";
 import {ArrowBackSvg} from "@/assets/components/arrowBackSvg.tsx";
 import {Typography} from "@/components/ui/typography";
@@ -13,13 +8,7 @@ import {AddNewCardModal} from "@/pages/deck/deck/addNewCardModal";
 import {useState} from "react";
 import s from './deck.module.scss'
 import {HeaderTable, Table} from "@/components/ui/table";
-import {RowTable} from "@/pages/deck/rowTable";
-import {DeckModal} from "@/pages/deck/deckModal";
-import {Pagination} from "@/components/ui/pagination";
 import {Page} from "@/components/ui/page";
-import {PlaySvg} from "@/assets/components/play.tsx";
-import {EditSvg} from "@/assets/components/edit.tsx";
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 
 export const Deck = () => {
 
@@ -35,7 +24,7 @@ export const Deck = () => {
 
   console.log(cards)
 
-  const {Root, Body, Row, Cell, HeadCell, Head, Header} = Table;
+  const {Root, Body, Row, Cell} = Table;
 
 
   return <Page className={s.deck}>
