@@ -25,7 +25,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getDeck: builder.query<DeckType, { id: string }  >({
+      getDeck: builder.query<DeckType, { id?: string }>({
         query: ({id}) => ({
           url: `v1/decks/${id}`,
           method: "GET",
@@ -33,7 +33,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Decks"],
       }),
-      updateDeck: builder.mutation<DeckType, {id?: string, body: FormData}>({
+      updateDeck: builder.mutation<DeckType, { id?: string, body: FormData }>({
         query: ({id, body}) => ({
           url: `v1/decks/${id}`,
           method: "PATCH",
@@ -49,6 +49,14 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
+      getCards: builder.query<GetResponseType, { id?: string }>({
+        query: ({id}) => ({
+          url: `v1/decks/${id}/cards`,
+          method: "GET",
+          id: id ?? {},
+        }),
+        providesTags: ["Card"],
+      }),
     };
   },
 });
@@ -59,4 +67,5 @@ export const {
   useGetDeckQuery,
   useUpdateDeckMutation,
   useDeleteDeckMutation,
+  useGetCardsQuery,
 } = DeckService;

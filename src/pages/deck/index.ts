@@ -1,1 +1,1 @@
-export * from './deck.tsx'
+export * from './decks.tsx'

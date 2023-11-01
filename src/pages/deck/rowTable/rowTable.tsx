@@ -1,11 +1,12 @@
 import {Table} from "@/components/ui/table";
-import s from "@/pages/deck/deck.module.scss";
+import s from "@/pages/deck/decks.module.scss";
 import {PlaySvg} from "@/assets/components/play.tsx";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {DeckType} from "@/services/decks";
 import {ShowModalType} from "@/pages/deck";
 import {useAuthMeQuery} from "@/services/auth";
+import {NavLink} from "react-router-dom";
 
 type Props = {
   item: DeckType
@@ -22,17 +23,17 @@ export const RowTable = (props: Props) => {
 
   return (
     <Row key={item.id}>
-      <Cell className={s.cell} onClick={() => {
-
-      }}>{item.name}</Cell>
+      <Cell className={s.cell}>
+        <NavLink to={`${item.id}`} className={s.name}>
+          {item.name}
+        </NavLink>
+      </Cell>
       <Cell className={s.cell}>{item.cardsCount}</Cell>
       <Cell className={s.cell}>
         {new Date(item.updated).toLocaleDateString()}
       </Cell>
       <Cell className={`${s.createdByRow} ${s.cell}`}>
         <span> {item.author.name}</span>
-
-
         <button onClick={() => {
           setPack(item)
           setActiveMenu(true)
