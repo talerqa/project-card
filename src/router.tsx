@@ -19,8 +19,10 @@ import {
   Confirmation
 } from "./pages/auth/sendConfirmation/confirmation/confirmation";
 import {SendConfirmation} from "@/pages";
-import {Deck} from "@/pages/deck/deck";
+
 import {Decks} from "@/pages/decks";
+import {Deck} from "@/pages/deck";
+
 
 const publicRoutes: RouteObject[] = [
   {
