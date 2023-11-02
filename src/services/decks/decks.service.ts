@@ -65,6 +65,14 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", 'Decks'],
       }),
+      learnCard: builder.query<CardType, {  id?: string, previousCardId?: string  }>({
+        query: ({id}) => ({
+          url: `v1/decks/${id}/learn`,
+          method: "GET",
+          id,
+        }),
+        providesTags: ["Card", 'Decks'],
+      }),
     };
   },
 });
@@ -79,4 +87,5 @@ export const {
   useDeleteDeckMutation,
   useGetCardsQuery,
   useCreateCardMutation,
+  useLearnCardQuery,
 } = DeckService;

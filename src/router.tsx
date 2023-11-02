@@ -22,6 +22,7 @@ import {SendConfirmation} from "@/pages";
 
 import {Decks} from "@/pages/decks";
 import {Deck} from "@/pages/deck";
+import {LearnCard} from "@/pages/learnCard";
 
 
 const publicRoutes: RouteObject[] = [
@@ -76,7 +77,7 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: "/decks/:id/learn",
-        element: <>LEARN</>,
+        element: <LearnCard/>,
       },
     ],
   },

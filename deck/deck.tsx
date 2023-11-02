@@ -40,7 +40,7 @@ export const Deck = () => {
         {cards?.items.length === 0 &&
             <Typography variant={'body1'}
                         as={'p'}
-                        children={'This pack is empty. Click add new card to fill this pack'}/>}
+                        children={'This pack is empty. Click add new learnCard to fill this pack'}/>}
         <Button type={'button'} children={'Add New Card'}
                 onClick={() => setOpen(true)}
         />

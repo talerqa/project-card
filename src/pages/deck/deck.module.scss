@@ -6,7 +6,14 @@
 
   .backToDecks {
     margin-top: 24px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 
+    .textBack {
+      margin-left: 6px;
+      text-decoration: none;
+    }
   }
 
   //
