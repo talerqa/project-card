@@ -6,7 +6,8 @@ import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
 import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import s from './infoTable.module.scss'
-import {ShowModalType} from "@/pages/deck";
+import {ShowModalType} from "@/pages/decks";
+
 
 type Props = {
   setShowModal: (value: ShowModalType) => void

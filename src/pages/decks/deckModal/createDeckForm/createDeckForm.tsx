@@ -2,7 +2,7 @@ import {z} from "zod";
 import {useCreateDeckMutation} from "@/services/decks";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import s from './createDeckForml.module.scss'
+import s from './createDeckForm.module.scss'
 import {ControlledCheckbox, ControlledInput} from "@/components/ui/controlled";
 import {Button} from "@/components/ui/button";
 import {

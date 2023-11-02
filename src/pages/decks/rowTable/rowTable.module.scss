@@ -1,0 +1,25 @@
+
+.cell {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.createdByRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
+.image {
+  height: 40px;
+}

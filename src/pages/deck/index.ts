@@ -1,1 +1,2 @@
-export * from './decks.tsx'
+export * from './deck.tsx'
+export * from './addNewCardModal'

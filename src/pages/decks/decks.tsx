@@ -4,9 +4,10 @@ import {useMemo, useState} from "react";
 import {Pagination} from "@/components/ui/pagination";
 import s from "./decks.module.scss";
 import {Page} from "@/components/ui/page";
-import {RowTable} from "@/pages/deck/rowTable";
-import {InfoTable} from "@/pages/deck/infoTable";
-import {DeckModal} from "@/pages/deck/deckModal";
+import {InfoTable} from "@/pages/decks/infoTable";
+import {RowTable} from "@/pages/decks/rowTable";
+import {DeckModal} from "@/pages/decks/deckModal";
+
 
 export  type ShowModalType = '' | 'Delete Pack' | 'Edit Pack' | 'Learn' |
   'Add New Pack'

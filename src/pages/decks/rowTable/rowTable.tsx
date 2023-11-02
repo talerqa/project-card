@@ -1,12 +1,13 @@
 import {Table} from "@/components/ui/table";
-import s from "@/pages/deck/decks.module.scss";
+import s from "./rowTable.module.scss";
 import {PlaySvg} from "@/assets/components/play.tsx";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {DeckType} from "@/services/decks";
-import {ShowModalType} from "@/pages/deck";
+
 import {useAuthMeQuery} from "@/services/auth";
 import {NavLink} from "react-router-dom";
+import {ShowModalType} from "@/pages/decks";
 
 type Props = {
   item: DeckType

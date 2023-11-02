@@ -10,9 +10,9 @@
     flex-direction: column;
 
     .image {
-      height: 80px;
+      height: 200px;
       width: 100%;
-      object-fit: none;
+      object-fit: contain;
       object-position: center;
       margin-bottom: 10px;
     }

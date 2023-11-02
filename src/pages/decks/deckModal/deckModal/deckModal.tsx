@@ -1,8 +1,8 @@
 import {DeckType,} from "@/services/decks";
 import {DialogsModal} from "@/components/ui/dialogs";
-import {ShowModalType} from "@/pages/deck";
-import {CreateDeckForm, DeleteDeckModal} from "@/pages/deck/deckModal";
-import {EditModalForm} from "@/pages/deck/deckModal/editModlaForm";
+import {CreateDeckForm, DeleteDeckModal, ShowModalType} from "@/pages/decks";
+import {EditModalForm} from "@/pages/decks/deckModal/editModlaForm";
+
 
 
 type Props = {
