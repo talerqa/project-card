@@ -1,0 +1,21 @@
+.packListBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.packListFind {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 36px;
+
+  .iconTrash {
+    transform: translateY(1px);
+    margin: 0 10px auto 0;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+
