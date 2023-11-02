@@ -1,1 +1,0 @@
-export * from './infoTable.tsx'
