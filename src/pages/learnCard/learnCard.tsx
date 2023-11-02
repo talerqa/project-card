@@ -3,7 +3,11 @@ import {Page} from "@/components/ui/page";
 import {Card} from "@/components/ui/card";
 import {Typography} from "@/components/ui/typography";
 import {Button} from "@/components/ui/button";
-import {useGetDeckQuery, useLearnCardQuery} from "@/services/decks";
+import {
+  useGetDeckQuery,
+  useLearnCardQuery,
+  useSaveGradeCardMutation
+} from "@/services/decks";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
 
@@ -15,8 +19,9 @@ export const LearnCard = () => {
   const {data} = useLearnCardQuery({id})
   const {data: card} = useGetDeckQuery({id})
 
+const [setGrade] = useSaveGradeCardMutation()
 
-
+  console.log(data)
 
   return <Page className={s.deck}>
     <Card className={s.card}>
@@ -50,6 +55,12 @@ export const LearnCard = () => {
 
       {showAnswer && <div className={s.showAnswer}>
           sdfdsfsdfsdfsdfsdfsd
+
+          <button onClick={()=>{
+            console.log(data?.id)
+            console.log(data?.deckId)
+        setGrade({id: data?.id, body: {cardId: data?.id,grade: 5 }})
+          }}>+</button>
       </div>
       }
 
