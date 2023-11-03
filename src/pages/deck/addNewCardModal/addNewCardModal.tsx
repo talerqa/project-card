@@ -5,7 +5,6 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ControlledInput} from "@/components/ui/controlled";
 import {useCreateCardMutation} from "@/services/decks";
-import {DialogsModal} from "@/components/ui/dialogs";
 import {
   ControlledSelect
 } from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
@@ -26,10 +25,6 @@ export const AddNewCardModal = (props: any) => {
 
   const {card} = props
 
-  console.log(
-    card
-  )
-
   const {
     handleSubmit,
     control,
@@ -37,16 +32,13 @@ export const AddNewCardModal = (props: any) => {
   } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {
-      answer: '1111111111',
-      question: '11111111111'
+      answer: '',
+      question: ''
     },
   })
 
   const [createCard] = useCreateCardMutation()
 
-  const closeModalHandler = () => {
-    props.setOpen(false)
-  }
 
   const onSubmit = (data: DeckValuesForm) => {
     const {question, answer} = data
@@ -57,18 +49,12 @@ export const AddNewCardModal = (props: any) => {
     createCard({id: card?.id, body: formData})
     console.log(formData.get('question'))
     //  cover && formData.append('cover', cover)
-
-    closeModalHandler()
+    props.closeModalHandler()
   }
 
   const handleSubmitForm = handleSubmit(onSubmit);
 
-  return <DialogsModal
-    open={props.open}
-    setOpen={props.setOpen}
-    title={'Add New Card'}
-    className={s.modal}
-  >
+  return <div className={s.modal} >
     <form onSubmit={handleSubmitForm} className={s.deckModal}>
       {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
       <div className={s.inputBlock}>
@@ -100,13 +86,13 @@ export const AddNewCardModal = (props: any) => {
       <div className={s.buttonsBlock}>
         <Button type={'button'} variant={'secondary'}
                 children={'Cancel'}
-                onClick={closeModalHandler}/>
+                onClick={props.closeModalHandler}/>
         <Button type={'submit'}
                 children={'Save Change'}
         />
       </div>
     </form>
-  </DialogsModal>
+  </div>
 }
 
 

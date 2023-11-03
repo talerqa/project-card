@@ -7,7 +7,8 @@ import React, {
 } from "react";
 import s from "./dropdown.module.scss";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { Typography } from "@/components/ui/typography";
+import {Typography} from "@/components/ui/typography";
+import clsx from "clsx";
 
 export type DropDownProps = {
   variant?: "DropDownMenu" | "DropDownMenuWithIcon";
@@ -26,15 +27,16 @@ export const DropDown = forwardRef<
     children,
     trigger,
     align,
+    className,
     variant = "DropDownMenuWithIcon",
     ...res
   } = props;
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const className = {
+  const classname = {
     trigger: s.trigger,
-    content: s.content,
+    content: clsx(s.content, className),
     root: s.root,
     portal: s.portal,
     item: s.item,
@@ -42,9 +44,9 @@ export const DropDown = forwardRef<
   };
 
   return (
-    <div className={className.root}>
+    <div className={classname.root}>
       <DropdownMenu.Root open={open} onOpenChange={setOpen}>
-        <DropdownMenu.Trigger asChild className={className.trigger}>
+        <DropdownMenu.Trigger asChild className={classname.trigger}>
           {trigger}
         </DropdownMenu.Trigger>
         {open && (
@@ -53,16 +55,16 @@ export const DropDown = forwardRef<
               align={align}
               onClick={(event) => event.stopPropagation()}
               ref={ref}
-              className={className.content}
+              className={classname.content}
               {...res}
             >
               <DropdownMenu.Label>
-                <DropdownMenu.Item className={className.item}>
+                <DropdownMenu.Item className={classname.item}>
                   {children}
                 </DropdownMenu.Item>
               </DropdownMenu.Label>
               <DropdownMenu.Arrow
-                className={className.arrow}
+                className={classname.arrow}
               ></DropdownMenu.Arrow>
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
@@ -88,7 +90,7 @@ const classNameProfile = {
 };
 
 export const ProfileItemDropDown: React.FC<ProfileDropDown> = (props) => {
-  const { img, email, name } = props;
+  const {img, email, name} = props;
   return (
     <>
       <div className={classNameProfile.profileDropDownBlock}>
@@ -112,7 +114,7 @@ export const ProfileItemDropDown: React.FC<ProfileDropDown> = (props) => {
           />
         </div>
       </div>
-      <DropdownMenu.Separator className={classNameProfile.separator} />
+      <DropdownMenu.Separator className={classNameProfile.separator}/>
     </>
   );
 };
@@ -132,18 +134,18 @@ const ItemDropDownClassName = {
 };
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
-  const { img, title, onClick } = props;
+  const {img, title, onClick} = props;
   return (
     <>
       {" "}
       {title === "Edit" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
       )}
       {title === "Sign Out" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
       )}
       {title === "Delete" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
       )}
       <div className={ItemDropDownClassName.itemDropDown}>
         <div

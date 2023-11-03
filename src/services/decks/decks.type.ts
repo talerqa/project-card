@@ -42,6 +42,41 @@ export type GetDecks = {
   orderBy: `${Field}-${Direction}` | null;
 };
 
+
+
+
+export type CardType = {
+  id: string;
+  deckId: string;
+  userId: string;
+  question: string;
+  answer: string;
+  shots: number;
+  answerImg: string;
+  questionImg: string;
+  questionVideo: string;
+  answerVideo: string;
+  rating: number;
+  grade: number;
+  created: string;
+  updated: string;
+}
+
+
+export type DirectionCard = "asc" | "desc";
+
+export type FieldCard = "question" | "answer"
+
+export type GetCardType = {
+  id?: string
+  question?: string
+  answer?: string
+  orderBy?: `${FieldCard}-${DirectionCard}` | null;
+  currentPage?: number
+  itemsPerPage?: number
+
+}
+
 export type GetResponseTypeCard = {
   items: CardType[];
   pagination: {
@@ -50,23 +85,4 @@ export type GetResponseTypeCard = {
     totalPages: number;
     totalItems: number;
   };
-  maxCardsCount: number;
 };
-
-
-export type CardType = {
-	id: string;
-	deckId: string;
-	userId: string;
-	question: string;
-	answer: string;
-	shots: number;
-	answerImg: string;
-	questionImg: string;
-	questionVideo: string;
-	answerVideo: string;
-	rating: number;
-  grade: number;
-	created: string;
-	updated: string;
-}

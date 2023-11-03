@@ -6,12 +6,11 @@ import {usePagination} from "./usePagination";
 type PaginationProps = {
   className?: string
   pageSizeValue: Array<{ title: string; value: string }>
-
   onClick?: any
-  totalPages: any
-  itemsPerPage: any
-  currentPage: any
-  onChangePerPage: any
+  totalPages?: any
+  itemsPerPage?: any
+  currentPage?: any
+  onChangePerPage?: any
 };
 
 export const Pagination = ({
