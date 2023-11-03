@@ -39,12 +39,13 @@ export const Deck = () => {
   const navigate = useNavigate()
   const {Root, Body, Row, Cell} = Table;
   const [showModal, setShowModal] = useState<ModalType>('')
-  const [pack, setPack] = useState()
+  // const [pack, setPack] = useState()
 
 
   const closeModalHandler = () => {
     setOpen(false)
     setShowModal('')
+
   }
 
 
@@ -99,8 +100,9 @@ export const Deck = () => {
 
 
     <DialogsModal open={open} setOpen={setOpen} title={showModal}>
-      {showModal === 'Add New Card' && <AddNewCardModal item={pack}
-                                                        closeModalHandler={closeModalHandler}/>}
+      {showModal === 'Add New Card' && <AddNewCardModal
+        //item={pack}
+          closeModalHandler={closeModalHandler}/>}
 
       {/*{showModal === 'Delete Pack' &&*/}
       {/*    <DeleteDeckModal item={pack}*/}
