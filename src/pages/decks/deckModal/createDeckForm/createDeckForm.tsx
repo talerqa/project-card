@@ -29,6 +29,8 @@ export const CreateDeckForm = (props: any) => {
   const [createDeck] = useCreateDeckMutation();
   const [cover, setCover] = useState<File | undefined>()
 
+  console.log(cover)
+
   const {
     handleSubmit,
     control,

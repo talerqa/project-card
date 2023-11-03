@@ -150,12 +150,12 @@ export const Deck = () => {
         {/*/>*/}
       </div>
       : <div>
-        {cards?.items.map((item: CardType)=>{
+        {cards?.items.map((item: CardType) => {
           return <>
-    <p>        {item.id}</p>
-    <p>    {item.answer}</p>
-    <p>    {item.question}</p>
-    <p>   {item.rating}</p>
+            <p>        {item.id}</p>
+            <p>    {item.answer}</p>
+            <p>    {item.question}</p>
+            <p>   {item.rating}</p>
             <p>   {item.grade}</p>
           </>
         })}
