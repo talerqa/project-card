@@ -1,11 +1,11 @@
 .deck {
-
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 1030px;
 
-
   .backToDecks {
-    margin-top: 24px;
+    margin: 24px 0 30px;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -14,6 +14,48 @@
       margin-left: 6px;
       text-decoration: none;
     }
+  }
+
+  .blockTitleDeck {
+    display: flex;
+    align-items: center;
+
+    .title {
+      margin: 0;
+    }
+
+
+    .menu {
+      left: 62px;
+    }
+
+    .trigger {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .dropDown {
+    transform: translateX(-100px);
+  }
+
+  .mainBlock {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .emptyDeck {
+      display: block;
+      margin-top: 69px;
+    }
+
+
+    .buttonAddNewCard {
+
+    }
+
   }
 
   //

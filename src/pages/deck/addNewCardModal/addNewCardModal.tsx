@@ -26,10 +26,6 @@ export const AddNewCardModal = (props: any) => {
 
   const {card} = props
 
-  console.log(
-    card
-  )
-
   const {
     handleSubmit,
     control,
