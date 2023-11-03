@@ -63,11 +63,15 @@ export type CardType = {
 }
 
 
+export type DirectionCard = "asc" | "desc";
+
+export type FieldCard = "question" | "answer"
+
 export type GetCardType = {
-  id: string
+  id?: string
   question?: string
   answer?: string
-  orderBy?: string
+  orderBy?: `${FieldCard}-${DirectionCard}` | null;
   currentPage?: number
   itemsPerPage?: number
 

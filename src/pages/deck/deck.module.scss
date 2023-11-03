@@ -16,25 +16,34 @@
     }
   }
 
-  .blockTitleDeck {
+  .blockHeaderDeck {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 27px;
 
+    .blockTitleDeck {
+      display: flex;
+      align-items: center;
 
-    .title {
-      margin: 0 16px 0 0;
+
+      .title {
+        margin: 0 16px 0 0;
+      }
+
+      .menu {
+        left: 62px;
+      }
+
+      .trigger {
+        width: 24px;
+        height: 24px;
+      }
     }
 
-    .menu {
-      left: 62px;
-    }
 
-    .trigger {
-      width: 24px;
-      height: 24px;
-    }
   }
+
 
   .dropDown {
     transform: translateX(-100px);
@@ -50,6 +59,7 @@
     .emptyDeck {
       display: block;
       margin-top: 69px;
+      margin-bottom: 30px;
     }
 
 
@@ -60,6 +70,7 @@
   }
 
   .searchInput {
+    width: 100%;
     margin-bottom: 24px;
   }
 

@@ -7,7 +7,6 @@ import {useState} from "react";
 import s from './deck.module.scss'
 import {HeaderTable, Table} from "@/components/ui/table";
 import {Page} from "@/components/ui/page";
-import {AddNewCardModal} from "@/pages/deck/addNewCardModal";
 import {BackToPage} from "@/components/common/backToPage";
 import {DropDown, ItemDropDown} from "@/components/ui/dropdown";
 import play from "@/assets/img/play.svg";
@@ -15,6 +14,14 @@ import edit from "@/assets/img/edit.svg";
 import trash from "@/assets/img/trash.svg";
 import {TriggerDropDown} from "@/assets/components/triggerDropDown.tsx";
 import {Inputs} from "@/components/ui/inputs";
+import {Pagination} from "@/components/ui/pagination";
+import {EditSvg} from "@/assets/components/edit.tsx";
+import {TrashIcon} from "@/assets/components/trashIcon.tsx";
+import {AddNewCardModal} from "@/pages/deck/addNewCardModal";
+import {DialogsModal} from "@/components/ui/dialogs";
+
+export type ModalType = '' | 'Delete Card' | 'Edit Card' | 'Learn' |
+  'Add New Card'
 
 
 export const Deck = () => {
@@ -26,60 +33,88 @@ export const Deck = () => {
   const {data: cards} = useGetCardsQuery({
     id,
     answer
-
   })
+
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
-  console.log(id)
   const {Root, Body, Row, Cell} = Table;
+  const [showModal, setShowModal] = useState<ModalType>('')
+  const [pack, setPack] = useState()
+
+
+  const closeModalHandler = () => {
+    setOpen(false)
+    setShowModal('')
+  }
+
 
   return <Page className={s.deck}>
+
     <div className={s.backToDecks}>
       <BackToPage link={'/decks'}/>
     </div>
     <div>
       {data?.userId === auth?.id ?
-        <div className={s.blockTitleDeck}>
-          <Typography className={s.title}
-                      variant={'large'} as={'h2'}
-                      children={'My Pack'}/>
-          <DropDown
-            className={s.dropDown}
-            children={
-              <div className={s.menu}>
-                <ItemDropDown img={play} title={'Learn'}
-                              onClick={() => navigate(`../decks/${data?.id}/learn`)}/>
-                <ItemDropDown img={edit} title={'Edit'}
-                              onClick={() => console.log(213432)}/>
-                <ItemDropDown img={trash} title={'Delete'}
-                              onClick={() => console.log(213432)}/>
-              </div>}
-            trigger={<button className={s.trigger}>
-              <TriggerDropDown/>
-            </button>}/>
+        <div className={s.blockHeaderDeck}>
+          <div className={s.blockTitleDeck}>
+
+
+            <Typography className={s.title}
+                        variant={'large'} as={'h2'}
+                        children={'My Pack'}/>
+            {cards?.items.length !== 0 && <> <DropDown
+                className={s.dropDown}
+                children={
+                  <div className={s.menu}>
+                    <ItemDropDown img={play} title={'Learn'}
+                                  onClick={() => navigate(`../decks/${data?.id}/learn`)}/>
+                    <ItemDropDown img={edit} title={'Edit'}
+                                  onClick={() => console.log(213432)}/>
+                    <ItemDropDown img={trash} title={'Delete'}
+                                  onClick={() => console.log(213432)}/>
+                  </div>}
+                trigger={<button className={s.trigger}>
+                  <TriggerDropDown/>
+                </button>}/>
+            </>}
+          </div>
+          {cards?.items.length !== 0 &&
+              <Button className={s.buttonAddNewCardHeader}
+                      type={'button'}
+                      variant={'primary'}
+                      children={'Add New Card'}
+                      onClick={() => {
+                        setShowModal('Add New Card')
+                        setOpen(true)
+                      }}
+              />}
+
         </div>
         : <>
           <Typography className={s.title}
                       variant={'large'} as={'h2'}
                       children={"Friend\'s Pack"}/>
-
-        </>
-
-      }
+        </>}
     </div>
-    <AddNewCardModal open={open} setOpen={setOpen} card={data}/>
-    <Inputs
-      type="search"
-      placeholder="Input search"
-      className={s.searchInput}
-      value={answer}
-      onChange={(event) => {
-        setName(event.target.value);
-      }}
-    />
+
+
+    <DialogsModal open={open} setOpen={setOpen} title={showModal}>
+      {showModal === 'Add New Card' && <AddNewCardModal item={pack}
+                                                        closeModalHandler={closeModalHandler}/>}
+
+      {/*{showModal === 'Delete Pack' &&*/}
+      {/*    <DeleteDeckModal item={pack}*/}
+      {/*                     closeModalHandler={closeModalHandler}/>}*/}
+      {/*{showModal === 'Edit Pack' &&*/}
+      {/*    <EditModalForm item={pack} closeModalHandler={closeModalHandler}/>}*/}
+      {/*{showModal === 'Add New Pack' &&*/}
+      {/*    <AddNewCardModal item={pack} closeModalHandler={closeModalHandler}/>}*/}
+    </DialogsModal>
+
 
     {data?.userId === auth?.id ?
       <div className={s.mainBlock}>
+
         {cards?.items.length === 0 ?
           <>
             <Typography variant={'body1'}
@@ -88,11 +123,24 @@ export const Deck = () => {
                         children={'This pack is empty. Click add new learnCard to fill this pack'}/>
             <Button className={s.buttonAddNewCard}
                     type={'button'}
+                    variant={'primary'}
                     children={'Add New Card'}
-                    onClick={() => setOpen(true)}
+                    onClick={() => {
+                      setShowModal('Add New Card')
+                      setOpen(true)
+                    }}
             />
           </>
           : <>
+            <Inputs
+              type="search"
+              placeholder="Input search"
+              className={s.searchInput}
+              value={answer}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
             <Root className={s.rootTable}>
               <HeaderTable
                 columns={[
@@ -118,23 +166,6 @@ export const Deck = () => {
               />
               <Body className={s.headerTable}>
                 {cards?.items.length && cards.items.map((item: CardType) => {
-                  {/*  return <RowTable*/
-                  }
-                  {/*    key={item.id}*/
-                  }
-                  {/*    item={item}*/
-                  }
-                  {/*    setActiveMenu={setOpenMenu}*/
-                  }
-                  {/*    setPack={setPack}*/
-                  }
-                  {/*    setShowModal={setShowModal}*/
-                  }
-                  {/*  />*/
-                  }
-                  {/*})}*/
-                  }
-
                   return (<Row key={item.id}>
                     <Cell className={s.cell}>
                       <p className={s.name}>
@@ -151,60 +182,40 @@ export const Deck = () => {
                     </Cell>
                     <Cell>
                       {item.grade}
+                      <button onClick={() => {
+                        // setPack(item)
+                        setOpen(true)
+                        // setShowModal('Edit Pack')
+                      }}>
+                        <EditSvg/>
+                      </button>
+                      <button onClick={() => {
+                        // setPack(item)
+                        setOpen(true)
+                        // setShowModal('Delete Pack')
+                      }}>
+                        <TrashIcon/>
+                      </button>
                     </Cell>
-                    {/*  <Cell className={`${s.createdByRow} ${s.cell}`}>*/}
-                    {/*    <span> {item.author.name}</span>*/}
-                    {/*    <button onClick={() => {*/}
-                    {/*      setPack(item)*/}
-                    {/*      setActiveMenu(true)*/}
-                    {/*      setShowModal('Learn')*/}
-                    {/*    }}>*/}
-                    {/*      <PlaySvg/>*/}
-                    {/*    </button>*/}
-
-                    {/*    {data?.id === item.userId && <button onClick={() => {*/}
-                    {/*      setPack(item)*/}
-                    {/*      setActiveMenu(true)*/}
-                    {/*      setShowModal('Edit Pack')*/}
-                    {/*    }}>*/}
-                    {/*        <EditSvg/>*/}
-                    {/*    </button>}*/}
-
-                    {/*    {data?.id === item.userId && <button onClick={() => {*/}
-                    {/*      setPack(item)*/}
-                    {/*      setActiveMenu(true)*/}
-                    {/*      setShowModal('Delete Pack')*/}
-                    {/*    }}>*/}
-                    {/*        <TrashIcon/>*/}
-                    {/*    </button>}*/}
-                    {/*  </Cell>*/}
                   </Row>)
                 })}
               </Body>
-              {/*<DeckModal*/}
-              {/*  activeMenu={openMenu}*/}
-              {/*  setActiveMenu={setOpenMenu}*/}
-              {/*  item={pack}*/}
-              {/*  setShowModal={setShowModal}*/}
-              {/*  showModal={showModal}*/}
-              {/*/>*/}
-            </Root></>}
+            </Root>
+            <Pagination
+              pageSizeValue={[
+                {title: "10", value: "10"},
+                {title: "20", value: "20"},
+              ]}
+              totalPages={cards?.pagination.totalPages}
+              itemsPerPage={cards?.pagination.itemsPerPage}
+              // currentPage={currentPage}
+              // className={s.pagination}
+              // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+              // onClick={(value: number) => setCurrentPage(value)}
+            />
+          </>}
 
 
-        {/*<Pagination*/}
-        {/*  pageSizeValue={[*/}
-        {/*    {title: "10", value: "10"},*/}
-        {/*    {title: "20", value: "20"},*/}
-        {/*    {title: "50", value: "50"},*/}
-        {/*    {title: "100", value: "100"},*/}
-        {/*  ]}*/}
-        {/*  totalPages={data?.pagination.totalPages}*/}
-        {/*  itemsPerPage={data?.pagination.itemsPerPage}*/}
-        {/*  currentPage={currentPage}*/}
-        {/*  className={s.pagination}*/}
-        {/*  onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}*/}
-        {/*  onClick={(value: number) => setCurrentPage(value)}*/}
-        {/*/>*/}
       </div>
       : <div>
         {cards?.items.map((item: CardType) => {

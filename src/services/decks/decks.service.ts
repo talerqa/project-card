@@ -2,6 +2,7 @@ import {baseApi} from "../base-api";
 import {
   CardType,
   DeckType,
+  GetCardType,
   GetDecks,
   GetResponseType,
   GetResponseTypeCard,
@@ -50,13 +51,18 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getCards: builder.query<GetResponseTypeCard, {
-        id?: string
-      } | any | void>({
-        query: ({id, answer, question}) => ({
+      getCards: builder.query<GetResponseTypeCard, GetCardType>({
+        query: ({
+                  id,
+                  answer,
+                  question,
+                  currentPage,
+                  itemsPerPage,
+                  orderBy
+                }) => ({
           url: `v1/decks/${id}/cards`,
           method: "GET",
-          params:  {answer, question}
+          params: {answer, question, currentPage, itemsPerPage, orderBy}
         }),
         providesTags: ["Card", 'Decks'],
       }),
@@ -87,6 +93,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", 'Decks'],
       }),
+
     };
   },
 });
