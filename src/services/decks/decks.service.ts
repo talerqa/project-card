@@ -3,7 +3,8 @@ import {
   CardType,
   DeckType,
   GetDecks,
-  GetResponseType, GetResponseTypeCard,
+  GetResponseType,
+  GetResponseTypeCard,
 } from "@/services/decks/decks.type.ts";
 
 export const DeckService = baseApi.injectEndpoints({
@@ -49,15 +50,17 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getCards: builder.query<GetResponseTypeCard, { id?: string }>({
-        query: ({id}) => ({
+      getCards: builder.query<GetResponseTypeCard, {
+        id?: string
+      } | any | void>({
+        query: ({id, answer, question}) => ({
           url: `v1/decks/${id}/cards`,
           method: "GET",
-          id: id ?? {},
+          params:  {answer, question}
         }),
-        providesTags: ["Card"],
+        providesTags: ["Card", 'Decks'],
       }),
-      createCard: builder.mutation<CardType, {  id?: string, body: FormData  }>({
+      createCard: builder.mutation<CardType, { id?: string, body: FormData }>({
         query: ({id, body}) => ({
           url: `v1/decks/${id}/cards`,
           method: "POST",
@@ -65,7 +68,10 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", 'Decks'],
       }),
-      learnCard: builder.query<CardType, {  id?: string, previousCardId?: string  }>({
+      learnCard: builder.query<CardType, {
+        id?: string,
+        previousCardId?: string
+      }>({
         query: ({id}) => ({
           url: `v1/decks/${id}/learn`,
           method: "GET",
@@ -73,7 +79,7 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         providesTags: ["Card", 'Decks'],
       }),
-      saveGradeCard: builder.mutation<CardType, {  id?: string, body: any  }>({
+      saveGradeCard: builder.mutation<CardType, { id?: string, body: any }>({
         query: ({id, body}) => ({
           url: `v1/decks/${id}/learn`,
           method: "POST",
@@ -84,7 +90,6 @@ export const DeckService = baseApi.injectEndpoints({
     };
   },
 });
-
 
 
 export const {

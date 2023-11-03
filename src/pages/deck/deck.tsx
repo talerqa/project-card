@@ -14,19 +14,23 @@ import play from "@/assets/img/play.svg";
 import edit from "@/assets/img/edit.svg";
 import trash from "@/assets/img/trash.svg";
 import {TriggerDropDown} from "@/assets/components/triggerDropDown.tsx";
+import {Inputs} from "@/components/ui/inputs";
+
 
 export const Deck = () => {
 
   let {id} = useParams();
-
+  const [answer, setName] = useState<string>("");
   const {data} = useGetDeckQuery({id})
   const {data: auth} = useAuthMeQuery()
-  const {data: cards} = useGetCardsQuery({id})
+  const {data: cards} = useGetCardsQuery({
+    id,
+    answer
+
+  })
   const [open, setOpen] = useState(false)
-  console.log(cards)
-
   const navigate = useNavigate()
-
+  console.log(id)
   const {Root, Body, Row, Cell} = Table;
 
   return <Page className={s.deck}>
@@ -43,17 +47,15 @@ export const Deck = () => {
             className={s.dropDown}
             children={
               <div className={s.menu}>
-
                 <ItemDropDown img={play} title={'Learn'}
                               onClick={() => navigate(`../decks/${data?.id}/learn`)}/>
-
                 <ItemDropDown img={edit} title={'Edit'}
                               onClick={() => console.log(213432)}/>
                 <ItemDropDown img={trash} title={'Delete'}
                               onClick={() => console.log(213432)}/>
               </div>}
-
-            trigger={<button className={s.trigger}><TriggerDropDown/>
+            trigger={<button className={s.trigger}>
+              <TriggerDropDown/>
             </button>}/>
         </div>
         : <>
@@ -66,6 +68,15 @@ export const Deck = () => {
       }
     </div>
     <AddNewCardModal open={open} setOpen={setOpen} card={data}/>
+    <Inputs
+      type="search"
+      placeholder="Input search"
+      className={s.searchInput}
+      value={answer}
+      onChange={(event) => {
+        setName(event.target.value);
+      }}
+    />
 
     {data?.userId === auth?.id ?
       <div className={s.mainBlock}>
@@ -197,13 +208,13 @@ export const Deck = () => {
       </div>
       : <div>
         {cards?.items.map((item: CardType) => {
-          return <>
+          return <div key={item.id}>
             <p>        {item.id}</p>
             <p>    {item.answer}</p>
             <p>    {item.question}</p>
             <p>   {item.rating}</p>
             <p>   {item.grade}</p>
-          </>
+          </div>
         })}
         OTHER DECK
       </div>
