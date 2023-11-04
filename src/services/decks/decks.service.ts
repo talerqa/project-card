@@ -93,7 +93,6 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", 'Decks'],
       }),
-
     };
   },
 });

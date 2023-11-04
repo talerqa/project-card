@@ -1,7 +1,12 @@
 .deck {
-
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 1030px;
+
+  .backToDecks {
+    margin: 24px 0 30px;
+  }
 
   .card {
     padding: 33px 36px 48px;
@@ -22,6 +27,7 @@
       margin: 0;
       justify-content: start;
       align-items: center;
+
       .questionTitle {
         margin-right: 3px;
       }

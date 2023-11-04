@@ -6,21 +6,13 @@
 
   .backToDecks {
     margin: 24px 0 30px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-
-    .textBack {
-      margin-left: 6px;
-      text-decoration: none;
-    }
   }
 
   .blockHeaderDeck {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 27px;
+    margin-bottom: 15px;
 
     .blockTitleDeck {
       display: flex;
@@ -40,13 +32,16 @@
         height: 24px;
       }
     }
-
-
   }
-
 
   .dropDown {
     transform: translateX(-100px);
+  }
+
+  .imageCover {
+    width: 170px;
+    height: 100%;
+    margin-bottom: 25px;
   }
 
   .mainBlock {
@@ -74,31 +69,30 @@
     margin-bottom: 24px;
   }
 
+  .rootTable {
+    //min-height: 500px;
+    margin-bottom: 15px;
 
-  //
-  //.rootTable {
-  //  min-height: 500px;
-  //
-  //  .headerTable {
-  //    .cell {
-  //      padding-left: 24px;
-  //      padding-right: 24px;
-  //
-  //      .name {
-  //        text-decoration: none;
-  //        font-weight: inherit;
-  //        color: inherit;
-  //        font-size: inherit;
-  //      }
-  //    }
-  //
-  //    .createdByRow {
-  //      display: flex;
-  //      justify-content: space-between;
-  //      align-items: center;
-  //    }
-  //  }
-  //}
+    .headerTable {
+      .cell {
+        padding-left: 24px;
+        padding-right: 24px;
+
+        .name {
+          text-decoration: none;
+          font-weight: inherit;
+          color: inherit;
+          font-size: inherit;
+        }
+      }
+
+      .createdByRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
 
   //.pagination {
   //  margin: 0 auto;

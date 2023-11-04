@@ -1,4 +1,4 @@
-import s from './addNewCardModal.module.scss'
+import s from './deleteCardModal.module.scss'
 import {Button} from "@/components/ui/button";
 import {z} from 'zod'
 import {useForm} from "react-hook-form";
@@ -21,7 +21,7 @@ const deckSchema = z.object({
     ' characters'),
 })
 
-export const AddNewCardModal = (props: any) => {
+export const DeleteCardModal = (props: any) => {
 
   const {deckId} = props
 
