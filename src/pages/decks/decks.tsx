@@ -13,11 +13,11 @@ export  type ShowModalType = '' | 'Delete Pack' | 'Edit Pack' | 'Learn' |
   'Add New Pack'
 
 export const Decks = () => {
+
   const {Root, Body} = Table;
   const [name, setName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-
   const [orderBy, setSort] = useState<Sort>(null);
 
   const sortedString = useMemo(() => {
@@ -34,7 +34,7 @@ export const Decks = () => {
   });
 
   const [showModal, setShowModal] = useState<ShowModalType>('')
-  const [pack, setPack] = useState()
+  const [pack, setPack] = useState<DeckType>()
   const [openMenu, setOpenMenu] = useState(false)
 
   return (<Page className={s.deck}>
@@ -44,7 +44,7 @@ export const Decks = () => {
                name={name}
                maxCardsCount={data?.maxCardsCount}
     />
-    <Root className={s.rootTable}>
+    <Root>
       <HeaderTable
         columns={[
           {
@@ -67,8 +67,8 @@ export const Decks = () => {
         sort={orderBy}
         onSort={setSort}
       />
-      <Body className={s.headerTable}>
-        {data?.items.length && data.items.map((item: DeckType) => {
+      <Body>
+        {data?.items.length ? data.items.map((item: DeckType) => {
           return <RowTable
             key={item.id}
             item={item}
@@ -76,7 +76,7 @@ export const Decks = () => {
             setPack={setPack}
             setShowModal={setShowModal}
           />
-        })}
+        }) : <></>}
       </Body>
       <DeckModal
         activeMenu={openMenu}
