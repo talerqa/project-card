@@ -1,20 +1,18 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef } from "react";
+import {ComponentPropsWithoutRef, ElementType, forwardRef} from "react";
 import s from "./header.module.scss";
-import { Logo } from "@/assets/components/logo.tsx";
-import { Avatar } from "@/components/ui/avatar";
-import { Typography } from "@/components/ui/typography";
-import avatar from "@/assets/img/avatart-template.png";
+import {Logo} from "@/assets/components/logo.tsx";
+import {Avatar} from "@/components/ui/avatar";
+import {Typography} from "@/components/ui/typography";
 import signout from "@/assets/img/exit.svg";
-import person from "@/assets/img/person.svg";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import {
   DropDown,
   ItemDropDown,
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
-import { useLogoutMutation } from "@/services/auth";
-import { defaultAva } from "@/assets/defaultAva";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useLogoutMutation} from "@/services/auth";
+import {defaultAva} from "@/assets/defaultAva";
+import {useNavigate} from "react-router-dom";
 
 export type HeaderProps<T extends ElementType = "input"> = {
   isAuth: boolean;

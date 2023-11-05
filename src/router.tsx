@@ -22,9 +22,6 @@ import {
   SignUpPage,
 } from "@/pages";
 import {Confirmation} from "@/pages/auth/sendConfirmation/confirmation";
-
-import { Decks } from "@/pages/decks";
-import { Deck } from "@/pages/deck";
 import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
 
 const publicRoutes: RouteObject[] = [
@@ -38,27 +35,27 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: "/sign-up",
-        element: <SignUpPage />,
+        element: <SignUpPage/>,
       },
       {
         path: "/forgot-password",
-        element: <ForgotPasswordPage />,
+        element: <ForgotPasswordPage/>,
       },
       {
         path: "/create-password/:token",
-        element: <CreateNewPasswordPage />,
+        element: <CreateNewPasswordPage/>,
       },
       {
         path: "/check-email",
-        element: <CheckEmailPage />,
+        element: <CheckEmailPage/>,
       },
       {
         path: "/confirmation",
-        element: <SendConfirmation />,
+        element: <SendConfirmation/>,
       },
       {
         path: "/confirm-email/:code",
-        element: <Confirmation />,
+        element: <Confirmation/>,
       },
       {
         path: "/edit-profile",
