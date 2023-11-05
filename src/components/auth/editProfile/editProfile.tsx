@@ -35,14 +35,6 @@ export const EditProfile = (): JSX.Element => {
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const submitBtnRef = useRef<HTMLButtonElement>(null);
-
-  const { handleSubmit, control } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      name: userData.name,
-    },
-  });
 
   const handleImageChangeClick = () => {
     inputRef && inputRef.current?.click();
@@ -58,10 +50,6 @@ export const EditProfile = (): JSX.Element => {
 
   const handleNameEditClick = () => {
     setNameEditMode(true);
-  };
-
-  const handleSaveNewNameClick = () => {
-    submitBtnRef?.current?.click?.();
   };
 
   const handleFormSubmit = (data: UserData) => {
@@ -90,37 +78,72 @@ export const EditProfile = (): JSX.Element => {
         />
         <EditSvg onClick={handleImageChangeClick} />
       </div>
-      {nameEditMode && (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <ControlledInput
-            type="text"
-            name="name"
-            label="Nickname"
-            control={control}
-            autoFocus
-            className={s.nameInput}
-          />
-          <Button type="submit" className={s.saveButton}>
-            Save Changes
-          </Button>
-        </form>
-      )}
-
-      {!nameEditMode && (
-        <>
-          <Typography variant={"h1"} as={"h1"} className={s.name}>
-            {name}
-            <EditSvg onClick={handleNameEditClick} />
-          </Typography>
-          <Typography variant={"body2"} as={"span"} className={s.email}>
-            {email}
-          </Typography>
-          <Button type="button" className={s.logoutButton}>
-            <Logout />
-            Logout
-          </Button>
-        </>
+      {nameEditMode ? (
+        <WithNameEditMode
+          handleFormSubmit={handleFormSubmit}
+          userData={userData}
+        />
+      ) : (
+        <WithoutNameEditMode
+          handleNameEditClick={handleNameEditClick}
+          name={name}
+          email={email}
+        />
       )}
     </Card>
+  );
+};
+
+type WithNameEditModeProps = {
+  handleFormSubmit: (data: UserData) => void;
+  userData: UserData;
+};
+
+const WithNameEditMode = (props: WithNameEditModeProps) => {
+  const { handleSubmit, control } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: props.userData.name,
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmit(props.handleFormSubmit)}>
+      <ControlledInput
+        type="text"
+        name="name"
+        label="Nickname"
+        control={control}
+        autoFocus
+        className={s.nameInput}
+      />
+      <Button type="submit" className={s.saveButton}>
+        Save Changes
+      </Button>
+    </form>
+  );
+};
+
+type WithoutNameEditModeProps = {
+  name: string | undefined;
+  email: string | undefined;
+  handleNameEditClick: () => void;
+};
+
+const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
+  return (
+    <>
+      <Typography variant={"h1"} as={"h1"} className={s.name}>
+        {props.name}
+        <EditSvg onClick={props.handleNameEditClick} />
+      </Typography>
+      <Typography variant={"body2"} as={"span"} className={s.email}>
+        {props.email}
+      </Typography>
+      <Button type="button" className={s.logoutButton}>
+        <Logout />
+        Logout
+      </Button>
+    </>
   );
 };

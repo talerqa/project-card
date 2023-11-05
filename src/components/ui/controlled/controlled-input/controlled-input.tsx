@@ -4,10 +4,7 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import { InputProps, Inputs } from "@/components/ui/inputs";
-
-// type ControlledInputType<TFieldValues extends FieldValues> =
-//   UseControllerProps<TFieldValues> & Omit<InputProps, "value" | "onChange">;
+import { InputProps, Input } from "@/components/ui/inputs";
 
 type ControlledInputType<TFieldValues extends FieldValues> =
   UseControllerProps<TFieldValues> & Omit<InputProps, "value" | "onChange">;
@@ -28,6 +25,6 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
   });
 
   return (
-    <Inputs type={type} errorMessage={error?.message} {...field} {...res} />
+    <Input type={type} errorMessage={error?.message} {...field} {...res} />
   );
 };

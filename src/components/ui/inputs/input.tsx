@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, forwardRef, useState } from "react";
 
 import clsx from "clsx";
 
-import s from "./inputs.module.scss";
+import s from "./input.module.scss";
 
 import { EyeNoneIcon } from "@/assets/components/eyeNoneIcon.tsx";
 import { EyeOpenIcon } from "@/assets/components/eyeOpenIcon.tsx";
