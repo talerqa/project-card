@@ -5,6 +5,7 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
+
 import {Layout} from "@/pages/layout/layout.tsx";
 
 import {useAuthMeQuery} from "./services/auth";
@@ -22,38 +23,46 @@ import {
 } from "@/pages";
 import {Confirmation} from "@/pages/auth/sendConfirmation/confirmation";
 
+import { Decks } from "@/pages/decks";
+import { Deck } from "@/pages/deck";
+import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <Layout/>,
+    path: "/",
+    element: <Layout />,
     children: [
       {
         path: "/login",
-        element: <SignInPage/>,
+        element: <SignInPage />,
       },
       {
         path: "/sign-up",
-        element: <SignUpPage/>,
+        element: <SignUpPage />,
       },
       {
         path: "/forgot-password",
-        element: <ForgotPasswordPage/>,
+        element: <ForgotPasswordPage />,
       },
       {
         path: "/create-password/:token",
-        element: <CreateNewPasswordPage/>,
+        element: <CreateNewPasswordPage />,
       },
       {
         path: "/check-email",
-        element: <CheckEmailPage/>,
+        element: <CheckEmailPage />,
       },
       {
         path: "/confirmation",
-        element: <SendConfirmation/>,
+        element: <SendConfirmation />,
       },
       {
         path: "/confirm-email/:code",
-        element: <Confirmation/>,
+        element: <Confirmation />,
+      },
+      {
+        path: "/edit-profile",
+        element: <EditProfilePage />,
       },
     ],
   },
@@ -61,7 +70,9 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Layout/>,
+    path: "/",
+    element: <Layout />,
+
     children: [
       {
         path: "/",
@@ -69,11 +80,11 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: "/decks",
-        element: <Decks/>,
+        element: <Decks />,
       },
       {
         path: "/decks/:id/cards",
-        element: <Deck/>,
+        element: <Deck />,
       },
       {
         path: "/decks/:id/learn",
@@ -92,16 +103,18 @@ const router = createBrowserRouter([
   },
   ...publicRoutes,
   {
-    element: <Navigate to="/error404"/>,
+    path: "*",
+    element: <Navigate to="/error404" />,
+
   },
 ]);
 
 export const Router = () => {
-  return <RouterProvider router={router}/>;
+  return <RouterProvider router={router} />;
 };
 
 function PrivateRoutes() {
-  const {isLoading, isError} = useAuthMeQuery();
+  const { isLoading, isError } = useAuthMeQuery();
 
   if (isLoading)
     return (
@@ -119,5 +132,5 @@ function PrivateRoutes() {
 
   const isAuthenticated = !isError;
 
-  return isAuthenticated ? <Outlet/> : <Navigate to="/login"/>;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }

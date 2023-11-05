@@ -13,6 +13,8 @@ import {
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
 import { useLogoutMutation } from "@/services/auth";
+import { defaultAva } from "@/assets/defaultAva";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export type HeaderProps<T extends ElementType = "input"> = {
   isAuth: boolean;
@@ -45,10 +47,14 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 
     const [logout] = useLogoutMutation();
 
+    const navigate = useNavigate();
+
     const handleLogout = () => {
-      // onLogOutHandler && onLogOutHandler();
-      console.log("logout");
       logout();
+    };
+
+    const handleRedirectToEditPage = () => {
+      navigate("/edit-profile");
     };
 
     return (
@@ -66,7 +72,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                     className={s.text}
                   />
                   <Avatar
-                    src={avatarImg}
+                    src={defaultAva}
                     size={"36px"}
                     className={s.img}
                     {...res}
@@ -76,15 +82,15 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
               children={
                 <>
                   <ProfileItemDropDown
-                    img={avatar}
+                    img={defaultAva}
                     name={name}
                     email={email}
                     {...res}
                   />
                   <ItemDropDown
-                    img={person}
+                    img={defaultAva}
                     title={"My Profile"}
-                    onClick={onShowProfileHandler}
+                    onClick={handleRedirectToEditPage}
                   />
                   <ItemDropDown
                     img={signout}

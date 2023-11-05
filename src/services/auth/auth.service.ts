@@ -70,6 +70,13 @@ export const AuthService = baseApi.injectEndpoints({
           body: { password },
         }),
       }),
+      editProfile: builder.mutation<any, any>({
+        query: (body) => ({
+          url: "/v1/auth/me",
+          method: "PATCH",
+          body,
+        }),
+      }),
     };
   },
 });
@@ -83,10 +90,11 @@ export const {
   useResendVerificationMutation,
   useRecoverPasswordMutation,
   useResetPasswordMutation,
+  useEditProfileMutation,
 } = AuthService;
 
 export type AuthMeResponseType = {
-  avatar: string;
+  avatar?: string;
   id: string;
   email: string;
   isEmailVerified: boolean;

@@ -1,27 +1,27 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type { Meta, StoryObj } from "@storybook/react";
 
-import {CreateNewPassword} from './createNewPassword.tsx'
+import { CreateNewPassword } from "./createNewPassword.tsx";
 import {
   reactRouterParameters,
-  withRouter
+  withRouter,
 } from "storybook-addon-react-router-v6";
 
 const meta = {
-  title: 'Auth/CreateNewPassword',
+  title: "Auth/CreateNewPassword",
   component: CreateNewPassword,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: '/' },
+      routing: { path: "/" },
     }),
   },
-} satisfies Meta<typeof CreateNewPassword>
+} satisfies Meta<typeof CreateNewPassword>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},
-}
+};
