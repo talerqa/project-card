@@ -16,20 +16,22 @@ type DeckValuesForm = z.infer<typeof deckSchema>
 const deckSchema = z.object({
   name: z.string().nonempty('Required').min(3, 'Name must be at least 3' +
     ' characters'),
-  isPrivate: z.boolean(),
+  isPrivate: z.boolean().optional(),
   cover: z
     .instanceof(File)
-    .refine((file) => file.size < 1000000, 'File size must be less than 1MB')
+    .refine((file) => file?.size < 1000000, 'File size must be less' +
+      ' than 1MB')
     .refine(
-      (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
+      (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files?.type),
       ".jpg, .jpeg, .png and .webp files are accepted."
     )
+    .optional()
 })
 
 export const EditModalForm = (props: any) => {
 
   const {item, closeModalHandler} = props
-
+  const [cover, setCover] = useState<File | null>(null)
   const {
     handleSubmit,
     control,
@@ -38,19 +40,11 @@ export const EditModalForm = (props: any) => {
     resolver: zodResolver(deckSchema),
     defaultValues: {
       name: item?.name,
-      isPrivate: props.isPrivate,
-      cover: props.isPrivate,
-    },
-    values: {
-      name: item?.name,
       isPrivate: item?.isPrivate,
-      cover: item?.cover,
-    }
+    },
   })
 
   const [updateDeck] = useUpdateDeckMutation();
-
-  const [cover, setCover] = useState<File | null>(null)
 
 
   const onSubmit = (data: DeckValuesForm) => {
@@ -73,7 +67,6 @@ export const EditModalForm = (props: any) => {
   console.log(cover)
 
   return <form onSubmit={handleSubmitForm} className={s.deckModal}>
-    {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
     <div className={s.inputBlock}>
       {item?.cover ?
         <img src={cover ? URL.createObjectURL(cover) : item?.cover}

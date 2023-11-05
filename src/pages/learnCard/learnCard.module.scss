@@ -1,0 +1,46 @@
+.deck {
+
+  margin: 0 auto;
+  max-width: 1030px;
+
+  .card {
+    padding: 33px 36px 48px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 420px;
+    min-height: 288px;
+    align-items: center;
+
+    .title {
+      margin: 0 0 45px;
+    }
+
+    .questionBlock {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      justify-content: start;
+      align-items: center;
+      .questionTitle {
+        margin-right: 3px;
+      }
+    }
+
+    .numberAttempts {
+      width: 100%;
+      text-align: left;
+      color: var(--color-dark-100);
+    }
+  }
+
+  .button {
+
+    width: 100%;
+  }
+
+  .showAnswer {
+    height: 100px;
+  }
+}
+

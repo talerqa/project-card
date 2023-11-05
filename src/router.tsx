@@ -6,17 +6,22 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { SignInPage } from "@/pages/auth/signInPage";
-import { SignUpPage } from "@/pages/auth/signUpPage";
-import { Layout } from "@/pages/layout/layout.tsx";
+import {Layout} from "@/pages/layout/layout.tsx";
 
-import { ForgotPasswordPage } from "@/pages/auth/forgotPassword";
-import { CheckEmailPage } from "@/pages/auth/checkEmail";
-import { CreateNewPasswordPage } from "@/pages/auth/createNewPassword";
+import {useAuthMeQuery} from "./services/auth";
 
-import { useAuthMeQuery } from "./services/auth";
-import { Confirmation } from "./pages/auth/sendConfirmation/confirmation/confirmation";
-import { SendConfirmation } from "@/pages";
+import {Decks} from "@/pages/decks";
+import {Deck} from "@/pages/deck";
+import {LearnCard} from "@/pages/learnCard";
+import {
+  CheckEmailPage,
+  CreateNewPasswordPage,
+  ForgotPasswordPage,
+  SendConfirmation,
+  SignInPage,
+  SignUpPage,
+} from "@/pages";
+import {Confirmation} from "@/pages/auth/sendConfirmation/confirmation";
 
 import { Decks } from "@/pages/decks";
 import { Deck } from "@/pages/deck";
@@ -67,7 +72,12 @@ const privateRoutes: RouteObject[] = [
   {
     path: "/",
     element: <Layout />,
+
     children: [
+      {
+        path: "/",
+        element: <Navigate to={'/decks'}/>,
+      },
       {
         path: "/decks",
         element: <Decks />,
@@ -78,29 +88,24 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: "/decks/:id/learn",
-        element: <>LEARN</>,
-      },
+        element: <LearnCard/>,
+      }
     ],
-  },
-];
-
-const errorRoutes: RouteObject[] = [
-  {
-    path: "/error404",
-    element: <div>Error404</div>,
   },
 ];
 
 const router = createBrowserRouter([
   {
-    element: <PrivateRoutes />,
+    path: '/',
+    element: <PrivateRoutes/>,
     children: privateRoutes,
+    errorElement: <div>Error404</div>
   },
   ...publicRoutes,
-  ...errorRoutes,
   {
     path: "*",
     element: <Navigate to="/error404" />,
+
   },
 ]);
 

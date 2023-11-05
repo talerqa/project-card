@@ -1,13 +1,79 @@
 .deck {
-
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 1030px;
 
-
   .backToDecks {
-    margin-top: 24px;
+    margin: 24px 0 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    .textBack {
+      margin-left: 6px;
+      text-decoration: none;
+    }
+  }
+
+  .blockHeaderDeck {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 27px;
+
+    .blockTitleDeck {
+      display: flex;
+      align-items: center;
+
+
+      .title {
+        margin: 0 16px 0 0;
+      }
+
+      .menu {
+        left: 62px;
+      }
+
+      .trigger {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
 
   }
+
+
+  .dropDown {
+    transform: translateX(-100px);
+  }
+
+  .mainBlock {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .emptyDeck {
+      display: block;
+      margin-top: 69px;
+      margin-bottom: 30px;
+    }
+
+
+    .buttonAddNewCard {
+
+    }
+
+  }
+
+  .searchInput {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
 
   //
   //.rootTable {

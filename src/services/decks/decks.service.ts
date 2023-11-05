@@ -2,8 +2,10 @@ import {baseApi} from "../base-api";
 import {
   CardType,
   DeckType,
+  GetCardType,
   GetDecks,
-  GetResponseType, GetResponseTypeCard,
+  GetResponseType,
+  GetResponseTypeCard,
 } from "@/services/decks/decks.type.ts";
 
 export const DeckService = baseApi.injectEndpoints({
@@ -49,15 +51,22 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Decks"],
       }),
-      getCards: builder.query<GetResponseTypeCard, { id?: string }>({
-        query: ({id}) => ({
+      getCards: builder.query<GetResponseTypeCard, GetCardType>({
+        query: ({
+                  id,
+                  answer,
+                  question,
+                  currentPage,
+                  itemsPerPage,
+                  orderBy
+                }) => ({
           url: `v1/decks/${id}/cards`,
           method: "GET",
-          id: id ?? {},
+          params: {answer, question, currentPage, itemsPerPage, orderBy}
         }),
-        providesTags: ["Card"],
+        providesTags: ["Card", 'Decks'],
       }),
-      createCard: builder.mutation<CardType, {  id?: string, body: FormData  }>({
+      createCard: builder.mutation<CardType, { id?: string, body: FormData }>({
         query: ({id, body}) => ({
           url: `v1/decks/${id}/cards`,
           method: "POST",
@@ -65,10 +74,29 @@ export const DeckService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", 'Decks'],
       }),
+      learnCard: builder.query<CardType, {
+        id?: string,
+        previousCardId?: string
+      }>({
+        query: ({id}) => ({
+          url: `v1/decks/${id}/learn`,
+          method: "GET",
+          id,
+        }),
+        providesTags: ["Card", 'Decks'],
+      }),
+      saveGradeCard: builder.mutation<CardType, { id?: string, body: any }>({
+        query: ({id, body}) => ({
+          url: `v1/decks/${id}/learn`,
+          method: "POST",
+          body,
+        }),
+        invalidatesTags: ["Card", 'Decks'],
+      }),
+
     };
   },
 });
-
 
 
 export const {
@@ -79,4 +107,6 @@ export const {
   useDeleteDeckMutation,
   useGetCardsQuery,
   useCreateCardMutation,
+  useLearnCardQuery,
+  useSaveGradeCardMutation,
 } = DeckService;

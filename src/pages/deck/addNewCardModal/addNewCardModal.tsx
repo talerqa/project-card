@@ -10,6 +10,7 @@ import { ControlledSelect } from "@/components/ui/controlled/controlled-select/c
 
 type DeckValuesForm = z.infer<typeof deckSchema>;
 
+
 const deckSchema = z.object({
   text: z.string().min(3, "Name must be at least 3" + " characters"),
   question: z.string().min(3, "Name must be at least 3" + " characters"),
@@ -17,7 +18,9 @@ const deckSchema = z.object({
 });
 
 export const AddNewCardModal = (props: any) => {
+
   const { card } = props;
+
 
   const {
     handleSubmit,
@@ -26,16 +29,12 @@ export const AddNewCardModal = (props: any) => {
   } = useForm<DeckValuesForm>({
     resolver: zodResolver(deckSchema),
     defaultValues: {
-      answer: "1111111111",
-      question: "11111111111",
+      answer: '',
+      question: ''
     },
   });
 
   const [createCard] = useCreateCardMutation();
-
-  const closeModalHandler = () => {
-    props.setOpen(false);
-  };
 
   const onSubmit = (data: DeckValuesForm) => {
     const { question, answer } = data;
@@ -46,59 +45,50 @@ export const AddNewCardModal = (props: any) => {
     createCard({ id: card?.id, body: formData });
     console.log(formData.get("question"));
     //  cover && formData.append('cover', cover)
-
-    closeModalHandler();
-  };
+    
+    props.closeModalHandler()
+  }
 
   const handleSubmitForm = handleSubmit(onSubmit);
 
-  return (
-    <DialogsModal
-      open={props.open}
-      setOpen={props.setOpen}
-      title={"Add New Card"}
-      className={s.modal}
-    >
-      <form onSubmit={handleSubmitForm} className={s.deckModal}>
-        {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
-        <div className={s.inputBlock}>
-          <ControlledSelect
-            placeholder={"Text"}
-            array={[
-              { title: "Text", value: "text" },
-              { title: "Picture", value: "picture" },
-            ]}
-            name={"text"}
-            control={control}
-            defaultValue={"text"}
-            label={"Choose a question format"}
-            className={s.select}
-          />
-          <ControlledInput
-            name={"question"}
-            type={"text"}
-            control={control}
-            label={"Question"}
-            className={s.inputQuestion}
-          />
-          <ControlledInput
-            name={"answer"}
-            type={"text"}
-            control={control}
-            label={"Answer"}
-            className={s.inputAnswer}
-          />
-        </div>
-        <div className={s.buttonsBlock}>
-          <Button
-            type={"button"}
-            variant={"secondary"}
-            children={"Cancel"}
-            onClick={closeModalHandler}
-          />
-          <Button type={"submit"} children={"Save Change"} />
-        </div>
-      </form>
-    </DialogsModal>
-  );
-};
+  return <div className={s.modal} >
+    <form onSubmit={handleSubmitForm} className={s.deckModal}>
+      {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
+      <div className={s.inputBlock}>
+        <ControlledSelect
+          placeholder={'Text'}
+          array={[{title: "Text", value: "text"},
+            {title: "Picture", value: "picture"},]}
+          name={"text"}
+          control={control}
+          defaultValue={'text'}
+          label={"Choose a question format"}
+          className={s.select}
+        />
+        <ControlledInput
+          name={"question"}
+          type={"text"}
+          control={control}
+          label={"Question"}
+          className={s.inputQuestion}
+        />
+        <ControlledInput
+          name={"answer"}
+          type={"text"}
+          control={control}
+          label={"Answer"}
+          className={s.inputAnswer}
+        />
+      </div>
+      <div className={s.buttonsBlock}>
+        <Button type={'button'} variant={'secondary'}
+                children={'Cancel'}
+                onClick={props.closeModalHandler}/>
+        <Button type={'submit'}
+                children={'Save Change'}
+        />
+      </div>
+    </form>
+  </div>
+}
+
