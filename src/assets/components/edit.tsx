@@ -1,5 +1,5 @@
 type EditSvgType = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const EditSvg = (props: EditSvgType) => {
