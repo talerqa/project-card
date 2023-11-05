@@ -5,37 +5,7 @@
   max-width: 1030px;
 
   .backToDecks {
-    margin: 24px 0 30px;
-  }
-
-  .blockHeaderDeck {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-
-    .blockTitleDeck {
-      display: flex;
-      align-items: center;
-
-
-      .title {
-        margin: 0 16px 0 0;
-      }
-
-      .menu {
-        left: 62px;
-      }
-
-      .trigger {
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-
-  .dropDown {
-    transform: translateX(-100px);
+    margin: 24px 0 33px;
   }
 
   .imageCover {
@@ -55,11 +25,6 @@
       display: block;
       margin-top: 69px;
       margin-bottom: 30px;
-    }
-
-
-    .buttonAddNewCard {
-
     }
 
   }

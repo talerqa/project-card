@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {CardType, useGetCardsQuery, useGetDeckQuery} from "@/services/decks";
 import {useAuthMeQuery} from "@/services/auth";
 import {Typography} from "@/components/ui/typography";
@@ -8,16 +8,12 @@ import s from './deck.module.scss'
 import {HeaderTable, Table} from "@/components/ui/table";
 import {Page} from "@/components/ui/page";
 import {BackToPage} from "@/components/common/backToPage";
-import {DropDown, ItemDropDown} from "@/components/ui/dropdown";
-import play from "@/assets/img/play.svg";
-import edit from "@/assets/img/edit.svg";
-import trash from "@/assets/img/trash.svg";
-import {TriggerDropDown} from "@/assets/components/triggerDropDown.tsx";
 import {Inputs} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
-import {DeckModal, ShowModalType} from "@/pages/decks";
+import {ShowModalType} from "@/pages/decks";
+import {HeaderDeck} from "@/pages/deck/headerDeck";
 
 export type ModalType = '' | 'Delete Card' | 'Edit Card' | 'Learn' |
   'Add New Card'
@@ -34,78 +30,23 @@ export const Deck = () => {
   })
 
   const [open, setOpen] = useState(false)
-  const navigate = useNavigate()
+
   const {Root, Body, Row, Cell} = Table;
   const [showModal, setShowModal] = useState<ModalType | ShowModalType>('')
   // const [pack, setPack] = useState()
 
   return <Page className={s.deck}>
     <BackToPage className={s.backToDecks}/>
-    <div>
-      <div className={s.blockHeaderDeck}>
-        {data?.userId === auth?.id ?
-          <>
-            <div className={s.blockTitleDeck}>
-              <Typography className={s.title}
-                          variant={'large'} as={'h2'}
-                          children={'My Pack'}/>
-              {data?.cardsCount !== 0 &&
-                  <>
-                      <DropDown className={s.dropDown}
-                                children={<div className={s.menu}>
-                                  <ItemDropDown img={play} title={'Learn'}
-                                                onClick={() => navigate(`../decks/${data?.id}/learn`)}/>
-                                  <ItemDropDown img={edit} title={'Edit'}
-                                                onClick={() => {
-                                                  setOpen(true)
-                                                  setShowModal('Edit Pack')
-                                                }}/>
-                                  <ItemDropDown img={trash} title={'Delete'}
-                                                onClick={() => {
-                                                  setOpen(true)
-                                                  setShowModal('Delete Pack')
-                                                }}/>
-                                </div>}
-                                trigger={<button className={s.trigger}>
-                                  <TriggerDropDown/>
-                                </button>}/>
-                  </>
-              }
-              <DeckModal
-                activeMenu={open}
-                setActiveMenu={setOpen}
-                item={data}
-                setShowModal={setShowModal}
+    <HeaderDeck open={open}
+                setOpen={setOpen}
                 showModal={showModal}
-              />
-            </div>
-            {cards?.items.length !== 0 ?
-              <Button className={s.buttonAddNewCardHeader}
-                      type={'button'}
-                      variant={'primary'}
-                      children={'Add New Card'}
-                      onClick={() => {
-                        setShowModal('Add New Card')
-                        setOpen(true)
-                      }}
-              /> : <></>}
-          </>
-          : <>
-            <Typography className={s.title}
-                        variant={'large'} as={'h2'}
-                        children={"Friend\'s Pack"}/>
-            <Button className={s.buttonAddNewCardHeader}
-                    type={'button'}
-                    variant={'primary'}
-                    children={'Learn to Pack'}
-                    onClick={() => navigate(`../decks/${data?.id}/learn`)}
-            />
-          </>}
-      </div>
-    </div>
-    {data?.cover && <img src={data.cover.toString()} alt="cover-deck"
-                         className={s.imageCover}/>}
-
+                auth={auth}
+                setShowModal={setShowModal}
+                deck={data}
+                cards={cards}
+    />
+    {/*{data?.cover && <img src={data.cover.toString()} alt="cover-deck"*/}
+    {/*                     className={s.imageCover}/>}*/}
     {data?.userId === auth?.id ?
       <div className={s.mainBlock}>
 
@@ -226,5 +167,127 @@ export const Deck = () => {
     }
 
   </Page>
+}
+
+
+{/*<div className={s.blockHeaderDeck}>*/
+}
+{/*  {data?.userId === auth?.id ?*/
+}
+{/*    <>*/
+}
+{/*      <div className={s.blockTitleDeck}>*/
+}
+{/*        <Typography className={s.title}*/
+}
+{/*                    variant={'large'} as={'h2'}*/
+}
+{/*                    children={'My Pack'}/>*/
+}
+{/*        {data?.cardsCount !== 0 &&*/
+}
+{/*            <>*/
+}
+{/*                <DropDown className={s.dropDown}*/
+}
+{/*                          children={<div className={s.menu}>*/
+}
+{/*                            <ItemDropDown img={play} title={'Learn'}*/
+}
+{/*                                          onClick={() => navigate(`../decks/${data?.id}/learn`)}/>*/
+}
+{/*                            <ItemDropDown img={edit} title={'Edit'}*/
+}
+{/*                                          onClick={() => {*/
+}
+{/*                                            setOpen(true)*/
+}
+{/*                                            setShowModal('Edit Pack')*/
+}
+{/*                                          }}/>*/
+}
+{/*                            <ItemDropDown img={trash} title={'Delete'}*/
+}
+{/*                                          onClick={() => {*/
+}
+{/*                                            setOpen(true)*/
+}
+{/*                                            setShowModal('Delete Pack')*/
+}
+{/*                                          }}/>*/
+}
+{/*                          </div>}*/
+}
+{/*                          trigger={<button className={s.trigger}>*/
+}
+{/*                            <TriggerDropDown/>*/
+}
+{/*                          </button>}/>*/
+}
+{/*            </>*/
+}
+{/*        }*/
+}
+{/*        <DeckModal*/
+}
+{/*          activeMenu={open}*/
+}
+{/*          setActiveMenu={setOpen}*/
+}
+{/*          item={data}*/
+}
+{/*          setShowModal={setShowModal}*/
+}
+{/*          showModal={showModal}*/
+}
+{/*        />*/
+}
+{/*      </div>*/
+}
+{/*      {cards?.items.length !== 0 ?*/
+}
+{/*        <Button className={s.buttonAddNewCardHeader}*/
+}
+{/*                type={'button'}*/
+}
+{/*                variant={'primary'}*/
+}
+{/*                children={'Add New Card'}*/
+}
+{/*                onClick={() => {*/
+}
+{/*                  setShowModal('Add New Card')*/
+}
+{/*                  setOpen(true)*/
+}
+{/*                }}*/
+}
+{/*        /> : <></>}*/
+}
+{/*    </>*/
+}
+{/*    : <>*/
+}
+{/*      <Typography className={s.title}*/
+}
+{/*                  variant={'large'} as={'h2'}*/
+}
+{/*                  children={"Friend\'s Pack"}/>*/
+}
+{/*      <Button className={s.buttonAddNewCardHeader}*/
+}
+{/*              type={'button'}*/
+}
+{/*              variant={'primary'}*/
+}
+{/*              children={'Learn to Pack'}*/
+}
+{/*              onClick={() => navigate(`../decks/${data?.id}/learn`)}*/
+}
+{/*      />*/
+}
+{/*    </>}*/
+}
+{/*</div>*/
 }
 

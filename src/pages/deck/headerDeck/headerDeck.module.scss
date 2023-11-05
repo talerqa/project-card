@@ -1,0 +1,40 @@
+.blockHeaderDeck {
+  display: flex;
+  justify-content: space-between;
+
+  .leftBlock {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .blockTitleDeck {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+      .title {
+        margin: 0 16px 0 0;
+      }
+
+      .menu {
+        left: 162px;
+      }
+
+      .trigger {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .imageCover {
+      width: 170px;
+      height: 100%;
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.dropDown {
+  transform: translateX(65px);
+}
+
