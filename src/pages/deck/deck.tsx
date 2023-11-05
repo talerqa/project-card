@@ -8,7 +8,7 @@ import s from './deck.module.scss'
 import {HeaderTable, Table} from "@/components/ui/table";
 import {Page} from "@/components/ui/page";
 import {BackToPage} from "@/components/common/backToPage";
-import {Inputs} from "@/components/ui/inputs";
+import {Input} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
@@ -67,7 +67,7 @@ export const Deck = () => {
             />
           </>
           : <>
-            <Inputs
+            <Input
               type="search"
               placeholder="Input search"
               className={s.searchInput}
@@ -76,7 +76,6 @@ export const Deck = () => {
                 setQuestion(event.target.value);
               }}
             />
-
             <Root className={s.rootTable}>
               <HeaderTable
                 columns={[
@@ -163,6 +162,7 @@ export const Deck = () => {
             <p>   {item.grade}</p>
           </div>
         })}
+        OTHER DECK
       </div>
     }
 

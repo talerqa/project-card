@@ -1,0 +1,83 @@
+.editProfileCard {
+    width: 420px;
+    height: 348px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.heading {
+    margin-top: 33px;
+}
+
+.imageContainer {
+    padding-top: 27px ;
+    position: relative;
+
+}
+
+.userAvatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 100%;
+}
+
+.imageContainer svg {
+    background-color: var(--color-dark-300);
+    border-radius: 2px;
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    position: absolute;
+    bottom: 10px;
+    left: 72px;
+}
+
+.name {
+    margin-bottom: 0;
+}
+
+.name svg,
+.logoutButton svg {
+    width: 16px;
+    height: 16px;
+}
+
+.name svg {
+    margin-left: 9px;
+}
+
+.name svg:hover ,
+.imageContainer svg:hover {
+    cursor: pointer;
+}
+
+.nameInput {
+    width: 348px;
+    height: 36px;
+    margin-bottom: 30px;
+}
+
+.saveButton {
+    margin-top: 10px;
+    width: 348px;
+}
+
+.editProfileCard h1 {
+    margin-top: 6px;
+}
+
+.email {
+    color:var( --color-dark-100)
+}
+
+.logoutButton {
+    margin-top: 13px;
+    background-color: var(--color-dark-300);
+    font-size: var(--font-size-s);
+    color: var(--color-light-100);
+}
+
+.logoutButton svg {
+    margin-right: 10px;
+}
