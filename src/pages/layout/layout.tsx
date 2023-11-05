@@ -1,13 +1,13 @@
-import {Header} from "@/components/ui/header";
+import { Header } from "@/components/ui/header";
 
-import {Outlet, useNavigate} from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import avatar from "./../../assets/img/avatart-template.png";
-import {useAuthMeQuery} from "@/services/auth";
+import { useAuthMeQuery } from "@/services/auth";
 
 export const Layout = (): JSX.Element => {
   const navigate = useNavigate();
-  const {isError, data} = useAuthMeQuery();
+  const { isError, data } = useAuthMeQuery();
 
   let isAuthorized = !isError;
 
@@ -24,7 +24,7 @@ export const Layout = (): JSX.Element => {
         email={data?.email}
         onSignInHandler={onSignInHandler}
       />
-      <Outlet/>
+      <Outlet />
     </>
   );
 };
