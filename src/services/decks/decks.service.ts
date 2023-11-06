@@ -1,4 +1,5 @@
-import {baseApi} from "../base-api";
+import { baseApi } from "../base-api";
+
 import {
   CardType,
   DeckType,
@@ -28,15 +29,15 @@ export const DeckService = baseApi.injectEndpoints({
         invalidatesTags: ["Decks"],
       }),
       getDeck: builder.query<DeckType, { id?: string }>({
-        query: ({id}) => ({
+        query: ({ id }) => ({
           url: `v1/decks/${id}`,
           method: "GET",
           id,
         }),
         providesTags: ["Decks"],
       }),
-      updateDeck: builder.mutation<DeckType, { id?: string, body: FormData }>({
-        query: ({id, body}) => ({
+      updateDeck: builder.mutation<DeckType, { id?: string; body: FormData }>({
+        query: ({ id, body }) => ({
           url: `v1/decks/${id}`,
           method: "PATCH",
           body,
@@ -44,7 +45,7 @@ export const DeckService = baseApi.injectEndpoints({
         invalidatesTags: ["Decks"],
       }),
       deleteDeck: builder.mutation<DeckType, { id?: string }>({
-        query: ({id}) => ({
+        query: ({ id }) => ({
           url: `v1/decks/${id}`,
           method: "DELETE",
           id: id ?? {},
@@ -53,51 +54,52 @@ export const DeckService = baseApi.injectEndpoints({
       }),
       getCards: builder.query<GetResponseTypeCard, GetCardType>({
         query: ({
-                  id,
-                  answer,
-                  question,
-                  currentPage,
-                  itemsPerPage,
-                  orderBy
-                }) => ({
+          id,
+          answer,
+          question,
+          currentPage,
+          itemsPerPage,
+          orderBy,
+        }) => ({
           url: `v1/decks/${id}/cards`,
           method: "GET",
-          params: {answer, question, currentPage, itemsPerPage, orderBy}
+          params: { answer, question, currentPage, itemsPerPage, orderBy },
         }),
-        providesTags: ["Card", 'Decks'],
+        providesTags: ["Card", "Decks"],
       }),
-      createCard: builder.mutation<CardType, { id?: string, body: FormData }>({
-        query: ({id, body}) => ({
+      createCard: builder.mutation<CardType, { id?: string; body: FormData }>({
+        query: ({ id, body }) => ({
           url: `v1/decks/${id}/cards`,
           method: "POST",
           body,
         }),
-        invalidatesTags: ["Card", 'Decks'],
+        invalidatesTags: ["Card", "Decks"],
       }),
-      learnCard: builder.query<CardType, {
-        id?: string,
-        previousCardId?: string
-      }>({
-        query: ({id}) => ({
+      learnCard: builder.query<
+        CardType,
+        {
+          id?: string;
+          previousCardId?: string;
+        }
+      >({
+        query: ({ id }) => ({
           url: `v1/decks/${id}/learn`,
           method: "GET",
           id,
         }),
-        providesTags: ["Card", 'Decks'],
+        providesTags: ["Card", "Decks"],
       }),
-      saveGradeCard: builder.mutation<CardType, { id?: string, body: any }>({
-        query: ({id, body}) => ({
+      saveGradeCard: builder.mutation<CardType, { id?: string; body: any }>({
+        query: ({ id, body }) => ({
           url: `v1/decks/${id}/learn`,
           method: "POST",
           body,
         }),
-        invalidatesTags: ["Card", 'Decks'],
+        invalidatesTags: ["Card", "Decks"],
       }),
-
     };
   },
 });
-
 
 export const {
   useGetDecksQuery,

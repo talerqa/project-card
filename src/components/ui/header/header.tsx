@@ -1,20 +1,22 @@
 import { ComponentPropsWithoutRef, ElementType, forwardRef } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import s from "./header.module.scss";
+
 import { Logo } from "@/assets/components/logo.tsx";
-import { Avatar } from "@/components/ui/avatar";
-import { Typography } from "@/components/ui/typography";
-import avatar from "@/assets/img/avatart-template.png";
+import { defaultAva } from "@/assets/defaultAva";
 import signout from "@/assets/img/exit.svg";
-import person from "@/assets/img/person.svg";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropDown,
   ItemDropDown,
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
+import { Typography } from "@/components/ui/typography";
 import { useLogoutMutation } from "@/services/auth";
-import { defaultAva } from "@/assets/defaultAva";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/services/store";
 
 export type HeaderProps<T extends ElementType = "input"> = {
   isAuth: boolean;
@@ -32,9 +34,6 @@ export type HeaderProps<T extends ElementType = "input"> = {
 export const Header = forwardRef<HTMLDivElement, HeaderProps>(
   (props, ref): JSX.Element => {
     const {
-      avatarImg,
-      name,
-      email,
       isAuth,
       label,
       className,
@@ -44,6 +43,10 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       onLogOutHandler,
       ...res
     } = props;
+
+    const { name, email, avatar } = useAppSelector(
+      (state) => state.userReducer,
+    );
 
     const [logout] = useLogoutMutation();
 
@@ -68,48 +71,46 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                   <Typography
                     variant={"subtitle1"}
                     as={"span"}
-                    children={name}
                     className={s.text}
-                  />
+                  >
+                    {name}
+                  </Typography>
                   <Avatar
-                    src={defaultAva}
+                    src={avatar || defaultAva}
                     size={"36px"}
                     className={s.img}
                     {...res}
                   />
                 </div>
               }
-              children={
-                <>
-                  <ProfileItemDropDown
-                    img={defaultAva}
-                    name={name}
-                    email={email}
-                    {...res}
-                  />
-                  <ItemDropDown
-                    img={defaultAva}
-                    title={"My Profile"}
-                    onClick={handleRedirectToEditPage}
-                  />
-                  <ItemDropDown
-                    img={signout}
-                    title={"Sign Out"}
-                    onClick={handleLogout}
-                  />
-                </>
-              }
               align={"end"}
-            />
+            >
+              <>
+                <ProfileItemDropDown
+                  img={avatar || defaultAva}
+                  name={name}
+                  email={email}
+                  {...res}
+                />
+                <ItemDropDown
+                  img={avatar || defaultAva}
+                  title={"My Profile"}
+                  onClick={handleRedirectToEditPage}
+                />
+                <ItemDropDown
+                  img={signout}
+                  title={"Sign Out"}
+                  onClick={handleLogout}
+                />
+              </>
+            </DropDown>
           ) : (
-            <Button
-              type={"button"}
-              children={"Sign in"}
-              onClick={onSignInHandler}
-            />
+            <Button type={"button"} onClick={onSignInHandler}>
+              Sign in
+            </Button>
           )}
         </div>
       </div>
     );
-  }
+  },
 );
