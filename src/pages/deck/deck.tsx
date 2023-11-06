@@ -49,7 +49,6 @@ export const Deck = () => {
     {/*                     className={s.imageCover}/>}*/}
     {data?.userId === auth?.id ?
       <div className={s.mainBlock}>
-
         {data?.cardsCount === 0 ?
           <>
             <Typography variant={'body1'}

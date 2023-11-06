@@ -20,6 +20,9 @@ export const Decks = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [orderBy, setSort] = useState<Sort>(null);
 
+
+  const [authorId, setAuthorId] = useState('')
+
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
     let sorted: GetDecks["orderBy"] = `${orderBy.key}-${orderBy.direction}`;
@@ -30,8 +33,10 @@ export const Decks = () => {
     currentPage,
     name,
     itemsPerPage,
+    authorId,
     orderBy: sortedString,
   });
+
 
   const [showModal, setShowModal] = useState<ShowModalType>('')
   const [pack, setPack] = useState<DeckType>()
@@ -43,6 +48,8 @@ export const Decks = () => {
                setName={setName}
                name={name}
                maxCardsCount={data?.maxCardsCount}
+               setAuthorId={setAuthorId}
+               authorId={authorId}
     />
     <Root>
       <HeaderTable
@@ -69,6 +76,7 @@ export const Decks = () => {
       />
       <Body>
         {data?.items.length ? data.items.map((item: DeckType) => {
+          console.log()
           return <RowTable
             key={item.id}
             item={item}
@@ -76,7 +84,9 @@ export const Decks = () => {
             setPack={setPack}
             setShowModal={setShowModal}
           />
-        }) : <></>}
+        }) : <></>
+
+        }
       </Body>
       <DeckModal
         activeMenu={openMenu}
