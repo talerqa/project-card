@@ -19,9 +19,7 @@ export const Decks = () => {
   const [currentPage, setCurrentPage] = useState<any>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [orderBy, setSort] = useState<Sort>(null);
-
-
-  const [authorId, setAuthorId] = useState('')
+  const [authorId, setAuthorId] = useState<string | undefined>('')
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -49,7 +47,6 @@ export const Decks = () => {
                name={name}
                maxCardsCount={data?.maxCardsCount}
                setAuthorId={setAuthorId}
-               authorId={authorId}
     />
     <Root>
       <HeaderTable

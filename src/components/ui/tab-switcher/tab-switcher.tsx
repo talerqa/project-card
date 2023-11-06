@@ -4,12 +4,8 @@ import s from "./tab-switcher.module.scss";
 
 export type TabSwitcherProps = {
   tabs: string[];
-  title?: string
-  activeTab?: number;
   disabled?: boolean;
-  onChange?: any
   active: any
-  setActive: any
   onValueChange: any
 };
 

@@ -4,7 +4,6 @@ import {PlaySvg} from "@/assets/components/play.tsx";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {DeckType} from "@/services/decks";
-
 import {useAuthMeQuery} from "@/services/auth";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ShowModalType} from "@/pages/decks";

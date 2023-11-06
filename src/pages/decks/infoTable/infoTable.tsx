@@ -27,7 +27,6 @@ export const InfoTable = (props: Props) => {
     setName,
     name,
     setAuthorId,
-
   } = props;
   const {data: auth} = useAuthMeQuery()
 
@@ -72,9 +71,6 @@ export const InfoTable = (props: Props) => {
           </Typography>
           <TabSwitcher
             tabs={["My Cards", "All Cards"]}
-            activeTab={active}
-            title={"Show packs cards"}
-            setActive={setActive}
             active={active}
             onValueChange={onValueChange}
           />
