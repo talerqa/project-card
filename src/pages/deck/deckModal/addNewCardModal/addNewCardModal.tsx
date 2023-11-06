@@ -64,21 +64,22 @@ export const AddNewCardModal = (props: Props) => {
       question: '',
       answerImg: undefined,
       questionImg: undefined,
-
+      text: 'Text'
     },
   })
 
   const [createCard] = useCreateCardMutation()
 
   const onSubmit = (data: DeckValuesForm) => {
-    const {question, answer} = data
+    const {question, answer, questionImg, text} = data
     const formData = new FormData()
 
     formData.append('question', String(question))
     formData.append('answer', String(answer))
-    createCard({id: deckId, body: formData})
-    console.log(formData.get('question'))
     questionImg && formData.append('questionImg', questionImg)
+    createCard({id: deckId, body: formData})
+
+    console.log(text)
     closeModalHandler()
   }
 
@@ -91,7 +92,6 @@ export const AddNewCardModal = (props: Props) => {
 
   return <div className={s.modal} >
     <form onSubmit={handleSubmitForm} className={s.deckModal}>
-      {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
       <div className={s.inputBlock}>
         {image && <img src={image} alt="img-deck" className={s.image}/>}
         <ControlledInputFile
