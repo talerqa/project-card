@@ -8,7 +8,15 @@ import {useCreateCardMutation} from "@/services/decks";
 import {
   ControlledSelect
 } from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
+import {
+  ControlledInputFile
+} from "@/components/ui/controlled/controlled-input-file/controlled-input-file.tsx";
+import {useState} from "react";
 
+type Props = {
+  deckId?: string
+  closeModalHandler: () => void
+}
 
 type DeckValuesForm = z.infer<typeof deckSchema>
 
@@ -19,15 +27,31 @@ const deckSchema = z.object({
     ' characters'),
   answer: z.string().min(2, 'Name must be at least 2' +
     ' characters'),
+  questionImg: z
+    .instanceof(File)
+    .refine((file) => file.size < 1000000, 'File size must be less than 1MB')
+    .refine(
+      (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    )
+    .optional(),
+  answerImg: z
+    .instanceof(File)
+    .refine((file) => file.size < 1000000, 'File size must be less than 1MB')
+    .refine(
+      (files) => ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"].includes(files.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    )
+    .optional(),
 })
 
-export const AddNewCardModal = (props: any) => {
+export const AddNewCardModal = (props: Props) => {
 
-  const {deckId} = props
+  const {deckId, closeModalHandler} = props
+  // const [answrImg, setAnswerImg] = useState<File | undefined>()
+  const [questionImg, setQuestionImg] = useState<File | undefined>()
 
-  console.log(
-    deckId
-  )
+
 
   const {
     handleSubmit,
@@ -37,30 +61,46 @@ export const AddNewCardModal = (props: any) => {
     resolver: zodResolver(deckSchema),
     defaultValues: {
       answer: '',
-      question: ''
+      question: '',
+      answerImg: undefined,
+      questionImg: undefined,
+      text: 'Text'
     },
   })
 
   const [createCard] = useCreateCardMutation()
 
   const onSubmit = (data: DeckValuesForm) => {
-    const {question, answer} = data
+    const {question, answer, questionImg, text} = data
     const formData = new FormData()
 
     formData.append('question', String(question))
     formData.append('answer', String(answer))
+    questionImg && formData.append('questionImg', questionImg)
     createCard({id: deckId, body: formData})
-    console.log(formData.get('question'))
-    //  cover && formData.append('cover', cover)
-    props.closeModalHandler()
+
+    console.log(text)
+    closeModalHandler()
+  }
+
+  const onLoadCover = (data: File) => {
+    setQuestionImg(data)
   }
 
   const handleSubmitForm = handleSubmit(onSubmit);
+  const image = questionImg && URL.createObjectURL(questionImg)
 
   return <div className={s.modal} >
     <form onSubmit={handleSubmitForm} className={s.deckModal}>
-      {/*<Uploader className={s.uploader} onLoadCover={onLoadCover} onLoadError={onLoadCoverError}>*/}
       <div className={s.inputBlock}>
+        {image && <img src={image} alt="img-deck" className={s.image}/>}
+        <ControlledInputFile
+          name={'questionImg'}
+          type={'file'}
+          onLoadCover={onLoadCover}
+          className={s.inputFile}
+          title={'Add image'}
+          control={control}/>
         <ControlledSelect
           placeholder={'Text'}
           array={[{title: "Text", value: "text"},

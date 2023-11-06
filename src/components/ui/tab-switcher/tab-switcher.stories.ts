@@ -23,14 +23,14 @@ export const Default: Story = {
 export const Active: Story = {
   args: {
     tabs: ["Switcher", "Switcher", "Switcher", "Switcher", "Switcher"],
-    activeTab: 2,
+
   },
 };
 
 export const Disabled: Story = {
   args: {
     tabs: ["Switcher", "Switcher", "Switcher", "Switcher", "Switcher"],
-    activeTab: 2,
+
     disabled: true,
   },
 };

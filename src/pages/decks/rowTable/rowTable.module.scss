@@ -1,7 +1,7 @@
-
 .cell {
   padding-left: 24px;
   padding-right: 24px;
+  height: 36px;
 }
 
 .createdByRow {
@@ -21,5 +21,22 @@
 }
 
 .image {
-  height: 40px;
+  height: 30px;
+}
+
+.buttonBlock {
+  display: flex;
+  width: 69px;
+  height: 24px;
+  justify-content: start;
+  align-items: center;
+
+  .button {
+    height: 20px;
+    width: 20px;
+    display: block;
+    align-self: center;
+    margin: 0 auto;
+    cursor: pointer;
+  }
 }

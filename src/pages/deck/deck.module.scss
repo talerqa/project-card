@@ -42,19 +42,47 @@
       .cell {
         padding-left: 24px;
         padding-right: 24px;
+        height: 36px;
+
 
         .name {
+          display: flex;
+          margin: 0;
+          justify-content: space-between;
+          align-items: center;
           text-decoration: none;
           font-weight: inherit;
           color: inherit;
           font-size: inherit;
         }
+
+        .image {
+          height: 30px;
+        }
+
       }
 
       .createdByRow {
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+
+      .buttonBlock {
+        display: flex;
+        width: 69px;
+        height: 24px;
+        justify-content: start;
+        align-items: center;
+
+        .button {
+          height: 20px;
+          width: 20px;
+          display: block;
+          align-self: center;
+          margin: 0 auto;
+          cursor: pointer;
+        }
       }
     }
   }

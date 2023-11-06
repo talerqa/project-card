@@ -54,13 +54,13 @@ export const LearnCard = () => {
       </Button>
 
       {showAnswer && <div className={s.showAnswer}>
-          sdfdsfsdfsdfsdfsdfsd
-
+        {data?.answer}
           <button onClick={() => {
             console.log(data?.id)
             console.log(data?.deckId)
             setGrade({id: data?.id, body: {cardId: data?.id, grade: 5}})
-          }}>+</button>
+          }}>+
+          </button>
       </div>
       }
 

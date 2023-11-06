@@ -30,7 +30,6 @@ export const Deck = () => {
   })
 
   const [open, setOpen] = useState(false)
-
   const {Root, Body, Row, Cell} = Table;
   const [showModal, setShowModal] = useState<ModalType | ShowModalType>('')
   // const [pack, setPack] = useState()
@@ -45,11 +44,8 @@ export const Deck = () => {
                 deck={data}
                 cards={cards}
     />
-    {/*{data?.cover && <img src={data.cover.toString()} alt="cover-deck"*/}
-    {/*                     className={s.imageCover}/>}*/}
     {data?.userId === auth?.id ?
       <div className={s.mainBlock}>
-
         {data?.cardsCount === 0 ?
           <>
             <Typography variant={'body1'}
@@ -101,6 +97,7 @@ export const Deck = () => {
               />
               <Body className={s.headerTable}>
                 {data?.cardsCount && cards?.items.map((item: CardType) => {
+                  console.log(item.questionImg)
                   return (<Row key={item.id}>
                     <Cell className={s.cell}>
                       <p className={s.name}>
@@ -115,22 +112,28 @@ export const Deck = () => {
                     <Cell className={s.cell}>
                       {new Date(item.updated).toLocaleDateString()}
                     </Cell>
-                    <Cell>
+                    <Cell className={s.cell + ' ' + s.createdByRow}>
                       {item.grade}
-                      <button onClick={() => {
-                        // setPack(item)
-                        setOpen(true)
-                        // setShowModal('Edit Pack')
-                      }}>
-                        <EditSvg/>
-                      </button>
-                      <button onClick={() => {
-                        // setPack(item)
-                        setOpen(true)
-                        // setShowModal('Delete Pack')
-                      }}>
-                        <TrashIcon/>
-                      </button>
+                      <div className={s.buttonBlock}>
+                        <button
+                          className={s.button}
+                          onClick={() => {
+                          // setPack(item)
+                          setOpen(true)
+                          // setShowModal('Edit Pack')
+                        }}>
+                          <EditSvg/>
+                        </button>
+                        <button
+                          className={s.button}
+                          onClick={() => {
+                          // setPack(item)
+                          setOpen(true)
+                          // setShowModal('Delete Pack')
+                        }}>
+                          <TrashIcon/>
+                        </button>
+                      </div>
                     </Cell>
                   </Row>)
                 })}
