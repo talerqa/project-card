@@ -1,19 +1,23 @@
-import {HeaderTable, Sort, Table} from "@/components/ui/table";
-import {DeckType, GetDecks, useGetDecksQuery,} from "@/services/decks";
-import {useMemo, useState} from "react";
-import {Pagination} from "@/components/ui/pagination";
+import { useMemo, useState } from "react";
+
 import s from "./decks.module.scss";
-import {Page} from "@/components/ui/page";
-import {InfoTable} from "@/pages/decks/infoTable";
-import {RowTable} from "@/pages/decks/rowTable";
-import {DeckModal} from "@/pages/decks/deckModal";
 
+import { Page } from "@/components/ui/page";
+import { Pagination } from "@/components/ui/pagination";
+import { HeaderTable, Sort, Table } from "@/components/ui/table";
+import { DeckModal } from "@/pages/decks/deckModal";
+import { InfoTable } from "@/pages/decks/infoTable";
+import { RowTable } from "@/pages/decks/rowTable";
+import { DeckType, GetDecks, useGetDecksQuery } from "@/services/decks";
 
-export  type ShowModalType = '' | 'Delete Pack' | 'Edit Pack' | 'Learn' |
-  'Add New Pack'
+export type ShowModalType =
+  | ""
+  | "Delete Pack"
+  | "Edit Pack"
+  | "Learn"
+  | "Add New Pack";
 
 export const Decks = () => {
-
   const {Root, Body} = Table;
   const [name, setName] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<any>(1);
@@ -24,10 +28,11 @@ export const Decks = () => {
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
     let sorted: GetDecks["orderBy"] = `${orderBy.key}-${orderBy.direction}`;
+
     return sorted;
   }, [orderBy]);
 
-  const {data} = useGetDecksQuery({
+  const { data } = useGetDecksQuery({
     currentPage,
     name,
     itemsPerPage,
@@ -37,7 +42,7 @@ export const Decks = () => {
 
 
   const [showModal, setShowModal] = useState<ShowModalType>('')
-  const [pack, setPack] = useState<DeckType>()
+  const [pack, setPack] = useState()
   const [openMenu, setOpenMenu] = useState(false)
 
   return (<Page className={s.deck}>
@@ -46,9 +51,8 @@ export const Decks = () => {
                setName={setName}
                name={name}
                maxCardsCount={data?.maxCardsCount}
-               setAuthorId={setAuthorId}
     />
-    <Root>
+    <Root className={s.rootTable}>
       <HeaderTable
         columns={[
           {
@@ -71,9 +75,8 @@ export const Decks = () => {
         sort={orderBy}
         onSort={setSort}
       />
-      <Body>
-        {data?.items.length ? data.items.map((item: DeckType) => {
-          console.log()
+      <Body className={s.headerTable}>
+        {data?.items.length && data.items.map((item: DeckType) => {
           return <RowTable
             key={item.id}
             item={item}
@@ -81,9 +84,7 @@ export const Decks = () => {
             setPack={setPack}
             setShowModal={setShowModal}
           />
-        }) : <></>
-
-        }
+        })}
       </Body>
       <DeckModal
         activeMenu={openMenu}

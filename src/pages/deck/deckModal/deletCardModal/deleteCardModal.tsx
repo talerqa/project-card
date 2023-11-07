@@ -1,33 +1,26 @@
-import s from './deleteCardModal.module.scss'
-import {Button} from "@/components/ui/button";
-import {z} from 'zod'
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {ControlledInput} from "@/components/ui/controlled";
-import {useCreateCardMutation} from "@/services/decks";
-import {
-  ControlledSelect
-} from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
+import s from "./addNewCardModal.module.scss";
+import { Button } from "@/components/ui/button";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ControlledInput } from "@/components/ui/controlled";
+import { useCreateCardMutation } from "@/services/decks";
+import { DialogsModal } from "@/components/ui/dialogs";
+import { ControlledSelect } from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
 
+type DeckValuesForm = z.infer<typeof deckSchema>;
 
-type DeckValuesForm = z.infer<typeof deckSchema>
 
 const deckSchema = z.object({
-  text: z.string().min(3, 'Name must be at least 3' +
-    ' characters'),
-  question: z.string().min(3, 'Name must be at least 3' +
-    ' characters'),
-  answer: z.string().min(2, 'Name must be at least 2' +
-    ' characters'),
-})
+  text: z.string().min(3, "Name must be at least 3" + " characters"),
+  question: z.string().min(3, "Name must be at least 3" + " characters"),
+  answer: z.string().min(2, "Name must be at least 2" + " characters"),
+});
 
-export const DeleteCardModal = (props: any) => {
+export const AddNewCardModal = (props: any) => {
 
-  const {deckId} = props
+  const { card } = props;
 
-  console.log(
-    deckId
-  )
 
   const {
     handleSubmit,
@@ -39,19 +32,20 @@ export const DeleteCardModal = (props: any) => {
       answer: '',
       question: ''
     },
-  })
+  });
 
-  const [createCard] = useCreateCardMutation()
+  const [createCard] = useCreateCardMutation();
 
   const onSubmit = (data: DeckValuesForm) => {
-    const {question, answer} = data
-    const formData = new FormData()
+    const { question, answer } = data;
+    const formData = new FormData();
 
-    formData.append('question', String(question))
-    formData.append('answer', String(answer))
-    createCard({id: deckId, body: formData})
-    console.log(formData.get('question'))
+    formData.append("question", String(question));
+    formData.append("answer", String(answer));
+    createCard({ id: card?.id, body: formData });
+    console.log(formData.get("question"));
     //  cover && formData.append('cover', cover)
+    
     props.closeModalHandler()
   }
 
@@ -97,5 +91,4 @@ export const DeleteCardModal = (props: any) => {
     </form>
   </div>
 }
-
 

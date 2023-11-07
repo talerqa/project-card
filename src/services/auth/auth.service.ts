@@ -31,7 +31,7 @@ export const AuthService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
-        // invalidatesTags: ["Auth"],
+        invalidatesTags: ["Auth"],
       }),
       verifyEmail: builder.mutation<void, { code: string }>({
         query: (body) => ({
@@ -59,6 +59,7 @@ export const AuthService = baseApi.injectEndpoints({
             subject: "",
           },
         }),
+        invalidatesTags: ["Auth"],
       }),
       resetPassword: builder.mutation<
         void,
@@ -69,13 +70,18 @@ export const AuthService = baseApi.injectEndpoints({
           method: "POST",
           body: { password },
         }),
+        invalidatesTags: ["Auth"],
       }),
-      editProfile: builder.mutation<any, any>({
+      editProfile: builder.mutation<
+        EditProfileResponseType,
+        FormData | EditProfileArgsType
+      >({
         query: (body) => ({
           url: "/v1/auth/me",
           method: "PATCH",
           body,
         }),
+        invalidatesTags: ["Auth"],
       }),
     };
   },
@@ -127,4 +133,20 @@ export type SignUpResponseType = {
   name: string;
   created?: string;
   updated?: string;
+};
+
+export type EditProfileArgsType = {
+  avatar?: any;
+  name?: string;
+  email?: string;
+};
+
+export type EditProfileResponseType = {
+  avatar: string;
+  id: string;
+  email: string;
+  isEmailVerified: boolean;
+  name: string;
+  created: string;
+  updated: string;
 };

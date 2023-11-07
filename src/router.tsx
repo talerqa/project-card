@@ -6,13 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import {Layout} from "@/pages/layout/layout.tsx";
+import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
+import { useAuthMeQuery } from "./services/auth";
 
-import {useAuthMeQuery} from "./services/auth";
-
-import {Decks} from "@/pages/decks";
-import {Deck} from "@/pages/deck";
-import {LearnCard} from "@/pages/learnCard";
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
@@ -22,6 +18,9 @@ import {
   SignUpPage,
 } from "@/pages";
 import {Confirmation} from "@/pages/auth/sendConfirmation/confirmation";
+
+import { Decks } from "@/pages/decks";
+import { Deck } from "@/pages/deck";
 import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
 
 const publicRoutes: RouteObject[] = [
@@ -73,7 +72,7 @@ const privateRoutes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <Navigate to={'/decks'}/>,
+        element: <Navigate to={"/decks"} />,
       },
       {
         path: "/decks",
@@ -85,24 +84,23 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: "/decks/:id/learn",
-        element: <LearnCard/>,
-      }
+        element: <LearnCard />,
+      },
     ],
   },
 ];
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <PrivateRoutes/>,
+    path: "/",
+    element: <PrivateRoutes />,
     children: privateRoutes,
-    errorElement: <div>Error404</div>
+    errorElement: <div>Error404</div>,
   },
   ...publicRoutes,
   {
     path: "*",
     element: <Navigate to="/error404" />,
-
   },
 ]);
 

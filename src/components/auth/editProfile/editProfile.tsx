@@ -1,19 +1,19 @@
 import {ChangeEvent, useRef, useState} from "react";
 
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import s from "./editProfile.module.scss";
 
-import {EditSvg} from "@/assets/components/edit";
-import {Logout} from "@/assets/components/logout";
-import {defaultAva} from "@/assets/defaultAva";
-import {Button} from "@/components/ui/button";
-import {Card} from "@/components/ui/card";
-import {ControlledInput} from "@/components/ui/controlled";
-import {Typography} from "@/components/ui/typography";
-import {AuthMeResponseType, useAuthMeQuery} from "@/services/auth";
+import { EditSvg } from "@/assets/components/edit";
+import { Logout } from "@/assets/components/logout";
+import { defaultAva } from "@/assets/defaultAva";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ControlledInput } from "@/components/ui/controlled";
+import { Typography } from "@/components/ui/typography";
+import { AuthMeResponseType, useAuthMeQuery } from "@/services/auth";
 
 const schema = z.object({
   name: z.string().min(3, "Name must be at least 3" + " characters"),
@@ -22,11 +22,12 @@ const schema = z.object({
 type UserData = Partial<Pick<AuthMeResponseType, "avatar" | "name" | "email">>;
 
 export const EditProfile = (): JSX.Element => {
-  //
+  const [editProfile] = useEditProfileMutation();
+
   const [nameEditMode, setNameEditMode] = useState(false);
 
-  const {data} = useAuthMeQuery();
-  const {avatar, name, email} = data ?? {};
+  const { data } = useAuthMeQuery();
+  const { avatar, name, email } = data ?? {};
 
   const [userData, setUserData] = useState<UserData>({
     avatar,
@@ -43,8 +44,11 @@ export const EditProfile = (): JSX.Element => {
   const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
+      const formData = new FormData();
 
-      alert(file.name);
+      file && formData.append("avatar", file);
+
+      editProfile(formData);
     }
   };
 
@@ -55,7 +59,7 @@ export const EditProfile = (): JSX.Element => {
 
   const handleFormSubmit = (data: UserData) => {
     console.log(data);
-    setUserData({...userData, name: data.name});
+    setUserData({ ...userData, name: data.name });
     setNameEditMode(false);
   };
 
@@ -134,6 +138,14 @@ type WithoutNameEditModeProps = {
 };
 
 const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
+  const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <>
       <Typography variant={"h1"} as={"h1"} className={s.name}>
@@ -145,7 +157,11 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
       <Typography variant={"body2"} as={"span"} className={s.email}>
         {props.email}
       </Typography>
-      <Button type="button" className={s.logoutButton}>
+      <Button
+        type="button"
+        className={s.logoutButton}
+        onClick={handleLogoutClick}
+      >
         <Logout />
         Logout
       </Button>

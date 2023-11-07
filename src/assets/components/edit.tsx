@@ -1,4 +1,10 @@
-export const EditSvg = () => {
+
+type EditSvgType = {
+  onClick?: () => void;
+};
+
+export const EditSvg = (props: EditSvgType)=> {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

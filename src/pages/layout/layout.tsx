@@ -1,13 +1,11 @@
-import { Header } from "@/components/ui/header";
-
 import { Outlet, useNavigate } from "react-router-dom";
 
-import avatar from "./../../assets/img/avatart-template.png";
+import { Header } from "@/components/ui/header";
 import { useAuthMeQuery } from "@/services/auth";
 
 export const Layout = (): JSX.Element => {
   const navigate = useNavigate();
-  const { isError, data } = useAuthMeQuery();
+  const { isError } = useAuthMeQuery();
 
   let isAuthorized = !isError;
 
@@ -17,13 +15,7 @@ export const Layout = (): JSX.Element => {
 
   return (
     <>
-      <Header
-        isAuth={isAuthorized}
-        name={data?.name}
-        avatarImg={avatar}
-        email={data?.email}
-        onSignInHandler={onSignInHandler}
-      />
+      <Header isAuth={isAuthorized} onSignInHandler={onSignInHandler} />
       <Outlet />
     </>
   );
