@@ -1,1 +1,1 @@
-export * from './deleteCardModal.tsx'
+export * from "./deleteCardModal.tsx";

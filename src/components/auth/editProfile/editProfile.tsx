@@ -1,7 +1,8 @@
-import {ChangeEvent, useRef, useState} from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import s from "./editProfile.module.scss";
@@ -13,27 +14,19 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ControlledInput } from "@/components/ui/controlled";
 import { Typography } from "@/components/ui/typography";
-import { AuthMeResponseType, useAuthMeQuery } from "@/services/auth";
+import { useEditProfileMutation, useLogoutMutation } from "@/services/auth";
+import { useAppSelector } from "@/services/store";
 
 const schema = z.object({
   name: z.string().min(3, "Name must be at least 3" + " characters"),
 });
-
-type UserData = Partial<Pick<AuthMeResponseType, "avatar" | "name" | "email">>;
 
 export const EditProfile = (): JSX.Element => {
   const [editProfile] = useEditProfileMutation();
 
   const [nameEditMode, setNameEditMode] = useState(false);
 
-  const { data } = useAuthMeQuery();
-  const { avatar, name, email } = data ?? {};
-
-  const [userData, setUserData] = useState<UserData>({
-    avatar,
-    name,
-    email,
-  });
+  const { avatar, name, email } = useAppSelector((state) => state.userReducer);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -53,13 +46,11 @@ export const EditProfile = (): JSX.Element => {
   };
 
   const handleNameEditClick = () => {
-    console.log(1)
     setNameEditMode(true);
   };
 
-  const handleFormSubmit = (data: UserData) => {
-    console.log(data);
-    setUserData({ ...userData, name: data.name });
+  const handleFormSubmit = (data: any) => {
+    editProfile({ name: data.name });
     setNameEditMode(false);
   };
 
@@ -72,24 +63,21 @@ export const EditProfile = (): JSX.Element => {
         <img
           alt="default-image"
           className={s.userAvatar}
-          src={userData.avatar || defaultAva}
+          src={avatar || defaultAva}
         />
         <input
           type="file"
           accept="image/jpg, image/jpeg"
-          style={{display: "none"}}
+          style={{ display: "none" }}
           ref={inputRef}
           onChange={handleUpload}
         />
         <button onClick={handleImageChangeClick}>
-          <EditSvg/>
+          <EditSvg />
         </button>
       </div>
       {nameEditMode ? (
-        <WithNameEditMode
-          handleFormSubmit={handleFormSubmit}
-          userData={userData}
-        />
+        <WithNameEditMode handleFormSubmit={handleFormSubmit} name={name} />
       ) : (
         <WithoutNameEditMode
           handleNameEditClick={handleNameEditClick}
@@ -102,15 +90,15 @@ export const EditProfile = (): JSX.Element => {
 };
 
 type WithNameEditModeProps = {
-  handleFormSubmit: (data: UserData) => void;
-  userData: UserData;
+  handleFormSubmit: (data: any) => void;
+  name: string | undefined;
 };
 
 const WithNameEditMode = (props: WithNameEditModeProps) => {
-  const {handleSubmit, control} = useForm({
+  const { handleSubmit, control } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: props.userData.name,
+      name: props.name,
     },
   });
 
@@ -151,7 +139,7 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
       <Typography variant={"h1"} as={"h1"} className={s.name}>
         {props.name}
         <button onClick={props.handleNameEditClick}>
-          <EditSvg/>
+          <EditSvg />
         </button>
       </Typography>
       <Typography variant={"body2"} as={"span"} className={s.email}>
