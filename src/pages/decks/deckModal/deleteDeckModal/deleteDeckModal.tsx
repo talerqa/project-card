@@ -2,12 +2,14 @@ import {Typography} from "@/components/ui/typography";
 import s from './deckDeleteModal.module.scss'
 import {Button} from "@/components/ui/button";
 import {useDeleteDeckMutation,} from "@/services/decks";
+import {useNavigate} from "react-router-dom";
 
 type Props = any
 export const DeleteDeckModal = (props: Props) => {
 
   const {item, closeModalHandler} = props
 
+  const Navigate = useNavigate()
   const [deletePack] = useDeleteDeckMutation()
 
   return (<div className={s.deckModal}>
@@ -28,6 +30,7 @@ export const DeleteDeckModal = (props: Props) => {
       <Button type={'submit'} children={'Delete Pack'}
               onClick={() => {
                 deletePack({id: item?.id})
+                Navigate('/decks')
                 closeModalHandler()
               }}/>
     </div>

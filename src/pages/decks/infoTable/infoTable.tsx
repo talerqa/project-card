@@ -1,13 +1,15 @@
 import s from "./infoTable.module.scss";
 
-import { TrashIcon } from "@/assets/components/trashIcon.tsx";
-import { Button } from "@/components/ui/button";
-import { IconSvgButton } from "@/components/ui/button/button.stories.tsx";
-import { Input } from "@/components/ui/inputs";
-import { SliderWithUseState } from "@/components/ui/slider/slider.stories.tsx";
-import { TabSwitcher } from "@/components/ui/tab-switcher";
-import { Typography } from "@/components/ui/typography";
-import { ShowModalType } from "@/pages/decks";
+import {TrashIcon} from "@/assets/components/trashIcon.tsx";
+import {Button} from "@/components/ui/button";
+import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
+import {Input} from "@/components/ui/inputs";
+import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
+import {TabSwitcher} from "@/components/ui/tab-switcher";
+import {Typography} from "@/components/ui/typography";
+import {ShowModalType} from "@/pages/decks";
+import {useAuthMeQuery} from "@/services/auth";
+import {useState} from "react";
 
 type Props = {
   setShowModal: (value: ShowModalType) => void;
@@ -15,11 +17,29 @@ type Props = {
   setName: (name: string) => void;
   name: string;
   maxCardsCount?: number;
+  setAuthorId: (value?: string) => void
 };
 
 export const InfoTable = (props: Props) => {
-  const { setShowModal, setOpenMenu, setName, name } = props;
+  const {
+    setShowModal,
+    setOpenMenu,
+    setName,
+    name,
+    setAuthorId,
+  } = props;
+  const {data: auth} = useAuthMeQuery()
 
+  const [active, setActive] = useState(1);
+
+  const onValueChange = (value: number) => {
+    if (active) {
+      setAuthorId(auth?.id)
+    } else {
+      setAuthorId('')
+    }
+    if (value) setActive(+value);
+  }
   return (
     <>
       <div className={s.packListBlock}>
@@ -51,8 +71,8 @@ export const InfoTable = (props: Props) => {
           </Typography>
           <TabSwitcher
             tabs={["My Cards", "All Cards"]}
-            activeTab={1}
-            title={"Show packs cards"}
+            active={active}
+            onValueChange={onValueChange}
           />
         </div>
         <div>
@@ -72,7 +92,7 @@ export const InfoTable = (props: Props) => {
           icon={
             <IconSvgButton className={s.iconTrash}>
               {" "}
-              <TrashIcon />{" "}
+              <TrashIcon/>{" "}
             </IconSvgButton>
           }
         >

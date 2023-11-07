@@ -10,6 +10,7 @@ import {
 } from "@/services/decks";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
+import {BackToPage} from "@/components/common/backToPage";
 
 export const LearnCard = () => {
 
@@ -18,12 +19,11 @@ export const LearnCard = () => {
   const {id} = useParams()
   const {data} = useLearnCardQuery({id})
   const {data: card} = useGetDeckQuery({id})
+  const [setGrade] = useSaveGradeCardMutation()
 
-const [setGrade] = useSaveGradeCardMutation()
-
-  console.log(data)
 
   return <Page className={s.deck}>
+    <BackToPage className={s.backToDecks}/>
     <Card className={s.card}>
       <Typography variant={'large'}
                   as={'p'}
@@ -48,19 +48,19 @@ const [setGrade] = useSaveGradeCardMutation()
       </Typography>
 
       <Button type={'button'} className={s.button}
-        onClick={()=>setShowAnswer(!showAnswer)}
+              onClick={() => setShowAnswer(!showAnswer)}
       >
         Show Answer
       </Button>
 
       {showAnswer && <div className={s.showAnswer}>
-          sdfdsfsdfsdfsdfsdfsd
-
-          <button onClick={()=>{
+        {data?.answer}
+          <button onClick={() => {
             console.log(data?.id)
             console.log(data?.deckId)
-        setGrade({id: data?.id, body: {cardId: data?.id,grade: 5 }})
-          }}>+</button>
+            setGrade({id: data?.id, body: {cardId: data?.id, grade: 5}})
+          }}>+
+          </button>
       </div>
       }
 

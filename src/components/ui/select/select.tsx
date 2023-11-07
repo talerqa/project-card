@@ -39,6 +39,10 @@ export const Select = forwardRef<
 
   const [open, setOpen] = useState<boolean>(false);
 
+  console.log(
+    value
+  )
+
   const selectClasses = {
     selectContainer: clsx(s.selectBlock, className),
     content: clsx(s.content, className),

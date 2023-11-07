@@ -5,48 +5,13 @@
   max-width: 1030px;
 
   .backToDecks {
-    margin: 24px 0 30px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-
-    .textBack {
-      margin-left: 6px;
-      text-decoration: none;
-    }
+    margin: 24px 0 33px;
   }
 
-  .blockHeaderDeck {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 27px;
-
-    .blockTitleDeck {
-      display: flex;
-      align-items: center;
-
-
-      .title {
-        margin: 0 16px 0 0;
-      }
-
-      .menu {
-        left: 62px;
-      }
-
-      .trigger {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-
-  }
-
-
-  .dropDown {
-    transform: translateX(-100px);
+  .imageCover {
+    width: 170px;
+    height: 100%;
+    margin-bottom: 25px;
   }
 
   .mainBlock {
@@ -62,11 +27,6 @@
       margin-bottom: 30px;
     }
 
-
-    .buttonAddNewCard {
-
-    }
-
   }
 
   .searchInput {
@@ -74,31 +34,58 @@
     margin-bottom: 24px;
   }
 
+  .rootTable {
+    //min-height: 500px;
+    margin-bottom: 15px;
 
-  //
-  //.rootTable {
-  //  min-height: 500px;
-  //
-  //  .headerTable {
-  //    .cell {
-  //      padding-left: 24px;
-  //      padding-right: 24px;
-  //
-  //      .name {
-  //        text-decoration: none;
-  //        font-weight: inherit;
-  //        color: inherit;
-  //        font-size: inherit;
-  //      }
-  //    }
-  //
-  //    .createdByRow {
-  //      display: flex;
-  //      justify-content: space-between;
-  //      align-items: center;
-  //    }
-  //  }
-  //}
+    .headerTable {
+      .cell {
+        padding-left: 24px;
+        padding-right: 24px;
+        height: 36px;
+
+
+        .name {
+          display: flex;
+          margin: 0;
+          justify-content: space-between;
+          align-items: center;
+          text-decoration: none;
+          font-weight: inherit;
+          color: inherit;
+          font-size: inherit;
+        }
+
+        .image {
+          height: 30px;
+        }
+
+      }
+
+      .createdByRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .buttonBlock {
+        display: flex;
+        width: 69px;
+        height: 24px;
+        justify-content: start;
+        align-items: center;
+
+        .button {
+          height: 20px;
+          width: 20px;
+          display: block;
+          align-self: center;
+          margin: 0 auto;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 
   //.pagination {
   //  margin: 0 auto;
