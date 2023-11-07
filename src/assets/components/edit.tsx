@@ -1,9 +1,4 @@
-
-type EditSvgType = {
-  onClick?: () => void;
-};
-
-export const EditSvg = (props: EditSvgType)=> {
+export const EditSvg = ()=> {
 
   return (
     <svg
