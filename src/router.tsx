@@ -6,13 +6,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import {Layout} from "@/pages/layout/layout.tsx";
+import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
+import { ErrorPage } from "./pages/error/errorPage";
+import { useAuthMeQuery } from "./services/auth";
 
-import {useAuthMeQuery} from "./services/auth";
-
-import {Decks} from "@/pages/decks";
-import {Deck} from "@/pages/deck";
-import {LearnCard} from "@/pages/learnCard";
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
@@ -21,8 +18,11 @@ import {
   SignInPage,
   SignUpPage,
 } from "@/pages";
-import {Confirmation} from "@/pages/auth/sendConfirmation/confirmation";
-import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
+import { Confirmation } from "@/pages/auth/sendConfirmation/confirmation";
+import { Deck } from "@/pages/deck";
+import { Decks } from "@/pages/decks";
+import { Layout } from "@/pages/layout/layout.tsx";
+import { LearnCard } from "@/pages/learnCard";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -35,27 +35,27 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: "/sign-up",
-        element: <SignUpPage/>,
+        element: <SignUpPage />,
       },
       {
         path: "/forgot-password",
-        element: <ForgotPasswordPage/>,
+        element: <ForgotPasswordPage />,
       },
       {
         path: "/create-password/:token",
-        element: <CreateNewPasswordPage/>,
+        element: <CreateNewPasswordPage />,
       },
       {
         path: "/check-email",
-        element: <CheckEmailPage/>,
+        element: <CheckEmailPage />,
       },
       {
         path: "/confirmation",
-        element: <SendConfirmation/>,
+        element: <SendConfirmation />,
       },
       {
         path: "/confirm-email/:code",
-        element: <Confirmation/>,
+        element: <Confirmation />,
       },
       {
         path: "/edit-profile",
@@ -73,7 +73,7 @@ const privateRoutes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <Navigate to={'/decks'}/>,
+        element: <Navigate to={"/decks"} />,
       },
       {
         path: "/decks",
@@ -85,24 +85,27 @@ const privateRoutes: RouteObject[] = [
       },
       {
         path: "/decks/:id/learn",
-        element: <LearnCard/>,
-      }
+        element: <LearnCard />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
     ],
   },
 ];
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <PrivateRoutes/>,
+    path: "/",
+    element: <PrivateRoutes />,
     children: privateRoutes,
-    errorElement: <div>Error404</div>
+    errorElement: <ErrorPage />,
   },
   ...publicRoutes,
   {
     path: "*",
-    element: <Navigate to="/error404" />,
-
+    element: <ErrorPage />,
   },
 ]);
 
