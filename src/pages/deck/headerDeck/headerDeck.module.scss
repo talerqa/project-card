@@ -1,6 +1,13 @@
 .blockHeaderDeck {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
+
+
+  .informationBlock {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .leftBlock {
     display: flex;
@@ -32,6 +39,13 @@
       margin-bottom: 25px;
     }
   }
+
+
+  .searchInput {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
 }
 
 .dropDown {

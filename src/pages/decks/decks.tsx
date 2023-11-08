@@ -35,7 +35,6 @@ export const Decks = () => {
     orderBy: sortedString,
   });
 
-
   const [showModal, setShowModal] = useState<ShowModalType>('')
   const [pack, setPack] = useState<DeckType>()
   const [openMenu, setOpenMenu] = useState(false)

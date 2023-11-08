@@ -10,6 +10,7 @@ import trash from "@/assets/img/trash.svg";
 import {TriggerDropDown} from "@/assets/components/triggerDropDown.tsx";
 import {DeckModal, ShowModalType} from "@/pages/decks";
 import {AuthMeResponseType} from "@/services/auth";
+import {Input} from "@/components/ui/inputs";
 
 export type ModalType = '' | 'Delete Card' | 'Edit Card' | 'Learn' |
   'Add New Card'
@@ -23,17 +24,29 @@ export type Props = {
   deck?: DeckType
   auth?: AuthMeResponseType
   cards?: GetResponseTypeCard
+  question: string
+  setQuestion: (value: string) => void
 }
 
 export const HeaderDeck = (props: Props) => {
 
-  const {open, setOpen, showModal, setShowModal, deck, auth, cards} = props
+  const {
+    open,
+    setOpen,
+    showModal,
+    setShowModal,
+    deck,
+    auth,
+    cards,
+    question,
+    setQuestion
+  } = props
 
   const navigate = useNavigate()
 
   return <div className={s.blockHeaderDeck}>
     {deck?.userId === auth?.id ?
-      <>
+      <div className={s.informationBlock}>
         <div className={s.leftBlock}>
           <div className={s.blockTitleDeck}>
             <Typography className={s.title}
@@ -82,17 +95,30 @@ export const HeaderDeck = (props: Props) => {
                     setOpen(true)
                   }}
           /> : <></>}
-      </>
-      : <>
-        <Typography className={s.title}
-                    variant={'large'} as={'h2'}
-                    children={"Friend\'s Pack"}/>
+      </div>
+      : <div className={s.informationBlock}>
+        <div className={s.leftBlock}>
+          <Typography className={s.title}
+                      variant={'large'} as={'h2'}
+                      children={"Friend\'s Pack"}/>
+          {deck?.cover && <img src={deck.cover.toString()} alt="cover-deck"
+                               className={s.imageCover}/>}
+        </div>
         <Button type={'button'}
                 variant={'primary'}
                 children={'Learn to Pack'}
                 onClick={() => navigate(`../decks/${deck?.id}/learn`)}
         />
-      </>}
+      </div>}
+    <Input
+      type="search"
+      placeholder="Input search question"
+      className={s.searchInput}
+      value={question}
+      onChange={(event) => {
+        setQuestion(event.target.value);
+      }}
+    />
   </div>
 
 }

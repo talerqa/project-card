@@ -8,12 +8,12 @@ import s from './deck.module.scss'
 import {HeaderTable, Table} from "@/components/ui/table";
 import {Page} from "@/components/ui/page";
 import {BackToPage} from "@/components/common/backToPage";
-import {Input} from "@/components/ui/inputs";
 import {Pagination} from "@/components/ui/pagination";
 import {EditSvg} from "@/assets/components/edit.tsx";
 import {TrashIcon} from "@/assets/components/trashIcon.tsx";
 import {ShowModalType} from "@/pages/decks";
 import {HeaderDeck} from "@/pages/deck/headerDeck";
+import {Grade} from "@/components/ui/grade";
 
 export type ModalType = '' | 'Delete Card' | 'Edit Card' | 'Learn' |
   'Add New Card'
@@ -43,9 +43,14 @@ export const Deck = () => {
                 setShowModal={setShowModal}
                 deck={data}
                 cards={cards}
+                setQuestion={setQuestion}
+                question={question}
     />
     {data?.userId === auth?.id ?
+
       <div className={s.mainBlock}>
+        <>
+          </>
         {data?.cardsCount === 0 ?
           <>
             <Typography variant={'body1'}
@@ -63,15 +68,6 @@ export const Deck = () => {
             />
           </>
           : <>
-            <Input
-              type="search"
-              placeholder="Input search"
-              className={s.searchInput}
-              value={question}
-              onChange={(event) => {
-                setQuestion(event.target.value);
-              }}
-            />
             <Root className={s.rootTable}>
               <HeaderTable
                 columns={[
@@ -113,7 +109,7 @@ export const Deck = () => {
                       {new Date(item.updated).toLocaleDateString()}
                     </Cell>
                     <Cell className={s.cell + ' ' + s.createdByRow}>
-                      {item.grade}
+                      <Grade value={item.grade} maxRating={5}/>
                       <div className={s.buttonBlock}>
                         <button
                           className={s.button}
@@ -152,8 +148,6 @@ export const Deck = () => {
               // onClick={(value: number) => setCurrentPage(value)}
             />
           </>}
-
-
       </div>
       : <div>
         {cards?.items.map((item: CardType) => {
@@ -162,7 +156,7 @@ export const Deck = () => {
             <p>    {item.answer}</p>
             <p>    {item.question}</p>
             <p>   {item.rating}</p>
-            <p>   {item.grade}</p>
+            <Grade value={item.grade} maxRating={5}/>
           </div>
         })}
         OTHER DECK
