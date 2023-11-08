@@ -10,6 +10,7 @@ import { Loader } from "@/assets/components/loader";
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
+  Deck,
   EditProfilePage,
   ErrorPage,
   ForgotPasswordPage,
@@ -19,7 +20,6 @@ import {
   SignUpPage,
 } from "@/pages";
 import { Confirmation } from "@/pages/auth/sendConfirmation/confirmation";
-import { RowDeckTable } from "@/pages/deck";
 import { Decks } from "@/pages/decks";
 import { LearnCard } from "@/pages/learnCard";
 import { useAuthMeQuery } from "@/services";
