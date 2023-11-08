@@ -1,5 +1,4 @@
-export const EditSvg = ()=> {
-
+export const EditSvg = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
