@@ -6,23 +6,23 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { EditProfilePage } from "./pages/auth/EditProfilePage/editProfilePage";
-import { ErrorPage } from "./pages/error/errorPage";
-import { useAuthMeQuery } from "./services/auth";
-
+import { Loader } from "@/assets/components/loader";
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
+  Deck,
+  EditProfilePage,
+  ErrorPage,
   ForgotPasswordPage,
+  Layout,
   SendConfirmation,
   SignInPage,
   SignUpPage,
 } from "@/pages";
 import { Confirmation } from "@/pages/auth/sendConfirmation/confirmation";
-import { Deck } from "@/pages/deck";
 import { Decks } from "@/pages/decks";
-import { Layout } from "@/pages/layout/layout.tsx";
 import { LearnCard } from "@/pages/learnCard";
+import { useAuthMeQuery } from "@/services";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -116,19 +116,7 @@ export const Router = () => {
 function PrivateRoutes() {
   const { isLoading, isError } = useAuthMeQuery();
 
-  if (isLoading)
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "100px",
-        }}
-      >
-        Loading...
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
   const isAuthenticated = !isError;
 

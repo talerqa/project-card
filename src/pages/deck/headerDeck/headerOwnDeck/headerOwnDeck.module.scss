@@ -1,13 +1,6 @@
-.blockHeaderDeck {
+.informationBlock {
   display: flex;
-  flex-direction: column;
-
-
-
-  .informationBlock {
-    display: flex;
-    justify-content: space-between;
-  }
+  justify-content: space-between;
 
   .leftBlock {
     display: flex;
@@ -40,15 +33,12 @@
     }
   }
 
-
   .searchInput {
     width: 100%;
     margin-bottom: 24px;
   }
-
 }
 
 .dropDown {
   transform: translateX(65px);
 }
-
