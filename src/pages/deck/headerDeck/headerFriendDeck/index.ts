@@ -1,1 +1,1 @@
-export * from "./headerFriendDeck.tsx";
+export { HeaderFriendDeck } from "./headerFriendDeck.tsx";

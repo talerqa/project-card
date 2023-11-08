@@ -1,1 +1,1 @@
-export * from "./backToPage.tsx";
+export { BackToPage } from "./backToPage.tsx";

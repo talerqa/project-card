@@ -4,17 +4,14 @@ import { useParams } from "react-router-dom";
 
 import s from "./deck.module.scss";
 
-import { EditSvg } from "@/assets/components/edit.tsx";
 import { Loader } from "@/assets/components/loader";
-import { TrashIcon } from "@/assets/components/trashIcon.tsx";
 import { BackToPage } from "@/components/common/backToPage";
 import { Button } from "@/components/ui/button";
-import { Grade } from "@/components/ui/grade";
 import { Page } from "@/components/ui/page";
 import { Pagination } from "@/components/ui/pagination";
 import { HeaderTable, Table } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
-import { HeaderDeck } from "@/pages/deck/headerDeck";
+import { HeaderDeck, RowDeckTable } from "@/pages";
 import { ShowModalType } from "@/pages/decks";
 import { useAuthMeQuery } from "@/services/auth";
 import { CardType, useGetCardsQuery, useGetDeckQuery } from "@/services/decks";
@@ -25,6 +22,25 @@ export type ModalType =
   | "Edit Card"
   | "Learn"
   | "Add New Card";
+
+const HeaderTitleTableArray = [
+  {
+    key: "question",
+    title: "Question",
+  },
+  {
+    key: "answer",
+    title: "Answer",
+  },
+  {
+    key: "updated",
+    title: "Last Updated",
+  },
+  {
+    key: "",
+    title: "Grade",
+  },
+];
 
 export const Deck = () => {
   let { id } = useParams();
@@ -37,9 +53,11 @@ export const Deck = () => {
   });
 
   const [open, setOpen] = useState(false);
-  const { Root, Body, Row, Cell } = Table;
+  const { Root, Body } = Table;
   const [showModal, setShowModal] = useState<ModalType | ShowModalType>("");
   // const [pack, setPack] = useState()
+
+  const isOwn = data?.userId === auth?.id;
 
   if (isLoading) return <Loader />;
 
@@ -57,316 +75,89 @@ export const Deck = () => {
         setQuestion={setQuestion}
         question={question}
       />
-      {data?.userId === auth?.id ? (
-        <div className={s.mainBlock}>
-          <></>
-          {data?.cardsCount === 0 ? (
-            <>
-              <Typography variant={"body1"} as={"span"} className={s.emptyDeck}>
-                This pack is empty. Click add new learnCard to fill this pack
-              </Typography>
-              <Button
-                className={s.buttonAddNewCard}
-                type={"button"}
-                variant={"primary"}
-                onClick={() => {
-                  setShowModal("Add New Card");
-                  setOpen(true);
-                }}
-              >
-                Add New Card
-              </Button>
-            </>
-          ) : (
-            <>
-              <Root className={s.rootTable}>
-                <HeaderTable
-                  columns={[
-                    {
-                      key: "question",
-                      title: "Question",
-                    },
-                    {
-                      key: "answer",
-                      title: "Answer",
-                    },
-                    {
-                      key: "updated",
-                      title: "Last Updated",
-                    },
-                    {
-                      key: "!!!",
-                      title: "Grade",
-                    },
+      <div className={s.mainBlock}>
+        {isOwn ? (
+          <>
+            {data?.cardsCount === 0 ? (
+              <>
+                <Typography
+                  variant={"body1"}
+                  as={"span"}
+                  className={s.emptyDeck}
+                >
+                  This pack is empty. Click add new learnCard to fill this pack
+                </Typography>
+                <Button
+                  className={s.buttonAddNewCard}
+                  type={"button"}
+                  variant={"primary"}
+                  onClick={() => {
+                    setShowModal("Add New Card");
+                    setOpen(true);
+                  }}
+                >
+                  Add New Card
+                </Button>
+              </>
+            ) : (
+              <>
+                <Root className={s.rootTable}>
+                  <HeaderTable
+                    columns={HeaderTitleTableArray}
+                    // sort={orderBy}
+                    // onSort={setSort}
+                  />
+                  <Body className={s.headerTable}>
+                    {data?.cardsCount &&
+                      cards?.items.map((item: CardType, index) => {
+                        return (
+                          <RowDeckTable
+                            key={index}
+                            item={item}
+                            setOpen={setOpen}
+                            isOwn={isOwn}
+                          />
+                        );
+                      })}
+                  </Body>
+                </Root>
+                <Pagination
+                  pageSizeValue={[
+                    { title: "10", value: "10" },
+                    { title: "20", value: "20" },
                   ]}
-                  // sort={orderBy}
-                  // onSort={setSort}
+                  totalPages={cards?.pagination.totalPages}
+                  itemsPerPage={cards?.pagination.itemsPerPage}
+                  // currentPage={currentPage}
+                  // className={s.pagination}
+                  // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+                  // onClick={(value: number) => setCurrentPage(value)}
                 />
-                <Body className={s.headerTable}>
-                  {data?.cardsCount &&
-                    cards?.items.map((item: CardType) => {
-                      return (
-                        <Row key={item.id}>
-                          <Cell className={s.cell}>
-                            <p className={s.name}>
-                              {item.question}
-                              {item.questionImg ? (
-                                <img
-                                  src={item?.questionImg as string}
-                                  alt="cover"
-                                  className={s.image}
-                                />
-                              ) : (
-                                <></>
-                              )}
-                            </p>
-                          </Cell>
-                          <Cell className={s.cell}>{item.answer}</Cell>
-                          <Cell className={s.cell}>
-                            {new Date(item.updated).toLocaleDateString()}
-                          </Cell>
-                          <Cell className={s.cell + " " + s.createdByRow}>
-                            <Grade value={item.grade} maxRating={5} />
-                            <div className={s.buttonBlock}>
-                              <button
-                                className={s.button}
-                                onClick={() => {
-                                  // setPack(item)
-                                  setOpen(true);
-                                  // setShowModal('Edit Pack')
-                                }}
-                              >
-                                <EditSvg />
-                              </button>
-                              <button
-                                className={s.button}
-                                onClick={() => {
-                                  // setPack(item)
-                                  setOpen(true);
-                                  // setShowModal('Delete Pack')
-                                }}
-                              >
-                                <TrashIcon />
-                              </button>
-                            </div>
-                          </Cell>
-                        </Row>
-                      );
-                    })}
-                </Body>
-              </Root>
-              <Pagination
-                pageSizeValue={[
-                  { title: "10", value: "10" },
-                  { title: "20", value: "20" },
-                ]}
-                totalPages={cards?.pagination.totalPages}
-                itemsPerPage={cards?.pagination.itemsPerPage}
-                // currentPage={currentPage}
-                // className={s.pagination}
-                // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
-                // onClick={(value: number) => setCurrentPage(value)}
-              />
-            </>
-          )}
-        </div>
-      ) : (
-        <div>
-          {cards?.items.map((item: CardType) => {
-            return (
-              <div key={item.id}>
-                <p> {item.id}</p>
-                <p> {item.answer}</p>
-                <p> {item.question}</p>
-                <p> {item.rating}</p>
-                <Grade value={item.grade} maxRating={5} />
-              </div>
-            );
-          })}
-          OTHER DECK
-        </div>
-      )}
+              </>
+            )}
+          </>
+        ) : (
+          <Root className={s.rootTable}>
+            <HeaderTable
+              columns={HeaderTitleTableArray}
+              // sort={orderBy}
+              // onSort={setSort}
+            />
+            <Body className={s.headerTable}>
+              {cards?.items.map((item: CardType, index) => {
+                return (
+                  <RowDeckTable
+                    key={index}
+                    item={item}
+                    setOpen={setOpen}
+                    isOwn={isOwn}
+                  />
+                );
+              })}
+            </Body>
+          </Root>
+        )}
+      </div>
     </Page>
   );
 };
-
-{
-  /*<div className={s.blockHeaderDeck}>*/
-}
-{
-  /*  {data?.userId === auth?.id ?*/
-}
-{
-  /*    <>*/
-}
-{
-  /*      <div className={s.blockTitleDeck}>*/
-}
-{
-  /*        <Typography className={s.title}*/
-}
-{
-  /*                    variant={'large'} as={'h2'}*/
-}
-{
-  /*                    children={'My Pack'}/>*/
-}
-{
-  /*        {data?.cardsCount !== 0 &&*/
-}
-{
-  /*            <>*/
-}
-{
-  /*                <DropDown className={s.dropDown}*/
-}
-{
-  /*                          children={<div className={s.menu}>*/
-}
-{
-  /*                            <ItemDropDown img={play} title={'Learn'}*/
-}
-{
-  /*                                          onClick={() => navigate(`../decks/${data?.id}/learn`)}/>*/
-}
-{
-  /*                            <ItemDropDown img={edit} title={'Edit'}*/
-}
-{
-  /*                                          onClick={() => {*/
-}
-{
-  /*                                            setOpen(true)*/
-}
-{
-  /*                                            setShowModal('Edit Pack')*/
-}
-{
-  /*                                          }}/>*/
-}
-{
-  /*                            <ItemDropDown img={trash} title={'Delete'}*/
-}
-{
-  /*                                          onClick={() => {*/
-}
-{
-  /*                                            setOpen(true)*/
-}
-{
-  /*                                            setShowModal('Delete Pack')*/
-}
-{
-  /*                                          }}/>*/
-}
-{
-  /*                          </div>}*/
-}
-{
-  /*                          trigger={<button className={s.trigger}>*/
-}
-{
-  /*                            <TriggerDropDown/>*/
-}
-{
-  /*                          </button>}/>*/
-}
-{
-  /*            </>*/
-}
-{
-  /*        }*/
-}
-{
-  /*        <DeckModal*/
-}
-{
-  /*          activeMenu={open}*/
-}
-{
-  /*          setActiveMenu={setOpen}*/
-}
-{
-  /*          item={data}*/
-}
-{
-  /*          setShowModal={setShowModal}*/
-}
-{
-  /*          showModal={showModal}*/
-}
-{
-  /*        />*/
-}
-{
-  /*      </div>*/
-}
-{
-  /*      {cards?.items.length !== 0 ?*/
-}
-{
-  /*        <Button className={s.buttonAddNewCardHeader}*/
-}
-{
-  /*                type={'button'}*/
-}
-{
-  /*                variant={'primary'}*/
-}
-{
-  /*                children={'Add New Card'}*/
-}
-{
-  /*                onClick={() => {*/
-}
-{
-  /*                  setShowModal('Add New Card')*/
-}
-{
-  /*                  setOpen(true)*/
-}
-{
-  /*                }}*/
-}
-{
-  /*        /> : <></>}*/
-}
-{
-  /*    </>*/
-}
-{
-  /*    : <>*/
-}
-{
-  /*      <Typography className={s.title}*/
-}
-{
-  /*                  variant={'large'} as={'h2'}*/
-}
-{
-  /*                  children={"Friend\'s Pack"}/>*/
-}
-{
-  /*      <Button className={s.buttonAddNewCardHeader}*/
-}
-{
-  /*              type={'button'}*/
-}
-{
-  /*              variant={'primary'}*/
-}
-{
-  /*              children={'Learn to Pack'}*/
-}
-{
-  /*              onClick={() => navigate(`../decks/${data?.id}/learn`)}*/
-}
-{
-  /*      />*/
-}
-{
-  /*    </>}*/
-}
-{
-  /*</div>*/
-}

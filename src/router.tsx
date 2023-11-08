@@ -6,24 +6,23 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { ErrorPage } from "./pages/error/errorPage";
-import { useAuthMeQuery } from "./services/auth";
-
 import { Loader } from "@/assets/components/loader";
 import {
   CheckEmailPage,
   CreateNewPasswordPage,
   EditProfilePage,
+  ErrorPage,
   ForgotPasswordPage,
+  Layout,
   SendConfirmation,
   SignInPage,
   SignUpPage,
 } from "@/pages";
 import { Confirmation } from "@/pages/auth/sendConfirmation/confirmation";
-import { Deck } from "@/pages/deck";
+import { RowDeckTable } from "@/pages/deck";
 import { Decks } from "@/pages/decks";
-import { Layout } from "@/pages/layout/layout.tsx";
 import { LearnCard } from "@/pages/learnCard";
+import { useAuthMeQuery } from "@/services";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -44,19 +43,19 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: "/create-password/:token",
-        element: <CreateNewPasswordPage/>,
+        element: <CreateNewPasswordPage />,
       },
       {
         path: "/check-email",
-        element: <CheckEmailPage/>,
+        element: <CheckEmailPage />,
       },
       {
         path: "/confirmation",
-        element: <SendConfirmation/>,
+        element: <SendConfirmation />,
       },
       {
         path: "/confirm-email/:code",
-        element: <Confirmation/>,
+        element: <Confirmation />,
       },
       {
         path: "/edit-profile",

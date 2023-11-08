@@ -18,6 +18,25 @@ export type ShowModalType =
   | "Learn"
   | "Add New Pack";
 
+const HeaderTitleTableArray = [
+  {
+    key: "name",
+    title: "Name",
+  },
+  {
+    key: "cardsCount",
+    title: "Cards",
+  },
+  {
+    key: "updated",
+    title: "Last Updated",
+  },
+  {
+    key: "created",
+    title: "Created by",
+  },
+];
+
 export const Decks = () => {
   const { Root, Body } = Table;
   const [name, setName] = useState<string>("");
@@ -59,32 +78,13 @@ export const Decks = () => {
       />
       <Root>
         <HeaderTable
-          columns={[
-            {
-              key: "name",
-              title: "Name",
-            },
-            {
-              key: "cardsCount",
-              title: "Cards",
-            },
-            {
-              key: "updated",
-              title: "Last Updated",
-            },
-            {
-              key: "created",
-              title: "Created by",
-            },
-          ]}
+          columns={HeaderTitleTableArray}
           sort={orderBy}
           onSort={setSort}
         />
         <Body>
           {data?.items.length ? (
             data.items.map((item: DeckType) => {
-              console.log();
-
               return (
                 <RowTable
                   key={item.id}

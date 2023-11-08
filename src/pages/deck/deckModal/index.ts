@@ -1,3 +1,3 @@
 export * from "./editCardModal";
-// export * from "./deletCardModal";
+export * from "./deleteCardModal";
 export * from "./addNewCardModal";

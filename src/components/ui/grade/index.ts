@@ -1,1 +1,1 @@
-export * from "./grade.tsx";
+export { Grade } from "./grade.tsx";
