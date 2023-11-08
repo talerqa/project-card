@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import s from "./deck.module.scss";
 
@@ -44,6 +44,7 @@ const HeaderTitleTableArray = [
 
 export const Deck = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
   const [question, setQuestion] = useState<string>("");
   const { data } = useGetDeckQuery({ id });
   const { data: auth } = useAuthMeQuery();
@@ -137,25 +138,63 @@ export const Deck = () => {
             )}
           </>
         ) : (
-          <Root className={s.rootTable}>
-            <HeaderTable
-              columns={HeaderTitleTableArray}
-              // sort={orderBy}
-              // onSort={setSort}
-            />
-            <Body className={s.headerTable}>
-              {cards?.items.map((item: CardType, index) => {
-                return (
-                  <RowDeckTable
-                    key={index}
-                    item={item}
-                    setOpen={setOpen}
-                    isOwn={isOwn}
+          <>
+            {data?.cardsCount === 0 ? (
+              <>
+                <Typography
+                  variant={"body1"}
+                  as={"span"}
+                  className={s.emptyDeck}
+                >
+                  This pack is empty. Back to Pack list and choose another Pack
+                </Typography>
+                <Button
+                  className={s.buttonAddNewCard}
+                  type={"button"}
+                  variant={"primary"}
+                  onClick={() => {
+                    navigate("/decks");
+                  }}
+                >
+                  Back to Pack List
+                </Button>
+              </>
+            ) : (
+              <>
+                <Root className={s.rootTable}>
+                  <HeaderTable
+                    columns={HeaderTitleTableArray}
+                    // sort={orderBy}
+                    // onSort={setSort}
                   />
-                );
-              })}
-            </Body>
-          </Root>
+                  <Body className={s.headerTable}>
+                    {cards?.items.map((item: CardType, index) => {
+                      return (
+                        <RowDeckTable
+                          key={index}
+                          item={item}
+                          setOpen={setOpen}
+                          isOwn={isOwn}
+                        />
+                      );
+                    })}
+                  </Body>
+                </Root>
+                <Pagination
+                  pageSizeValue={[
+                    { title: "10", value: "10" },
+                    { title: "20", value: "20" },
+                  ]}
+                  totalPages={cards?.pagination.totalPages}
+                  itemsPerPage={cards?.pagination.itemsPerPage}
+                  // currentPage={currentPage}
+                  // className={s.pagination}
+                  // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+                  // onClick={(value: number) => setCurrentPage(value)}
+                />
+              </>
+            )}
+          </>
         )}
       </div>
     </Page>

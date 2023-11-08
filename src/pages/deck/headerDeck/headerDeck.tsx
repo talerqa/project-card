@@ -56,7 +56,12 @@ export const HeaderDeck = (props: Props) => {
           cards={cards}
         />
       ) : (
-        <HeaderFriendDeck deck={deck} />
+        <HeaderFriendDeck
+          deck={deck}
+          cards={cards}
+          setOpen={setOpen}
+          setShowModal={setShowModal}
+        />
       )}
       <Input
         type="search"

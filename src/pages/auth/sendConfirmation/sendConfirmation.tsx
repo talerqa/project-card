@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Page } from "@/components/ui/page";
-import s from "./sendConfirmation.module.scss";
-import { Typography } from "@/components/ui/typography";
-import { useResendVerificationMutation } from "@/services/auth";
 import { useLocation } from "react-router-dom";
-import { VERIFICATION_STRING } from "@/components/auth/signUp";
+
+import s from "./sendConfirmation.module.scss";
+
+import { Button, Card, Page, Typography } from "@/components";
+import { VERIFICATION_STRING } from "@/components/auth/signUp/signUp.tsx";
+import { useResendVerificationMutation } from "@/services/auth";
 
 export const SendConfirmation = () => {
   const {

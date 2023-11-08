@@ -1,1 +1,1 @@
-export { ForgotPassword } from "./forgotPassword.tsx";
+export * from "./forgotPassword.tsx";

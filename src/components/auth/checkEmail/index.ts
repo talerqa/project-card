@@ -1,1 +1,1 @@
-export { CheckEmail } from "./checkEmail.tsx";
+export * from "./checkEmail.tsx";

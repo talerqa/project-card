@@ -14,12 +14,9 @@ export const BackToPage = ({ className }: { className?: string }) => {
       onClick={() => navigate(-1)}
     >
       <ArrowBackSvg />
-      <Typography
-        variant={"body2"}
-        as={"span"}
-        className={s.textBack}
-        children={"Back to Packs List"}
-      />
+      <Typography variant={"body2"} as={"span"} className={s.textBack}>
+        Back to Packs List
+      </Typography>
     </button>
   );
 };

@@ -85,7 +85,6 @@ export const AddNewCardModal = (props: Props) => {
     formData.append("answer", String(answer));
     questionImg && formData.append("questionImg", questionImg);
     createCard({ id: deckId, body: formData });
-
     console.log(text);
     closeModalHandler();
   };
@@ -141,10 +140,11 @@ export const AddNewCardModal = (props: Props) => {
           <Button
             type={"button"}
             variant={"secondary"}
-            children={"Cancel"}
             onClick={props.closeModalHandler}
-          />
-          <Button type={"submit"} children={"Save Change"} />
+          >
+            Cancel
+          </Button>
+          <Button type={"submit"}>Save Change</Button>
         </div>
       </form>
     </div>

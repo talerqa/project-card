@@ -1,14 +1,12 @@
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
-import { ControlledInput } from "@/components/ui/controlled";
-import { Typography } from "@/components/ui/typography";
-import { Card } from "@/components/ui/card";
 import s from "./signUp.module.scss";
-import { Link } from "react-router-dom";
+
+import { Button, Card, ControlledInput, Typography } from "@/components";
 
 type FormValues = z.infer<typeof loginSchema>;
 
@@ -28,7 +26,7 @@ const loginSchema = z
     {
       message: "Passwords don't match",
       path: ["confirmPassword"],
-    }
+    },
   );
 
 type SignInProps = {
@@ -36,7 +34,7 @@ type SignInProps = {
     data: Omit<FormValues, "confirmPassword"> & {
       sendConfirmationEmail: boolean;
       html: string;
-    }
+    },
   ) => void;
   className?: string;
 };
@@ -47,7 +45,7 @@ export const SignUp = (props: SignInProps): JSX.Element => {
   });
 
   const handleSubmitForm = (
-    data: Omit<FormValues, "confirmPassword"> & { confirmPassword?: string }
+    data: Omit<FormValues, "confirmPassword"> & { confirmPassword?: string },
   ) => {
     delete data.confirmPassword;
     props.onSubmit({
@@ -60,12 +58,9 @@ export const SignUp = (props: SignInProps): JSX.Element => {
   return (
     <Card className={`${s.cardBlock} ${props.className}`}>
       <DevTool control={control} />
-      <Typography
-        variant={"large"}
-        as={"p"}
-        children={"Sign Up"}
-        className={s.title}
-      />
+      <Typography variant={"large"} as={"p"} className={s.title}>
+        Sign Up
+      </Typography>
       <form onSubmit={handleSubmit(handleSubmitForm)} className={s.form}>
         <ControlledInput
           name={"name"}
@@ -95,30 +90,26 @@ export const SignUp = (props: SignInProps): JSX.Element => {
           label={"Confirm Password"}
           className={s.inputConfirmPassword}
         />
-        <Button
-          type="submit"
-          children={
-            <Typography
-              variant={"subtitle2"}
-              as={"span"}
-              children={"Sign Up"}
-            />
-          }
-          className={s.buttonSubmitForm}
-        />
+        <Button type="submit" className={s.buttonSubmitForm}>
+          <Typography variant={"subtitle2"} as={"span"}>
+            Sign Up
+          </Typography>
+        </Button>
         <Typography
           variant={"body2"}
           as={"p"}
-          children={"Already have an account?"}
           className={s.linkDontHaveAccount}
-        />
+        >
+          Already have an account?
+        </Typography>
         <Typography
           to={"/login"}
-          children={"Sign In"}
           variant={"body2"}
           as={Link}
           className={s.linkSignUp}
-        />
+        >
+          Sign In
+        </Typography>
       </form>
     </Card>
   );

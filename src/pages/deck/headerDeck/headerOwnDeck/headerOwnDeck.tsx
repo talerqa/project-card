@@ -33,7 +33,6 @@ export const HeaderOwnDeck = ({
       <div className={s.leftBlock}>
         <div className={s.blockTitleDeck}>
           <Typography className={s.title} variant={"large"} as={"h2"}>
-            {" "}
             My Pack
           </Typography>
           {deck?.cardsCount !== 0 && (
