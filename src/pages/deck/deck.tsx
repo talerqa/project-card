@@ -1,290 +1,372 @@
-import {useParams} from "react-router-dom";
-import {CardType, useGetCardsQuery, useGetDeckQuery} from "@/services/decks";
-import {useAuthMeQuery} from "@/services/auth";
-import {Typography} from "@/components/ui/typography";
-import {Button} from "@/components/ui/button";
-import {useState} from "react";
-import s from './deck.module.scss'
-import {HeaderTable, Table} from "@/components/ui/table";
-import {Page} from "@/components/ui/page";
-import {BackToPage} from "@/components/common/backToPage";
-import {Pagination} from "@/components/ui/pagination";
-import {EditSvg} from "@/assets/components/edit.tsx";
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
-import {ShowModalType} from "@/pages/decks";
-import {HeaderDeck} from "@/pages/deck/headerDeck";
-import {Grade} from "@/components/ui/grade";
+import { useState } from "react";
 
-export type ModalType = '' | 'Delete Card' | 'Edit Card' | 'Learn' |
-  'Add New Card'
+import { useParams } from "react-router-dom";
+
+import s from "./deck.module.scss";
+
+import { EditSvg } from "@/assets/components/edit.tsx";
+import { Loader } from "@/assets/components/loader";
+import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { BackToPage } from "@/components/common/backToPage";
+import { Button } from "@/components/ui/button";
+import { Grade } from "@/components/ui/grade";
+import { Page } from "@/components/ui/page";
+import { Pagination } from "@/components/ui/pagination";
+import { HeaderTable, Table } from "@/components/ui/table";
+import { Typography } from "@/components/ui/typography";
+import { HeaderDeck } from "@/pages/deck/headerDeck";
+import { ShowModalType } from "@/pages/decks";
+import { useAuthMeQuery } from "@/services/auth";
+import { CardType, useGetCardsQuery, useGetDeckQuery } from "@/services/decks";
+
+export type ModalType =
+  | ""
+  | "Delete Card"
+  | "Edit Card"
+  | "Learn"
+  | "Add New Card";
 
 export const Deck = () => {
-
-  let {id} = useParams();
+  let { id } = useParams();
   const [question, setQuestion] = useState<string>("");
-  const {data} = useGetDeckQuery({id})
-  const {data: auth} = useAuthMeQuery()
-  const {data: cards} = useGetCardsQuery({
+  const { data } = useGetDeckQuery({ id });
+  const { data: auth } = useAuthMeQuery();
+  const { data: cards, isLoading } = useGetCardsQuery({
     id,
     question,
-  })
+  });
 
-  const [open, setOpen] = useState(false)
-  const {Root, Body, Row, Cell} = Table;
-  const [showModal, setShowModal] = useState<ModalType | ShowModalType>('')
+  const [open, setOpen] = useState(false);
+  const { Root, Body, Row, Cell } = Table;
+  const [showModal, setShowModal] = useState<ModalType | ShowModalType>("");
   // const [pack, setPack] = useState()
 
-  return <Page className={s.deck}>
-    <BackToPage className={s.backToDecks}/>
-    <HeaderDeck open={open}
-                setOpen={setOpen}
-                showModal={showModal}
-                auth={auth}
-                setShowModal={setShowModal}
-                deck={data}
-                cards={cards}
-                setQuestion={setQuestion}
-                question={question}
-    />
-    {data?.userId === auth?.id ?
+  if (isLoading) return <Loader />;
 
-      <div className={s.mainBlock}>
-        <>
-          </>
-        {data?.cardsCount === 0 ?
-          <>
-            <Typography variant={'body1'}
-                        as={'span'}
-                        className={s.emptyDeck}
-                        children={'This pack is empty. Click add new learnCard to fill this pack'}/>
-            <Button className={s.buttonAddNewCard}
-                    type={'button'}
-                    variant={'primary'}
-                    children={'Add New Card'}
-                    onClick={() => {
-                      setShowModal('Add New Card')
-                      setOpen(true)
-                    }}
-            />
-          </>
-          : <>
-            <Root className={s.rootTable}>
-              <HeaderTable
-                columns={[
-                  {
-                    key: "question",
-                    title: "Question",
-                  },
-                  {
-                    key: "answer",
-                    title: "Answer",
-                  },
-                  {
-                    key: "updated",
-                    title: "Last Updated",
-                  },
-                  {
-                    key: "!!!",
-                    title: "Grade",
-                  },
+  return (
+    <Page className={s.deck}>
+      <BackToPage className={s.backToDecks} />
+      <HeaderDeck
+        open={open}
+        setOpen={setOpen}
+        showModal={showModal}
+        auth={auth}
+        setShowModal={setShowModal}
+        deck={data}
+        cards={cards}
+        setQuestion={setQuestion}
+        question={question}
+      />
+      {data?.userId === auth?.id ? (
+        <div className={s.mainBlock}>
+          <></>
+          {data?.cardsCount === 0 ? (
+            <>
+              <Typography variant={"body1"} as={"span"} className={s.emptyDeck}>
+                This pack is empty. Click add new learnCard to fill this pack
+              </Typography>
+              <Button
+                className={s.buttonAddNewCard}
+                type={"button"}
+                variant={"primary"}
+                onClick={() => {
+                  setShowModal("Add New Card");
+                  setOpen(true);
+                }}
+              >
+                Add New Card
+              </Button>
+            </>
+          ) : (
+            <>
+              <Root className={s.rootTable}>
+                <HeaderTable
+                  columns={[
+                    {
+                      key: "question",
+                      title: "Question",
+                    },
+                    {
+                      key: "answer",
+                      title: "Answer",
+                    },
+                    {
+                      key: "updated",
+                      title: "Last Updated",
+                    },
+                    {
+                      key: "!!!",
+                      title: "Grade",
+                    },
+                  ]}
+                  // sort={orderBy}
+                  // onSort={setSort}
+                />
+                <Body className={s.headerTable}>
+                  {data?.cardsCount &&
+                    cards?.items.map((item: CardType) => {
+                      return (
+                        <Row key={item.id}>
+                          <Cell className={s.cell}>
+                            <p className={s.name}>
+                              {item.question}
+                              {item.questionImg ? (
+                                <img
+                                  src={item?.questionImg as string}
+                                  alt="cover"
+                                  className={s.image}
+                                />
+                              ) : (
+                                <></>
+                              )}
+                            </p>
+                          </Cell>
+                          <Cell className={s.cell}>{item.answer}</Cell>
+                          <Cell className={s.cell}>
+                            {new Date(item.updated).toLocaleDateString()}
+                          </Cell>
+                          <Cell className={s.cell + " " + s.createdByRow}>
+                            <Grade value={item.grade} maxRating={5} />
+                            <div className={s.buttonBlock}>
+                              <button
+                                className={s.button}
+                                onClick={() => {
+                                  // setPack(item)
+                                  setOpen(true);
+                                  // setShowModal('Edit Pack')
+                                }}
+                              >
+                                <EditSvg />
+                              </button>
+                              <button
+                                className={s.button}
+                                onClick={() => {
+                                  // setPack(item)
+                                  setOpen(true);
+                                  // setShowModal('Delete Pack')
+                                }}
+                              >
+                                <TrashIcon />
+                              </button>
+                            </div>
+                          </Cell>
+                        </Row>
+                      );
+                    })}
+                </Body>
+              </Root>
+              <Pagination
+                pageSizeValue={[
+                  { title: "10", value: "10" },
+                  { title: "20", value: "20" },
                 ]}
-                // sort={orderBy}
-                // onSort={setSort}
+                totalPages={cards?.pagination.totalPages}
+                itemsPerPage={cards?.pagination.itemsPerPage}
+                // currentPage={currentPage}
+                // className={s.pagination}
+                // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+                // onClick={(value: number) => setCurrentPage(value)}
               />
-              <Body className={s.headerTable}>
-                {data?.cardsCount && cards?.items.map((item: CardType) => {
-                  console.log(item.questionImg)
-                  return (<Row key={item.id}>
-                    <Cell className={s.cell}>
-                      <p className={s.name}>
-                        {item.question}
-                        {item.questionImg ?
-                          <img src={item?.questionImg as string}
-                               alt="cover"
-                               className={s.image}/> : <></>}
-                      </p>
-                    </Cell>
-                    <Cell className={s.cell}>{item.answer}</Cell>
-                    <Cell className={s.cell}>
-                      {new Date(item.updated).toLocaleDateString()}
-                    </Cell>
-                    <Cell className={s.cell + ' ' + s.createdByRow}>
-                      <Grade value={item.grade} maxRating={5}/>
-                      <div className={s.buttonBlock}>
-                        <button
-                          className={s.button}
-                          onClick={() => {
-                            // setPack(item)
-                            setOpen(true)
-                            // setShowModal('Edit Pack')
-                          }}>
-                          <EditSvg/>
-                        </button>
-                        <button
-                          className={s.button}
-                          onClick={() => {
-                            // setPack(item)
-                            setOpen(true)
-                            // setShowModal('Delete Pack')
-                          }}>
-                          <TrashIcon/>
-                        </button>
-                      </div>
-                    </Cell>
-                  </Row>)
-                })}
-              </Body>
-            </Root>
-            <Pagination
-              pageSizeValue={[
-                {title: "10", value: "10"},
-                {title: "20", value: "20"},
-              ]}
-              totalPages={cards?.pagination.totalPages}
-              itemsPerPage={cards?.pagination.itemsPerPage}
-              // currentPage={currentPage}
-              // className={s.pagination}
-              // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
-              // onClick={(value: number) => setCurrentPage(value)}
-            />
-          </>}
-      </div>
-      : <div>
-        {cards?.items.map((item: CardType) => {
-          return <div key={item.id}>
-            <p>        {item.id}</p>
-            <p>    {item.answer}</p>
-            <p>    {item.question}</p>
-            <p>   {item.rating}</p>
-            <Grade value={item.grade} maxRating={5}/>
-          </div>
-        })}
-        OTHER DECK
-      </div>
-    }
+            </>
+          )}
+        </div>
+      ) : (
+        <div>
+          {cards?.items.map((item: CardType) => {
+            return (
+              <div key={item.id}>
+                <p> {item.id}</p>
+                <p> {item.answer}</p>
+                <p> {item.question}</p>
+                <p> {item.rating}</p>
+                <Grade value={item.grade} maxRating={5} />
+              </div>
+            );
+          })}
+          OTHER DECK
+        </div>
+      )}
+    </Page>
+  );
+};
 
-  </Page>
+{
+  /*<div className={s.blockHeaderDeck}>*/
 }
-
-
-{/*<div className={s.blockHeaderDeck}>*/
+{
+  /*  {data?.userId === auth?.id ?*/
 }
-{/*  {data?.userId === auth?.id ?*/
+{
+  /*    <>*/
 }
-{/*    <>*/
+{
+  /*      <div className={s.blockTitleDeck}>*/
 }
-{/*      <div className={s.blockTitleDeck}>*/
+{
+  /*        <Typography className={s.title}*/
 }
-{/*        <Typography className={s.title}*/
+{
+  /*                    variant={'large'} as={'h2'}*/
 }
-{/*                    variant={'large'} as={'h2'}*/
+{
+  /*                    children={'My Pack'}/>*/
 }
-{/*                    children={'My Pack'}/>*/
+{
+  /*        {data?.cardsCount !== 0 &&*/
 }
-{/*        {data?.cardsCount !== 0 &&*/
+{
+  /*            <>*/
 }
-{/*            <>*/
+{
+  /*                <DropDown className={s.dropDown}*/
 }
-{/*                <DropDown className={s.dropDown}*/
+{
+  /*                          children={<div className={s.menu}>*/
 }
-{/*                          children={<div className={s.menu}>*/
+{
+  /*                            <ItemDropDown img={play} title={'Learn'}*/
 }
-{/*                            <ItemDropDown img={play} title={'Learn'}*/
+{
+  /*                                          onClick={() => navigate(`../decks/${data?.id}/learn`)}/>*/
 }
-{/*                                          onClick={() => navigate(`../decks/${data?.id}/learn`)}/>*/
+{
+  /*                            <ItemDropDown img={edit} title={'Edit'}*/
 }
-{/*                            <ItemDropDown img={edit} title={'Edit'}*/
+{
+  /*                                          onClick={() => {*/
 }
-{/*                                          onClick={() => {*/
+{
+  /*                                            setOpen(true)*/
 }
-{/*                                            setOpen(true)*/
+{
+  /*                                            setShowModal('Edit Pack')*/
 }
-{/*                                            setShowModal('Edit Pack')*/
+{
+  /*                                          }}/>*/
 }
-{/*                                          }}/>*/
+{
+  /*                            <ItemDropDown img={trash} title={'Delete'}*/
 }
-{/*                            <ItemDropDown img={trash} title={'Delete'}*/
+{
+  /*                                          onClick={() => {*/
 }
-{/*                                          onClick={() => {*/
+{
+  /*                                            setOpen(true)*/
 }
-{/*                                            setOpen(true)*/
+{
+  /*                                            setShowModal('Delete Pack')*/
 }
-{/*                                            setShowModal('Delete Pack')*/
+{
+  /*                                          }}/>*/
 }
-{/*                                          }}/>*/
+{
+  /*                          </div>}*/
 }
-{/*                          </div>}*/
+{
+  /*                          trigger={<button className={s.trigger}>*/
 }
-{/*                          trigger={<button className={s.trigger}>*/
+{
+  /*                            <TriggerDropDown/>*/
 }
-{/*                            <TriggerDropDown/>*/
+{
+  /*                          </button>}/>*/
 }
-{/*                          </button>}/>*/
+{
+  /*            </>*/
 }
-{/*            </>*/
+{
+  /*        }*/
 }
-{/*        }*/
+{
+  /*        <DeckModal*/
 }
-{/*        <DeckModal*/
+{
+  /*          activeMenu={open}*/
 }
-{/*          activeMenu={open}*/
+{
+  /*          setActiveMenu={setOpen}*/
 }
-{/*          setActiveMenu={setOpen}*/
+{
+  /*          item={data}*/
 }
-{/*          item={data}*/
+{
+  /*          setShowModal={setShowModal}*/
 }
-{/*          setShowModal={setShowModal}*/
+{
+  /*          showModal={showModal}*/
 }
-{/*          showModal={showModal}*/
+{
+  /*        />*/
 }
-{/*        />*/
+{
+  /*      </div>*/
 }
-{/*      </div>*/
+{
+  /*      {cards?.items.length !== 0 ?*/
 }
-{/*      {cards?.items.length !== 0 ?*/
+{
+  /*        <Button className={s.buttonAddNewCardHeader}*/
 }
-{/*        <Button className={s.buttonAddNewCardHeader}*/
+{
+  /*                type={'button'}*/
 }
-{/*                type={'button'}*/
+{
+  /*                variant={'primary'}*/
 }
-{/*                variant={'primary'}*/
+{
+  /*                children={'Add New Card'}*/
 }
-{/*                children={'Add New Card'}*/
+{
+  /*                onClick={() => {*/
 }
-{/*                onClick={() => {*/
+{
+  /*                  setShowModal('Add New Card')*/
 }
-{/*                  setShowModal('Add New Card')*/
+{
+  /*                  setOpen(true)*/
 }
-{/*                  setOpen(true)*/
+{
+  /*                }}*/
 }
-{/*                }}*/
+{
+  /*        /> : <></>}*/
 }
-{/*        /> : <></>}*/
+{
+  /*    </>*/
 }
-{/*    </>*/
+{
+  /*    : <>*/
 }
-{/*    : <>*/
+{
+  /*      <Typography className={s.title}*/
 }
-{/*      <Typography className={s.title}*/
+{
+  /*                  variant={'large'} as={'h2'}*/
 }
-{/*                  variant={'large'} as={'h2'}*/
+{
+  /*                  children={"Friend\'s Pack"}/>*/
 }
-{/*                  children={"Friend\'s Pack"}/>*/
+{
+  /*      <Button className={s.buttonAddNewCardHeader}*/
 }
-{/*      <Button className={s.buttonAddNewCardHeader}*/
+{
+  /*              type={'button'}*/
 }
-{/*              type={'button'}*/
+{
+  /*              variant={'primary'}*/
 }
-{/*              variant={'primary'}*/
+{
+  /*              children={'Learn to Pack'}*/
 }
-{/*              children={'Learn to Pack'}*/
+{
+  /*              onClick={() => navigate(`../decks/${data?.id}/learn`)}*/
 }
-{/*              onClick={() => navigate(`../decks/${data?.id}/learn`)}*/
+{
+  /*      />*/
 }
-{/*      />*/
+{
+  /*    </>}*/
 }
-{/*    </>}*/
+{
+  /*</div>*/
 }
-{/*</div>*/
-}
-

@@ -15,7 +15,6 @@
   }
 
   .mainBlock {
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,7 +25,6 @@
       margin-top: 69px;
       margin-bottom: 30px;
     }
-
   }
 
   .rootTable {
@@ -38,7 +36,6 @@
         padding-left: 24px;
         padding-right: 24px;
         height: 36px;
-
 
         .name {
           display: flex;
@@ -54,7 +51,6 @@
         .image {
           height: 30px;
         }
-
       }
 
       .createdByRow {
@@ -89,4 +85,3 @@
   //
   //}
 }
-
