@@ -9,7 +9,15 @@ import { HeaderTable, Sort, Table } from "@/components/ui/table";
 import { DeckModal } from "@/pages/decks/deckModal";
 import { InfoTable } from "@/pages/decks/infoTable";
 import { RowTable } from "@/pages/decks/rowTable";
+import { useAuthMeQuery } from "@/services";
 import { DeckType, GetDecks, useGetDecksQuery } from "@/services/decks";
+import { decksActions } from "@/services/decksSlice";
+import {
+  authorIdSelector,
+  currentPageSelector,
+  searchNameSelector,
+} from "@/services/decksSlice/decksSelector.ts";
+import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 export type ShowModalType =
   | ""
@@ -39,11 +47,18 @@ const HeaderTitleTableArray = [
 
 export const Decks = () => {
   const { Root, Body } = Table;
-  const [name, setName] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<any>(1);
+  const dispatch = useAppDispatch();
+  const searchName = useAppSelector(searchNameSelector);
+  const authorId = useAppSelector(authorIdSelector);
+  const currentPage = useAppSelector(currentPageSelector);
+
+  const { setCurrentPage } = decksActions;
+
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [orderBy, setSort] = useState<Sort>(null);
-  const [authorId, setAuthorId] = useState<string | undefined>("");
+
+  // const [currentPage, setCurrentPage] = useState<any>(1);
+  // const [authorId, setAuthorId] = useState<string | undefined>("");
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -52,9 +67,11 @@ export const Decks = () => {
     return sorted;
   }, [orderBy]);
 
+  const { data: auth } = useAuthMeQuery();
+
   const { data, isLoading } = useGetDecksQuery({
     currentPage,
-    name,
+    name: searchName,
     itemsPerPage,
     authorId,
     orderBy: sortedString,
@@ -71,10 +88,9 @@ export const Decks = () => {
       <InfoTable
         setShowModal={setShowModal}
         setOpenMenu={setOpenMenu}
-        setName={setName}
-        name={name}
+        // setCurrentPage={setCurrentPage}
+        auth={auth}
         maxCardsCount={data?.maxCardsCount}
-        setAuthorId={setAuthorId}
       />
       <Root>
         <HeaderTable
@@ -119,7 +135,9 @@ export const Decks = () => {
         currentPage={currentPage}
         className={s.pagination}
         onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
-        onClick={(value: number) => setCurrentPage(value)}
+        onClick={(value: number) =>
+          dispatch(setCurrentPage({ currentPage: value }))
+        }
       />
     </Page>
   );

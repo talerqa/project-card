@@ -1,45 +1,58 @@
+import { FC, useState } from "react";
+
 import s from "./infoTable.module.scss";
 
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
-import {Button} from "@/components/ui/button";
-import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
-import {Input} from "@/components/ui/inputs";
-import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
-import {TabSwitcher} from "@/components/ui/tab-switcher";
-import {Typography} from "@/components/ui/typography";
-import {ShowModalType} from "@/pages/decks";
-import {useAuthMeQuery} from "@/services/auth";
-import {useState} from "react";
+import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { Button } from "@/components/ui/button";
+import { IconSvgButton } from "@/components/ui/button/button.stories.tsx";
+import { Input } from "@/components/ui/inputs";
+import { SliderWithUseState } from "@/components/ui/slider/slider.stories.tsx";
+import { TabSwitcher } from "@/components/ui/tab-switcher";
+import { Typography } from "@/components/ui/typography";
+import { ShowModalType } from "@/pages/decks";
+import { decksActions } from "@/services/decksSlice";
+import {
+  currentPageSelector,
+  searchNameSelector,
+} from "@/services/decksSlice/decksSelector.ts";
+import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 type Props = {
   setShowModal: (value: ShowModalType) => void;
   setOpenMenu: (value: boolean) => void;
-  setName: (name: string) => void;
-  name: string;
+
   maxCardsCount?: number;
-  setAuthorId: (value?: string) => void
+  auth: any;
 };
 
-export const InfoTable = (props: Props) => {
-  const {
-    setShowModal,
-    setOpenMenu,
-    setName,
-    name,
-    setAuthorId,
-  } = props;
-  const {data: auth} = useAuthMeQuery()
+export const InfoTable: FC<Props> = ({
+  setShowModal,
+  setOpenMenu,
+  // setCurrentPage,
+  auth,
+}) => {
+  const dispatch = useAppDispatch();
+  const searchName = useAppSelector(searchNameSelector);
+  const { setSearchName, setAuthorId, setCurrentPage } = decksActions;
+
+  const [page, setPage] = useState(1);
 
   const [active, setActive] = useState(1);
 
+  const currentPage = useAppSelector(currentPageSelector);
+
   const onValueChange = (value: number) => {
+    setPage(currentPage);
     if (active) {
-      setAuthorId(auth?.id)
+      dispatch(setAuthorId({ authorId: auth.id }));
+      dispatch(setCurrentPage({ currentPage: 1 }));
     } else {
-      setAuthorId('')
+      dispatch(setAuthorId({ authorId: "" }));
+      dispatch(setCurrentPage({ currentPage: page }));
     }
     if (value) setActive(+value);
-  }
+  };
+
   return (
     <>
       <div className={s.packListBlock}>
@@ -60,9 +73,9 @@ export const InfoTable = (props: Props) => {
         <Input
           type="search"
           placeholder="Input search"
-          value={name}
+          value={searchName}
           onChange={(event) => {
-            setName(event.target.value);
+            dispatch(setSearchName({ name: event.target.value }));
           }}
         />
         <div>
@@ -92,7 +105,7 @@ export const InfoTable = (props: Props) => {
           icon={
             <IconSvgButton className={s.iconTrash}>
               {" "}
-              <TrashIcon/>{" "}
+              <TrashIcon />{" "}
             </IconSvgButton>
           }
         >

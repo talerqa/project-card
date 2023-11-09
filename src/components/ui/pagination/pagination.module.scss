@@ -1,76 +1,70 @@
 .paginationContainer {
-    width: 535px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  width: 535px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .paginationArrow {
-    font-weight: bold;
-    font-size: 20px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .paginationArrow:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .paginationPages {
-    display: flex;
-    margin: 0 10px;
-}
-
-.selectMenu {
-    display: flex;
+  display: flex;
+  margin: 0 10px;
 }
 
 .paginationPage {
-    font-size: var(--font-size-s);
-    width: 23px;
-    height: 27px;
-    margin: 0 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2px;
+  font-size: var(--font-size-s);
+  width: 23px;
+  height: 27px;
+  margin: 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
 }
 
 .dots {
-    width: 23px;
-    height: 27px;
-    margin: 0 10px;
-    display: flex;
-    justify-content: center;
+  width: 23px;
+  height: 27px;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .paginationPage:hover {
-    cursor: pointer;
-    background-color: var( --color-dark-500);
+  cursor: pointer;
+  background-color: var(--color-dark-500);
 }
 
 .paginationSelect {
-    box-sizing: border-box;
-    width: 50px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+.selectMenu {
+  display: flex;
+  width: 50px;
 }
 
 .selectText {
-    font-size: var(--font-size-s);
+  font-size: var(--font-size-s);
 }
 
-// .paginationPage:focus {
-//     cursor: pointer;
-//     background-color: yellow;
-// }
-
 .activePage {
-    background-color: var(--color-light-100);
-    color:var(--color-dark-900);
+  background-color: var(--color-light-100);
+  color: var(--color-dark-900);
 }
 
 .dropDownContainer {
-
 }
 
 .dropDownText {
-
 }

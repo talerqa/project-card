@@ -1,8 +1,10 @@
-import {ComponentProps, ComponentPropsWithoutRef} from "react";
+import { ComponentProps, ComponentPropsWithoutRef } from "react";
+
 import s from "./table.module.scss";
-import {Direction, Field} from "@/services/decks";
-import {ArrowUpSvg} from "@/assets/components/arrowUpSvg.tsx";
-import {ArrowDownSvg} from "@/assets/components/arrowDownSvg.tsx";
+
+import { ArrowDownSvg } from "@/assets/components/arrowDownSvg.tsx";
+import { ArrowUpSvg } from "@/assets/components/arrowUpSvg.tsx";
+import { Direction, Field } from "@/services/decks";
 
 type RootProps = ComponentProps<"table">;
 
@@ -98,7 +100,6 @@ export const HeaderTable: React.FC<
   };
 
   const displaySortDirection = (key: Field) => {
-
     if (sort && sort.key === key) {
       switch (sort.direction) {
         case "asc":
