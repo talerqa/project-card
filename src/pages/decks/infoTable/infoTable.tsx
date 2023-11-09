@@ -13,7 +13,6 @@ import { ShowModalType } from "@/pages/decks";
 import { decksActions } from "@/services/decksSlice";
 import {
   currentPageSelector,
-  maxCardsCountSelector,
   minCardCountSelector,
   searchNameSelector,
 } from "@/services/decksSlice/decksSelector.ts";
@@ -35,7 +34,7 @@ export const InfoTable: FC<Props> = ({
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector(currentPageSelector);
   const minCount = useAppSelector(minCardCountSelector);
-  const maxCount = useAppSelector(maxCardsCountSelector);
+  //const maxCount = useAppSelector(maxCardsCountSelector);
   const searchName = useAppSelector(searchNameSelector);
   const {
     setSearchName,
@@ -46,7 +45,7 @@ export const InfoTable: FC<Props> = ({
     setMaxCard,
   } = decksActions;
   const [min, setMin] = useState<number>(minCount as number);
-  const [max, setMax] = useState<number>(maxCount as number);
+  const [max, setMax] = useState<number>(maxCardsCount as number);
   const [page, setPage] = useState(1);
   const [active, setActive] = useState(1);
 
@@ -73,9 +72,12 @@ export const InfoTable: FC<Props> = ({
   const onHandler = (ref: number[]) => {
     setMin(ref[0]);
     setMax(ref[1]);
-    dispatch(setMinCard({ minCard: min }));
-    dispatch(setMaxCard({ maxCard: max }));
   };
+
+  ////////////////////
+
+  dispatch(setMinCard({ minCard: min }));
+  dispatch(setMaxCard({ maxCard: max }));
 
   return (
     <>
@@ -138,6 +140,7 @@ export const InfoTable: FC<Props> = ({
           onClick={() => {
             setMin(0);
             setMax(maxCardsCount);
+            setActive(1);
             dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
           }}
         >
