@@ -8,3 +8,12 @@ export const authorIdSelector = (state: RootState) =>
 
 export const currentPageSelector = (state: RootState) =>
   state.decksReducer.currentPage;
+
+export const itemsPerPageSelector = (state: RootState) =>
+  state.decksReducer.itemsPerPage;
+
+export const minCardCountSelector = (state: RootState) =>
+  state.decksReducer.minCard;
+
+export const maxCardsCountSelector = (state: RootState) =>
+  state.decksReducer.maxCard;

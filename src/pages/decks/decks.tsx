@@ -15,6 +15,9 @@ import { decksActions } from "@/services/decksSlice";
 import {
   authorIdSelector,
   currentPageSelector,
+  itemsPerPageSelector,
+  maxCardsCountSelector,
+  minCardCountSelector,
   searchNameSelector,
 } from "@/services/decksSlice/decksSelector.ts";
 import { useAppDispatch, useAppSelector } from "@/services/store.ts";
@@ -51,14 +54,12 @@ export const Decks = () => {
   const searchName = useAppSelector(searchNameSelector);
   const authorId = useAppSelector(authorIdSelector);
   const currentPage = useAppSelector(currentPageSelector);
+  const itemsPerPage = useAppSelector(itemsPerPageSelector);
+  const minCardsCount = useAppSelector(minCardCountSelector);
+  const maxCardsCount = useAppSelector(maxCardsCountSelector);
+  const { setCurrentPage, setItemPerPage } = decksActions;
 
-  const { setCurrentPage } = decksActions;
-
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const [orderBy, setSort] = useState<Sort>(null);
-
-  // const [currentPage, setCurrentPage] = useState<any>(1);
-  // const [authorId, setAuthorId] = useState<string | undefined>("");
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -75,6 +76,8 @@ export const Decks = () => {
     itemsPerPage,
     authorId,
     orderBy: sortedString,
+    minCardsCount: minCardsCount?.toString(),
+    maxCardsCount: maxCardsCount?.toString(),
   });
 
   const [showModal, setShowModal] = useState<ShowModalType>("");
@@ -88,7 +91,6 @@ export const Decks = () => {
       <InfoTable
         setShowModal={setShowModal}
         setOpenMenu={setOpenMenu}
-        // setCurrentPage={setCurrentPage}
         auth={auth}
         maxCardsCount={data?.maxCardsCount}
       />
@@ -134,7 +136,9 @@ export const Decks = () => {
         itemsPerPage={data?.pagination.itemsPerPage}
         currentPage={currentPage}
         className={s.pagination}
-        onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+        onChangePerPage={(pageSize: number) =>
+          dispatch(setItemPerPage({ itemsPerPage: pageSize }))
+        }
         onClick={(value: number) =>
           dispatch(setCurrentPage({ currentPage: value }))
         }

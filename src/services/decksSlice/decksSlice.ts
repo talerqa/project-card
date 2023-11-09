@@ -1,15 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Sort } from "@/components";
-
 export type InitialStateDecksType = {
   searchName: string;
   authorId: string;
   currentPage: number;
   itemsPerPage: number;
-  orderBy?: Sort | null;
-  minCard: number;
-  maxCard: null | number;
+  minCard?: null | number;
+  maxCard?: null | number;
 };
 
 const initialState: InitialStateDecksType = {
@@ -17,7 +14,6 @@ const initialState: InitialStateDecksType = {
   authorId: "",
   currentPage: 1,
   itemsPerPage: 10,
-  orderBy: null,
   minCard: 0,
   maxCard: null,
 };
@@ -34,6 +30,33 @@ const slice = createSlice({
     },
     setCurrentPage: (state, action: PayloadAction<{ currentPage: number }>) => {
       state.currentPage = action.payload.currentPage;
+    },
+    setItemPerPage: (
+      state,
+      action: PayloadAction<{
+        itemsPerPage: number;
+      }>,
+    ) => {
+      state.itemsPerPage = action.payload.itemsPerPage;
+    },
+    setMinCard: (state, action: PayloadAction<{ minCard?: number }>) => {
+      state.minCard = action.payload.minCard;
+    },
+    setMaxCard: (state, action: PayloadAction<{ maxCard?: number }>) => {
+      state.maxCard = action.payload.maxCard;
+    },
+    setClearFilter: (
+      _,
+      action: PayloadAction<{
+        min: number;
+        max: number;
+      }>,
+    ) => {
+      return {
+        ...initialState,
+        minCard: action.payload.min,
+        maxCard: action.payload.max,
+      };
     },
   },
 });
