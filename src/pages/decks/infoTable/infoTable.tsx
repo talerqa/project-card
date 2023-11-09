@@ -1,45 +1,84 @@
+import { FC, useEffect, useState } from "react";
+
 import s from "./infoTable.module.scss";
 
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
-import {Button} from "@/components/ui/button";
-import {IconSvgButton} from "@/components/ui/button/button.stories.tsx";
-import {Input} from "@/components/ui/inputs";
-import {SliderWithUseState} from "@/components/ui/slider/slider.stories.tsx";
-import {TabSwitcher} from "@/components/ui/tab-switcher";
-import {Typography} from "@/components/ui/typography";
-import {ShowModalType} from "@/pages/decks";
-import {useAuthMeQuery} from "@/services/auth";
-import {useState} from "react";
+import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { Slider } from "@/components";
+import { Button } from "@/components/ui/button";
+import { IconSvgButton } from "@/components/ui/button/button.stories.tsx";
+import { Input } from "@/components/ui/inputs";
+import { TabSwitcher } from "@/components/ui/tab-switcher";
+import { Typography } from "@/components/ui/typography";
+import { ShowModalType } from "@/pages/decks";
+import { decksActions } from "@/services/decksSlice";
+import {
+  currentPageSelector,
+  minCardCountSelector,
+  searchNameSelector,
+} from "@/services/decksSlice/decksSelector.ts";
+import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 type Props = {
   setShowModal: (value: ShowModalType) => void;
   setOpenMenu: (value: boolean) => void;
-  setName: (name: string) => void;
-  name: string;
-  maxCardsCount?: number;
-  setAuthorId: (value?: string) => void
+  maxCardsCount: any;
+  auth: any;
 };
 
-export const InfoTable = (props: Props) => {
+export const InfoTable: FC<Props> = ({
+  setShowModal,
+  setOpenMenu,
+  auth,
+  maxCardsCount,
+}) => {
+  const dispatch = useAppDispatch();
+  const currentPage = useAppSelector(currentPageSelector);
+  const minCount = useAppSelector(minCardCountSelector);
+  //const maxCount = useAppSelector(maxCardsCountSelector);
+  const searchName = useAppSelector(searchNameSelector);
   const {
-    setShowModal,
-    setOpenMenu,
-    setName,
-    name,
+    setSearchName,
     setAuthorId,
-  } = props;
-  const {data: auth} = useAuthMeQuery()
-
+    setCurrentPage,
+    setClearFilter,
+    setMinCard,
+    setMaxCard,
+  } = decksActions;
+  const [min, setMin] = useState<number>(minCount as number);
+  const [max, setMax] = useState<number>(maxCardsCount as number);
+  const [page, setPage] = useState(1);
   const [active, setActive] = useState(1);
 
-  const onValueChange = (value: number) => {
-    if (active) {
-      setAuthorId(auth?.id)
+  useEffect(() => {
+    if (maxCardsCount) {
+      dispatch(setMaxCard({ maxCard: maxCardsCount }));
     } else {
-      setAuthorId('')
+      return;
+    }
+  }, [maxCardsCount]);
+
+  const onValueChange = (value: number) => {
+    setPage(currentPage);
+    if (active) {
+      dispatch(setAuthorId({ authorId: auth.id }));
+      dispatch(setCurrentPage({ currentPage: 1 }));
+    } else {
+      dispatch(setAuthorId({ authorId: "" }));
+      dispatch(setCurrentPage({ currentPage: page }));
     }
     if (value) setActive(+value);
-  }
+  };
+
+  const onHandler = (ref: number[]) => {
+    setMin(ref[0]);
+    setMax(ref[1]);
+  };
+
+  ////////////////////
+
+  dispatch(setMinCard({ minCard: min }));
+  dispatch(setMaxCard({ maxCard: max }));
+
   return (
     <>
       <div className={s.packListBlock}>
@@ -60,9 +99,9 @@ export const InfoTable = (props: Props) => {
         <Input
           type="search"
           placeholder="Input search"
-          value={name}
+          value={searchName}
           onChange={(event) => {
-            setName(event.target.value);
+            dispatch(setSearchName({ name: event.target.value }));
           }}
         />
         <div>
@@ -79,9 +118,12 @@ export const InfoTable = (props: Props) => {
           <Typography variant={"body2"} as={"span"}>
             Number of cards
           </Typography>
-          <SliderWithUseState
+          <Slider
+            value={[0, maxCardsCount]}
             label="Number of cards"
-            value={[0, 61]}
+            min={min as number}
+            max={max as number}
+            onValueChange={onHandler}
             step={1}
             minStepsBetweenThumbs={1}
           />
@@ -92,9 +134,15 @@ export const InfoTable = (props: Props) => {
           icon={
             <IconSvgButton className={s.iconTrash}>
               {" "}
-              <TrashIcon/>{" "}
+              <TrashIcon />{" "}
             </IconSvgButton>
           }
+          onClick={() => {
+            setMin(0);
+            setMax(maxCardsCount);
+            setActive(1);
+            dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
+          }}
         >
           <Typography variant={"subtitle2"} as={"span"}>
             Clear Filter

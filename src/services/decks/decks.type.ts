@@ -40,10 +40,9 @@ export type GetDecks = {
   itemsPerPage?: number;
   authorId?: string;
   orderBy: `${Field}-${Direction}` | null;
+  minCardsCount?: string;
+  maxCardsCount?: string;
 };
-
-
-
 
 export type CardType = {
   id: string;
@@ -60,22 +59,20 @@ export type CardType = {
   grade: number;
   created: string;
   updated: string;
-}
-
+};
 
 export type DirectionCard = "asc" | "desc";
 
-export type FieldCard = "question" | "answer"
+export type FieldCard = "question" | "answer";
 
 export type GetCardType = {
-  id?: string
-  question?: string
-  answer?: string
+  id?: string;
+  question?: string;
+  answer?: string;
   orderBy?: `${FieldCard}-${DirectionCard}` | null;
-  currentPage?: number
-  itemsPerPage?: number
-
-}
+  currentPage?: number;
+  itemsPerPage?: number;
+};
 
 export type GetResponseTypeCard = {
   items: CardType[];

@@ -39,6 +39,8 @@ export const HeaderDeck = (props: Props) => {
     setQuestion,
   } = props;
 
+  console.log();
+
   return (
     <div className={s.blockHeaderDeck}>
       <DeckModal
@@ -63,15 +65,19 @@ export const HeaderDeck = (props: Props) => {
           setShowModal={setShowModal}
         />
       )}
-      <Input
-        type="search"
-        placeholder="Input search question"
-        className={s.searchInput}
-        value={question}
-        onChange={(event) => {
-          setQuestion(event.target.value);
-        }}
-      />
+      {deck?.cardsCount !== 0 ? (
+        <Input
+          type="search"
+          placeholder="Input search question"
+          className={s.searchInput}
+          value={question}
+          onChange={(event) => {
+            setQuestion(event.target.value);
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
