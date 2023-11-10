@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 import { SignIn } from "@/components/auth/signIn";
 import { Page } from "@/components/ui/page";
 import {
@@ -5,7 +7,6 @@ import {
   useAuthMeQuery,
   useLoginMutation,
 } from "@/services/auth";
-import { Navigate } from "react-router-dom";
 
 export const SignInPage = () => {
   const [login, { isLoading, isSuccess }] = useLoginMutation();

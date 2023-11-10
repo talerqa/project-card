@@ -149,7 +149,6 @@ export const Deck = () => {
                   This pack is empty. Back to Pack list and choose another Pack
                 </Typography>
                 <Button
-                  className={s.buttonAddNewCard}
                   type={"button"}
                   variant={"primary"}
                   onClick={() => {

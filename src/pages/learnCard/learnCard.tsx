@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import s from "./learnCard.module.scss";
 
+import { Loader } from "@/assets/components/loader";
 import { RadioGroup } from "@/components";
 import { BackToPage } from "@/components/common/backToPage";
 import { Button } from "@/components/ui/button";
@@ -21,17 +22,19 @@ export const LearnCard = () => {
   const [value, setValue] = useState<number>();
 
   const { id } = useParams();
-  const { data } = useLearnCardQuery({ id });
-  const { data: card } = useGetDeckQuery({ id });
 
+  const { data, isLoading } = useLearnCardQuery({ id });
+  const { data: card } = useGetDeckQuery({ id });
   const [setGrade] = useSaveGradeCardMutation();
+
+  if (isLoading) return <Loader />;
 
   return (
     <Page className={s.deck}>
       <BackToPage className={s.backToDecks} />
       <Card className={s.card}>
         <Typography variant={"large"} as={"p"} className={s.title}>
-          Learn ${card?.name}
+          Learn {card?.name}
         </Typography>
         <div className={s.questionBlock}>
           <Typography
@@ -63,13 +66,13 @@ export const LearnCard = () => {
             <p> Rate Yoursers</p>
             <RadioGroup
               options={[
-                { value: 1 },
-                { value: 2 },
-                { value: 3 },
-                { value: 4 },
-                { value: 5 },
+                { key: "Did not know", value: 1 },
+                { key: "Forgot", value: 2 },
+                { key: "A lot of though", value: 3 },
+                { key: "Confused", value: 4 },
+                { key: "Knew the answer", value: 5 },
               ]}
-              onValueChange={(e: any) => {
+              onValueChange={(e: string) => {
                 setValue(Number(e));
               }}
             />

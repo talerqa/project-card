@@ -56,8 +56,6 @@ export const Pagination = ({
     setPageSize(+value);
   };
 
-  console.log(activePage);
-
   return (
     <div className={s.paginationContainer + " " + className}>
       <span className={s.paginationArrow} onClick={onPreviousClick}>

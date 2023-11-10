@@ -2,8 +2,8 @@ import {
   ComponentPropsWithoutRef,
   ElementRef,
   FieldsetHTMLAttributes,
-  HTMLAttributes,
   forwardRef,
+  HTMLAttributes,
 } from "react";
 
 import * as RadioGroupLib from "@radix-ui/react-radio-group";
@@ -53,8 +53,10 @@ export const RadioGroup = forwardRef<
           disabled={disabled}
           {...rest}
         >
-          {options.map((option) => {
-            return <RadioItem key={option.value} value={option.value} />;
+          {options.map((option, index) => {
+            return (
+              <RadioItem key={index} value={option.value} title={option.key} />
+            );
           })}
         </RadioGroupLib.Root>
       </form>
@@ -62,7 +64,12 @@ export const RadioGroup = forwardRef<
   },
 );
 
-const RadioItem = ({ value }: Option) => {
+type RadioItemProps = {
+  value?: number | string;
+  title?: number | string;
+};
+
+const RadioItem = ({ value, title }: RadioItemProps) => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <RadioGroupLib.Item
@@ -73,7 +80,7 @@ const RadioItem = ({ value }: Option) => {
         <RadioGroupLib.Indicator className={s.RadioGroupIndicator} />
       </RadioGroupLib.Item>
       <label className={s.Label} htmlFor={`${value}`}>
-        {value}
+        {title}
       </label>
     </div>
   );
