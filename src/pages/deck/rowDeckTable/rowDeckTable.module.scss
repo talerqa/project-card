@@ -1,87 +1,44 @@
-.deck {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 1030px;
+.cell {
+  padding-left: 24px;
+  padding-right: 24px;
+  height: 36px;
+  word-break: break-word;
 
-  .backToDecks {
-    margin: 24px 0 33px;
-  }
-
-  .imageCover {
-    width: 170px;
-    height: 100%;
-    margin-bottom: 25px;
-  }
-
-  .mainBlock {
+  .name {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin: 0;
+    justify-content: space-between;
     align-items: center;
-
-    .emptyDeck {
-      display: block;
-      margin-top: 69px;
-      margin-bottom: 30px;
-    }
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+    font-size: inherit;
   }
 
-  .rootTable {
-    //min-height: 500px;
-    margin-bottom: 15px;
-
-    .headerTable {
-      .cell {
-        padding-left: 24px;
-        padding-right: 24px;
-        height: 36px;
-
-        .name {
-          display: flex;
-          margin: 0;
-          justify-content: space-between;
-          align-items: center;
-          text-decoration: none;
-          font-weight: inherit;
-          color: inherit;
-          font-size: inherit;
-        }
-
-        .image {
-          height: 30px;
-        }
-      }
-
-      .createdByRow {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .buttonBlock {
-        display: flex;
-        width: 69px;
-        height: 24px;
-        justify-content: start;
-        align-items: center;
-
-        .button {
-          height: 20px;
-          width: 20px;
-          display: block;
-          align-self: center;
-          margin: 0 auto;
-          cursor: pointer;
-        }
-      }
-    }
+  .image {
+    height: 30px;
   }
+}
 
-  //.pagination {
-  //  margin: 0 auto;
-  //  padding-top: 80px;
-  //  padding-bottom: 120px;
-  //
-  //}
+.createdByRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonBlock {
+  display: flex;
+  width: 69px;
+  height: 24px;
+  justify-content: start;
+  align-items: center;
+
+  .button {
+    height: 20px;
+    width: 20px;
+    display: block;
+    align-self: center;
+    margin: 0 auto;
+    cursor: pointer;
+  }
 }

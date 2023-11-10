@@ -1,12 +1,14 @@
-import {Table} from "@/components/ui/table";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import s from "./rowTable.module.scss";
-import {PlaySvg} from "@/assets/components/play.tsx";
-import {EditSvg} from "@/assets/components/edit.tsx";
-import {TrashIcon} from "@/assets/components/trashIcon.tsx";
-import {DeckType} from "@/services/decks";
-import {useAuthMeQuery} from "@/services/auth";
-import {NavLink, useNavigate} from "react-router-dom";
-import {ShowModalType} from "@/pages/decks";
+
+import { EditSvg } from "@/assets/components/edit.tsx";
+import { PlaySvg } from "@/assets/components/play.tsx";
+import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { Table } from "@/components/ui/table";
+import { ShowModalType } from "@/pages/decks";
+import { useAuthMeQuery } from "@/services/auth";
+import { DeckType } from "@/services/decks";
 
 type Props = {
   item: DeckType;
@@ -16,17 +18,18 @@ type Props = {
 };
 
 export const RowTable = (props: Props) => {
-  const {data} = useAuthMeQuery();
-  const {Row, Cell} = Table;
-  const {item, setPack, setActiveMenu, setShowModal} = props;
-  const navigate = useNavigate()
+  const { data } = useAuthMeQuery();
+  const { Row, Cell } = Table;
+  const { item, setPack, setActiveMenu, setShowModal } = props;
+  const navigate = useNavigate();
+
   return (
     <Row key={item.id}>
       <Cell className={s.cell}>
         <NavLink to={`${item.id}/cards`} className={s.name}>
           {item.name}
           {item.cover ? (
-            <img src={item?.cover as string} alt="cover" className={s.image}/>
+            <img src={item?.cover as string} alt="cover" className={s.image} />
           ) : (
             <></>
           )}
@@ -45,10 +48,10 @@ export const RowTable = (props: Props) => {
               setPack(item);
               setActiveMenu(true);
               setShowModal("Learn");
-              navigate(`${item.id}/learn`)
+              navigate(`${item.id}/learn`);
             }}
           >
-            <PlaySvg/>
+            <PlaySvg />
           </button>
           {data?.id === item.userId && (
             <button
@@ -59,7 +62,7 @@ export const RowTable = (props: Props) => {
                 setShowModal("Edit Pack");
               }}
             >
-              <EditSvg/>
+              <EditSvg />
             </button>
           )}
           {data?.id === item.userId && (
@@ -71,7 +74,7 @@ export const RowTable = (props: Props) => {
                 setShowModal("Delete Pack");
               }}
             >
-              <TrashIcon/>
+              <TrashIcon />
             </button>
           )}
         </div>

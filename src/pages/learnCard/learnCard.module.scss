@@ -41,12 +41,16 @@
   }
 
   .button {
-
     width: 100%;
   }
 
   .showAnswer {
-    height: 100px;
+    height: 200px;
   }
 }
 
+.emptyDeck {
+  display: block;
+  margin-top: 69px;
+  margin-bottom: 30px;
+}

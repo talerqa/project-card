@@ -134,14 +134,14 @@ export const Decks = () => {
         ]}
         totalPages={data?.pagination.totalPages}
         itemsPerPage={data?.pagination.itemsPerPage}
-        currentPage={currentPage}
         className={s.pagination}
+        currentPage={currentPage}
         onChangePerPage={(pageSize: number) =>
           dispatch(setItemPerPage({ itemsPerPage: pageSize }))
         }
-        onClick={(value: number) =>
-          dispatch(setCurrentPage({ currentPage: value }))
-        }
+        onClick={(value: number) => {
+          dispatch(setCurrentPage({ currentPage: value }));
+        }}
       />
     </Page>
   );

@@ -2,8 +2,8 @@ import {
   ComponentPropsWithoutRef,
   ElementRef,
   FieldsetHTMLAttributes,
-  HTMLAttributes,
   forwardRef,
+  HTMLAttributes,
 } from "react";
 
 import * as RadioGroupLib from "@radix-ui/react-radio-group";
@@ -24,6 +24,7 @@ export type RadioGroupPropsType = RadioGroupLib.RadioGroupProps & {
   options: Option[];
   disabled?: boolean;
   defaultValue?: string;
+  onValueChange: any;
 } & CustomFieldSetType;
 
 export const RadioGroup = forwardRef<
@@ -36,9 +37,10 @@ export const RadioGroup = forwardRef<
       disabled = false,
       defaultValue,
       dir,
+      onValueChange,
       ...rest
     }: RadioGroupPropsType,
-    ref
+    ref,
   ) => {
     return (
       <form>
@@ -46,20 +48,28 @@ export const RadioGroup = forwardRef<
           className={s.RadioGroupRoot}
           // defaultValue={defaultValue}
           aria-label="View density"
+          onValueChange={onValueChange}
           ref={ref}
           disabled={disabled}
           {...rest}
         >
-          {options.map((option) => {
-            return <RadioItem key={option.value} value={option.value} />;
+          {options.map((option, index) => {
+            return (
+              <RadioItem key={index} value={option.value} title={option.key} />
+            );
           })}
         </RadioGroupLib.Root>
       </form>
     );
-  }
+  },
 );
 
-const RadioItem = ({ value }: Option) => {
+type RadioItemProps = {
+  value?: number | string;
+  title?: number | string;
+};
+
+const RadioItem = ({ value, title }: RadioItemProps) => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <RadioGroupLib.Item
@@ -70,7 +80,7 @@ const RadioItem = ({ value }: Option) => {
         <RadioGroupLib.Indicator className={s.RadioGroupIndicator} />
       </RadioGroupLib.Item>
       <label className={s.Label} htmlFor={`${value}`}>
-        {value}
+        {title}
       </label>
     </div>
   );

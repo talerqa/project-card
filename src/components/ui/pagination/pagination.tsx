@@ -79,7 +79,6 @@ export const Pagination = ({
       <p className={s.selectText}>Показать</p>
       <div className={s.selectMenu}>
         <Select
-          disabled={false}
           placeholder={itemsPerPage}
           array={pageSizeValue}
           onChange={onSelectValueChange}

@@ -15,7 +15,7 @@ export const usePagination = ({
   siblingCount = 1,
   activePage,
 }: usePaginationProps) => {
-  const paginationRange = useMemo(() => {
+  return useMemo(() => {
     const paginationItemsToDisplay = siblingCount + 5;
 
     if (paginationItemsToDisplay >= pagesCount) {
@@ -51,8 +51,6 @@ export const usePagination = ({
       return [firstPageIndex, "...", ...middleRange, "...", lastPageIndex];
     }
   }, [pagesCount, pageSize, activePage]);
-
-  return paginationRange;
 };
 
 const range = (start: number, end: number) => {

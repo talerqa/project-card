@@ -1,17 +1,18 @@
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
-import { ControlledCheckbox } from "@/components/ui/controlled/";
-import { ControlledInput } from "@/components/ui/controlled";
-import { Typography } from "@/components/ui/typography";
-import { Card } from "@/components/ui/card";
 
 import s from "./signIn.module.scss";
 
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ControlledCheckbox,
+  ControlledInput,
+} from "@/components/ui/controlled";
+import { Typography } from "@/components/ui/typography";
 
 type FormValues = z.infer<typeof loginSchema>;
 
@@ -36,17 +37,15 @@ export const SignIn = (props: SignInProps): JSX.Element => {
   return (
     <Card className={`${s.cardBlock} ${props.className}`}>
       <DevTool control={control} />
-      <Typography
-        variant={"large"}
-        as={"p"}
-        children={"Sign In"}
-        className={s.title}
-      />
+      <Typography variant={"large"} as={"p"} className={s.title}>
+        Sign In
+      </Typography>
       <form onSubmit={handleSubmitForm}>
         <ControlledInput
           name={"email"}
           type={"text"}
           control={control}
+          placeholder={"test@test.com"}
           label={"Email"}
           className={s.inputEmail}
         />
@@ -54,6 +53,7 @@ export const SignIn = (props: SignInProps): JSX.Element => {
           name={"password"}
           type={"password"}
           control={control}
+          placeholder={"test"}
           label={"Password"}
           className={s.inputPassword}
         />
@@ -67,33 +67,30 @@ export const SignIn = (props: SignInProps): JSX.Element => {
           variant={"body2"}
           as={Link}
           to={"/forgot-password"}
-          children={"Forgot Password?"}
           className={s.forgotPassLink}
-        />
-        <Button
-          type="submit"
-          children={
-            <Typography
-              variant={"subtitle2"}
-              as={"span"}
-              children={"Sign In"}
-            />
-          }
-          className={s.buttonSubmitForm}
-        />
+        >
+          Forgot Password?
+        </Typography>
+        <Button type="submit" className={s.buttonSubmitForm}>
+          <Typography variant={"subtitle2"} as={"span"}>
+            Sign In
+          </Typography>
+        </Button>
         <Typography
           variant={"body2"}
           as={"p"}
-          children={"Don't have an account?"}
           className={s.linkDontHaveAccount}
-        />
+        >
+          Don&#39;t have an account?
+        </Typography>
         <Typography
           to={"/sign-up"}
-          children={"Sign Up"}
           variant={"body2"}
           as={Link}
           className={s.linkSignUp}
-        />
+        >
+          Sign Up
+        </Typography>
       </form>
     </Card>
   );
