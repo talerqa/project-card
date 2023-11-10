@@ -24,6 +24,7 @@ export type RadioGroupPropsType = RadioGroupLib.RadioGroupProps & {
   options: Option[];
   disabled?: boolean;
   defaultValue?: string;
+  onValueChange: any;
 } & CustomFieldSetType;
 
 export const RadioGroup = forwardRef<
@@ -36,9 +37,10 @@ export const RadioGroup = forwardRef<
       disabled = false,
       defaultValue,
       dir,
+      onValueChange,
       ...rest
     }: RadioGroupPropsType,
-    ref
+    ref,
   ) => {
     return (
       <form>
@@ -46,6 +48,7 @@ export const RadioGroup = forwardRef<
           className={s.RadioGroupRoot}
           // defaultValue={defaultValue}
           aria-label="View density"
+          onValueChange={onValueChange}
           ref={ref}
           disabled={disabled}
           {...rest}
@@ -56,7 +59,7 @@ export const RadioGroup = forwardRef<
         </RadioGroupLib.Root>
       </form>
     );
-  }
+  },
 );
 
 const RadioItem = ({ value }: Option) => {

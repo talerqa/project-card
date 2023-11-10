@@ -56,6 +56,8 @@ export const Pagination = ({
     setPageSize(+value);
   };
 
+  console.log(activePage);
+
   return (
     <div className={s.paginationContainer + " " + className}>
       <span className={s.paginationArrow} onClick={onPreviousClick}>
@@ -79,7 +81,6 @@ export const Pagination = ({
       <p className={s.selectText}>Показать</p>
       <div className={s.selectMenu}>
         <Select
-          disabled={false}
           placeholder={itemsPerPage}
           array={pageSizeValue}
           onChange={onSelectValueChange}
