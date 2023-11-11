@@ -84,6 +84,7 @@ export const HeaderOwnDeck = ({
       {cards?.items.length !== 0 ? (
         <Button
           type={"button"}
+          className={s.button}
           variant={"primary"}
           onClick={() => {
             setShowModal("Add New Card");

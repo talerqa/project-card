@@ -49,8 +49,6 @@ export const InfoTable: FC<Props> = ({
   const [page, setPage] = useState(1);
   const [active, setActive] = useState(1);
 
-  console.log({ min, max });
-
   useEffect(() => {
     if (maxCardsCount) {
       dispatch(setMaxCard({ maxCard: maxCardsCount }));

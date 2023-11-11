@@ -14,7 +14,7 @@
     flex-direction: column;
     margin: 0 auto;
     width: 420px;
-    min-height: 288px;
+    min-height: 265px;
     align-items: center;
 
     .title {
@@ -37,16 +37,25 @@
       width: 100%;
       text-align: left;
       color: var(--color-dark-100);
+      margin-bottom: 17px;
     }
   }
 
-  .button {
-    width: 100%;
-  }
-
   .showAnswer {
-    height: 200px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+    height: auto;
   }
+}
+
+.button {
+  width: 100%;
+}
+
+.buttonNextQuestion {
+  margin-top: 29px;
 }
 
 .emptyDeck {
