@@ -46,8 +46,9 @@ export const LearnCard = () => {
           </Typography>
           <Typography variant={"body1"} as={"span"}>
             {` ${data?.question}`}
-          </Typography>
+          </Typography>{" "}
         </div>
+        <img src={data?.questionImg} alt="" className={s.image} />
         <Typography variant={"body2"} as={"span"} className={s.numberAttempts}>
           Number of attempts {data?.shots}
         </Typography>
@@ -60,6 +61,7 @@ export const LearnCard = () => {
                 {data?.answer}
               </Typography>
             </Typography>
+            <img src={data?.answerImg} alt="" className={s.image} />
             <Typography variant={"subtitle1"} as={"p"}>
               {" "}
               Rate Yoursers:
