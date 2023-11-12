@@ -46,24 +46,26 @@ export const LearnCard = () => {
           </Typography>
           <Typography variant={"body1"} as={"span"}>
             {` ${data?.question}`}
-          </Typography>
+          </Typography>{" "}
         </div>
+        <img src={data?.questionImg} alt="" className={s.image} />
         <Typography variant={"body2"} as={"span"} className={s.numberAttempts}>
-          number of attempts {data?.shots}
+          Number of attempts {data?.shots}
         </Typography>
 
-        <Button
-          type={"button"}
-          className={s.button}
-          onClick={() => setShowAnswer(!showAnswer)}
-        >
-          Show Answer
-        </Button>
-
-        {showAnswer && (
+        {showAnswer ? (
           <div className={s.showAnswer}>
-            {data?.answer}
-            <p> Rate Yoursers</p>
+            <Typography variant={"subtitle1"} as={"p"}>
+              Answer:{" "}
+              <Typography variant={"body1"} as={"span"}>
+                {data?.answer}
+              </Typography>
+            </Typography>
+            <img src={data?.answerImg} alt="" className={s.image} />
+            <Typography variant={"subtitle1"} as={"p"}>
+              {" "}
+              Rate Yoursers:
+            </Typography>
             <RadioGroup
               options={[
                 { key: "Did not know", value: 1 },
@@ -78,6 +80,7 @@ export const LearnCard = () => {
             />
             <Button
               type={"button"}
+              className={s.buttonNextQuestion}
               onClick={() => {
                 setShowAnswer(false);
                 setGrade({
@@ -90,6 +93,14 @@ export const LearnCard = () => {
               Next Question
             </Button>
           </div>
+        ) : (
+          <Button
+            type={"button"}
+            className={s.button}
+            onClick={() => setShowAnswer(!showAnswer)}
+          >
+            Show Answer
+          </Button>
         )}
       </Card>
     </Page>

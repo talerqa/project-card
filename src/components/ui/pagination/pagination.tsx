@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import s from "./pagination.module.scss";
 
@@ -32,6 +32,10 @@ export const Pagination = ({
     pageSize,
     activePage,
   });
+
+  useEffect(() => {
+    setActivePage(currentPage);
+  }, [currentPage]);
 
   const onNextClick = () => {
     if (activePage === totalPages) return;

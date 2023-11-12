@@ -39,8 +39,6 @@ export const HeaderDeck = (props: Props) => {
     setQuestion,
   } = props;
 
-  console.log();
-
   return (
     <div className={s.blockHeaderDeck}>
       <DeckModal

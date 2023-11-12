@@ -1,17 +1,11 @@
-.button {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  color: var(--color-light-100);
-}
-
-.primary, .primaryWithIcon {
+.primary,
+.primaryWithIcon {
   outline: none;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #8C61FF;
+  background-color: #8c61ff;
   padding: 6px 28px;
   border-radius: 4px;
   color: var(--color-light-100);
@@ -26,7 +20,7 @@
 
   &:focus {
     box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
-    background-color: #8C61FF;
+    background-color: #8c61ff;
   }
 
   &:active {
@@ -42,7 +36,8 @@
   }
 }
 
-.secondary, .secondaryWithIcon {
+.secondary,
+.secondaryWithIcon {
   outline: none;
   border: none;
   display: flex;
@@ -97,15 +92,15 @@
 
   &:hover {
     background: linear-gradient(0deg, #333333, #333333),
-    linear-gradient(0deg, #704ECC, #704ECC);
+      linear-gradient(0deg, #704ecc, #704ecc);
     border: 1px solid rgba(112, 78, 204, 1);
     color: rgba(140, 97, 255, 1);
   }
 
   &:focus {
-    background: linear-gradient(0deg, #704ECC, #704ECC),
-    linear-gradient(0deg, #382766, #382766);
-    border: 1px solid rgba(112, 78, 204, 1)
+    background: linear-gradient(0deg, #704ecc, #704ecc),
+      linear-gradient(0deg, #382766, #382766);
+    border: 1px solid rgba(112, 78, 204, 1);
   }
 
   &:active {

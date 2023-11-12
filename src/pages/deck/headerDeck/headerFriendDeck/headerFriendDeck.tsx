@@ -37,6 +37,7 @@ export const HeaderFriendDeck: FC<Props> = ({ deck, cards }) => {
         <Button
           type={"button"}
           variant={"primary"}
+          className={s.button}
           onClick={() => navigate(`../decks/${deck?.id}/learn`)}
         >
           Learn to Pack

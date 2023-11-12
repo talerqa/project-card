@@ -57,7 +57,6 @@ const deckSchema = z.object({
 
 export const AddNewCardModal = (props: Props) => {
   const { deckId, closeModalHandler } = props;
-  // const [answrImg, setAnswerImg] = useState<File | undefined>()
   const [questionImg, setQuestionImg] = useState<File | undefined>();
 
   const {
@@ -78,14 +77,16 @@ export const AddNewCardModal = (props: Props) => {
   const [createCard] = useCreateCardMutation();
 
   const onSubmit = (data: DeckValuesForm) => {
-    const { question, answer, questionImg, text } = data;
+    const { question, answer, questionImg } = data;
     const formData = new FormData();
 
     formData.append("question", String(question));
     formData.append("answer", String(answer));
     questionImg && formData.append("questionImg", questionImg);
-    createCard({ id: deckId, body: formData });
-    console.log(text);
+    createCard({ id: deckId, body: formData })
+      .unwrap()
+      .then(() => {})
+      .catch(() => {});
     closeModalHandler();
   };
 
