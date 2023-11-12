@@ -12,6 +12,7 @@ import { Typography } from "@/components/ui/typography";
 import { ShowModalType } from "@/pages/decks";
 import { decksActions } from "@/services/decksSlice";
 import {
+  authorIdSelector,
   currentPageSelector,
   minCardCountSelector,
   searchNameSelector,
@@ -34,8 +35,9 @@ export const InfoTable: FC<Props> = ({
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector(currentPageSelector);
   const minCount = useAppSelector(minCardCountSelector);
-  //const maxCount = useAppSelector(maxCardsCountSelector);
   const searchName = useAppSelector(searchNameSelector);
+  const authorId = useAppSelector(authorIdSelector);
+
   const {
     setSearchName,
     setAuthorId,
@@ -50,12 +52,15 @@ export const InfoTable: FC<Props> = ({
   const [active, setActive] = useState(1);
 
   useEffect(() => {
+    if (authorId) {
+      setActive(0);
+    }
     if (maxCardsCount) {
       dispatch(setMaxCard({ maxCard: maxCardsCount }));
     } else {
       return;
     }
-  }, [maxCardsCount]);
+  }, [maxCardsCount, authorId]);
 
   const onValueChange = (value: number) => {
     setPage(currentPage);
@@ -69,11 +74,19 @@ export const InfoTable: FC<Props> = ({
     if (value) setActive(+value);
   };
 
-  const onHandler = (ref: number[]) => {
+  const onChangeSliderHandler = (ref: number[]) => {
     dispatch(setMinCard({ minCard: ref[0] }));
     dispatch(setMaxCard({ maxCard: ref[1] }));
     setMin(ref[0]);
     setMax(ref[1]);
+  };
+
+  const filteredDecksHandler = () => {
+    setMin(0);
+    setMax(maxCardsCount);
+    setActive(1);
+
+    dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
   };
 
   return (
@@ -120,7 +133,7 @@ export const InfoTable: FC<Props> = ({
             label="Number of cards"
             min={min as number}
             max={max as number}
-            onValueChange={onHandler}
+            onValueChange={onChangeSliderHandler}
             step={1}
             minStepsBetweenThumbs={1}
           />
@@ -134,12 +147,7 @@ export const InfoTable: FC<Props> = ({
               <TrashIcon />{" "}
             </IconSvgButton>
           }
-          onClick={() => {
-            setMin(0);
-            setMax(maxCardsCount);
-            setActive(1);
-            dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
-          }}
+          onClick={filteredDecksHandler}
         >
           <Typography variant={"subtitle2"} as={"span"}>
             Clear Filter

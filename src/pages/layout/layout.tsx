@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 
+import "react-toastify/dist/ReactToastify.css";
+import { Toast } from "@/components";
 import { Header } from "@/components/ui/header";
 import { useAuthMeQuery } from "@/services/auth";
 
@@ -17,6 +19,7 @@ export const Layout = (): JSX.Element => {
     <>
       <Header isAuth={isAuthorized} onSignInHandler={onSignInHandler} />
       <Outlet />
+      <Toast />
     </>
   );
 };

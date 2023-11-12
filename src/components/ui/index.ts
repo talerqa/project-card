@@ -17,3 +17,4 @@ export * from "./slider";
 export * from "./tab-switcher";
 export * from "./table";
 export * from "./typography";
+export * from "./toast";

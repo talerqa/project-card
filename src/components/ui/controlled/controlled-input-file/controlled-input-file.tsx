@@ -19,6 +19,7 @@ import { Typography } from "@/components/ui/typography";
 
 type ControlledInputType<TFieldValues extends FieldValues> =
   UseControllerProps<TFieldValues> & Omit<InputFileProps, "onChange">;
+
 export const ControlledInputFile = <TFieldValues extends FieldValues>({
   title,
   onLoadCover,
@@ -52,12 +53,9 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
         className={s.button}
         disabled={false}
       >
-        <Typography
-          variant={"body1"}
-          as={"span"}
-          children={title}
-          className={s.textButton}
-        />
+        <Typography variant={"body1"} as={"span"} className={s.textButton}>
+          {title}
+        </Typography>
         <InputFile
           type={type}
           label={name}
@@ -65,12 +63,9 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
           {...res}
         />
       </Button>
-      <Typography
-        variant={"caption"}
-        as={"span"}
-        className={s.labelError}
-        children={error?.message}
-      />
+      <Typography variant={"caption"} as={"span"} className={s.labelError}>
+        {error?.message}
+      </Typography>
     </>
   );
 };
