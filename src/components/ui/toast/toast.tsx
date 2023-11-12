@@ -6,7 +6,7 @@ export const Toast = (): JSX.Element => {
   return (
     <ToastContainer
       position="top-center"
-      autoClose={5000}
+      autoClose={3000}
       hideProgressBar={true}
       newestOnTop={false}
       closeOnClick

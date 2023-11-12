@@ -93,6 +93,7 @@ export const Decks = () => {
         setOpenMenu={setOpenMenu}
         auth={auth}
         maxCardsCount={data?.maxCardsCount}
+        totalPage={data?.pagination.totalPages}
       />
       <Root>
         <HeaderTable

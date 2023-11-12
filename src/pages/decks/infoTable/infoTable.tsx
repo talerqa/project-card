@@ -24,6 +24,7 @@ type Props = {
   setOpenMenu: (value: boolean) => void;
   maxCardsCount: any;
   auth: any;
+  totalPage?: number;
 };
 
 export const InfoTable: FC<Props> = ({
@@ -31,6 +32,7 @@ export const InfoTable: FC<Props> = ({
   setOpenMenu,
   auth,
   maxCardsCount,
+  totalPage,
 }) => {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector(currentPageSelector);
@@ -60,7 +62,14 @@ export const InfoTable: FC<Props> = ({
     } else {
       return;
     }
-  }, [maxCardsCount, authorId]);
+
+    if (totalPage !== undefined) {
+      if (currentPage > totalPage) {
+        dispatch(setCurrentPage({ currentPage: 1 }));
+        setPage(totalPage as number);
+      }
+    }
+  }, [maxCardsCount, authorId, currentPage, totalPage]);
 
   const onValueChange = (value: number) => {
     setPage(currentPage);
@@ -85,7 +94,6 @@ export const InfoTable: FC<Props> = ({
     setMin(0);
     setMax(maxCardsCount);
     setActive(1);
-
     dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
   };
 
