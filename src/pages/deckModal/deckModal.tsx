@@ -5,7 +5,7 @@ import { EditModalForm } from "@/pages/decks/deckModal/editModlaForm";
 import { DeckType } from "@/services/decks";
 
 type Props = {
-  item?: DeckType;
+  item: DeckType;
   activeMenu: any;
   setActiveMenu: (value: boolean) => void;
   setShowModal: (value: ShowModalType) => void;

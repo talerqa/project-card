@@ -1,6 +1,6 @@
-import type {StoryObj} from "@storybook/react";
+import type { StoryObj } from "@storybook/react";
 
-import {EditProfile} from "./editProfile";
+import { EditProfile } from "@/components";
 
 const meta = {
   title: "Auth/EditProfile",
