@@ -1,14 +1,17 @@
-import React, {
+import {
   ComponentPropsWithoutRef,
   ElementRef,
   forwardRef,
   ReactNode,
   useState,
 } from "react";
-import s from "./dropdown.module.scss";
+
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import {Typography} from "@/components/ui/typography";
 import clsx from "clsx";
+
+import s from "./dropdown.module.scss";
+
+import { Typography } from "@/components/ui/typography";
 
 export type DropDownProps = {
   variant?: "DropDownMenu" | "DropDownMenuWithIcon";
@@ -90,7 +93,8 @@ const classNameProfile = {
 };
 
 export const ProfileItemDropDown: React.FC<ProfileDropDown> = (props) => {
-  const {img, email, name} = props;
+  const { img, email, name } = props;
+
   return (
     <>
       <div className={classNameProfile.profileDropDownBlock}>
@@ -103,18 +107,20 @@ export const ProfileItemDropDown: React.FC<ProfileDropDown> = (props) => {
           <Typography
             variant={"subtitle2"}
             as={"a"}
-            children={name}
             className={classNameProfile.nameText}
-          />
+          >
+            {name}
+          </Typography>
           <Typography
             variant={"caption"}
             as={"p"}
-            children={email}
             className={classNameProfile.emailText}
-          />
+          >
+            {email}
+          </Typography>
         </div>
       </div>
-      <DropdownMenu.Separator className={classNameProfile.separator}/>
+      <DropdownMenu.Separator className={classNameProfile.separator} />
     </>
   );
 };
@@ -134,18 +140,19 @@ const ItemDropDownClassName = {
 };
 
 export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
-  const {img, title, onClick} = props;
+  const { img, title, onClick } = props;
+
   return (
     <>
       {" "}
       {title === "Edit" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
       )}
       {title === "Sign Out" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
       )}
       {title === "Delete" && (
-        <DropdownMenu.Separator className={ItemDropDownClassName.separator}/>
+        <DropdownMenu.Separator className={ItemDropDownClassName.separator} />
       )}
       <div className={ItemDropDownClassName.itemDropDown}>
         <div
@@ -160,9 +167,10 @@ export const ItemDropDown: React.FC<ItemDropDownProps> = (props) => {
           <Typography
             variant={"caption"}
             as={"p"}
-            children={title}
             className={ItemDropDownClassName.title}
-          />
+          >
+            {title}
+          </Typography>
         </div>
       </div>
     </>
