@@ -39,6 +39,7 @@ export const CreateNewPassword = (
 
   return (
     <Card className={`${s.cardBlock} ${props.className}`}>
+      <DevTool control={control} />
       {isSuccess ? (
         <Typography variant={"large"} as={"p"} className={s.title}>
           Your password was changed you can sign in now.
