@@ -137,7 +137,7 @@ export const Decks = () => {
         <DeckModal
           activeMenu={openMenu}
           setActiveMenu={setOpenMenu}
-          item={pack}
+          item={pack as DeckType}
           setShowModal={setShowModal}
           showModal={showModal}
         />
