@@ -22,8 +22,8 @@ import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 type Props = {
   setShowModal: (value: ShowModalType) => void;
   setOpenMenu: (value: boolean) => void;
-  maxCardsCount: any;
-  auth: any;
+  maxCardsCount?: number;
+  auth?: string;
   totalPage?: number;
 };
 
@@ -35,6 +35,7 @@ export const InfoTable: FC<Props> = ({
   totalPage,
 }) => {
   const dispatch = useAppDispatch();
+
   const currentPage = useAppSelector(currentPageSelector);
   const minCount = useAppSelector(minCardCountSelector);
   const searchName = useAppSelector(searchNameSelector);
@@ -48,6 +49,7 @@ export const InfoTable: FC<Props> = ({
     setMinCard,
     setMaxCard,
   } = decksActions;
+
   const [min, setMin] = useState<number>(minCount as number);
   const [max, setMax] = useState<number>(maxCardsCount as number);
   const [page, setPage] = useState(1);
@@ -62,7 +64,6 @@ export const InfoTable: FC<Props> = ({
     } else {
       return;
     }
-
     if (totalPage !== undefined) {
       if (currentPage > totalPage) {
         dispatch(setCurrentPage({ currentPage: 1 }));
@@ -74,7 +75,7 @@ export const InfoTable: FC<Props> = ({
   const onValueChange = (value: number) => {
     setPage(currentPage);
     if (active) {
-      dispatch(setAuthorId({ authorId: auth.id }));
+      dispatch(setAuthorId({ authorId: auth as string }));
       dispatch(setCurrentPage({ currentPage: 1 }));
     } else {
       dispatch(setAuthorId({ authorId: "" }));
@@ -92,9 +93,9 @@ export const InfoTable: FC<Props> = ({
 
   const filteredDecksHandler = () => {
     setMin(0);
-    setMax(maxCardsCount);
+    setMax(maxCardsCount as number);
     setActive(1);
-    dispatch(setClearFilter({ min: 0, max: maxCardsCount }));
+    dispatch(setClearFilter({ min: 0, max: maxCardsCount as number }));
   };
 
   return (
@@ -118,9 +119,9 @@ export const InfoTable: FC<Props> = ({
           type="search"
           placeholder="Input search"
           value={searchName}
-          onChange={(event) => {
-            dispatch(setSearchName({ name: event.target.value }));
-          }}
+          onChange={(event) =>
+            dispatch(setSearchName({ name: event.target.value }))
+          }
         />
         <div>
           <Typography variant={"body2"} as={"span"}>
@@ -137,7 +138,7 @@ export const InfoTable: FC<Props> = ({
             Number of cards
           </Typography>
           <Slider
-            value={[0, maxCardsCount]}
+            value={[0, maxCardsCount as number]}
             label="Number of cards"
             min={min as number}
             max={max as number}

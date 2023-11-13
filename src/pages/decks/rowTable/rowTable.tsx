@@ -18,9 +18,9 @@ type Props = {
 };
 
 export const RowTable = (props: Props) => {
-  const { data } = useAuthMeQuery();
-  const { Row, Cell } = Table;
   const { item, setPack, setActiveMenu, setShowModal } = props;
+  const { Row, Cell } = Table;
+  const { data } = useAuthMeQuery();
   const navigate = useNavigate();
 
   return (

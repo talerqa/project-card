@@ -48,18 +48,31 @@ const HeaderTitleTableArray = [
   },
 ];
 
+const paginationSize = [
+  { title: "10", value: "10" },
+  { title: "20", value: "20" },
+  { title: "50", value: "50" },
+  { title: "100", value: "100" },
+];
+
 export const Decks = () => {
   const { Root, Body } = Table;
+
   const dispatch = useAppDispatch();
+
   const searchName = useAppSelector(searchNameSelector);
   const authorId = useAppSelector(authorIdSelector);
   const currentPage = useAppSelector(currentPageSelector);
   const itemsPerPage = useAppSelector(itemsPerPageSelector);
   const minCardsCount = useAppSelector(minCardCountSelector);
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
+
   const { setCurrentPage, setItemPerPage } = decksActions;
 
   const [orderBy, setSort] = useState<Sort>(null);
+  const [showModal, setShowModal] = useState<ShowModalType>("");
+  const [pack, setPack] = useState<DeckType>();
+  const [openMenu, setOpenMenu] = useState(false);
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -80,9 +93,12 @@ export const Decks = () => {
     maxCardsCount: maxCardsCount?.toString(),
   });
 
-  const [showModal, setShowModal] = useState<ShowModalType>("");
-  const [pack, setPack] = useState<DeckType>();
-  const [openMenu, setOpenMenu] = useState(false);
+  const onChangePerPageHandler = (pageSize: number) => {
+    dispatch(setItemPerPage({ itemsPerPage: pageSize }));
+  };
+  const onChangePagePaginationHandler = (value: number) => {
+    dispatch(setCurrentPage({ currentPage: value }));
+  };
 
   if (isLoading) return <Loader />;
 
@@ -91,7 +107,7 @@ export const Decks = () => {
       <InfoTable
         setShowModal={setShowModal}
         setOpenMenu={setOpenMenu}
-        auth={auth}
+        auth={auth?.id}
         maxCardsCount={data?.maxCardsCount}
         totalPage={data?.pagination.totalPages}
       />
@@ -127,22 +143,13 @@ export const Decks = () => {
         />
       </Root>
       <Pagination
-        pageSizeValue={[
-          { title: "10", value: "10" },
-          { title: "20", value: "20" },
-          { title: "50", value: "50" },
-          { title: "100", value: "100" },
-        ]}
+        pageSizeValue={paginationSize}
         totalPages={data?.pagination.totalPages}
         itemsPerPage={data?.pagination.itemsPerPage}
         className={s.pagination}
         currentPage={currentPage}
-        onChangePerPage={(pageSize: number) =>
-          dispatch(setItemPerPage({ itemsPerPage: pageSize }))
-        }
-        onClick={(value: number) => {
-          dispatch(setCurrentPage({ currentPage: value }));
-        }}
+        onChangePerPage={onChangePerPageHandler}
+        onClick={onChangePagePaginationHandler}
       />
     </Page>
   );

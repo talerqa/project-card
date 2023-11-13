@@ -1,1 +1,1 @@
-export * from './deleteDeckModal.tsx'
+export * from "./deleteDeckModal.tsx";

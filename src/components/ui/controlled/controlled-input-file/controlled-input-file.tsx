@@ -25,6 +25,7 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
   onLoadCover,
   type,
   name,
+  className,
   control,
   ...res
 }: ControlledInputType<TFieldValues>): JSX.Element => {
@@ -46,7 +47,7 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
   };
 
   return (
-    <>
+    <div className={className}>
       <Button
         type={"button"}
         variant="secondary"
@@ -66,7 +67,7 @@ export const ControlledInputFile = <TFieldValues extends FieldValues>({
       <Typography variant={"caption"} as={"span"} className={s.labelError}>
         {error?.message}
       </Typography>
-    </>
+    </div>
   );
 };
 
@@ -74,20 +75,19 @@ export type InputFileProps<T extends ElementType = "input"> = {
   type?: any;
   label?: string;
   children?: ReactNode;
-  className?: string;
   onLoadCover?: any;
   onChange?: (e: ChangeEvent<HTMLInputElement | File>) => void;
   changeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
 } & ComponentPropsWithoutRef<T>;
 
 const InputFile = forwardRef<HTMLInputElement, InputFileProps>((props, ref) => {
-  const { onChange, type, changeHandler, className, ...res } = props;
+  const { onChange, type, changeHandler, ...res } = props;
 
   return (
     <input
       onChange={changeHandler}
       ref={ref}
-      className={`${s.input} ${className}`}
+      className={s.input}
       type={type}
       title={""}
       {...res}
