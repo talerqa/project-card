@@ -54,6 +54,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 
     const handleLogout = () => {
       logout();
+      navigate("/login");
     };
 
     const handleRedirectToEditPage = () => {
