@@ -33,7 +33,20 @@ export const RowDeckTable: FC<Props> = ({ item, setOpen, isOwn }) => {
           )}
         </p>
       </Cell>
-      <Cell className={s.cell}>{item.answer}</Cell>
+      <Cell className={s.cell}>
+        <p className={s.name}>
+          {item.answer}
+          {item.answerImg ? (
+            <img
+              src={item?.answerImg as string}
+              alt="cover"
+              className={s.image}
+            />
+          ) : (
+            <></>
+          )}
+        </p>
+      </Cell>
       <Cell className={s.cell}>
         {new Date(item.updated).toLocaleDateString()}
       </Cell>

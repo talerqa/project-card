@@ -15,10 +15,11 @@ export const ControlledSelect = <TFieldValues extends FieldValues>({
   control,
   defaultValue,
   array,
+  onValueChange,
   ...selectProps
 }: ControlledCheckboxProps<TFieldValues>) => {
   const {
-    field: { onChange, value },
+    field: { onChange },
   } = useController({
     name,
     rules,
@@ -30,9 +31,8 @@ export const ControlledSelect = <TFieldValues extends FieldValues>({
   return (
     <Select
       array={array}
+      onValueChange={onValueChange}
       onChange={onChange}
-      value={value}
-      defaultValue={defaultValue}
       {...selectProps}
     />
   );

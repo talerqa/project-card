@@ -1,1 +1,1 @@
-export * from './editDeckModal.tsx'
+export * from "./editDeckModal.tsx";

@@ -23,7 +23,7 @@ const schema = z.object({
 });
 
 export const EditProfile = (): JSX.Element => {
-  const [editProfile, { isLoading, isError }] = useEditProfileMutation();
+  const [editProfile, { isLoading }] = useEditProfileMutation();
 
   const [nameEditMode, setNameEditMode] = useState(false);
 

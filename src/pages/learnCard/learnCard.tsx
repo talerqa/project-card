@@ -44,7 +44,7 @@ export const LearnCard = () => {
           >
             Question:
           </Typography>
-          <Typography variant={"body1"} as={"span"}>
+          <Typography variant={"body1"} as={"span"} className={s.questionText}>
             {` ${data?.question}`}
           </Typography>{" "}
         </div>
@@ -57,14 +57,18 @@ export const LearnCard = () => {
           <div className={s.showAnswer}>
             <Typography variant={"subtitle1"} as={"p"}>
               Answer:{" "}
-              <Typography variant={"body1"} as={"span"}>
+              <Typography
+                variant={"body1"}
+                as={"span"}
+                className={s.answerText}
+              >
                 {data?.answer}
               </Typography>
             </Typography>
             <img src={data?.answerImg} alt="" className={s.image} />
             <Typography variant={"subtitle1"} as={"p"}>
               {" "}
-              Rate Yoursers:
+              Rate Yourself:
             </Typography>
             <RadioGroup
               options={[

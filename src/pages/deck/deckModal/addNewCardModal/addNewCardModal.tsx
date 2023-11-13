@@ -2,14 +2,20 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { toast } from "react-toastify";
 
 import s from "./addNewCardModal.module.scss";
 
-import { Button } from "@/components/ui/button";
-import { ControlledInput } from "@/components/ui/controlled";
-import { ControlledInputFile } from "@/components/ui/controlled/controlled-input-file/controlled-input-file.tsx";
-import { ControlledSelect } from "@/components/ui/controlled/controlled-select/controlled-select.tsx";
+import {
+  Button,
+  ControlledInput,
+  ControlledInputFile,
+  ControlledSelect,
+} from "@/components";
+import {
+  deckSchemaAddCardModal,
+  DeckSchemaAddCardModalType,
+} from "@/pages/deck/deckModal/addNewCardModal/deckSchema.ts";
 import { useCreateCardMutation } from "@/services/decks";
 
 type Props = {
@@ -17,54 +23,24 @@ type Props = {
   closeModalHandler: () => void;
 };
 
-type DeckValuesForm = z.infer<typeof deckSchema>;
-
-const deckSchema = z.object({
-  text: z.string().min(3, "Name must be at least 3" + " characters"),
-  question: z.string().min(3, "Name must be at least 3" + " characters"),
-  answer: z.string().min(2, "Name must be at least 2" + " characters"),
-  questionImg: z
-    .instanceof(File)
-    .refine((file) => file.size < 1000000, "File size must be less than 1MB")
-    .refine(
-      (files) =>
-        [
-          "image/jpeg",
-          "image/jpg",
-          "image/png",
-          "image/webp",
-          "image/gif",
-        ].includes(files.type),
-      ".jpg, .jpeg, .png and .webp files are accepted.",
-    )
-    .optional(),
-  answerImg: z
-    .instanceof(File)
-    .refine((file) => file.size < 1000000, "File size must be less than 1MB")
-    .refine(
-      (files) =>
-        [
-          "image/jpeg",
-          "image/jpg",
-          "image/png",
-          "image/webp",
-          "image/gif",
-        ].includes(files.type),
-      ".jpg, .jpeg, .png and .webp files are accepted.",
-    )
-    .optional(),
-});
+const dataControlledSelect = [
+  { title: "Text", value: "text" },
+  { title: "Picture", value: "picture" },
+];
 
 export const AddNewCardModal = (props: Props) => {
   const { deckId, closeModalHandler } = props;
   const [questionImg, setQuestionImg] = useState<File | undefined>();
+  const [answerImg, setAnswerImg] = useState<File | undefined>();
+  const [questionFormat, setQuestionFormat] = useState("");
+  const [createCard] = useCreateCardMutation();
 
   const {
     handleSubmit,
     control,
     formState: {},
-  } = useForm<DeckValuesForm>({
-    resolver: zodResolver(deckSchema),
+  } = useForm<DeckSchemaAddCardModalType>({
+    resolver: zodResolver(deckSchemaAddCardModal),
     defaultValues: {
       answer: "",
       question: "",
@@ -74,19 +50,22 @@ export const AddNewCardModal = (props: Props) => {
     },
   });
 
-  const [createCard] = useCreateCardMutation();
-
-  const onSubmit = (data: DeckValuesForm) => {
-    const { question, answer, questionImg } = data;
+  const onSubmit = (data: DeckSchemaAddCardModalType) => {
+    const { question, answer, questionImg, answerImg } = data;
     const formData = new FormData();
 
     formData.append("question", String(question));
     formData.append("answer", String(answer));
     questionImg && formData.append("questionImg", questionImg);
+    answerImg && formData.append("answerImg", answerImg);
     createCard({ id: deckId, body: formData })
       .unwrap()
       .then(() => {})
-      .catch(() => {});
+      .catch((error) => {
+        toast.warn(error.data.errorMessages[0].message);
+        toast.warn(error.data.errorMessages[1].message);
+      });
+
     closeModalHandler();
   };
 
@@ -94,33 +73,26 @@ export const AddNewCardModal = (props: Props) => {
     setQuestionImg(data);
   };
 
+  const onLoadAnswerCover = (data: File) => {
+    setAnswerImg(data);
+  };
+
+  const imageQuestion = questionImg && URL.createObjectURL(questionImg);
+  const imageAnswer = answerImg && URL.createObjectURL(answerImg);
   const handleSubmitForm = handleSubmit(onSubmit);
-  const image = questionImg && URL.createObjectURL(questionImg);
 
   return (
     <div className={s.modal}>
       <form onSubmit={handleSubmitForm} className={s.deckModal}>
         <div className={s.inputBlock}>
-          {image && <img src={image} alt="img-deck" className={s.image} />}
-          <ControlledInputFile
-            name={"questionImg"}
-            type={"file"}
-            onLoadCover={onLoadCover}
-            className={s.inputFile}
-            title={"Add image"}
-            control={control}
-          />
           <ControlledSelect
             placeholder={"Text"}
-            array={[
-              { title: "Text", value: "text" },
-              { title: "Picture", value: "picture" },
-            ]}
+            array={dataControlledSelect}
             name={"text"}
             control={control}
-            defaultValue={"text"}
             label={"Choose a question format"}
             className={s.select}
+            onValueChange={(e) => setQuestionFormat(e)}
           />
           <ControlledInput
             name={"question"}
@@ -129,6 +101,23 @@ export const AddNewCardModal = (props: Props) => {
             label={"Question"}
             className={s.inputQuestion}
           />
+          {imageQuestion && questionFormat === "Picture" ? (
+            <img src={imageQuestion} alt="img-deck" className={s.image} />
+          ) : (
+            <></>
+          )}
+          {questionFormat === "Picture" ? (
+            <ControlledInputFile
+              name={"questionImg"}
+              type={"file"}
+              onLoadCover={onLoadCover}
+              className={s.inputFile}
+              title={"Add image"}
+              control={control}
+            />
+          ) : (
+            <></>
+          )}
           <ControlledInput
             name={"answer"}
             type={"text"}
@@ -136,6 +125,23 @@ export const AddNewCardModal = (props: Props) => {
             label={"Answer"}
             className={s.inputAnswer}
           />
+          {imageQuestion && questionFormat === "Picture" ? (
+            <img src={imageAnswer} alt="img-deck" className={s.image} />
+          ) : (
+            <></>
+          )}
+          {questionFormat === "Picture" ? (
+            <ControlledInputFile
+              name={"answerImg"}
+              type={"file"}
+              onLoadCover={onLoadAnswerCover}
+              className={s.inputFile}
+              title={"Add image"}
+              control={control}
+            />
+          ) : (
+            <></>
+          )}
         </div>
         <div className={s.buttonsBlock}>
           <Button
