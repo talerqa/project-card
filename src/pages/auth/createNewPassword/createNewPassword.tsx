@@ -1,5 +1,5 @@
-import { Page } from "@/components/ui/page";
 import { CreateNewPassword } from "@/components/auth/createNewPassword";
+import { Page } from "@/components/ui/page";
 
 export const CreateNewPasswordPage = () => {
   return (

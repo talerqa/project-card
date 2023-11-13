@@ -1,9 +1,10 @@
-import {Page} from "@/components/ui/page";
-import {CheckEmail} from "@/components/auth/checkEmail";
+import { CheckEmail } from "@/components/auth/checkEmail";
+import { Page } from "@/components/ui/page";
 
 export const CheckEmailPage = () => {
-  return (<Page>
-      <CheckEmail/>
+  return (
+    <Page>
+      <CheckEmail />
     </Page>
-  )
-}
+  );
+};

@@ -1,13 +1,12 @@
 import { useParams } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
-
 import s from "./confirmationPage.module.scss";
 
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Page } from "@/components/ui/page";
-import { useVerifyEmailMutation } from "@/services/auth";
 import { Typography } from "@/components/ui/typography";
+import { useVerifyEmailMutation } from "@/services/auth";
 
 export const Confirmation = () => {
   let { code } = useParams();
