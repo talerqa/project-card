@@ -50,13 +50,11 @@ export const DeckModal = (props: Props) => {
         </>
       )}
 
-      {/*  /!*{showModal === 'Delete Pack' &&*!/*/}
+      {/*  /!*{showModal === 'Delete Card' &&*!/*/}
       {/*  /!*    <DeleteDeckModal item={pack}*!/*/}
       {/*  /!*                     closeModalHandler={closeModalHandler}/>}*!/*/}
-      {/*  /!*{showModal === 'Edit Pack' &&*!/*/}
+      {/*  /!*{showModal === 'Edit Card' &&*!/*/}
       {/*  /!*    <EditModalForm item={pack} closeModalHandler={closeModalHandler}/>}*!/*/}
-      {/*  /!*{showModal === 'Add New Pack' &&*!/*/}
-      {/*  /!*    <AddNewCardModal item={pack} closeModalHandler={closeModalHandler}/>}*!/*/}
     </DialogsModal>
   );
 };
