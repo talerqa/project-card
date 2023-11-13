@@ -5,18 +5,18 @@ import s from "./tab-switcher.module.scss";
 export type TabSwitcherProps = {
   tabs: string[];
   disabled?: boolean;
-  active: any
-  onValueChange: any
+  active: any;
+  onValueChange: any;
 };
 
 export const TabSwitcher = ({
-                              tabs,
-                              disabled,
-                              active,
-                              onValueChange
-                            }: TabSwitcherProps) => {
-
-  return (<ToggleGroup.Root
+  tabs,
+  disabled,
+  active,
+  onValueChange,
+}: TabSwitcherProps) => {
+  return (
+    <ToggleGroup.Root
       type="single"
       value={`${active}`}
       onValueChange={onValueChange}
@@ -30,8 +30,8 @@ export const TabSwitcher = ({
               disabled
                 ? s.tabDisabled
                 : active === index
-                  ? s.buttonTab + " " + s.tabActive
-                  : s.buttonTab + " " + s.ToggleGroupItem
+                ? s.buttonTab + " " + s.tabActive
+                : s.buttonTab + " " + s.ToggleGroupItem
             }
           >
             {tab}
