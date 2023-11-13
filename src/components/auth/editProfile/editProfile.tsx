@@ -8,6 +8,7 @@ import { z } from "zod";
 import s from "./editProfile.module.scss";
 
 import { EditSvg } from "@/assets/components/edit";
+import { Loader } from "@/assets/components/loader";
 import { Logout } from "@/assets/components/logout";
 import { defaultAva } from "@/assets/defaultAva";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ const schema = z.object({
 });
 
 export const EditProfile = (): JSX.Element => {
-  const [editProfile] = useEditProfileMutation();
+  const [editProfile, { isLoading, isError }] = useEditProfileMutation();
 
   const [nameEditMode, setNameEditMode] = useState(false);
 
@@ -83,6 +84,7 @@ export const EditProfile = (): JSX.Element => {
           handleNameEditClick={handleNameEditClick}
           name={name}
           email={email}
+          isLoading={isLoading}
         />
       )}
     </Card>
@@ -123,6 +125,7 @@ type WithoutNameEditModeProps = {
   name: string | undefined;
   email: string | undefined;
   handleNameEditClick: () => void;
+  isLoading: boolean;
 };
 
 const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
@@ -136,12 +139,17 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
 
   return (
     <>
-      <Typography variant={"h1"} as={"h1"} className={s.name}>
-        {props.name}
-        <button onClick={props.handleNameEditClick}>
-          <EditSvg />
-        </button>
-      </Typography>
+      {props.isLoading ? (
+        <Loader />
+      ) : (
+        <Typography variant={"h1"} as={"h1"} className={s.name}>
+          {props.name}
+          <button onClick={props.handleNameEditClick}>
+            <EditSvg />
+          </button>
+        </Typography>
+      )}
+
       <Typography variant={"body2"} as={"span"} className={s.email}>
         {props.email}
       </Typography>

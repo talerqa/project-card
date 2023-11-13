@@ -1,6 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { z } from "zod";
 
 import s from "./createNewPassword.module.scss";
@@ -10,7 +11,6 @@ import { Card } from "@/components/ui/card";
 import { ControlledInput } from "@/components/ui/controlled";
 import { Typography } from "@/components/ui/typography";
 import { useResetPasswordMutation } from "@/services/auth";
-import { useParams } from "react-router-dom";
 
 type FormValues = z.infer<typeof loginSchema>;
 
@@ -24,7 +24,7 @@ type CreateNewPasswordProps = {
 };
 
 export const CreateNewPassword = (
-  props: CreateNewPasswordProps
+  props: CreateNewPasswordProps,
 ): JSX.Element => {
   const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation();
   let { token } = useParams();
@@ -33,7 +33,7 @@ export const CreateNewPassword = (
     resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmitForm = ({ password  }: any) => {
+  const handleSubmitForm = ({ password }: any) => {
     token && resetPassword({ token: token, password: password });
   };
 
@@ -46,12 +46,9 @@ export const CreateNewPassword = (
       ) : (
         <>
           <DevTool control={control} />
-          <Typography
-            variant={"large"}
-            as={"p"}
-            children={"Create new password"}
-            className={s.title}
-          />
+          <Typography variant={"large"} as={"p"} className={s.title}>
+            Create new password
+          </Typography>
           <form onSubmit={handleSubmit(handleSubmitForm)} className={s.form}>
             <ControlledInput
               name={"password"}
@@ -63,23 +60,20 @@ export const CreateNewPassword = (
             <Typography
               variant={"body2"}
               as={"p"}
-              children={
-                "Create new password and we will send you further instructions to email"
-              }
               className={s.createNewPassword}
-            />
+            >
+              Create new password and we will send you further instructions to
+              email
+            </Typography>
             <Button
               type="submit"
               disabled={isLoading}
-              children={
-                <Typography
-                  variant={"subtitle2"}
-                  as={"span"}
-                  children={"Create New Password"}
-                />
-              }
               className={s.buttonSubmitForm}
-            />
+            >
+              <Typography variant={"subtitle2"} as={"span"}>
+                Create New Password
+              </Typography>
+            </Button>
           </form>
         </>
       )}
