@@ -64,7 +64,7 @@ export const LearnCard = () => {
             <img src={data?.answerImg} alt="" className={s.image} />
             <Typography variant={"subtitle1"} as={"p"}>
               {" "}
-              Rate Yoursers:
+              Rate Yourself:
             </Typography>
             <RadioGroup
               options={[

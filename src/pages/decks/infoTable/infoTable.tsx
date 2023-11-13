@@ -58,7 +58,7 @@ export const InfoTable: FC<Props> = ({
       setActive(0);
     }
     if (maxCardsCount) {
-      dispatch(setMaxCard({ maxCard: maxCardsCount }));
+      dispatch(setMaxCard({ maxCard: max }));
     } else {
       return;
     }
@@ -69,7 +69,7 @@ export const InfoTable: FC<Props> = ({
         setPage(totalPage as number);
       }
     }
-  }, [maxCardsCount, authorId, currentPage, totalPage]);
+  }, [maxCardsCount, authorId, currentPage, totalPage, max]);
 
   const onValueChange = (value: number) => {
     setPage(currentPage);
