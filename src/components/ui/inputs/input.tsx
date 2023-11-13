@@ -28,6 +28,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const inputType = getInputType(type, showPassword);
 
+    const handleIconButtonClick = (
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowPassword(!showPassword);
+    };
+
     return (
       <div className={clsx(s.inputBlock, className)}>
         <Typography variant={"body2"} as={"span"} className={s.label}>
@@ -38,7 +46,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               className={s.eyeButton}
               disabled={disabled}
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={(e) => handleIconButtonClick(e)}
             >
               {showPassword ? (
                 <EyeNoneIcon />
@@ -69,8 +77,8 @@ const getInputType = (
   type: ComponentPropsWithoutRef<"input">["type"],
   showPassword: boolean,
 ) => {
-  if (type === "search") return "search";
   if (type === "password" && !showPassword) return "password";
+  if (type === "password" && showPassword) return "text";
 
   return type;
 };
