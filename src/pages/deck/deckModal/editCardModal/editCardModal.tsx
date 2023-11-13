@@ -19,8 +19,6 @@ const deckSchema = z.object({
 export const EditCardModal = (props: any) => {
   const { deckId } = props;
 
-  console.log(deckId);
-
   const {
     handleSubmit,
     control,
@@ -42,8 +40,6 @@ export const EditCardModal = (props: any) => {
     formData.append("question", String(question));
     formData.append("answer", String(answer));
     createCard({ id: deckId, body: formData });
-    console.log(formData.get("question"));
-    //  cover && formData.append('cover', cover)
     props.closeModalHandler();
   };
 

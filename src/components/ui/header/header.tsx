@@ -9,17 +9,14 @@ import { defaultAva } from "@/assets/defaultAva";
 import signout from "@/assets/img/exit.svg";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
 import {
   DropDown,
   ItemDropDown,
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
-
 import { Typography } from "@/components/ui/typography";
 import { useLogoutMutation } from "@/services/auth";
 import { useAppSelector } from "@/services/store";
-
 
 export type HeaderProps<T extends ElementType = "input"> = {
   isAuth: boolean;
@@ -57,6 +54,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 
     const handleLogout = () => {
       logout();
+      navigate("/login");
     };
 
     const handleRedirectToEditPage = () => {
