@@ -48,7 +48,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       (state) => state.userReducer,
     );
 
-    const [logout] = useLogoutMutation();
+    const [logout] = useLogoutMutation({ fixedCacheKey: "shared-logout" });
 
     const navigate = useNavigate();
 

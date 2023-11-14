@@ -57,10 +57,6 @@ const publicRoutes: RouteObject[] = [
         path: "/confirm-email/:code",
         element: <Confirmation />,
       },
-      {
-        path: "/edit-profile",
-        element: <EditProfilePage />,
-      },
     ],
   },
 ];
@@ -86,6 +82,10 @@ const privateRoutes: RouteObject[] = [
       {
         path: "/decks/:id/learn",
         element: <LearnCard />,
+      },
+      {
+        path: "/edit-profile",
+        element: <EditProfilePage />,
       },
       {
         path: "*",

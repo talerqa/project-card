@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 
+import { Loader } from "@/assets/components/loader";
 import { SignIn } from "@/components/auth/signIn";
 import { Page } from "@/components/ui/page";
 import {
@@ -22,7 +23,7 @@ export const SignInPage = () => {
           marginTop: "100px",
         }}
       >
-        Loading...
+        <Loader />
       </div>
     );
 
