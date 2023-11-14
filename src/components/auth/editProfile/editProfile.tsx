@@ -23,7 +23,12 @@ const schema = z.object({
 });
 
 export const EditProfile = (): JSX.Element => {
-  const [editProfile, { isLoading }] = useEditProfileMutation();
+
+  const [editProfile] = useEditProfileMutation();
+
+  const [isAvatarUpdating, setIsAvatarUpdating] = useState(false);
+  const [isNameUpdating, setIsNameUpdating] = useState(false);
+
 
   const [nameEditMode, setNameEditMode] = useState(false);
 
@@ -35,14 +40,16 @@ export const EditProfile = (): JSX.Element => {
     inputRef && inputRef.current?.click();
   };
 
-  const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
       const formData = new FormData();
 
       file && formData.append("avatar", file);
 
-      editProfile(formData);
+      setIsAvatarUpdating(true);
+      await editProfile(formData);
+      setIsAvatarUpdating(false);
     }
   };
 
@@ -50,8 +57,11 @@ export const EditProfile = (): JSX.Element => {
     setNameEditMode(true);
   };
 
-  const handleFormSubmit = (data: any) => {
-    editProfile({ name: data.name });
+  const handleFormSubmit = async (data: any) => {
+    setIsNameUpdating(true);
+    await editProfile({ name: data.name });
+    setIsNameUpdating(false);
+
     setNameEditMode(false);
   };
 
@@ -60,31 +70,25 @@ export const EditProfile = (): JSX.Element => {
       <Typography variant={"large"} as={"span"} className={s.heading}>
         Personal Information
       </Typography>
-      <div className={s.imageContainer}>
-        <img
-          alt="default-image"
-          className={s.userAvatar}
-          src={avatar || defaultAva}
-        />
-        <input
-          type="file"
-          accept="image/jpg, image/jpeg"
-          style={{ display: "none" }}
-          ref={inputRef}
-          onChange={handleUpload}
-        />
-        <button onClick={handleImageChangeClick}>
-          <EditSvg />
-        </button>
-      </div>
-      {nameEditMode ? (
-        <WithNameEditMode handleFormSubmit={handleFormSubmit} name={name} />
+      {isAvatarUpdating ? (
+        <Loader class={s.avaLoader} />
       ) : (
-        <WithoutNameEditMode
+        <AvaInterface
+          handleUpload={handleUpload}
+          inputRef={inputRef}
+          handleImageChangeClick={handleImageChangeClick}
+          avatar={avatar}
+        />
+      )}
+      {isNameUpdating ? (
+        <Loader class={s.nameLoader} />
+      ) : (
+        <NameInterface
+          nameEditMode={nameEditMode}
+          handleFormSubmit={handleFormSubmit}
+          name={name || ""}
+          email={email || ""}
           handleNameEditClick={handleNameEditClick}
-          name={name}
-          email={email}
-          isLoading={isLoading}
         />
       )}
     </Card>
@@ -125,11 +129,10 @@ type WithoutNameEditModeProps = {
   name: string | undefined;
   email: string | undefined;
   handleNameEditClick: () => void;
-  isLoading: boolean;
 };
 
 const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
-  const [logout] = useLogoutMutation();
+  const [logout] = useLogoutMutation({ fixedCacheKey: "shared-logout" });
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
@@ -139,17 +142,12 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
 
   return (
     <>
-      {props.isLoading ? (
-        <Loader />
-      ) : (
-        <Typography variant={"h1"} as={"h1"} className={s.name}>
-          {props.name}
-          <button onClick={props.handleNameEditClick}>
-            <EditSvg />
-          </button>
-        </Typography>
-      )}
-
+      <Typography variant={"h1"} as={"h1"} className={s.name}>
+        {props.name}
+        <button onClick={props.handleNameEditClick}>
+          <EditSvg />
+        </button>
+      </Typography>
       <Typography variant={"body2"} as={"span"} className={s.email}>
         {props.email}
       </Typography>
@@ -163,4 +161,66 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
       </Button>
     </>
   );
+};
+
+type AvaInterfacePropsType = {
+  avatar?: string;
+  inputRef: any;
+  handleUpload: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleImageChangeClick: () => void;
+};
+
+const AvaInterface = ({
+  avatar,
+  inputRef,
+  handleUpload,
+  handleImageChangeClick,
+}: AvaInterfacePropsType) => {
+  return (
+    <div className={s.imageContainer}>
+      <img
+        alt="default-image"
+        className={s.userAvatar}
+        src={avatar || defaultAva}
+      />
+      <input
+        type="file"
+        accept="image/jpg, image/jpeg"
+        style={{ display: "none" }}
+        ref={inputRef}
+        onChange={handleUpload}
+      />
+      <button onClick={handleImageChangeClick}>
+        <EditSvg />
+      </button>
+    </div>
+  );
+};
+
+type NameInterfacePropsType = {
+  nameEditMode: boolean;
+  handleFormSubmit: (data: any) => void;
+  name: string;
+  handleNameEditClick: () => void;
+  email: string;
+};
+
+const NameInterface = ({
+  nameEditMode,
+  handleFormSubmit,
+  name,
+  handleNameEditClick,
+  email,
+}: NameInterfacePropsType) => {
+  if (nameEditMode) {
+    return <WithNameEditMode handleFormSubmit={handleFormSubmit} name={name} />;
+  } else {
+    return (
+      <WithoutNameEditMode
+        handleNameEditClick={handleNameEditClick}
+        name={name}
+        email={email}
+      />
+    );
+  }
 };
