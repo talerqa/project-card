@@ -6,6 +6,7 @@ import { EditSvg } from "@/assets/components/edit.tsx";
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
 import { Grade } from "@/components/ui/grade";
 import { Table } from "@/components/ui/table";
+import { useDeleteCardMutation } from "@/services/cards";
 import { CardType } from "@/services/decks";
 
 type Props = {
@@ -16,6 +17,13 @@ type Props = {
 
 export const RowDeckTable: FC<Props> = ({ item, setOpen, isOwn }) => {
   const { Row, Cell } = Table;
+
+  const [deleteCard] = useDeleteCardMutation();
+
+  const handleDeleteCard = () => {
+    setOpen(true);
+    deleteCard(item.id);
+  };
 
   return (
     <Row key={item.id}>
@@ -64,14 +72,7 @@ export const RowDeckTable: FC<Props> = ({ item, setOpen, isOwn }) => {
             >
               <EditSvg />
             </button>
-            <button
-              className={s.button}
-              onClick={() => {
-                // setPack(item)
-                setOpen(true);
-                // setShowModal('Delete Pack')
-              }}
-            >
+            <button className={s.button} onClick={handleDeleteCard}>
               <TrashIcon />
             </button>
           </div>
