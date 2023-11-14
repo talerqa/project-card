@@ -31,6 +31,10 @@
       .questionTitle {
         margin-right: 3px;
       }
+
+      .questionText {
+        word-break: break-word;
+      }
     }
 
     .numberAttempts {
@@ -47,6 +51,10 @@
     flex-direction: column;
     justify-content: start;
     height: auto;
+
+    .answerText {
+      word-break: break-word;
+    }
   }
 }
 

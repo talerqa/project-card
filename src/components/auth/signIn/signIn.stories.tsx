@@ -1,27 +1,27 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
-import {SignIn} from './signIn.tsx'
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   reactRouterParameters,
-  withRouter
+  withRouter,
 } from "storybook-addon-react-router-v6";
 
+import { SignIn } from "./signIn.tsx";
+
 const meta = {
-  title: 'Auth/SignIn',
+  title: "Auth/SignIn",
   component: SignIn,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: '/' },
+      routing: { path: "/" },
     }),
   },
-} satisfies Meta<typeof SignIn>
+} satisfies Meta<typeof SignIn>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},
-}
+};

@@ -44,7 +44,7 @@ export const HeaderDeck = (props: Props) => {
       <DeckModal
         activeMenu={open}
         setActiveMenu={setOpen}
-        item={deck}
+        item={deck as DeckType}
         setShowModal={setShowModal}
         showModal={showModal}
       />
