@@ -23,6 +23,27 @@ export const RowTable = (props: Props) => {
   const { data } = useAuthMeQuery();
   const navigate = useNavigate();
 
+  const learnDeckHandler = () => {
+    setPack(item);
+    setActiveMenu(true);
+    setShowModal("Learn");
+    item.cardsCount === 0
+      ? navigate(`${item.id}/cards`)
+      : navigate(`${item.id}/learn`);
+  };
+
+  const editDeckHandler = () => {
+    setPack(item);
+    setActiveMenu(true);
+    setShowModal("Edit Pack");
+  };
+
+  const deleteDeckHandler = () => {
+    setPack(item);
+    setActiveMenu(true);
+    setShowModal("Delete Pack");
+  };
+
   return (
     <Row key={item.id}>
       <Cell className={s.cell}>
@@ -42,38 +63,16 @@ export const RowTable = (props: Props) => {
       <Cell className={`${s.cell} ${s.createdByRow}`}>
         <span>{item.author.name}</span>
         <div className={s.buttonBlock}>
-          <button
-            className={s.button}
-            onClick={() => {
-              setPack(item);
-              setActiveMenu(true);
-              setShowModal("Learn");
-              navigate(`${item.id}/learn`);
-            }}
-          >
+          <button className={s.button} onClick={learnDeckHandler}>
             <PlaySvg />
           </button>
           {data?.id === item.userId && (
-            <button
-              className={s.button}
-              onClick={() => {
-                setPack(item);
-                setActiveMenu(true);
-                setShowModal("Edit Pack");
-              }}
-            >
+            <button className={s.button} onClick={editDeckHandler}>
               <EditSvg />
             </button>
           )}
           {data?.id === item.userId && (
-            <button
-              className={s.button}
-              onClick={() => {
-                setPack(item);
-                setActiveMenu(true);
-                setShowModal("Delete Pack");
-              }}
-            >
+            <button className={s.button} onClick={deleteDeckHandler}>
               <TrashIcon />
             </button>
           )}
