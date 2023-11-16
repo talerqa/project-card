@@ -4,6 +4,7 @@ import s from "./tableOwnDeck.module.scss";
 
 import { Pagination } from "@/components/ui/pagination";
 import { HeaderTable, Table } from "@/components/ui/table";
+import { ShowModalType } from "@/pages";
 import { RowDeckTable } from "@/pages/deck/tableDeck";
 import {
   headerTitleTableArray,
@@ -14,15 +15,17 @@ import { CardType, DeckType, GetResponseTypeCard } from "@/services/decks";
 type TableOwnDeckType = {
   deckData?: DeckType;
   cards?: GetResponseTypeCard;
-  setOpen: (value: boolean) => void;
+  handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
+  setCardToDeleteID: (id: string) => void;
 };
 
 export const TableOwnDeck: FC<TableOwnDeckType> = ({
   deckData,
   cards,
-  setOpen,
+  handleOpenModal,
   isOwn,
+  setCardToDeleteID,
 }) => {
   const { Root, Body } = Table;
 
@@ -36,13 +39,14 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
         />
         <Body className={s.headerTable}>
           {deckData?.cardsCount &&
-            cards?.items.map((item: CardType, index) => {
+            cards?.items.map((item: CardType) => {
               return (
                 <RowDeckTable
-                  key={index}
+                  key={item.id}
                   item={item}
-                  setOpen={setOpen}
+                  handleOpenModal={handleOpenModal}
                   isOwn={isOwn}
+                  setCardToDeleteID={setCardToDeleteID}
                 />
               );
             })}

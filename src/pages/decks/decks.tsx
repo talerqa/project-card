@@ -27,7 +27,10 @@ export type ShowModalType =
   | "Delete Pack"
   | "Edit Pack"
   | "Learn"
-  | "Add New Pack";
+  | "Add New Pack"
+  | "Delete Card"
+  | "Add New Card"
+  | "Edit Card";
 
 const HeaderTitleTableArray = [
   {

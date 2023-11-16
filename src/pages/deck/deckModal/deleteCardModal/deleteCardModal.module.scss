@@ -1,36 +1,20 @@
 .modal {
-  justify-content: normal;
-  inset: 100px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px 2px 0 0;
+  width: 494px;
+}
 
-  .deckModal {
-    display: flex;
-    flex-direction: column;
-    border-radius: 2px 2px 0 0;
-    width: 494px;
+.buttonGroup {
+  padding: 12px 0 36px;
+  display: flex;
+  justify-content: space-between;
+}
 
-    .inputBlock {
-      display: flex;
-      flex-direction: column;
+.cancelButton {
+  background-color: var(--color-dark-300);
+}
 
-      .select {
-        width: 494px;
-        box-sizing: border-box;
-      }
-
-      .inputQuestion {
-    padding-top: 24px;
-      }
-
-      .inputAnswer {
-        padding: 24px 0;
-      }
-
-    }
-
-    .buttonsBlock {
-      padding: 12px 0 36px;
-      display: flex;
-      justify-content: space-between;
-    }
-  }
+.cancelButton:hover {
+  background-color: var(--color-dark-100);
 }
