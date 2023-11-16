@@ -7,23 +7,17 @@ import { DeckModal, ShowModalType } from "@/pages/decks";
 import { DeckType, GetResponseTypeCard } from "@/services";
 import { AuthMeResponseType } from "@/services/auth";
 
-export type ModalType =
-  | ""
-  | "Delete Card"
-  | "Edit Card"
-  | "Learn"
-  | "Add New Card";
-
 export type Props = {
   open: boolean;
   setOpen: (value: boolean) => void;
-  showModal: ModalType | ShowModalType;
-  setShowModal: (value: ModalType | ShowModalType) => void;
+  showModal: ShowModalType;
+  setShowModal: (value: ShowModalType) => void;
   deck?: DeckType;
   auth?: AuthMeResponseType;
   cards?: GetResponseTypeCard;
   question: string;
   setQuestion: (value: string) => void;
+  cardToDeleteID: string;
 };
 
 export const HeaderDeck = (props: Props) => {
@@ -37,6 +31,7 @@ export const HeaderDeck = (props: Props) => {
     cards,
     question,
     setQuestion,
+    cardToDeleteID,
   } = props;
 
   return (
@@ -47,6 +42,7 @@ export const HeaderDeck = (props: Props) => {
         item={deck as DeckType}
         setShowModal={setShowModal}
         showModal={showModal}
+        cardToDeleteID={cardToDeleteID}
       />
       {deck?.userId === auth?.id ? (
         <HeaderOwnDeck

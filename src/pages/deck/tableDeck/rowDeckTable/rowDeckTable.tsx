@@ -6,23 +6,31 @@ import { EditSvg } from "@/assets/components/edit.tsx";
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
 import { Grade } from "@/components/ui/grade";
 import { Table } from "@/components/ui/table";
-import { useDeleteCardMutation } from "@/services/cards";
+import { ShowModalType } from "@/pages";
 import { CardType } from "@/services/decks";
 
 type Props = {
   item: CardType;
-  setOpen: (value: boolean) => void;
+  handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
+  setCardToDeleteID: (id: string) => void;
 };
 
-export const RowDeckTable: FC<Props> = ({ item, setOpen, isOwn }) => {
+export const RowDeckTable: FC<Props> = ({
+  item,
+  handleOpenModal,
+  isOwn,
+  setCardToDeleteID,
+}) => {
   const { Row, Cell } = Table;
 
-  const [deleteCard] = useDeleteCardMutation();
+  const handleEditCardClick = () => {
+    handleOpenModal("Edit Card", true);
+  };
 
-  const handleDeleteCard = () => {
-    setOpen(true);
-    deleteCard(item.id);
+  const handleDeleteCardClick = () => {
+    handleOpenModal("Delete Card", true);
+    setCardToDeleteID(item.id);
   };
 
   return (
@@ -62,17 +70,10 @@ export const RowDeckTable: FC<Props> = ({ item, setOpen, isOwn }) => {
         <Grade value={item.grade} maxRating={5} />
         {isOwn ? (
           <div className={s.buttonBlock}>
-            <button
-              className={s.button}
-              onClick={() => {
-                // setPack(item)
-                setOpen(true);
-                // setShowModal('Edit Pack')
-              }}
-            >
+            <button className={s.button} onClick={handleEditCardClick}>
               <EditSvg />
             </button>
-            <button className={s.button} onClick={handleDeleteCard}>
+            <button className={s.button} onClick={handleDeleteCardClick}>
               <TrashIcon />
             </button>
           </div>

@@ -16,20 +16,14 @@ import { ShowModalType } from "@/pages/decks";
 import { useAuthMeQuery } from "@/services/auth";
 import { useGetCardsQuery, useGetDeckQuery } from "@/services/decks";
 
-export type ModalType =
-  | ""
-  | "Delete Card"
-  | "Edit Card"
-  | "Learn"
-  | "Add New Card";
-
 export const Deck = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [question, setQuestion] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const [showModal, setShowModal] = useState<ModalType | ShowModalType>("");
+  const [showModal, setShowModal] = useState<ShowModalType>("");
+  const [cardToDeleteID, setCardToDeleteID] = useState("");
 
   const { data } = useGetDeckQuery({ id });
   const { data: auth } = useAuthMeQuery();
@@ -42,6 +36,11 @@ export const Deck = () => {
   const addNewCardHandler = () => {
     setShowModal("Add New Card");
     setOpen(true);
+  };
+
+  const handleOpenModal = (modalType: ShowModalType, isModalOpen: boolean) => {
+    setShowModal(modalType);
+    setOpen(isModalOpen);
   };
 
   if (isLoading) return <Loader />;
@@ -59,6 +58,7 @@ export const Deck = () => {
         cards={cards}
         setQuestion={setQuestion}
         question={question}
+        cardToDeleteID={cardToDeleteID}
       />
       <div className={s.mainBlock}>
         {isOwn ? (
@@ -85,8 +85,9 @@ export const Deck = () => {
               <TableOwnDeck
                 deckData={data}
                 cards={cards}
-                setOpen={setOpen}
+                handleOpenModal={handleOpenModal}
                 isOwn={isOwn}
+                setCardToDeleteID={setCardToDeleteID}
               />
             )}
           </>
