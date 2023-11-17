@@ -112,16 +112,20 @@ const PageButton = ({ activePage, pageNumber, onClick }: PageButtonProps) => {
     onClick(+value);
   };
 
+  const classNameButton = (activePage: number, pageNumber: number | string) => {
+    if (isNaN(Number(pageNumber))) {
+      return s.dots;
+    } else if (activePage === pageNumber) {
+      return s.paginationPage + " " + s.activePage;
+    } else {
+      return s.paginationPage;
+    }
+  };
+
   return (
     <div
       onClick={() => onButtonClick(pageNumber)}
-      className={
-        isNaN(Number(pageNumber))
-          ? s.dots
-          : activePage == pageNumber
-          ? s.paginationPage + " " + s.activePage
-          : s.paginationPage
-      }
+      className={classNameButton(activePage, pageNumber)}
     >
       {pageNumber}
     </div>

@@ -1,12 +1,15 @@
-import { EditModalForm } from "../decks/deckModal/editModalForm";
-
 import { DialogsModal } from "@/components/ui/dialogs";
 import {
   AddNewCardModal,
   DeleteCardModal,
   EditCardModal,
 } from "@/pages/deck/deckModal";
-import { CreateDeckForm, DeleteDeckModal, ShowModalType } from "@/pages/decks";
+import {
+  CreateDeckForm,
+  DeleteDeckModal,
+  EditModalForm,
+  ShowModalType,
+} from "@/pages/decks";
 import { CardType, DeckType } from "@/services/decks";
 
 type Props = {

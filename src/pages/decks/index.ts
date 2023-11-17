@@ -1,4 +1,4 @@
 export * from "./decks.tsx";
 export * from "./deckModal";
-export * from "./rowTable";
+export * from "./tableDecks/rowTable";
 export * from "./infoTable";

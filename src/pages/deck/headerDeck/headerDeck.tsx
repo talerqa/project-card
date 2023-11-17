@@ -3,7 +3,8 @@ import s from "./headerDeck.module.scss";
 import { Input } from "@/components/ui/inputs";
 import { HeaderFriendDeck } from "@/pages/deck/headerDeck/headerFriendDeck";
 import { HeaderOwnDeck } from "@/pages/deck/headerDeck/headerOwnDeck";
-import { DeckModal, ShowModalType } from "@/pages/decks";
+import { DeckModal } from "@/pages/deckModal";
+import { ShowModalType } from "@/pages/decks";
 import { CardType, DeckType, GetResponseTypeCard } from "@/services";
 import { AuthMeResponseType } from "@/services/auth";
 
