@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType, forwardRef } from "react";
 
+import { UnwrapPromise } from "@reduxjs/toolkit/dist/query/tsHelpers";
 import { useNavigate } from "react-router-dom";
 
 import s from "./header.module.scss";
@@ -15,20 +16,17 @@ import {
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
 import { Typography } from "@/components/ui/typography";
-import { useLogoutMutation } from "@/services/auth";
 import { useAppSelector } from "@/services/store";
 
 export type HeaderProps<T extends ElementType = "input"> = {
   isAuth: boolean;
-  avatarImg?: string;
-  name?: string;
-  email?: string;
   onClick?: () => void;
   onSignInHandler?: () => void;
   onShowProfileHandler?: () => void;
   onLogOutHandler?: () => void;
   label?: string;
   className?: string;
+  setLogout: () => UnwrapPromise<any>;
 } & ComponentPropsWithoutRef<T>;
 
 export const Header = forwardRef<HTMLDivElement, HeaderProps>(
@@ -41,6 +39,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       onSignInHandler,
       onShowProfileHandler,
       onLogOutHandler,
+      setLogout,
       ...res
     } = props;
 
@@ -48,13 +47,10 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       (state) => state.userReducer,
     );
 
-    const [logout] = useLogoutMutation({ fixedCacheKey: "shared-logout" });
-
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-      logout();
-      navigate("/login");
+    const handleLogout = async () => {
+      await setLogout();
     };
 
     const handleRedirectToEditPage = () => {

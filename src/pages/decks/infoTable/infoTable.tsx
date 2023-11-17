@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/inputs";
 import { TabSwitcher } from "@/components/ui/tab-switcher";
 import { Typography } from "@/components/ui/typography";
 import { ShowModalType } from "@/pages/decks";
+import { useAuthMeQuery } from "@/services";
 import { decksActions } from "@/services/decksSlice";
 import {
   authorIdSelector,
@@ -23,18 +24,17 @@ type Props = {
   setShowModal: (value: ShowModalType) => void;
   setOpenMenu: (value: boolean) => void;
   maxCardsCount?: number;
-  auth?: string;
   totalPage?: number;
 };
 
 export const InfoTable: FC<Props> = ({
   setShowModal,
   setOpenMenu,
-  auth,
   maxCardsCount,
   totalPage,
 }) => {
   const dispatch = useAppDispatch();
+  const { data: auth } = useAuthMeQuery();
 
   const currentPage = useAppSelector(currentPageSelector);
   const minCount = useAppSelector(minCardCountSelector);
@@ -75,7 +75,7 @@ export const InfoTable: FC<Props> = ({
   const onValueChange = (value: number) => {
     setPage(currentPage);
     if (active) {
-      dispatch(setAuthorId({ authorId: auth as string }));
+      dispatch(setAuthorId({ authorId: auth?.id as string }));
       dispatch(setCurrentPage({ currentPage: 1 }));
     } else {
       dispatch(setAuthorId({ authorId: "" }));
