@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 
 import s from "./pagination.module.scss";
 
-import { Select } from "@/components";
+import { ArrowLeftSvg } from "@/assets/components/arrowLeftSvg.tsx";
+import { ArrowRightSvg } from "@/assets/components/arrowRightSvg.tsx";
+import { Select, Typography } from "@/components";
 import { usePagination } from "@/components/ui/pagination/usePagination.ts";
 
 type PaginationProps = {
@@ -62,9 +64,9 @@ export const Pagination = ({
 
   return (
     <div className={s.paginationContainer + " " + className}>
-      <span className={s.paginationArrow} onClick={onPreviousClick}>
-        &#8249;
-      </span>
+      <button onClick={onPreviousClick} className={s.paginationArrow}>
+        <ArrowLeftSvg />
+      </button>
       <div className={s.paginationPages}>
         {paginationRange?.map((item, index) => {
           return (
@@ -77,10 +79,12 @@ export const Pagination = ({
           );
         })}
       </div>
-      <span className={s.paginationArrow} onClick={onNextClick}>
-        &#8250;
-      </span>
-      <p className={s.selectText}>Показать</p>
+      <button onClick={onNextClick} className={s.paginationArrow}>
+        <ArrowRightSvg />
+      </button>
+      <Typography as={"p"} variant={"body2"} className={s.selectText}>
+        Show
+      </Typography>
       <div className={s.selectMenu}>
         <Select
           placeholder={itemsPerPage}
@@ -89,7 +93,9 @@ export const Pagination = ({
           className={s.paginationSelect}
         />
       </div>
-      <p className={s.selectText}>на странице</p>
+      <Typography as={"p"} variant={"body2"} className={s.selectText}>
+        on page
+      </Typography>
     </div>
   );
 };
@@ -106,16 +112,20 @@ const PageButton = ({ activePage, pageNumber, onClick }: PageButtonProps) => {
     onClick(+value);
   };
 
+  const classNameButton = (activePage: number, pageNumber: number | string) => {
+    if (isNaN(Number(pageNumber))) {
+      return s.dots;
+    } else if (activePage === pageNumber) {
+      return s.paginationPage + " " + s.activePage;
+    } else {
+      return s.paginationPage;
+    }
+  };
+
   return (
     <div
       onClick={() => onButtonClick(pageNumber)}
-      className={
-        isNaN(Number(pageNumber))
-          ? s.dots
-          : activePage == pageNumber
-          ? s.paginationPage + " " + s.activePage
-          : s.paginationPage
-      }
+      className={classNameButton(activePage, pageNumber)}
     >
       {pageNumber}
     </div>

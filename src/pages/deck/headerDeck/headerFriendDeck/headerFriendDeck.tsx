@@ -6,12 +6,12 @@ import s from "./headerDeck.module.scss";
 
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { ModalType, ShowModalType } from "@/pages";
+import { ShowModalType } from "@/pages";
 import { DeckType, GetResponseTypeCard } from "@/services/decks";
 
 type Props = {
   deck?: DeckType;
-  setShowModal: (value: ModalType | ShowModalType) => void;
+  setShowModal: (value: ShowModalType) => void;
   setOpen: (value: boolean) => void;
   cards?: GetResponseTypeCard;
 };

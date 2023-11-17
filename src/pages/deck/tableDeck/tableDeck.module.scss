@@ -1,0 +1,12 @@
+.mainBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .emptyDeck {
+    display: block;
+    margin-top: 69px;
+    margin-bottom: 30px;
+  }
+}

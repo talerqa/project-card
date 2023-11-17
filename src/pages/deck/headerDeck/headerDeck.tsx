@@ -3,8 +3,9 @@ import s from "./headerDeck.module.scss";
 import { Input } from "@/components/ui/inputs";
 import { HeaderFriendDeck } from "@/pages/deck/headerDeck/headerFriendDeck";
 import { HeaderOwnDeck } from "@/pages/deck/headerDeck/headerOwnDeck";
-import { DeckModal, ShowModalType } from "@/pages/decks";
-import { DeckType, GetResponseTypeCard } from "@/services";
+import { DeckModal } from "@/pages/deckModal";
+import { ShowModalType } from "@/pages/decks";
+import { CardType, DeckType, GetResponseTypeCard } from "@/services";
 import { AuthMeResponseType } from "@/services/auth";
 
 export type Props = {
@@ -17,7 +18,7 @@ export type Props = {
   cards?: GetResponseTypeCard;
   question: string;
   setQuestion: (value: string) => void;
-  cardToDeleteID: string;
+  pack: CardType;
 };
 
 export const HeaderDeck = (props: Props) => {
@@ -31,7 +32,7 @@ export const HeaderDeck = (props: Props) => {
     cards,
     question,
     setQuestion,
-    cardToDeleteID,
+    pack,
   } = props;
 
   return (
@@ -42,7 +43,7 @@ export const HeaderDeck = (props: Props) => {
         item={deck as DeckType}
         setShowModal={setShowModal}
         showModal={showModal}
-        cardToDeleteID={cardToDeleteID}
+        pack={pack}
       />
       {deck?.userId === auth?.id ? (
         <HeaderOwnDeck

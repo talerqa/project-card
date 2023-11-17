@@ -1,8 +1,16 @@
 import { DialogsModal } from "@/components/ui/dialogs";
-import { AddNewCardModal, DeleteCardModal } from "@/pages/deck/deckModal";
-import { CreateDeckForm, DeleteDeckModal, ShowModalType } from "@/pages/decks";
-import { EditModalForm } from "@/pages/decks/deckModal/editModlaForm";
-import { DeckType } from "@/services/decks";
+import {
+  AddNewCardModal,
+  DeleteCardModal,
+  EditCardModal,
+} from "@/pages/deck/deckModal";
+import {
+  CreateDeckForm,
+  DeleteDeckModal,
+  EditModalForm,
+  ShowModalType,
+} from "@/pages/decks";
+import { CardType, DeckType } from "@/services/decks";
 
 type Props = {
   item: DeckType;
@@ -10,18 +18,12 @@ type Props = {
   setActiveMenu: (value: boolean) => void;
   setShowModal: (value: ShowModalType) => void;
   showModal: ShowModalType;
-  cardToDeleteID?: string;
+  pack?: CardType;
 };
 
 export const DeckModal = (props: Props) => {
-  const {
-    item,
-    setActiveMenu,
-    activeMenu,
-    setShowModal,
-    showModal,
-    cardToDeleteID,
-  } = props;
+  const { item, setActiveMenu, activeMenu, setShowModal, showModal, pack } =
+    props;
 
   const closeModalHandler = () => {
     setActiveMenu(false);
@@ -64,14 +66,19 @@ export const DeckModal = (props: Props) => {
         {showModal === "Delete Card" && (
           <>
             <DeleteCardModal
-              // deckId={item?.id}
-              cardId={cardToDeleteID}
+              cardId={pack!.id}
               closeModalHandler={closeModalHandler}
             />
           </>
         )}
-        {/*  /!*{showModal === 'Edit Card' &&*!/*/}
-        {/*  /!*    <EditModalForm item={pack} closeModalHandler={closeModalHandler}/>}*!/*/}
+        {showModal === "Edit Card" && (
+          <>
+            <EditCardModal
+              card={pack as CardType}
+              closeModalHandler={closeModalHandler}
+            />
+          </>
+        )}
       </DialogsModal>
     </>
   );

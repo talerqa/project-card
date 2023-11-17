@@ -9,8 +9,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5px;
+  word-break: normal;
 }
-
 .name {
   display: flex;
   justify-content: space-between;
@@ -19,6 +20,7 @@
   font-weight: inherit;
   color: inherit;
   font-size: inherit;
+  flex-wrap: wrap;
 }
 
 .image {
@@ -39,5 +41,28 @@
     align-self: center;
     margin: 0 auto;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 760px) {
+  .cell {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 620px) {
+  .cell {
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: var(--font-size-s);
+  }
+}
+
+@media (max-width: 480px) {
+  .cell {
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: var(--font-size-xs);
   }
 }

@@ -2,26 +2,24 @@ import { FC } from "react";
 
 import s from "./tableFriendDeck.module.scss";
 
-import { Pagination } from "@/components/ui/pagination";
 import { HeaderTable, Table } from "@/components/ui/table";
+import { ShowModalType } from "@/pages";
 import { RowDeckTable } from "@/pages/deck/tableDeck";
-import {
-  headerTitleTableArray,
-  paginationSize,
-} from "@/pages/deck/tableDeck/dataTable.ts";
-import { CardType, DeckType, GetResponseTypeCard } from "@/services/decks";
+import { headerTitleTableArray } from "@/pages/deck/tableDeck/dataTable.ts";
+import { CardType, GetResponseTypeCard } from "@/services/decks";
 
 type TableFriendDeckType = {
-  deckData?: DeckType;
   cards?: GetResponseTypeCard;
-  setOpen: (value: boolean) => void;
   isOwn: boolean;
+  handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
+  setPack: (pack: CardType) => void;
 };
 
 export const TableFriendDeck: FC<TableFriendDeckType> = ({
   cards,
-  setOpen,
   isOwn,
+  handleOpenModal,
+  setPack,
 }) => {
   const { Root, Body } = Table;
 
@@ -39,22 +37,14 @@ export const TableFriendDeck: FC<TableFriendDeckType> = ({
               <RowDeckTable
                 key={index}
                 item={item}
-                setOpen={setOpen}
                 isOwn={isOwn}
+                setPack={setPack}
+                handleOpenModal={handleOpenModal}
               />
             );
           })}
         </Body>
       </Root>
-      <Pagination
-        pageSizeValue={paginationSize}
-        totalPages={cards?.pagination.totalPages}
-        itemsPerPage={cards?.pagination.itemsPerPage}
-        // currentPage={currentPage}
-        // className={s.pagination}
-        // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
-        // onClick={(value: number) => setCurrentPage(value)}
-      />
     </>
   );
 };

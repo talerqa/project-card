@@ -10,11 +10,14 @@
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-
+  justify-content: center;
+  height: 100%;
   align-items: center;
-  position: absolute;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 111;
-  inset: 180px;
 
   .textBlock {
     display: flex;
@@ -43,7 +46,6 @@
   }
 }
 
-
 .content {
   overflow-y: auto;
   max-height: 590px;
@@ -62,7 +64,6 @@
       background-color: var(--color-dark-100);
     }
   }
-
 }
 
 .close {
@@ -89,12 +90,12 @@
   }
 }
 
-.overlay[data-state='open'],
-.window[data-state='open'] {
+.overlay[data-state="open"],
+.window[data-state="open"] {
   animation: fade-in 300ms ease-out;
 }
 
-.overlay[data-state='closed'],
-.window[data-state='closed'] {
+.overlay[data-state="closed"],
+.window[data-state="closed"] {
   animation: fade-out 300ms ease-in;
 }

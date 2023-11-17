@@ -9,13 +9,12 @@ import trash from "@/assets/img/trash.svg";
 import { Button } from "@/components/ui/button";
 import { DropDown, ItemDropDown } from "@/components/ui/dropdown";
 import { Typography } from "@/components/ui/typography";
-import { ModalType } from "@/pages/deck";
 import { ShowModalType } from "@/pages/decks";
 import { DeckType, GetResponseTypeCard } from "@/services";
 
 export type Props = {
   deck?: DeckType;
-  setShowModal: (value: ModalType | ShowModalType) => void;
+  setShowModal: (value: ShowModalType) => void;
   setOpen: (value: boolean) => void;
   cards?: GetResponseTypeCard;
 };

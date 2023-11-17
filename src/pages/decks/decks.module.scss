@@ -4,15 +4,29 @@
 
   .pagination {
     margin: 0 auto;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 120px;
   }
 }
 
-.modal {
-  display: none;
+@media (max-width: 760px) {
+  .pagination {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
 }
 
-.active {
-  display: block;
+@media (max-width: 521px) {
+  .pagination {
+    max-width: 400px;
+    margin-bottom: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cell {
+    padding-top: 2px;
+    padding-bottom: 40px;
+    font-size: var(--font-size-xs);
+  }
 }

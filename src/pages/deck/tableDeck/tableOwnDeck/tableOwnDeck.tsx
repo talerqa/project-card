@@ -2,14 +2,10 @@ import { FC } from "react";
 
 import s from "./tableOwnDeck.module.scss";
 
-import { Pagination } from "@/components/ui/pagination";
 import { HeaderTable, Table } from "@/components/ui/table";
 import { ShowModalType } from "@/pages";
 import { RowDeckTable } from "@/pages/deck/tableDeck";
-import {
-  headerTitleTableArray,
-  paginationSize,
-} from "@/pages/deck/tableDeck/dataTable.ts";
+import { headerTitleTableArray } from "@/pages/deck/tableDeck/dataTable.ts";
 import { CardType, DeckType, GetResponseTypeCard } from "@/services/decks";
 
 type TableOwnDeckType = {
@@ -17,7 +13,7 @@ type TableOwnDeckType = {
   cards?: GetResponseTypeCard;
   handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
-  setCardToDeleteID: (id: string) => void;
+  setPack: (pack: CardType) => void;
 };
 
 export const TableOwnDeck: FC<TableOwnDeckType> = ({
@@ -25,7 +21,7 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
   cards,
   handleOpenModal,
   isOwn,
-  setCardToDeleteID,
+  setPack,
 }) => {
   const { Root, Body } = Table;
 
@@ -46,21 +42,12 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
                   item={item}
                   handleOpenModal={handleOpenModal}
                   isOwn={isOwn}
-                  setCardToDeleteID={setCardToDeleteID}
+                  setPack={setPack}
                 />
               );
             })}
         </Body>
       </Root>
-      <Pagination
-        pageSizeValue={paginationSize}
-        totalPages={cards?.pagination.totalPages}
-        itemsPerPage={cards?.pagination.itemsPerPage}
-        // currentPage={currentPage}
-        // className={s.pagination}
-        // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
-        // onClick={(value: number) => setCurrentPage(value)}
-      />
     </>
   );
 };
