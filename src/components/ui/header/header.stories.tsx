@@ -1,5 +1,6 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {Header} from "./";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Header } from "./";
 
 const meta = {
   title: "Components/Header",
@@ -20,11 +21,9 @@ export const HeaderAuth: Story = {
   args: {
     isAuth: true,
     label: "HeaderAuth",
-    avatarImg: './src/assets/img/el.png',
-    name: 'Ivan',
-    email: "j&johnson@gmail.com",
-    onShowProfileHandler: () => console.log('show profile'),
-    onLogOutHandler: () => console.log('sign out'),
+    name: "Ivan",
+    onShowProfileHandler: () => console.log("show profile"),
+    onLogOutHandler: () => console.log("sign out"),
   },
 };
 
@@ -32,7 +31,6 @@ export const HeaderNonAuth: Story = {
   args: {
     isAuth: false,
     label: "HeaderNonAuth",
-    avatarImg: '',
-    onSignInHandler: () => console.log('sign in'),
-  }
-}
+    onSignInHandler: () => console.log("sign in"),
+  },
+};
