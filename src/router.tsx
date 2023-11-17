@@ -114,11 +114,11 @@ export const Router = () => {
 };
 
 function PrivateRoutes() {
-  const { isLoading, isError } = useAuthMeQuery();
-
-  if (isLoading) return <Loader />;
+  const { isError, isLoading } = useAuthMeQuery();
 
   const isAuthenticated = !isError;
+
+  if (isLoading) return <Loader />;
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }

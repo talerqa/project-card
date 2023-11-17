@@ -9,7 +9,6 @@ import { HeaderTable, Sort, Table } from "@/components/ui/table";
 import { DeckModal } from "@/pages/decks/deckModal";
 import { InfoTable } from "@/pages/decks/infoTable";
 import { RowTable } from "@/pages/decks/rowTable";
-import { useAuthMeQuery } from "@/services";
 import { DeckType, GetDecks, useGetDecksQuery } from "@/services/decks";
 import { decksActions } from "@/services/decksSlice";
 import {
@@ -84,8 +83,6 @@ export const Decks = () => {
     return sorted;
   }, [orderBy]);
 
-  const { data: auth } = useAuthMeQuery();
-
   const { data, isLoading } = useGetDecksQuery({
     currentPage,
     name: searchName,
@@ -103,57 +100,62 @@ export const Decks = () => {
     dispatch(setCurrentPage({ currentPage: value }));
   };
 
-  if (isLoading) return <Loader />;
-
   return (
-    <Page className={s.deck}>
-      <InfoTable
-        setShowModal={setShowModal}
-        setOpenMenu={setOpenMenu}
-        auth={auth?.id}
-        maxCardsCount={data?.maxCardsCount}
-        totalPage={data?.pagination.totalPages}
-      />
-      <Root>
-        <HeaderTable
-          columns={HeaderTitleTableArray}
-          sort={orderBy}
-          onSort={setSort}
-        />
-        <Body>
-          {data?.items.length ? (
-            data.items.map((item: DeckType) => {
-              return (
-                <RowTable
-                  key={item.id}
-                  item={item}
-                  setActiveMenu={setOpenMenu}
-                  setPack={setPack}
-                  setShowModal={setShowModal}
-                />
-              );
-            })
-          ) : (
-            <></>
-          )}
-        </Body>
-        <DeckModal
-          activeMenu={openMenu}
-          setActiveMenu={setOpenMenu}
-          item={pack as DeckType}
-          setShowModal={setShowModal}
-          showModal={showModal}
-        />
-      </Root>
-      <Pagination
-        pageSizeValue={paginationSize}
-        totalPages={data?.pagination.totalPages}
-        itemsPerPage={data?.pagination.itemsPerPage}
-        className={s.pagination}
-        currentPage={currentPage}
-        onChangePerPage={onChangePerPageHandler}
-        onClick={onChangePagePaginationHandler}
-      />
-    </Page>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Page className={s.deck}>
+            <InfoTable
+              setShowModal={setShowModal}
+              setOpenMenu={setOpenMenu}
+              maxCardsCount={data?.maxCardsCount}
+              totalPage={data?.pagination.totalPages}
+            />
+            <Root>
+              <HeaderTable
+                columns={HeaderTitleTableArray}
+                sort={orderBy}
+                onSort={setSort}
+              />
+              <Body>
+                {data?.items.length ? (
+                  data.items.map((item: DeckType) => {
+                    return (
+                      <RowTable
+                        key={item.id}
+                        item={item}
+                        setActiveMenu={setOpenMenu}
+                        setPack={setPack}
+                        setShowModal={setShowModal}
+                      />
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </Body>
+              <DeckModal
+                activeMenu={openMenu}
+                setActiveMenu={setOpenMenu}
+                item={pack as DeckType}
+                setShowModal={setShowModal}
+                showModal={showModal}
+              />
+            </Root>
+            <Pagination
+              pageSizeValue={paginationSize}
+              totalPages={data?.pagination.totalPages}
+              itemsPerPage={data?.pagination.itemsPerPage}
+              className={s.pagination}
+              currentPage={currentPage}
+              onChangePerPage={onChangePerPageHandler}
+              onClick={onChangePagePaginationHandler}
+            />
+          </Page>
+        </>
+      )}
+    </>
   );
 };
