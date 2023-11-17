@@ -1,24 +1,22 @@
 import { useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import s from "./deck.module.scss";
 
 import { Loader } from "@/assets/components/loader";
+import { Pagination } from "@/components";
 import { BackToPage } from "@/components/common/backToPage";
-import { Button } from "@/components/ui/button";
 import { Page } from "@/components/ui/page";
-import { Typography } from "@/components/ui/typography";
 import { HeaderDeck } from "@/pages";
-import { TableFriendDeck } from "@/pages/deck/tableDeck/tableFriendDeck";
-import { TableOwnDeck } from "@/pages/deck/tableDeck/tableOwnDeck";
+import { TableDeck } from "@/pages/deck/tableDeck";
+import { paginationSize } from "@/pages/deck/tableDeck/dataTable.ts";
 import { ShowModalType } from "@/pages/decks";
 import { useAuthMeQuery } from "@/services/auth";
 import { CardType, useGetCardsQuery, useGetDeckQuery } from "@/services/decks";
 
 export const Deck = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [question, setQuestion] = useState<string>("");
   const [open, setOpen] = useState(false);
@@ -56,66 +54,29 @@ export const Deck = () => {
         cards={cards}
         setQuestion={setQuestion}
         question={question}
-        pack={pack}
+        pack={pack as CardType}
       />
-      <div className={s.mainBlock}>
-        {isOwn ? (
-          <>
-            {data?.cardsCount === 0 ? (
-              <>
-                <Typography
-                  variant={"body1"}
-                  as={"span"}
-                  className={s.emptyDeck}
-                >
-                  This pack is empty. Click add new learnCard to fill this pack
-                </Typography>
-                <Button
-                  className={s.buttonAddNewCard}
-                  type={"button"}
-                  variant={"primary"}
-                  onClick={addNewCardHandler}
-                >
-                  Add New Card
-                </Button>
-              </>
-            ) : (
-              <TableOwnDeck
-                deckData={data}
-                cards={cards}
-                handleOpenModal={handleOpenModal}
-                isOwn={isOwn}
-                setPack={setPack}
-              />
-            )}
-          </>
-        ) : (
-          <>
-            {data?.cardsCount === 0 ? (
-              <>
-                <Typography
-                  variant={"body1"}
-                  as={"span"}
-                  className={s.emptyDeck}
-                >
-                  This pack is empty. Back to Pack list and choose another Pack
-                </Typography>
-                <Button
-                  type={"button"}
-                  variant={"primary"}
-                  onClick={() => {
-                    navigate("/decks");
-                  }}
-                >
-                  Back to Pack List
-                </Button>
-              </>
-            ) : (
-              <TableFriendDeck cards={cards} setOpen={setOpen} isOwn={isOwn} />
-            )}
-          </>
-        )}
-      </div>
+      <TableDeck
+        isOwn={isOwn}
+        setPack={setPack}
+        deck={data}
+        cards={cards}
+        addNewCardHandler={addNewCardHandler}
+        handleOpenModal={handleOpenModal}
+      />
+      {data?.cardsCount !== 0 ? (
+        <Pagination
+          pageSizeValue={paginationSize}
+          totalPages={cards?.pagination.totalPages}
+          itemsPerPage={cards?.pagination.itemsPerPage}
+          // currentPage={currentPage}
+          className={s.pagination}
+          // onChangePerPage={(pageSize: number) => setItemsPerPage(pageSize)}
+          // onClick={(value: number) => setCurrentPage(value)}
+        />
+      ) : (
+        <></>
+      )}
     </Page>
   );
 };

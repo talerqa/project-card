@@ -12,19 +12,26 @@
       display: flex;
       flex-direction: column;
 
+      .image {
+        height: 200px;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+        margin-bottom: 10px;
+      }
+
       .select {
         width: 494px;
         box-sizing: border-box;
       }
 
       .inputQuestion {
-    padding-top: 24px;
+        padding-top: 24px;
       }
 
       .inputAnswer {
         padding: 24px 0;
       }
-
     }
 
     .buttonsBlock {

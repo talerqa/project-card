@@ -1,3 +1,5 @@
+import { EditModalForm } from "../decks/deckModal/editModalForm";
+
 import { DialogsModal } from "@/components/ui/dialogs";
 import {
   AddNewCardModal,
@@ -5,7 +7,6 @@ import {
   EditCardModal,
 } from "@/pages/deck/deckModal";
 import { CreateDeckForm, DeleteDeckModal, ShowModalType } from "@/pages/decks";
-import { EditModalForm } from "@/pages/decks/deckModal/editModlaForm";
 import { CardType, DeckType } from "@/services/decks";
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
   setActiveMenu: (value: boolean) => void;
   setShowModal: (value: ShowModalType) => void;
   showModal: ShowModalType;
-  pack: CardType;
+  pack?: CardType;
 };
 
 export const DeckModal = (props: Props) => {
@@ -62,14 +63,17 @@ export const DeckModal = (props: Props) => {
         {showModal === "Delete Card" && (
           <>
             <DeleteCardModal
-              cardId={pack.id}
+              cardId={pack!.id}
               closeModalHandler={closeModalHandler}
             />
           </>
         )}
         {showModal === "Edit Card" && (
           <>
-            <EditCardModal card={pack} closeModalHandler={closeModalHandler} />
+            <EditCardModal
+              card={pack as CardType}
+              closeModalHandler={closeModalHandler}
+            />
           </>
         )}
       </DialogsModal>
