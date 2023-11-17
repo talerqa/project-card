@@ -13,24 +13,25 @@ type Props = {
   item: CardType;
   handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
-  setCardToDeleteID: (id: string) => void;
+  setPack: (pack: CardType) => void;
 };
 
 export const RowDeckTable: FC<Props> = ({
   item,
   handleOpenModal,
   isOwn,
-  setCardToDeleteID,
+  setPack,
 }) => {
   const { Row, Cell } = Table;
 
   const handleEditCardClick = () => {
     handleOpenModal("Edit Card", true);
+    setPack(item);
   };
 
   const handleDeleteCardClick = () => {
     handleOpenModal("Delete Card", true);
-    setCardToDeleteID(item.id);
+    setPack(item);
   };
 
   return (

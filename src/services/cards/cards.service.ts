@@ -10,8 +10,16 @@ export const CardsService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ["Card", "Decks"],
       }),
+      updateCard: builder.mutation<void, { id?: string; body: FormData }>({
+        query: ({ id, body }) => ({
+          url: `v1/cards/${id}`,
+          method: "PATCH",
+          body,
+        }),
+        invalidatesTags: ["Card", "Decks"],
+      }),
     };
   },
 });
 
-export const { useDeleteCardMutation } = CardsService;
+export const { useDeleteCardMutation, useUpdateCardMutation } = CardsService;

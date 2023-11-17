@@ -17,7 +17,7 @@ type TableOwnDeckType = {
   cards?: GetResponseTypeCard;
   handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
-  setCardToDeleteID: (id: string) => void;
+  setPack: (pack: CardType) => void;
 };
 
 export const TableOwnDeck: FC<TableOwnDeckType> = ({
@@ -25,7 +25,7 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
   cards,
   handleOpenModal,
   isOwn,
-  setCardToDeleteID,
+  setPack,
 }) => {
   const { Root, Body } = Table;
 
@@ -46,7 +46,7 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
                   item={item}
                   handleOpenModal={handleOpenModal}
                   isOwn={isOwn}
-                  setCardToDeleteID={setCardToDeleteID}
+                  setPack={setPack}
                 />
               );
             })}
