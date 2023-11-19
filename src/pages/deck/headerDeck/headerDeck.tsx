@@ -7,6 +7,8 @@ import { DeckModal } from "@/pages/deckModal";
 import { ShowModalType } from "@/pages/decks";
 import { CardType, DeckType, GetResponseTypeCard } from "@/services";
 import { AuthMeResponseType } from "@/services/auth";
+import { cardActions } from "@/services/cards";
+import { useAppDispatch } from "@/services/store.ts";
 
 export type Props = {
   open: boolean;
@@ -17,7 +19,6 @@ export type Props = {
   auth?: AuthMeResponseType;
   cards?: GetResponseTypeCard;
   question: string;
-  setQuestion: (value: string) => void;
   pack: CardType;
 };
 
@@ -31,9 +32,11 @@ export const HeaderDeck = (props: Props) => {
     auth,
     cards,
     question,
-    setQuestion,
     pack,
   } = props;
+
+  const { setSearchQuestionName } = cardActions;
+  const dispatch = useAppDispatch();
 
   return (
     <div className={s.blockHeaderDeck}>
@@ -67,7 +70,7 @@ export const HeaderDeck = (props: Props) => {
           className={s.searchInput}
           value={question}
           onChange={(event) => {
-            setQuestion(event.target.value);
+            dispatch(setSearchQuestionName({ name: event.target.value }));
           }}
         />
       ) : (

@@ -3,7 +3,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import { baseApi } from "./base-api";
 
-import { decksReducer } from "@/services/decksSlice";
+import { cardReducer } from "@/services/cards";
+import { decksReducer } from "@/services/decks/decksSlice";
 import { userReducer } from "@/services/userSlice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     userReducer,
     decksReducer,
+    cardReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

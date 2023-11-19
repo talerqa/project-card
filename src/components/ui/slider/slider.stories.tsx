@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { decksActions } from "../../../services/decks/decksSlice";
+
 import { Slider, SliderProps } from "./";
 
-import { decksActions } from "@/services/decksSlice";
 import { useAppDispatch } from "@/services/store.ts";
 
 const meta = {

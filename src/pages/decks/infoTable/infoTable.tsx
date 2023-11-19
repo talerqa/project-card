@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
+import { decksActions } from "../../../services/decks/decksSlice";
+
 import s from "./infoTable.module.scss";
 
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
@@ -11,13 +13,12 @@ import { TabSwitcher } from "@/components/ui/tab-switcher";
 import { Typography } from "@/components/ui/typography";
 import { ShowModalType } from "@/pages/decks";
 import { useAuthMeQuery } from "@/services";
-import { decksActions } from "@/services/decksSlice";
 import {
   authorIdSelector,
   currentPageSelector,
   minCardCountSelector,
   searchNameSelector,
-} from "@/services/decksSlice/decksSelector.ts";
+} from "@/services/decks/decksSlice/decksSelector.ts";
 import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 type Props = {
