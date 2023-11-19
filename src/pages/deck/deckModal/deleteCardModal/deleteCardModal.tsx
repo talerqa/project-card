@@ -30,6 +30,7 @@ export const DeleteCardModal = ({
       <div className={s.buttonGroup}>
         <Button
           type={"button"}
+          variant={"secondary"}
           className={s.deleteModalButton + " " + s.cancelButton}
           onClick={closeModalHandler}
         >

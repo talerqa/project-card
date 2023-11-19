@@ -62,7 +62,6 @@ export type CardType = {
 };
 
 export type DirectionCard = "asc" | "desc";
-
 export type FieldCard = "question" | "answer";
 
 export type GetCardType = {

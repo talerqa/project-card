@@ -37,6 +37,7 @@ export const Pagination = ({
 
   useEffect(() => {
     setActivePage(currentPage);
+    setPageSize(itemsPerPage);
   }, [currentPage]);
 
   const onNextClick = () => {

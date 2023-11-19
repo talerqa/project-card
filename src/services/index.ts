@@ -1,4 +1,4 @@
 export * from "./auth";
 export * from "./decks";
-export * from "./decksSlice";
+export * from "./decks/decksSlice";
 export * from "./userSlice";

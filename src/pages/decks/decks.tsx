@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import s from "./decks.module.scss";
 
@@ -8,8 +8,8 @@ import { Pagination } from "@/components/ui/pagination";
 import { Sort } from "@/components/ui/table";
 import { InfoTable } from "@/pages/decks/infoTable";
 import { TableDecks } from "@/pages/decks/tableDecks";
+import { decksActions } from "@/services";
 import { DeckType, GetDecks, useGetDecksQuery } from "@/services/decks";
-import { decksActions } from "@/services/decksSlice";
 import {
   authorIdSelector,
   currentPageSelector,
@@ -17,7 +17,7 @@ import {
   maxCardsCountSelector,
   minCardCountSelector,
   searchNameSelector,
-} from "@/services/decksSlice/decksSelector.ts";
+} from "@/services/decks/decksSlice/decksSelector.ts";
 import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 export type ShowModalType =
@@ -47,12 +47,16 @@ export const Decks = () => {
   const minCardsCount = useAppSelector(minCardCountSelector);
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
 
-  const { setCurrentPage, setItemPerPage } = decksActions;
+  const { setCurrentPageDecks, setItemPerPage } = decksActions;
 
   const [orderBy, setSort] = useState<Sort>(null);
   const [showModal, setShowModal] = useState<ShowModalType>("");
   const [pack, setPack] = useState<DeckType>();
   const [openMenu, setOpenMenu] = useState(false);
+
+  useEffect(() => {
+    dispatch(setItemPerPage({ itemsPerPage: 10 }));
+  }, []);
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -75,7 +79,7 @@ export const Decks = () => {
     dispatch(setItemPerPage({ itemsPerPage: pageSize }));
   };
   const onChangePagePaginationHandler = (value: number) => {
-    dispatch(setCurrentPage({ currentPage: value }));
+    dispatch(setCurrentPageDecks({ currentPage: value }));
   };
 
   return (
@@ -105,8 +109,8 @@ export const Decks = () => {
             <Pagination
               pageSizeValue={paginationSize}
               totalPages={data?.pagination.totalPages}
-              itemsPerPage={data?.pagination.itemsPerPage}
               className={s.pagination}
+              itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               onChangePerPage={onChangePerPageHandler}
               onClick={onChangePagePaginationHandler}

@@ -4,7 +4,7 @@ import s from "./table.module.scss";
 
 import { ArrowDownSvg } from "@/assets/components/arrowDownSvg.tsx";
 import { ArrowUpSvg } from "@/assets/components/arrowUpSvg.tsx";
-import { Direction, Field } from "@/services/decks";
+import { Direction, DirectionCard, Field, FieldCard } from "@/services/decks";
 
 type RootProps = ComponentProps<"table">;
 
@@ -77,12 +77,17 @@ export type Sort = {
   direction: Direction;
 } | null;
 
+export type SortCard = {
+  key: FieldCard;
+  direction: DirectionCard;
+} | null;
+
 export const HeaderTable: React.FC<
   Omit<
     ComponentPropsWithoutRef<"thead"> & {
       columns: Column[];
-      sort?: Sort;
-      onSort?: (sort: Sort) => void;
+      sort?: Sort | SortCard;
+      onSort?: (sort: Sort | SortCard) => void;
     },
     "children"
   >

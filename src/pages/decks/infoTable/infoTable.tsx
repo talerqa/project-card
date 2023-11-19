@@ -10,14 +10,13 @@ import { Input } from "@/components/ui/inputs";
 import { TabSwitcher } from "@/components/ui/tab-switcher";
 import { Typography } from "@/components/ui/typography";
 import { ShowModalType } from "@/pages/decks";
-import { useAuthMeQuery } from "@/services";
-import { decksActions } from "@/services/decksSlice";
+import { decksActions, useAuthMeQuery } from "@/services";
 import {
   authorIdSelector,
   currentPageSelector,
   minCardCountSelector,
   searchNameSelector,
-} from "@/services/decksSlice/decksSelector.ts";
+} from "@/services/decks/decksSlice/decksSelector.ts";
 import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 type Props = {
@@ -44,7 +43,7 @@ export const InfoTable: FC<Props> = ({
   const {
     setSearchName,
     setAuthorId,
-    setCurrentPage,
+    setCurrentPageDecks,
     setClearFilter,
     setMinCard,
     setMaxCard,
@@ -66,7 +65,7 @@ export const InfoTable: FC<Props> = ({
     }
     if (totalPage !== undefined) {
       if (currentPage > totalPage) {
-        dispatch(setCurrentPage({ currentPage: 1 }));
+        dispatch(setCurrentPageDecks({ currentPage: 1 }));
         setPage(totalPage as number);
       }
     }
@@ -76,10 +75,10 @@ export const InfoTable: FC<Props> = ({
     setPage(currentPage);
     if (active) {
       dispatch(setAuthorId({ authorId: auth?.id as string }));
-      dispatch(setCurrentPage({ currentPage: 1 }));
+      dispatch(setCurrentPageDecks({ currentPage: 1 }));
     } else {
       dispatch(setAuthorId({ authorId: "" }));
-      dispatch(setCurrentPage({ currentPage: page }));
+      dispatch(setCurrentPageDecks({ currentPage: page }));
     }
     if (value) setActive(+value);
   };
