@@ -52,11 +52,9 @@ export const Deck = () => {
 
   useEffect(() => {
     dispatch(setItemPerPage({ itemsPerPage: 10 }));
-    debugger;
-    if (currentPage > (cards?.pagination.totalPages as number)) {
-      dispatch(setCurrentPage({ currentPage: 1 }));
-    }
   }, []);
+
+  useEffect(() => {}, []);
 
   const isOwn = data?.userId === auth?.id;
   const addNewCardHandler = () => {
@@ -71,6 +69,12 @@ export const Deck = () => {
 
   const onChangePerPageHandler = (pageSize: number) => {
     dispatch(setItemPerPage({ itemsPerPage: pageSize }));
+    if (cards) {
+      if (cards.pagination.totalPages <= currentPage) {
+        debugger;
+        dispatch(setCurrentPage({ currentPage: 1 }));
+      }
+    }
   };
 
   const onChangePagePaginationHandler = (value: number) => {

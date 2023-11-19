@@ -35,8 +35,6 @@ export const Pagination = ({
     activePage,
   });
 
-  console.log(paginationRange);
-
   useEffect(() => {
     setActivePage(currentPage);
     setPageSize(itemsPerPage);
