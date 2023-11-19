@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import s from "./tableOwnDeck.module.scss";
 
-import { HeaderTable, Table } from "@/components/ui/table";
+import { HeaderTable, Sort, SortCard, Table } from "@/components/ui/table";
 import { ShowModalType } from "@/pages";
 import { RowDeckTable } from "@/pages/deck/tableDeck";
 import { headerTitleTableArray } from "@/pages/deck/tableDeck/dataTable.ts";
@@ -14,6 +14,8 @@ type TableOwnDeckType = {
   handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   isOwn: boolean;
   setPack: (pack: CardType) => void;
+  setSort: (sort: SortCard | Sort) => void;
+  orderBy: SortCard;
 };
 
 export const TableOwnDeck: FC<TableOwnDeckType> = ({
@@ -22,6 +24,8 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
   handleOpenModal,
   isOwn,
   setPack,
+  setSort,
+  orderBy,
 }) => {
   const { Root, Body } = Table;
 
@@ -30,8 +34,8 @@ export const TableOwnDeck: FC<TableOwnDeckType> = ({
       <Root className={s.rootTable}>
         <HeaderTable
           columns={headerTitleTableArray}
-          // sort={orderBy}
-          // onSort={setSort}
+          sort={orderBy}
+          onSort={setSort}
         />
         <Body className={s.headerTable}>
           {deckData?.cardsCount &&

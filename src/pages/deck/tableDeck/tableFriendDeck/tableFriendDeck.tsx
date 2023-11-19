@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import s from "./tableFriendDeck.module.scss";
 
-import { HeaderTable, Table } from "@/components/ui/table";
+import { HeaderTable, Sort, SortCard, Table } from "@/components/ui/table";
 import { ShowModalType } from "@/pages";
 import { RowDeckTable } from "@/pages/deck/tableDeck";
 import { headerTitleTableArray } from "@/pages/deck/tableDeck/dataTable.ts";
@@ -13,6 +13,8 @@ type TableFriendDeckType = {
   isOwn: boolean;
   handleOpenModal: (modalType: ShowModalType, isModalOpen: boolean) => void;
   setPack: (pack: CardType) => void;
+  setSort: (sort: SortCard | Sort) => void;
+  orderBy: SortCard;
 };
 
 export const TableFriendDeck: FC<TableFriendDeckType> = ({
@@ -20,6 +22,8 @@ export const TableFriendDeck: FC<TableFriendDeckType> = ({
   isOwn,
   handleOpenModal,
   setPack,
+  setSort,
+  orderBy,
 }) => {
   const { Root, Body } = Table;
 
@@ -28,8 +32,8 @@ export const TableFriendDeck: FC<TableFriendDeckType> = ({
       <Root className={s.rootTable}>
         <HeaderTable
           columns={headerTitleTableArray}
-          // sort={orderBy}
-          // onSort={setSort}
+          sort={orderBy}
+          onSort={setSort}
         />
         <Body className={s.headerTable}>
           {cards?.items.map((item: CardType, index) => {

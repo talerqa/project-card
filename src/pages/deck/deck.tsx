@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
 import s from "./deck.module.scss";
 
 import { Loader } from "@/assets/components/loader";
-import { Pagination } from "@/components";
+import { Pagination, SortCard } from "@/components";
 import { BackToPage } from "@/components/common/backToPage";
 import { Page } from "@/components/ui/page";
 import { HeaderDeck } from "@/pages";
@@ -18,7 +18,12 @@ import {
   itemsPerPageCardsSelector,
   searchNameQuestionCard,
 } from "@/services/cards/cardsSlice/cardsSelector.ts";
-import { CardType, useGetCardsQuery, useGetDeckQuery } from "@/services/decks";
+import {
+  CardType,
+  GetCardType,
+  useGetCardsQuery,
+  useGetDeckQuery,
+} from "@/services/decks";
 import { useAppDispatch, useAppSelector } from "@/services/store.ts";
 
 const paginationSize = [
@@ -40,6 +45,14 @@ export const Deck = () => {
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState<ShowModalType>("");
   const [pack, setPack] = useState<CardType>();
+  const [orderBy, setSort] = useState<SortCard>(null);
+
+  const sortedString = useMemo(() => {
+    if (!orderBy) return null;
+    let sorted: GetCardType["orderBy"] = `${orderBy.key}-${orderBy.direction}`;
+
+    return sorted;
+  }, [orderBy]);
 
   const { data } = useGetDeckQuery({ id });
   const { data: auth } = useAuthMeQuery();
@@ -48,13 +61,12 @@ export const Deck = () => {
     question,
     currentPage,
     itemsPerPage,
+    orderBy: sortedString,
   });
 
   useEffect(() => {
     dispatch(setItemPerPage({ itemsPerPage: 10 }));
   }, []);
-
-  useEffect(() => {}, []);
 
   const isOwn = data?.userId === auth?.id;
   const addNewCardHandler = () => {
@@ -100,6 +112,8 @@ export const Deck = () => {
             pack={pack as CardType}
           />
           <TableDeck
+            setSort={setSort}
+            orderBy={orderBy}
             isOwn={isOwn}
             setPack={setPack}
             deck={data}

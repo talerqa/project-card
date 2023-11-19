@@ -14,6 +14,8 @@ export const TableDeck = ({
   cards,
   addNewCardHandler,
   handleOpenModal,
+  setSort,
+  orderBy,
 }: any) => {
   const navigate = useNavigate();
 
@@ -41,6 +43,8 @@ export const TableDeck = ({
               handleOpenModal={handleOpenModal}
               isOwn={isOwn}
               setPack={setPack}
+              setSort={setSort}
+              orderBy={orderBy}
             />
           )}
         </>
@@ -67,6 +71,8 @@ export const TableDeck = ({
               isOwn={isOwn}
               setPack={setPack}
               handleOpenModal={handleOpenModal}
+              setSort={setSort}
+              orderBy={orderBy}
             />
           )}
         </>
