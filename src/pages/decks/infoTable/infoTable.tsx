@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from "react";
 
-import { decksActions } from "../../../services/decks/decksSlice";
-
 import s from "./infoTable.module.scss";
 
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
@@ -12,7 +10,7 @@ import { Input } from "@/components/ui/inputs";
 import { TabSwitcher } from "@/components/ui/tab-switcher";
 import { Typography } from "@/components/ui/typography";
 import { ShowModalType } from "@/pages/decks";
-import { useAuthMeQuery } from "@/services";
+import { decksActions, useAuthMeQuery } from "@/services";
 import {
   authorIdSelector,
   currentPageSelector,
@@ -45,7 +43,7 @@ export const InfoTable: FC<Props> = ({
   const {
     setSearchName,
     setAuthorId,
-    setCurrentPage,
+    setCurrentPageDecks,
     setClearFilter,
     setMinCard,
     setMaxCard,
@@ -67,7 +65,7 @@ export const InfoTable: FC<Props> = ({
     }
     if (totalPage !== undefined) {
       if (currentPage > totalPage) {
-        dispatch(setCurrentPage({ currentPage: 1 }));
+        dispatch(setCurrentPageDecks({ currentPage: 1 }));
         setPage(totalPage as number);
       }
     }
@@ -77,10 +75,10 @@ export const InfoTable: FC<Props> = ({
     setPage(currentPage);
     if (active) {
       dispatch(setAuthorId({ authorId: auth?.id as string }));
-      dispatch(setCurrentPage({ currentPage: 1 }));
+      dispatch(setCurrentPageDecks({ currentPage: 1 }));
     } else {
       dispatch(setAuthorId({ authorId: "" }));
-      dispatch(setCurrentPage({ currentPage: page }));
+      dispatch(setCurrentPageDecks({ currentPage: page }));
     }
     if (value) setActive(+value);
   };

@@ -28,7 +28,12 @@ const slice = createSlice({
     setAuthorId: (state, action: PayloadAction<{ authorId: string }>) => {
       state.authorId = action.payload.authorId;
     },
-    setCurrentPage: (state, action: PayloadAction<{ currentPage: number }>) => {
+    setCurrentPageDecks: (
+      state,
+      action: PayloadAction<{
+        currentPage: number;
+      }>,
+    ) => {
       state.currentPage = action.payload.currentPage;
     },
     setItemPerPage: (

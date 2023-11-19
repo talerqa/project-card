@@ -19,7 +19,6 @@ const slice = createSlice({
     setSearchQuestionName: (state, action: PayloadAction<{ name: string }>) => {
       state.searchNameQuestion = action.payload.name;
     },
-
     setCurrentPage: (state, action: PayloadAction<{ currentPage: number }>) => {
       state.currentPage = action.payload.currentPage;
     },

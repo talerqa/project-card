@@ -47,12 +47,16 @@ export const Decks = () => {
   const minCardsCount = useAppSelector(minCardCountSelector);
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
 
-  const { setCurrentPage, setItemPerPage } = decksActions;
+  const { setCurrentPageDecks, setItemPerPage } = decksActions;
 
   const [orderBy, setSort] = useState<Sort>(null);
   const [showModal, setShowModal] = useState<ShowModalType>("");
   const [pack, setPack] = useState<DeckType>();
   const [openMenu, setOpenMenu] = useState(false);
+
+  useEffect(() => {
+    dispatch(setItemPerPage({ itemsPerPage: 10 }));
+  }, []);
 
   const sortedString = useMemo(() => {
     if (!orderBy) return null;
@@ -60,10 +64,6 @@ export const Decks = () => {
 
     return sorted;
   }, [orderBy]);
-
-  useEffect(() => {
-    dispatch(setItemPerPage({ itemsPerPage: 10 }));
-  }, []);
 
   const { data, isLoading } = useGetDecksQuery({
     currentPage,
@@ -79,7 +79,7 @@ export const Decks = () => {
     dispatch(setItemPerPage({ itemsPerPage: pageSize }));
   };
   const onChangePagePaginationHandler = (value: number) => {
-    dispatch(setCurrentPage({ currentPage: value }));
+    dispatch(setCurrentPageDecks({ currentPage: value }));
   };
 
   return (
