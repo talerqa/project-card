@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Column, Sort, Table } from ".";
+import { Column, Sort, SortCard, Table } from ".";
 
 const { Root, Row, Body, Head, HeadCell, Cell } = Table;
 
@@ -104,7 +104,7 @@ const columns: Column[] = [
 
 export const WithSort = {
   render: () => {
-    const [sort, setSort] = useState<Sort>(null);
+    const [sort, setSort] = useState<Sort | SortCard>(null);
 
     return (
       <Table.Root>
