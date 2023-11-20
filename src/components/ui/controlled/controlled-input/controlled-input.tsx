@@ -24,7 +24,15 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
     control,
   });
 
+  const { value, ...restField } = field;
+
   return (
-    <Input type={type} errorMessage={error?.message} {...field} {...res} />
+    <Input
+      type={type}
+      errorMessage={error?.message}
+      value={value || ""}
+      {...restField}
+      {...res}
+    />
   );
 };

@@ -10,8 +10,10 @@ import {
 } from "@/services/auth";
 
 export const SignInPage = () => {
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
   const { isLoading: authLoading, isError: authError } = useAuthMeQuery();
+
+  console.log(isError);
 
   if (authLoading || isLoading)
     return (
