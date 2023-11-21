@@ -34,7 +34,7 @@ export const baseQueryWithReauth: BaseQueryFn<
         const refreshResult = await baseQuery(
           { url: "/v1/auth/refresh-token", method: "POST" },
           api,
-          extraOptions
+          extraOptions,
         );
 
         if (!refreshResult.error) {

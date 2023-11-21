@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import { Loader } from "@/assets/components/loader";
 import { SignIn } from "@/components/auth/signIn";
@@ -9,9 +10,23 @@ import {
   useLoginMutation,
 } from "@/services/auth";
 
+import "react-toastify/dist/ReactToastify.css";
+
+type ErrorData = {
+  [key: string]: string;
+};
+
 export const SignInPage = () => {
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const [login, { isLoading, isSuccess, error }] = useLoginMutation();
   const { isLoading: authLoading, isError: authError } = useAuthMeQuery();
+
+  const notify = (error: string) => toast(error);
+
+  if (error && "data" in error) {
+    const message = (error.data as ErrorData)?.message;
+
+    notify(message);
+  }
 
   if (authLoading || isLoading)
     return (
@@ -36,6 +51,7 @@ export const SignInPage = () => {
   return (
     <Page>
       <SignIn onSubmit={handleLogin} />
+      <ToastContainer />
     </Page>
   );
 };
