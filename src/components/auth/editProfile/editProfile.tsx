@@ -23,12 +23,12 @@ const schema = z.object({
 });
 
 export const EditProfile = (): JSX.Element => {
-
-  const [editProfile] = useEditProfileMutation();
+  const [editProfile] = useEditProfileMutation({
+    fixedCacheKey: "shared-edit",
+  });
 
   const [isAvatarUpdating, setIsAvatarUpdating] = useState(false);
   const [isNameUpdating, setIsNameUpdating] = useState(false);
-
 
   const [nameEditMode, setNameEditMode] = useState(false);
 
