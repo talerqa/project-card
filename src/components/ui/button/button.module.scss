@@ -5,34 +5,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #8c61ff;
+  background-color: var(--color-accent-500);
   padding: 6px 28px;
   border-radius: 4px;
   color: var(--color-light-100);
-  box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
+  box-shadow: 0 4px 18px 0 var(--color-accent-900);
   font-weight: 700;
   cursor: pointer;
   box-sizing: border-box;
   &:hover {
-    background: rgba(162, 128, 255, 1);
-    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
+    background: var(--color-accent-500);
+    box-shadow: 0 4px 18px 0 var(--color-accent-900);
   }
 
   &:focus {
-    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
-    background-color: #8c61ff;
+    box-shadow: 0 4px 18px 0 var(--color-accent-900);
+    background-color: var(--color-accent-500);
   }
 
   &:active {
-    outline: 2px solid rgba(47, 104, 204, 1);
-    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
-    background: rgba(112, 78, 204, 1);
+    outline: 2px solid var(--color-info-500);
+    box-shadow: 0 4px 18px 0 var(--color-accent-900);
+    background: var(--color-accent-700);
   }
 
   &:disabled {
-    background: rgba(56, 39, 102, 1);
-    box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
-    color: rgba(195, 193, 199, 1);
+    background: var(--color-accent-900);
+    box-shadow: 0 4px 18px 0 var(--color-accent-900);
+    color: var(--color-accent-100);
   }
 }
 
@@ -46,8 +46,8 @@
   border-radius: 4px;
   color: var(--color-light-100);
   font-weight: 700;
-  background: rgba(76, 76, 76, 1);
-  box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
+  background: var(--color-dark-300);
+  box-shadow: 0 2px 10px 0 var(--color-dark-500);
   cursor: pointer;
   box-sizing: border-box;
   .buttonSecondaryText {
@@ -55,93 +55,93 @@
   }
 
   &:hover {
-    background: rgba(128, 128, 128, 1);
-    box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
+    background: var(--color-dark-100);
+    box-shadow: 0 2px 10px 0 var(--color-dark-500);
   }
 
   &:focus {
-    box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
-    background: rgba(51, 51, 51, 1);
+    box-shadow: 0 2px 10px 0 var(--color-dark-500);
+    background: var(--color-dark-500)
   }
 
   &:active {
-    outline: 2px solid rgba(47, 104, 204, 1);
-    background: rgba(76, 76, 76, 1);
-    box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
+    outline: 2px solid var(--color-info-500);
+    background: var( --color-dark-300);
+    box-shadow: 0 2px 10px 0 var(--color-dark-500)
   }
 
   &:disabled {
-    background: rgba(76, 76, 76, 1);
-    box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
-    color: rgba(195, 193, 199, 1);
+    background: var( --color-dark-300);
+    box-shadow: 0 2px 10px 0 var(--color-dark-500);
+    color: var(--color-dark-100);
   }
 }
 
 .tertiary {
   background-color: transparent;
-  color: rgba(151, 71, 255, 1);
+  color: var(--color-accent-500);
   outline: none;
   padding: 6px 28px;
   border-radius: 4px;
-  border: 1px solid rgba(140, 97, 255, 1);
+  border: 1px solid var(--color-accent-500);
   cursor: pointer;
   box-sizing: border-box;
   .buttonTertiaryText {
-    color: rgba(151, 71, 255, 1);
+    color: var(--color-accent-500);
   }
 
   &:hover {
-    background: linear-gradient(0deg, #333333, #333333),
-      linear-gradient(0deg, #704ecc, #704ecc);
-    border: 1px solid rgba(112, 78, 204, 1);
-    color: rgba(140, 97, 255, 1);
+    background: linear-gradient(0deg, var(--color-dark-500), var(--color-dark-500)),
+      linear-gradient(0deg,var(--color-accent-700) , var(--color-accent-700));
+    border: 1px solid var(--color-accent-500);
+    color: var(--color-accent-500);
   }
 
   &:focus {
-    background: linear-gradient(0deg, #704ecc, #704ecc),
-      linear-gradient(0deg, #382766, #382766);
-    border: 1px solid rgba(112, 78, 204, 1);
+    background: linear-gradient(0deg, var(--color-accent-700), var(--color-accent-700)),
+      linear-gradient(0deg, var(--color-accent-900), var(--color-accent-900));
+    border: 1px solid var(--color-accent-500);
   }
 
   &:active {
-    outline: 2px solid rgba(47, 104, 204, 1);
-    border: 1px solid rgba(151, 71, 255, 1);
+    outline: 2px solid var(--color-info-500);
+    border: 1px solid var(--color-accent-500);
     background: transparent;
   }
 
   &:disabled {
     background: transparent;
-    border: 1px solid rgba(56, 39, 102, 1);
-    color: rgba(56, 39, 102, 1);
+    border: 1px solid var(--color-dark-700);
+    color: var(--color-dark-700);
   }
 }
 
 .link {
   background-color: transparent;
-  color: rgb(140, 97, 255, 1);
+  color: var(--color-accent-500);
   padding: 6px 6px;
   border: none;
   cursor: pointer;
 
   &:focus {
-    color: rgba(112, 78, 204, 1);
+    color: var(--color-accent-500);
   }
 
   &:hover {
-    color: rgba(162, 128, 255, 1);
+    color: var(--color-accent-500);
   }
 
   &:active {
     border-radius: 20px;
-    outline: 2px solid rgba(47, 104, 204, 1);
+    outline: 2px solid var(--color-info-500);
     background: transparent;
   }
 
   &:disabled {
-    color: rgba(56, 39, 102, 1);
+    color: var(--color-dark-700);
   }
 }
 
 .disabled {
-  color: rgba(56, 39, 102, 1);
+  color: var(--color-dark-700);
 }

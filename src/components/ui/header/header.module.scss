@@ -62,7 +62,7 @@
         background-size: 8px 4px;
         background: repeating-linear-gradient(
                         to right,
-                        #fff7f7 0, #ffffff 2px, transparent 2px, transparent 4px
+                        var(--color-light-100) 0, var(--color-light-100) 2px, transparent 2px, transparent 4px
         ) repeat-x;
         z-index: -1;
         border-radius: 2px;
