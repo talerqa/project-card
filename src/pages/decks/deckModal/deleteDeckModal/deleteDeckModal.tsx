@@ -18,6 +18,12 @@ export const DeleteDeckModal = (props: Props) => {
 
   const [deletePack] = useDeleteDeckMutation();
 
+  const deleteDeckHandler = () => {
+    deletePack({ id: item?.id });
+    Navigate("/decks");
+    closeModalHandler();
+  };
+
   return (
     <div className={s.deckModal}>
       <div className={s.textBlock}>
@@ -41,14 +47,7 @@ export const DeleteDeckModal = (props: Props) => {
         >
           Cancel
         </Button>
-        <Button
-          type={"submit"}
-          onClick={() => {
-            deletePack({ id: item?.id });
-            Navigate("/decks");
-            closeModalHandler();
-          }}
-        >
+        <Button type={"submit"} onClick={deleteDeckHandler}>
           Delete Pack
         </Button>
       </div>

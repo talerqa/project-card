@@ -1,5 +1,6 @@
 import { baseApi } from "../base-api";
 
+import { onQueryStartedErrorToast } from "@/services/errorHandler.ts";
 export const CardsService = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
@@ -8,6 +9,7 @@ export const CardsService = baseApi.injectEndpoints({
           url: `v1/cards/${id}`,
           method: "DELETE",
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Card", "Decks"],
       }),
       updateCard: builder.mutation<void, { id?: string; body: FormData }>({
@@ -16,6 +18,7 @@ export const CardsService = baseApi.injectEndpoints({
           method: "PATCH",
           body,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Card", "Decks"],
       }),
     };

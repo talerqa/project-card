@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import s from "./createDeckForm.module.scss";
@@ -61,12 +60,7 @@ export const CreateDeckForm = (props: any) => {
     formData.append("name", String(name));
     formData.append("isPrivate", String(isPrivate));
     cover && formData.append("cover", cover);
-    createDeck(formData)
-      .unwrap()
-      .then(() => {})
-      .catch((error) => {
-        toast.warn(error.data.errorMessages[0].message);
-      });
+    createDeck(formData);
     props.closeModalHandler();
   };
 
