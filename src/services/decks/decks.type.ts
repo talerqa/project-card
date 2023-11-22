@@ -82,3 +82,15 @@ export type GetResponseTypeCard = {
     totalItems: number;
   };
 };
+
+export type ErrorHandlerType = {
+  error: {
+    status: string | number;
+    error: string;
+    data: { errorMessages: Array<{ field: string; message: string }> };
+  };
+  isUnhandledError: boolean;
+  meta: {
+    request: Request;
+  };
+};

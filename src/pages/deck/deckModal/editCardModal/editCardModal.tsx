@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import s from "./editCardModal.module.scss";
@@ -88,13 +87,7 @@ export const EditCardModal = (props: Props) => {
     formData.append("answer", String(answer));
     answerImg && formData.append("answerImg", answerImg);
     questionImg && formData.append("questionImg", questionImg);
-    updateCard({ id: card?.id, body: formData })
-      .unwrap()
-      .then(() => {})
-      .catch((error) => {
-        toast.warn(error.data.errorMessages[0].message);
-        toast.warn(error.data.errorMessages[1].message);
-      });
+    updateCard({ id: card?.id, body: formData });
     closeModalHandler();
   };
 

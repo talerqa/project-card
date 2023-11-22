@@ -8,6 +8,7 @@ import {
   GetResponseType,
   GetResponseTypeCard,
 } from "@/services/decks/decks.type.ts";
+import { onQueryStartedErrorToast } from "@/services/errorHandler.ts";
 
 export const DeckService = baseApi.injectEndpoints({
   endpoints: (builder) => {
@@ -18,6 +19,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "GET",
           params: params ?? {},
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         providesTags: ["Decks"],
       }),
       createDeck: builder.mutation<DeckType, FormData>({
@@ -26,6 +28,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Decks"],
       }),
       getDeck: builder.query<DeckType, { id?: string }>({
@@ -42,6 +45,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "PATCH",
           body,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Decks"],
       }),
       deleteDeck: builder.mutation<DeckType, { id?: string }>({
@@ -50,6 +54,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "DELETE",
           id: id ?? {},
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Decks"],
       }),
       getCards: builder.query<GetResponseTypeCard, GetCardType>({
@@ -65,6 +70,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "GET",
           params: { answer, question, currentPage, itemsPerPage, orderBy },
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         providesTags: ["Card", "Decks"],
       }),
       createCard: builder.mutation<CardType, { id?: string; body: FormData }>({
@@ -73,6 +79,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Card", "Decks"],
       }),
       learnCard: builder.query<
@@ -87,6 +94,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "GET",
           id,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         providesTags: ["Card", "Decks"],
       }),
       saveGradeCard: builder.mutation<CardType, { id?: string; body: any }>({
@@ -95,6 +103,7 @@ export const DeckService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
+        onQueryStarted: onQueryStartedErrorToast,
         invalidatesTags: ["Card", "Decks"],
       }),
     };
