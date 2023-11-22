@@ -20,7 +20,7 @@
   letter-spacing: 0;
   text-align: left;
   vertical-align: center;
-  color: #FF0000FF;
+  color: var(--color-danger-500);
 }
 
 input[type='file'] {
