@@ -8,40 +8,28 @@ import s from "./header.module.scss";
 import { Logo } from "@/assets/components/logo.tsx";
 import { defaultAva } from "@/assets/defaultAva";
 import signout from "@/assets/img/exit.svg";
+import { Button } from "@/components";
 import { Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   DropDown,
   ItemDropDown,
   ProfileItemDropDown,
 } from "@/components/ui/dropdown";
 import { Typography } from "@/components/ui/typography";
-import { useAppSelector } from "@/services/store";
+import { baseApi } from "@/services/base-api.ts";
+import { useAppDispatch, useAppSelector } from "@/services/store";
 
 export type HeaderProps<T extends ElementType = "input"> = {
-  isAuth: boolean;
-  onClick?: () => void;
   onSignInHandler?: () => void;
-  onShowProfileHandler?: () => void;
-  onLogOutHandler?: () => void;
-  label?: string;
-  className?: string;
   setLogout: () => UnwrapPromise<any>;
+  isAuthorized: boolean;
 } & ComponentPropsWithoutRef<T>;
 
 export const Header = forwardRef<HTMLDivElement, HeaderProps>(
   (props, ref): JSX.Element => {
-    const {
-      isAuth,
-      label,
-      className,
-      onClick,
-      onSignInHandler,
-      onShowProfileHandler,
-      onLogOutHandler,
-      setLogout,
-      ...res
-    } = props;
+    const { onSignInHandler, setLogout, isAuthorized, ...res } = props;
+
+    const dispatch = useAppDispatch();
 
     const { name, email, avatar } = useAppSelector(
       (state) => state.userReducer,
@@ -51,6 +39,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
 
     const handleLogout = async () => {
       await setLogout();
+      await dispatch(baseApi.util.resetApiState());
     };
 
     const handleRedirectToEditPage = () => {
@@ -61,7 +50,7 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
       <div className={s.headerBlock}>
         <div className={s.container} ref={ref}>
           <Logo className={s.logo} />
-          {isAuth ? (
+          {isAuthorized && name && (
             <DropDown
               trigger={
                 <div className={s.profileInfo}>
@@ -101,7 +90,8 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
                 />
               </>
             </DropDown>
-          ) : (
+          )}
+          {!name && (
             <Button type={"button"} onClick={onSignInHandler}>
               Sign in
             </Button>

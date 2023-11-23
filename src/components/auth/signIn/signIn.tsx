@@ -1,4 +1,3 @@
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -36,7 +35,6 @@ export const SignIn = (props: SignInProps): JSX.Element => {
 
   return (
     <Card className={`${s.cardBlock} ${props.className}`}>
-      <DevTool control={control} />
       <Typography variant={"large"} as={"p"} className={s.title}>
         Sign In
       </Typography>

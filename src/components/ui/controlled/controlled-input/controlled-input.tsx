@@ -4,7 +4,7 @@ import {
   UseControllerProps,
 } from "react-hook-form";
 
-import { InputProps, Input } from "@/components/ui/inputs";
+import { Input, InputProps } from "@/components/ui/inputs";
 
 type ControlledInputType<TFieldValues extends FieldValues> =
   UseControllerProps<TFieldValues> & Omit<InputProps, "value" | "onChange">;
@@ -15,7 +15,6 @@ export const ControlledInput = <TFieldValues extends FieldValues>({
   control,
   ...res
 }: ControlledInputType<TFieldValues>): JSX.Element => {
-  //
   const {
     field,
     fieldState: { error },

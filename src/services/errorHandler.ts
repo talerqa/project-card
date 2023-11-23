@@ -36,7 +36,8 @@ export const onAuthQueryStartedErrorToast = async (
   } catch (error) {
     const isError = error as AuthErrorType;
 
-    if (isError.error.data.message) {
+    debugger;
+    if (isError.error.data) {
       toast.warn(defineMessage(isError.error.data.message));
     } else {
       toast.warn("some error occured");

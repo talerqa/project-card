@@ -82,42 +82,38 @@ export const Decks = () => {
     dispatch(setCurrentPageDecks({ currentPage: value }));
   };
 
+  if (isLoading) return <Loader />;
+
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <Page className={s.deck}>
-            <InfoTable
-              setShowModal={setShowModal}
-              setOpenMenu={setOpenMenu}
-              maxCardsCount={data?.maxCardsCount}
-              totalPage={data?.pagination.totalPages}
-            />
-            <TableDecks
-              orderBy={orderBy}
-              setSort={setSort}
-              data={data}
-              setOpenMenu={setOpenMenu}
-              openMenu={openMenu}
-              setPack={setPack}
-              setShowModal={setShowModal}
-              showModal={showModal}
-              pack={pack}
-            />
-            <Pagination
-              pageSizeValue={paginationSize}
-              totalPages={data?.pagination.totalPages}
-              className={s.pagination}
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              onChangePerPage={onChangePerPageHandler}
-              onClick={onChangePagePaginationHandler}
-            />
-          </Page>
-        </>
-      )}
+      <Page className={s.deck}>
+        <InfoTable
+          setShowModal={setShowModal}
+          setOpenMenu={setOpenMenu}
+          maxCardsCount={data?.maxCardsCount}
+          totalPage={data?.pagination.totalPages}
+        />
+        <TableDecks
+          orderBy={orderBy}
+          setSort={setSort}
+          data={data}
+          setOpenMenu={setOpenMenu}
+          openMenu={openMenu}
+          setPack={setPack}
+          setShowModal={setShowModal}
+          showModal={showModal}
+          pack={pack}
+        />
+        <Pagination
+          pageSizeValue={paginationSize}
+          totalPages={data?.pagination.totalPages}
+          className={s.pagination}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onChangePerPage={onChangePerPageHandler}
+          onClick={onChangePagePaginationHandler}
+        />
+      </Page>
     </>
   );
 };
