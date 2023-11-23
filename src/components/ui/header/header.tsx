@@ -20,6 +20,7 @@ import { baseApi } from "@/services/base-api.ts";
 import { useAppDispatch, useAppSelector } from "@/services/store";
 
 export type HeaderProps<T extends ElementType = "input"> = {
+  label?: string;
   onSignInHandler?: () => void;
   setLogout: () => UnwrapPromise<any>;
   isAuthorized: boolean;
