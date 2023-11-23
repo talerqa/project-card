@@ -57,16 +57,20 @@ export const InfoTable: FC<Props> = ({
   useEffect(() => {
     if (authorId) {
       setActive(0);
+    } else {
+      setActive(1);
     }
+
     if (maxCardsCount) {
       dispatch(setMaxCard({ maxCard: max }));
     } else {
       return;
     }
-    if (totalPage !== undefined) {
+
+    if (totalPage !== undefined || totalPage === 0) {
       if (currentPage > totalPage) {
         dispatch(setCurrentPageDecks({ currentPage: 1 }));
-        setPage(totalPage as number);
+        setPage(currentPage);
       }
     }
   }, [maxCardsCount, authorId, currentPage, totalPage, max]);
