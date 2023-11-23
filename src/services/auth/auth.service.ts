@@ -1,4 +1,5 @@
 import { baseApi } from "../base-api";
+import { onAuthQueryStartedErrorToast } from "../errorHandler";
 
 export const AuthService = baseApi.injectEndpoints({
   endpoints: (builder) => {
@@ -16,6 +17,7 @@ export const AuthService = baseApi.injectEndpoints({
           method: "POST",
           body,
         }),
+        onQueryStarted: onAuthQueryStartedErrorToast,
         invalidatesTags: ["Auth"],
       }),
       logout: builder.mutation<void, void>({
@@ -81,6 +83,7 @@ export const AuthService = baseApi.injectEndpoints({
           method: "PATCH",
           body,
         }),
+        onQueryStarted: onAuthQueryStartedErrorToast,
         invalidatesTags: ["Auth"],
       }),
     };

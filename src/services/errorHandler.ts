@@ -20,3 +20,37 @@ export const onQueryStartedErrorToast = async (
     }
   }
 };
+
+type ErrorData = {
+  [key: string]: any;
+};
+
+type AuthErrorType = ErrorData | ErrorHandlerType;
+
+export const onAuthQueryStartedErrorToast = async (
+  _: any,
+  { queryFulfilled }: any,
+) => {
+  try {
+    await queryFulfilled;
+  } catch (error) {
+    const isError = error as AuthErrorType;
+
+    if (isError.error.data.message) {
+      toast.warn(defineMessage(isError.error.data.message));
+    } else {
+      toast.warn("some error occured");
+    }
+  }
+};
+
+function defineMessage(str: string) {
+  if (str.length > 20) {
+    var start = str.indexOf(":") + 1;
+    var end = str.lastIndexOf(".");
+
+    return str.substring(start, end);
+  }
+
+  return str;
+}
