@@ -118,7 +118,14 @@ function PrivateRoutes() {
 
   const isAuthenticated = !isError;
 
-  if (isLoading) return <Loader />;
+  if (isLoading)
+    return (
+      <Loader
+        style={{
+          height: "95vh",
+        }}
+      />
+    );
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }

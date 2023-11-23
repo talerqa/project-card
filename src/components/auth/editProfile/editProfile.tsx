@@ -2,7 +2,6 @@ import { ChangeEvent, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import s from "./editProfile.module.scss";
@@ -16,7 +15,8 @@ import { Card } from "@/components/ui/card";
 import { ControlledInput } from "@/components/ui/controlled";
 import { Typography } from "@/components/ui/typography";
 import { useEditProfileMutation, useLogoutMutation } from "@/services/auth";
-import { useAppSelector } from "@/services/store";
+import { baseApi } from "@/services/base-api.ts";
+import { useAppDispatch, useAppSelector } from "@/services/store";
 
 const schema = z.object({
   name: z.string().min(3, "Name must be at least 3" + " characters"),
@@ -27,9 +27,12 @@ export const EditProfile = (): JSX.Element => {
     fixedCacheKey: "shared-edit",
   });
 
+  const [logout, { isLoading }] = useLogoutMutation({
+    fixedCacheKey: "shared-logout",
+  });
+
   const [isAvatarUpdating, setIsAvatarUpdating] = useState(false);
   const [isNameUpdating, setIsNameUpdating] = useState(false);
-
   const [nameEditMode, setNameEditMode] = useState(false);
 
   const { avatar, name, email } = useAppSelector((state) => state.userReducer);
@@ -65,6 +68,8 @@ export const EditProfile = (): JSX.Element => {
     setNameEditMode(false);
   };
 
+  if (isLoading) return <Loader />;
+
   return (
     <Card className={s.editProfileCard}>
       <Typography variant={"large"} as={"span"} className={s.heading}>
@@ -89,6 +94,7 @@ export const EditProfile = (): JSX.Element => {
           name={name || ""}
           email={email || ""}
           handleNameEditClick={handleNameEditClick}
+          logout={logout}
         />
       )}
     </Card>
@@ -129,15 +135,14 @@ type WithoutNameEditModeProps = {
   name: string | undefined;
   email: string | undefined;
   handleNameEditClick: () => void;
+  logout: () => void;
 };
 
 const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
-  const [logout] = useLogoutMutation({ fixedCacheKey: "shared-logout" });
-  const navigate = useNavigate();
-
-  const handleLogoutClick = () => {
-    logout();
-    navigate("/login");
+  const dispatch = useAppDispatch();
+  const handleLogoutClick = async () => {
+    await props.logout();
+    await dispatch(baseApi.util.resetApiState());
   };
 
   return (
@@ -153,10 +158,11 @@ const WithoutNameEditMode = (props: WithoutNameEditModeProps) => {
       </Typography>
       <Button
         type="button"
+        variant="secondaryWithIcon"
         className={s.logoutButton}
         onClick={handleLogoutClick}
+        icon={<Logout />}
       >
-        <Logout />
         Logout
       </Button>
     </>
@@ -203,6 +209,7 @@ type NameInterfacePropsType = {
   name: string;
   handleNameEditClick: () => void;
   email: string;
+  logout: () => void;
 };
 
 const NameInterface = ({
@@ -211,6 +218,7 @@ const NameInterface = ({
   name,
   handleNameEditClick,
   email,
+  logout,
 }: NameInterfacePropsType) => {
   if (nameEditMode) {
     return <WithNameEditMode handleFormSubmit={handleFormSubmit} name={name} />;
@@ -220,6 +228,7 @@ const NameInterface = ({
         handleNameEditClick={handleNameEditClick}
         name={name}
         email={email}
+        logout={logout}
       />
     );
   }

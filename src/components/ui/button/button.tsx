@@ -24,8 +24,6 @@ export type ButtonProps<T extends ElementType = "button"> = {
   type: ButtonHTMLAttributes<HTMLAttributes<T>>["type"];
 } & ComponentPropsWithoutRef<T>;
 
-//ref???
-
 export const Button = <T extends ElementType = "button">(
   props: ButtonProps<T> &
     Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,

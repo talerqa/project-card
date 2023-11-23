@@ -6,12 +6,7 @@ const meta = {
   title: "Components/Header",
   component: Header,
   tags: ["autodocs"],
-  argTypes: {
-    // variant: {
-    //   options: ["default", "defaultToggle", "defaultSearch"],
-    //     control: { type: "radio" },
-    // },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Header>;
 
 export default meta;
@@ -19,17 +14,16 @@ type Story = StoryObj<typeof meta>;
 
 export const HeaderAuth: Story = {
   args: {
-    isAuth: true,
+    isAuthorized: true,
     label: "HeaderAuth",
     name: "Ivan",
-    onShowProfileHandler: () => console.log("show profile"),
-    onLogOutHandler: () => console.log("sign out"),
+    setLogout: () => console.log("sign out"),
   },
 };
 
 export const HeaderNonAuth: Story = {
   args: {
-    isAuth: false,
+    isAuthorized: false,
     label: "HeaderNonAuth",
     onSignInHandler: () => console.log("sign in"),
   },

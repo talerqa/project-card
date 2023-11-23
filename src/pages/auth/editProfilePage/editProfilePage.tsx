@@ -7,7 +7,6 @@ export const EditProfilePage = () => {
   return (
     <Page className={s.editProfilePage}>
       <EditProfile />
-      {/* <ToastContainer hideProgressBar={true} /> */}
     </Page>
   );
 };

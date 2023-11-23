@@ -65,6 +65,7 @@ export const Deck = () => {
   });
 
   useEffect(() => {
+    dispatch(setCurrentPage({ currentPage: 1 }));
     dispatch(setItemPerPage({ itemsPerPage: 10 }));
   }, []);
 
@@ -83,7 +84,6 @@ export const Deck = () => {
     dispatch(setItemPerPage({ itemsPerPage: pageSize }));
     if (cards) {
       if (cards.pagination.totalPages <= currentPage) {
-        debugger;
         dispatch(setCurrentPage({ currentPage: 1 }));
       }
     }

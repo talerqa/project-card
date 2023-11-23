@@ -26,15 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       errorMessage && s.error,
     );
 
-    const inputType = getInputType(type, showPassword);
-
-    const handleIconButtonClick = (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setShowPassword(!showPassword);
-    };
+    const inputType = getInputType(type);
 
     return (
       <div className={clsx(s.inputBlock, className)}>
@@ -45,9 +37,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {type === "password" && (
             <button
               className={s.eyeButton}
+              tabIndex={-1}
               disabled={disabled}
-              onClick={(e) => handleIconButtonClick(e)}
+              onClick={() => setShowPassword(!showPassword)}
             >
+              {" "}
               {showPassword ? (
                 <EyeNoneIcon />
               ) : (
@@ -63,6 +57,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={inputClassName}
             disabled={disabled}
             type={inputType}
+            onChange={(e) => {
+              e.preventDefault();
+            }}
             {...res}
           />
         </div>
@@ -73,12 +70,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-const getInputType = (
-  type: ComponentPropsWithoutRef<"input">["type"],
-  showPassword: boolean,
-) => {
-  if (type === "password" && !showPassword) return "password";
-  if (type === "password" && showPassword) return "text";
+const getInputType = (type: ComponentPropsWithoutRef<"input">["type"]) => {
+  if (type === "password") return "password";
+  if (type === "password") return "text";
 
   return type;
 };

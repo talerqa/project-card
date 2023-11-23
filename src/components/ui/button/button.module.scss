@@ -13,12 +13,14 @@
   font-weight: 700;
   cursor: pointer;
   box-sizing: border-box;
+
   &:hover {
     background: var(--color-accent-500);
     box-shadow: 0 4px 18px 0 var(--color-accent-900);
   }
 
   &:focus {
+    outline: 2px solid var(--color-info-500);
     box-shadow: 0 4px 18px 0 var(--color-accent-900);
     background-color: var(--color-accent-500);
   }
@@ -50,6 +52,7 @@
   box-shadow: 0 2px 10px 0 var(--color-dark-500);
   cursor: pointer;
   box-sizing: border-box;
+
   .buttonSecondaryText {
     color: var(--color-light-100);
   }
@@ -60,18 +63,19 @@
   }
 
   &:focus {
+    outline: 2px solid var(--color-info-500);
     box-shadow: 0 2px 10px 0 var(--color-dark-500);
-    background: var(--color-dark-500)
+    background: var(--color-dark-500);
   }
 
   &:active {
     outline: 2px solid var(--color-info-500);
-    background: var( --color-dark-300);
-    box-shadow: 0 2px 10px 0 var(--color-dark-500)
+    background: var(--color-dark-300);
+    box-shadow: 0 2px 10px 0 var(--color-dark-500);
   }
 
   &:disabled {
-    background: var( --color-dark-300);
+    background: var(--color-dark-300);
     box-shadow: 0 2px 10px 0 var(--color-dark-500);
     color: var(--color-dark-100);
   }
@@ -86,19 +90,30 @@
   border: 1px solid var(--color-accent-500);
   cursor: pointer;
   box-sizing: border-box;
+
   .buttonTertiaryText {
     color: var(--color-accent-500);
   }
 
   &:hover {
-    background: linear-gradient(0deg, var(--color-dark-500), var(--color-dark-500)),
-      linear-gradient(0deg,var(--color-accent-700) , var(--color-accent-700));
+    background: linear-gradient(
+        0deg,
+        var(--color-dark-500),
+        var(--color-dark-500)
+      ),
+      linear-gradient(0deg, var(--color-accent-700), var(--color-accent-700));
     border: 1px solid var(--color-accent-500);
     color: var(--color-accent-500);
   }
 
   &:focus {
-    background: linear-gradient(0deg, var(--color-accent-700), var(--color-accent-700)),
+    outline: 2px solid var(--color-info-500);
+
+    background: linear-gradient(
+        0deg,
+        var(--color-accent-700),
+        var(--color-accent-700)
+      ),
       linear-gradient(0deg, var(--color-accent-900), var(--color-accent-900));
     border: 1px solid var(--color-accent-500);
   }
@@ -124,6 +139,7 @@
   cursor: pointer;
 
   &:focus {
+    outline: 2px solid var(--color-info-500);
     color: var(--color-accent-500);
   }
 
