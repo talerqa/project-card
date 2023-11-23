@@ -83,7 +83,7 @@ export const Deck = () => {
   const onChangePerPageHandler = (pageSize: number) => {
     dispatch(setItemPerPage({ itemsPerPage: pageSize }));
     if (cards) {
-      if (cards.pagination.totalPages <= currentPage) {
+      if (cards.pagination.totalPages >= currentPage) {
         dispatch(setCurrentPage({ currentPage: 1 }));
       }
     }
