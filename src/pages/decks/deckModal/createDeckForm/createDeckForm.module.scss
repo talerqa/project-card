@@ -28,3 +28,15 @@
     justify-content: space-between;
   }
 }
+
+@media (max-width: 610px) {
+  .createDeck {
+    width: 340px;
+  }
+}
+
+@media (max-width: 420px) {
+  .createDeck {
+    width: 280px;
+  }
+}

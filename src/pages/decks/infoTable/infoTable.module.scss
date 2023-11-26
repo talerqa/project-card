@@ -20,3 +20,11 @@
     height: 16px;
   }
 }
+
+@media (max-width: 477px) {
+  .packListFind {
+    max-width: 380px;
+    justify-content: center;
+    gap: 15px;
+  }
+}

@@ -39,10 +39,19 @@
     margin-bottom: 24px;
   }
 }
+
 .button {
   height: 36px;
 }
 
 .dropDown {
   transform: translateX(65px);
+}
+
+@media (max-width: 338px) {
+  .informationBlock {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 }

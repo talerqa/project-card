@@ -1,5 +1,6 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {Card} from "./";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Card } from "./";
 
 const meta = {
   title: "Components/Card",
@@ -7,9 +8,9 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      options: ['defaultCard'],
+      options: ["defaultCard"],
     },
-  }
+  },
 } satisfies Meta<typeof Card>;
 
 export default meta;
@@ -19,5 +20,5 @@ export const CardDefaultStory: Story = {
   args: {
     variant: "defaultCard",
     label: "card",
-  }
+  },
 };
