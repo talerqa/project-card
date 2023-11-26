@@ -13,6 +13,8 @@
     font-weight: inherit;
     color: inherit;
     font-size: inherit;
+    flex-wrap: wrap;
+    max-width: 140px;
   }
 
   .image {
@@ -32,6 +34,7 @@
   height: 24px;
   justify-content: start;
   align-items: center;
+  margin-left: 15px;
 
   .button {
     height: 20px;
@@ -40,5 +43,64 @@
     align-self: center;
     margin: 0 auto;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 760px) {
+  .cell {
+    font-size: var(--font-size-s);
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 36px;
+
+    .name {
+      flex-wrap: wrap;
+    }
+  }
+
+  .pagination {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 680px) {
+  .cell {
+    font-size: var(--font-size-s);
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 36px;
+  }
+
+  .buttonBlock {
+    max-width: 40px;
+  }
+}
+
+@media (max-width: 570px) {
+  .cell {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cell {
+    padding-left: 1px;
+    padding-right: 1px;
+    font-size: var(--font-size-xs);
+  }
+  .createdByRow {
+    flex-wrap: wrap;
+    align-items: center;
+    height: 70px;
+
+    justify-content: center;
+  }
+}
+
+@media (max-width: 440px) {
+  .image {
+    width: 60%;
   }
 }

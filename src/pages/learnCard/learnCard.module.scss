@@ -8,43 +8,6 @@
     margin: 24px 0 30px;
   }
 
-  .card {
-    padding: 33px 36px 48px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 420px;
-    min-height: 265px;
-    align-items: center;
-
-    .title {
-      margin: 0 0 45px;
-    }
-
-    .questionBlock {
-      display: flex;
-      width: 100%;
-      margin: 0;
-      justify-content: start;
-      align-items: center;
-
-      .questionTitle {
-        margin-right: 3px;
-      }
-
-      .questionText {
-        word-break: break-word;
-      }
-    }
-
-    .numberAttempts {
-      width: 100%;
-      text-align: left;
-      color: var(--color-dark-100);
-      margin-bottom: 17px;
-    }
-  }
-
   .showAnswer {
     display: flex;
     width: 100%;
@@ -55,6 +18,43 @@
     .answerText {
       word-break: break-word;
     }
+  }
+}
+
+.card {
+  padding: 33px 36px 48px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 420px;
+  min-height: 265px;
+  align-items: center;
+
+  .title {
+    margin: 0 0 45px;
+  }
+
+  .questionBlock {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    justify-content: start;
+    align-items: center;
+
+    .questionTitle {
+      margin-right: 3px;
+    }
+
+    .questionText {
+      word-break: break-word;
+    }
+  }
+
+  .numberAttempts {
+    width: 100%;
+    text-align: left;
+    color: var(--color-dark-100);
+    margin-bottom: 17px;
   }
 }
 
@@ -75,4 +75,16 @@
   display: block;
   margin-top: 69px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 610px) {
+  .card {
+    width: 340px;
+  }
+}
+
+@media (max-width: 420px) {
+  .card {
+    width: 280px;
+  }
 }

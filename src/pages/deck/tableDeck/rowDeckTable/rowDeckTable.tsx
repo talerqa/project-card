@@ -4,6 +4,7 @@ import s from "./rowDeckTable.module.scss";
 
 import { EditSvg } from "@/assets/components/edit.tsx";
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { useFormattedDate } from "@/assets/hooks";
 import { Grade } from "@/components/ui/grade";
 import { Table } from "@/components/ui/table";
 import { ShowModalType } from "@/pages";
@@ -65,7 +66,7 @@ export const RowDeckTable: FC<Props> = ({
         </p>
       </Cell>
       <Cell className={s.cell}>
-        {new Date(item.updated).toLocaleDateString()}
+        {useFormattedDate(new Date(item.updated).toLocaleDateString())}
       </Cell>
       <Cell className={s.cell + " " + s.createdByRow}>
         <Grade value={item.grade} maxRating={5} />

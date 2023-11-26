@@ -1,45 +1,65 @@
 .modal {
   justify-content: normal;
   inset: 100px;
+}
 
-  .deckModal {
+.deckModal {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px 2px 0 0;
+  width: 494px;
+
+  .inputBlock {
     display: flex;
     flex-direction: column;
-    border-radius: 2px 2px 0 0;
-    width: 494px;
 
-    .inputBlock {
-      display: flex;
-      flex-direction: column;
-
-      .select {
-        width: 494px;
-        box-sizing: border-box;
-        z-index: 20;
-      }
-
-      .inputQuestion {
-        padding: 24px 0 0;
-      }
-
-      .inputAnswer {
-        padding: 24px 0 0;
-      }
+    .inputQuestion {
+      padding: 24px 0 0;
     }
 
-    .image {
-      margin-top: 6px;
+    .inputAnswer {
+      padding: 24px 0 0;
     }
+  }
 
-    .inputFile {
-      display: block;
-      margin-top: 12px;
+  .image {
+    margin-top: 6px;
+  }
+
+  .inputFile {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .buttonsBlock {
+    padding: 12px 0 36px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.select {
+  width: 494px;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+@media (max-width: 610px) {
+  .deckModal {
+    width: 340px;
+
+    .select {
+      width: 340px;
     }
+  }
+}
 
-    .buttonsBlock {
-      padding: 12px 0 36px;
-      display: flex;
-      justify-content: space-between;
+@media (max-width: 420px) {
+  .deckModal {
+    width: 280px;
+
+    .select {
+      width: 280px;
     }
   }
 }

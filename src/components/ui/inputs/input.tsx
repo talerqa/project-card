@@ -38,6 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               className={s.eyeButton}
               tabIndex={-1}
+              type={"button"}
               disabled={disabled}
               onClick={() => setShowPassword(!showPassword)}
             >

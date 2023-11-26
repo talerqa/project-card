@@ -1,40 +1,60 @@
 .modal {
   justify-content: normal;
   inset: 100px;
+}
 
-  .deckModal {
+.deckModal {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px 2px 0 0;
+  width: 494px;
+
+  .inputBlock {
     display: flex;
     flex-direction: column;
-    border-radius: 2px 2px 0 0;
-    width: 494px;
 
-    .inputBlock {
-      display: flex;
-      flex-direction: column;
-
-      .image {
-        height: 200px;
-        width: 100%;
-        object-fit: contain;
-        object-position: center;
-        margin-bottom: 10px;
-      }
-
-      .select {
-        width: 494px;
-        box-sizing: border-box;
-      }
-
-      .inputAnswer,
-      .inputQuestion {
-        padding: 24px 0 5px;
-      }
+    .image {
+      height: 200px;
+      width: 100%;
+      object-fit: contain;
+      object-position: center;
+      margin-bottom: 10px;
     }
 
-    .buttonsBlock {
-      padding: 12px 0 36px;
-      display: flex;
-      justify-content: space-between;
+    .select {
+      width: 494px;
+      box-sizing: border-box;
+    }
+
+    .inputAnswer,
+    .inputQuestion {
+      padding: 24px 0 5px;
+    }
+  }
+
+  .buttonsBlock {
+    padding: 12px 0 36px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 610px) {
+  .deckModal {
+    width: 340px;
+
+    .select {
+      width: 340px;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .deckModal {
+    width: 280px;
+
+    .select {
+      width: 280px;
     }
   }
 }

@@ -6,17 +6,25 @@
   height: auto;
   padding: 6px 0;
   margin: 0;
+}
 
+.start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0;
+  width: 16px;
+  height: 16px;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 610px) {
   .start {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 4px 0;
-    width: 16px;
-    height: 16px;
-
     &:not(:last-child) {
-      margin-right: 10px;
+      margin-right: 2px;
     }
   }
 }

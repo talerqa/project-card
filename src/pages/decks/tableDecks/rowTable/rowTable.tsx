@@ -5,6 +5,7 @@ import s from "./rowTable.module.scss";
 import { EditSvg } from "@/assets/components/edit.tsx";
 import { PlaySvg } from "@/assets/components/play.tsx";
 import { TrashIcon } from "@/assets/components/trashIcon.tsx";
+import { useFormattedDate } from "@/assets/hooks";
 import { Table } from "@/components/ui/table";
 import { ShowModalType } from "@/pages/decks";
 import { useAuthMeQuery } from "@/services/auth";
@@ -58,7 +59,7 @@ export const RowTable = (props: Props) => {
       </Cell>
       <Cell className={s.cell}>{item.cardsCount}</Cell>
       <Cell className={s.cell}>
-        {new Date(item.updated).toLocaleDateString()}
+        {useFormattedDate(new Date(item.updated).toLocaleDateString())}
       </Cell>
       <Cell className={`${s.cell} ${s.createdByRow}`}>
         <span>{item.author.name}</span>
