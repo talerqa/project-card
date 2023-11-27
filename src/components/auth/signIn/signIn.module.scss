@@ -27,7 +27,8 @@
   .forgotPassLink {
     display: flex;
     justify-content: right;
-    margin: 0 12px 66px 0;
+    width: 38%;
+    margin: 0 12px 66px auto;
     cursor: pointer;
     text-decoration: none;
     color: var(--color-light-100);

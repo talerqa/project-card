@@ -1,5 +1,5 @@
 button {
-  all: unset
+  all: unset;
 }
 
 .checkBox {
@@ -25,7 +25,7 @@ button {
     background-color: var(--color-dark-100);
   }
 
-  &:focus-within {
+  &:focus {
     background-color: var(--color-light-900);
   }
 
@@ -51,15 +51,17 @@ button {
 
   &:focus {
     border: 2px solid var(--color-light-100);
+    background-color: var(--color-dark-100);
   }
 
-  &:focus, [aria-checked="false"]:not[disabled] {
+  &:focus,
+  [aria-checked="false"]:not[disabled] {
     border: none;
   }
 
   &[disabled] {
     background-color: transparent;
-    border: 2px solid var(--color-dark-100)
+    border: 2px solid var(--color-dark-100);
   }
 }
 
