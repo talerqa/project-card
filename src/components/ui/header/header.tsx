@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 import s from "./header.module.scss";
 
-import { Logo } from "@/assets/components/logo.tsx";
 import { defaultAva } from "@/assets/defaultAva";
 import signout from "@/assets/img/exit.svg";
 import { Button } from "@/components";
@@ -50,7 +49,6 @@ export const Header = forwardRef<HTMLDivElement, HeaderProps>(
     return (
       <div className={s.headerBlock}>
         <div className={s.container} ref={ref}>
-          <Logo className={s.logo} />
           {isAuthorized && name && (
             <DropDown
               trigger={
